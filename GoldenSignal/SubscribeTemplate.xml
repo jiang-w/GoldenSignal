@@ -1,0 +1,1890 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xmlns="http://www.fixprotocol.org/ns/fast/td/1.1" xmlns:hq="bd/hq" >
+  <template id="10100010" name="Code">
+    <!-- 代码  -->
+    <string id="10100010" name="Code" presence="optional" />
+  </template>
+  
+  <template id="10100011" name="Clear">
+    <!-- 清除标志  -->
+    <uInt32 id="10100011" name="Clear" presence="optional" />
+  </template>
+
+  <template id="10100020" name="Name">
+    <!-- 简称  -->
+    <unicode id="10100020" name="Name" presence="optional" />
+  </template>
+
+  <template id="10100030" name="ExchangeCode">
+    <!-- 交易所 代码 -->
+    <string id="10100030" name="ExchangeCode" presence="optional" />
+  </template>
+
+  <template id="10100040" name="ExchangeName">
+    <!-- 交易所简称  -->
+    <string id="10100040" name="ExchangeName" presence="optional" />
+  </template>
+
+  <template id="10200050" name="TimeZone">
+    <!-- 交易时区 -->
+    <uInt32 id="10200050" name="TimeZone" presence="optional" />
+  </template>
+
+  <template id="10200110" name="Date">
+    <!-- 交易日期  -->
+    <uInt32  id="10200110" name="Date" presence="optional" />
+  </template>
+
+  <template id="10200120" name="Time">
+    <!-- 交易时间 -->
+    <uInt32 id="10200120" name="Time" presence="optional" />
+  </template>
+
+  <template id="10200130" name="SuspensionTag">
+    <!-- 停牌标记 -->
+    <uInt32 id="10200130" name="SuspensionTag" presence="optional" />
+  </template>
+
+  <template id="10200140" name="MarketOpenTime">
+    <!-- 开市时间 -->
+    <uInt32 id="10200140" name="MarketOpenTime" presence="optional" />
+  </template>
+
+  <template id="10200150" name="MarketCloseTime">
+    <!-- 闭市时间 -->
+    <uInt32 id="10200150" name="MarketCloseTime" presence="optional" />
+  </template>
+
+  <template id="10200160" name="PreMarketTime">
+    <!-- 集合竞价时间 -->
+    <uInt32 id="10200160" name="PreMarketTime" presence="optional" />
+  </template>
+
+  <template id="10300210" name="PriceUnit">
+    <!-- 价格单位 -->
+    <uInt32 id="10300210" name="PriceUnit" presence="optional" />
+  </template>
+
+  <template id="10300220" name="PrevClose">
+    <!-- 前收价 -->
+    <decimal id="10300220" name="PrevClose" presence="optional" />
+  </template>
+
+  <template id="10300231" name="HighLimit">
+    <!-- 涨停价 -->
+    <decimal id="10300231" name="HighLimit" presence="optional" />
+  </template>
+
+  <template id="10300241" name="LowLimit">
+    <!-- 跌停价 -->
+    <decimal id="10300241" name="LowLimit" presence="optional" />
+  </template>
+
+  <template id="10300250" name="Open">
+    <!-- 开盘价 -->
+    <decimal id="10300250" name="Open" presence="optional" />
+  </template>
+
+  <template id="10300260" name="High">
+    <!-- 最高价 -->
+    <decimal id="10300260" name="High" presence="optional" />
+  </template>
+
+  <template id="10300270" name="Low">
+    <!-- 最低价 -->
+    <decimal id="10300270" name="Low" presence="optional" />
+  </template>
+
+  <template id="10300280" name="Now">
+    <!-- 最新报价 -->
+    <decimal id="10300280" name="Now" presence="optional" />
+  </template>
+
+  <template id="10300291" name="AvgPrice">
+    <!-- 均价 -->
+    <decimal id="10300291" name="AvgPrice" presence="optional" />
+  </template>
+
+  <template id="10300301" name="Change">
+    <!-- 涨跌 -->
+    <decimal id="10300301" name="Change" presence="optional" />
+  </template>
+
+  <template id="10600311" name="ChangeRange">
+    <!-- 涨跌幅 -->
+    <decimal id="10600311" name="ChangeRange" presence="optional" />
+  </template>
+
+  <template id="10600321" name="Amplitude">
+    <!-- 振幅 -->
+    <decimal id="10600321" name="Amplitude" presence="optional" />
+  </template>
+
+  <template id="10600331" name="ChangeRate">
+    <!-- 涨速 -->
+    <decimal id="10600331" name="ChangeRate" presence="optional" />
+  </template>
+
+  <template id="10600341" name="ChangeRange5Min">
+    <!-- 涨跌幅5分钟 -->
+    <decimal id="10600341" name="ChangeRange5Min" presence="optional" />
+  </template>
+  <template id="106003410" name="Pre5MinPrice00">
+    <!-- 时间模5为0的前5分钟价格-->
+    <decimal id="106003410" name="Pre5MinPrice00" presence="optional" />
+  </template>
+  <template id="106003411" name="Pre5MinPrice01">
+    <!-- 时间模5为1的前5分钟价格 -->
+    <decimal id="106003411" name="Pre5MinPrice01" presence="optional" />
+  </template>
+  <template id="106003412" name="Pre5MinPrice02">
+    <!-- 时间模5为2的前5分钟价格 -->
+    <decimal id="106003412" name="Pre5MinPrice02" presence="optional" />
+  </template>
+  <template id="106003413" name="Pre5MinPrice03">
+    <!-- 时间模5为3的前5分钟价格 -->
+    <decimal id="106003413" name="Pre5MinPrice03" presence="optional" />
+  </template>
+  <template id="106003414" name="Pre5MinPrice04">
+    <!-- 时间模5为4的前5分钟价格-->
+    <decimal id="106003414" name="Pre5MinPrice04" presence="optional" />
+  </template>
+  <template id="106003415" name="PrePrice">
+    <!-- 上一次成交价格-->
+    <decimal id="106003415" name="PrePrice" presence="optional" />
+  </template>
+  <template id="10300410" name="BidPrice1">
+    <!-- 买1价-->
+    <decimal id="10300410" name="BidPrice1" presence="optional" />
+  </template>
+  <template id="10300411" name="LastBidPrice1">
+    <!-- 上次买1价-->
+    <decimal id="10300411" name="LastBidPrice1" presence="optional" />
+  </template>
+
+
+  <template id="10300410" name="BidPrice1">
+    <!-- 买1价-->
+    <decimal id="10300410" name="BidPrice1" presence="optional" />
+  </template>
+
+  <template id="10300420" name="BidPrice2">
+    <!-- 买2价-->
+    <decimal id="10300420" name="BidPrice2" presence="optional" />
+  </template>
+
+  <template id="10300430" name="BidPrice3">
+    <!-- 买3价-->
+    <decimal id="10300430" name="BidPrice3" presence="optional" />
+  </template>
+
+  <template id="10300440" name="BidPrice4">
+    <!-- 买4价-->
+    <decimal id="10300440" name="BidPrice4" presence="optional" />
+  </template>
+
+  <template id="10300450" name="BidPrice5">
+    <!-- 买5价-->
+    <decimal id="10300450" name="BidPrice5" presence="optional" />
+  </template>
+
+  <template id="10300460" name="BidPrice6">
+    <!-- 买6价-->
+    <decimal id="10300460" name="BidPrice6" presence="optional" />
+  </template>
+
+  <template id="10300470" name="BidPrice7">
+    <!-- 买7价-->
+    <decimal id="10300470" name="BidPrice7" presence="optional" />
+  </template>
+
+  <template id="10300480" name="BidPrice8">
+    <!-- 买8价-->
+    <decimal id="10300480" name="BidPrice8" presence="optional" />
+  </template>
+
+  <template id="10300490" name="BidPrice9">
+    <!-- 买9价-->
+    <decimal id="10300490" name="BidPrice9" presence="optional" />
+  </template>
+
+  <template id="10300400" name="BidPrice10">
+    <!-- 买10价-->
+    <decimal id="10300400" name="BidPrice10" presence="optional" />
+  </template>
+
+  <template id="10300510" name="AskPrice1">
+    <!-- 卖1价-->
+    <decimal id="10300510" name="AskPrice1" presence="optional" />
+  </template>
+  <template id="10300511" name="LastAskPrice1">
+    <!-- 上次卖1价-->
+    <decimal id="10300511" name="LastAskPrice1" presence="optional" />
+  </template>
+
+  
+  <template id="10300520" name="AskPrice2">
+    <!-- 卖2价-->
+    <decimal id="10300520" name="AskPrice2" presence="optional" />
+  </template>
+
+  <template id="10300530" name="AskPrice3">
+    <!-- 卖3价-->
+    <decimal id="10300530" name="AskPrice3" presence="optional" />
+  </template>
+
+  <template id="10300540" name="AskPrice4">
+    <!-- 卖4价-->
+    <decimal id="10300540" name="AskPrice4" presence="optional" />
+  </template>
+
+  <template id="10300550" name="AskPrice5">
+    <!-- 卖5价-->
+    <decimal id="10300550" name="AskPrice5" presence="optional" />
+  </template>
+
+  <template id="10300560" name="AskPrice6">
+    <!-- 卖6价-->
+    <decimal id="10300560" name="AskPrice6" presence="optional" />
+  </template>
+
+  <template id="10300570" name="AskPrice7">
+    <!-- 卖7价-->
+    <decimal id="10300570" name="AskPrice7" presence="optional" />
+  </template>
+
+  <template id="10300580" name="AskPrice8">
+    <!-- 卖8价-->
+    <decimal id="10300580" name="AskPrice8" presence="optional" />
+  </template>
+
+  <template id="10300590" name="AskPrice9">
+    <!-- 卖9价-->
+    <decimal id="10300590" name="AskPrice9" presence="optional" />
+  </template>
+
+  <template id="10300500" name="AskPrice10">
+    <!-- 卖10价-->
+    <decimal id="10300500" name="AskPrice10" presence="optional" />
+  </template>
+
+  <template id="10500610" name="BidVolume1">
+    <!-- 买1量-->
+    <uInt64 id="10500610" name="BidVolume1" presence="optional" />
+  </template>
+
+  <template id="10500620" name="BidVolume2">
+    <!-- 买2量-->
+    <uInt64 id="10500620" name="BidVolume2" presence="optional" />
+  </template>
+
+  <template id="10500630" name="BidVolume3">
+    <!-- 买3量-->
+    <uInt64 id="10500630" name="BidVolume3" presence="optional" />
+  </template>
+
+  <template id="10500640" name="BidVolume4">
+    <!-- 买4量-->
+    <uInt64 id="10500640" name="BidVolume4" presence="optional" />
+  </template>
+
+  <template id="10500650" name="BidVolume5">
+    <!-- 买5量-->
+    <uInt64 id="10500650" name="BidVolume5" presence="optional" />
+  </template>
+
+  <template id="10500660" name="BidVolume6">
+    <!-- 买6量-->
+    <uInt64 id="10500660" name="BidVolume6" presence="optional" />
+  </template>
+
+  <template id="10500670" name="BidVolume7">
+    <!-- 买7量-->
+    <uInt64 id="10500670" name="BidVolume7" presence="optional" />
+  </template>
+
+  <template id="10500680" name="BidVolume8">
+    <!-- 买8量-->
+    <uInt64 id="10500680" name="BidVolume8" presence="optional" />
+  </template>
+
+  <template id="10500690" name="BidVolume9">
+    <!-- 买9量-->
+    <uInt64 id="10500690" name="BidVolume9" presence="optional" />
+  </template>
+
+  <template id="10500600" name="BidVolume10">
+    <!-- 买10量-->
+    <uInt64 id="10500600" name="BidVolume10" presence="optional" />
+  </template>
+
+  <template id="10500710" name="AskVolume1">
+    <!-- 卖1量-->
+    <uInt64 id="10500710" name="AskVolume1" presence="optional" />
+  </template>
+
+  <template id="10500720" name="AskVolume2">
+    <!-- 卖2量-->
+    <uInt64 id="10500720" name="AskVolume2" presence="optional" />
+  </template>
+
+  <template id="10500730" name="AskVolume3">
+    <!-- 卖3量-->
+    <uInt64 id="10500730" name="AskVolume3" presence="optional" />
+  </template>
+
+  <template id="10500740" name="AskVolume4">
+    <!-- 卖4量-->
+    <uInt64 id="10500740" name="AskVolume4" presence="optional" />
+  </template>
+
+  <template id="10500750" name="AskVolume5">
+    <!-- 卖5量-->
+    <uInt64 id="10500750" name="AskVolume5" presence="optional" />
+  </template>
+
+  <template id="10500760" name="AskVolume6">
+    <!-- 卖6量-->
+    <uInt64 id="10500760" name="AskVolume6" presence="optional" />
+  </template>
+
+  <template id="10500770" name="AskVolume7">
+    <!-- 卖7量-->
+    <uInt64 id="10500770" name="AskVolume7" presence="optional" />
+  </template>
+
+  <template id="10500780" name="AskVolume8">
+    <!-- 卖8量-->
+    <uInt64 id="10500780" name="AskVolume8" presence="optional" />
+  </template>
+
+  <template id="10500790" name="AskVolume9">
+    <!-- 卖9量-->
+    <uInt64 id="10500790" name="AskVolume9" presence="optional" />
+  </template>
+
+  <template id="10500700" name="AskVolume10">
+    <!-- 卖10量-->
+    <uInt64 id="10500700" name="AskVolume10" presence="optional" />
+  </template>
+
+  <template id="10500810" name="LotSize">
+    <!-- 每手股数 -->
+    <uInt32 id="10500810" name="LotSize" presence="optional" />
+  </template>
+
+  <template id="10500820" name="Volume">
+    <!-- 日成交量(总手)-->
+    <uInt64 id="10500820" name="Volume" presence="optional" />
+  </template>
+
+  <template id="10500831" name="VolumeSpread">
+    <!-- 现量 -->
+    <uInt64 id="10500831" name="VolumeSpread" presence="optional" />
+  </template>
+
+  <template id="10500840" name="BidVolume">
+    <!-- 外盘 -->
+    <uInt64 id="10500840" name="BidVolume" presence="optional" />
+  </template>
+
+  <template id="10500850" name="AskVolume">
+    <!-- 内盘 -->
+    <uInt64 id="10500850" name="AskVolume" presence="optional" />
+  </template>
+
+  <template id="10600861" name="VolRatio">
+    <!-- 量比 -->
+    <decimal id="10600861" name="VolRatio" presence="optional" />
+  </template>
+
+  <template id="10500871" name="BidAskVolSpread">
+    <!-- 委差 -->
+    <uInt64 id="10500871" name="BidAskVolSpread" presence="optional" />
+  </template>
+
+  <template id="10600881" name="BidAskVolRatio">
+    <!-- 委比 -->
+    <decimal id="10600881" name="BidAskVolRatio" presence="optional" />
+  </template>
+
+  <template id="10600891" name="ChangeHandsRate">
+    <!-- 换手率 -->
+    <decimal id="10600891" name="ChangeHandsRate" presence="optional" />
+  </template>
+
+  <template id="10400911" name="Amount">
+    <!-- 日成交额(金额) -->
+    <decimal id="10400911" name="Amount" presence="optional" />
+  </template>
+
+  <template id="10500931" name="TradeDirection">
+    <!-- 成交方向 0平盘 1 买盘 2 卖盘-->
+    <uInt32 id="10500931" name="TradeDirection" presence="optional" />
+  </template>
+
+  <template id="10500941" name="DealCount">
+    <!-- 交易笔数 -->
+    <uInt32 id="10500941" name="DealCount" presence="optional" />
+  </template>
+  
+  <template id="10500951" name="BidVolume5Row">
+    <!-- 5档总买 -->
+    <uInt64 id="10500951" name="BidVolume5Row" presence="optional" />
+  </template>
+  
+  <template id="10500961" name="AskVolume5Row">
+    <!-- 5档总卖 -->
+    <uInt64 id="10500961" name="AskVolume5Row" presence="optional" />
+  </template>
+  
+  <template id="10300971" name="BidAvgPrice5Row">
+    <!-- 5档总买均价 -->
+    <decimal id="10300971" name="BidAvgPrice5Row" presence="optional" />
+  </template>
+  
+  <template id="10300981" name="AskAvgPrice5Row">
+    <!-- 5档总卖均价 -->
+    <decimal id="10300981" name="AskAvgPrice5Row" presence="optional" />
+  </template>
+
+  <template id="10400990" name="FundFlowIn">
+    <!-- 总资金流入(累计) -->
+    <decimal id="10400990" name="FundFlowIn" presence="optional" />
+  </template>
+  
+  <template id="10401000" name="FundFlowOut">
+    <!-- 总资金流出(累计) -->
+    <decimal id="10401000" name="FundFlowOut" presence="optional" />
+  </template>
+
+  <template id="10401011" name="FundFlowNet">
+    <!-- 总资金净流入 -->
+    <decimal id="10401011" name="FundFlowNet" presence="optional" />
+  </template>
+
+  <!-- 期货: 60XXX  -->
+  <template id="60501010" name="Position">
+    <!-- 持仓量 -->
+    <uInt64 id="60501010" name="Position" presence="optional" />
+  </template>
+  
+  <template id="60501020" name="PrevPosition">
+    <!-- 前持仓量 -->
+    <uInt64 id="60501030" name="PrevPosition" presence="optional" />
+  </template>
+  
+  <template id="60501030" name="PositionChange">
+    <!-- 持仓量变化  = 持仓量 - 前持仓量 -->
+    <int64 id="60501030" name="PositionChange" presence="optional" />
+  </template>
+  
+  <template id="60501040" name="PositionSpread">
+    <!-- 分笔持仓量变化 -->
+    <uInt64 id="60501040" name="PositionSpread" presence="optional" />
+  </template>
+
+  <template id="60601100" name="FuturesFactor">
+    <!-- 合约乘数 -->
+    <decimal id="60601100" name="FuturesFactor" presence="optional" />
+  </template>
+
+  <template id="60601110" name="FuturesFactorUnit">
+    <!-- 合约乘数单位  -->
+    <decimal id="60601110" name="FuturesFactorUnit" presence="optional"
+             />
+  </template>
+  
+  <template id="60601120" name="FuturesQuoteUnit">
+    <!-- 报价单位  -->
+    <unicode id="60601120" name="FuturesQuoteUnit" presence="optional" />
+  </template>
+
+  <template id="60601130" name="FuturesMinPriceUnit">
+    <!-- 最小变动价位  -->
+    <decimal id="60601130" name="FuturesMinPriceUnit" presence="optional" />
+  </template>
+
+  <!-- 基金: 40XXX  -->
+  <template id="40200010" name="NavDate">
+    <!-- 净值日期 -->
+    <uInt32 id="40200010" name="NavDate" presence="optional" />
+  </template>
+  <template id="40300010" name="UnitNav">
+    <!-- 最新单位净值 -->
+    <decimal id="40300010" name="UnitNav" presence="optional" />
+  </template>
+  
+  <template id="40300020" name="AccuUnitNav">
+    <!-- 最新累计净值  -->
+    <decimal id="40300020" name="AccuUnitNav" presence="optional" />
+  </template>
+  
+  <template id="40300021" name="AdjUnitNav">
+    <!-- 最新复权净值  -->
+    <decimal id="40300021" name="AdjUnitNav" presence="optional" />
+  </template>
+  
+  <template id="40300030" name="D1UnitNav">
+    <!-- 上期单位净值  -->
+    <decimal id="40300030" name="D1UnitNav" presence="optional" />
+  </template>
+  
+  <template id="40300040" name="D1AccuUnitNav">
+    <!-- 上期累计净值  -->
+    <decimal id="40300040" name="D1AccuUnitNav" presence="optional" />
+  </template>
+  
+  <template id="40300041" name="D1AdjUnitNav">
+    <!-- 上期复权净值  -->
+    <decimal id="40300041" name="D1AdjUnitNav" presence="optional" />
+  </template>
+  
+  <template id="40600050" name="DayChgRat">
+    <!-- 最新净值增长率(%)  -->
+    <decimal id="40600050" name="DayChgRat" presence="optional" />
+  </template>
+  
+  <template id="40600051" name="D1DayChgRat">
+    <!-- 上期净值增长率(%)  -->
+    <decimal id="40600051" name="D1DayChgRat" presence="optional" />
+  </template>
+  
+  <template id="40600110" name="ChgRat1w">
+    <!-- 最近一周增长率(%)  -->
+    <decimal id="40600110" name="ChgRat1w" presence="optional" />
+  </template>
+  
+  <template id="40600111" name="ChgRatTw">
+    <!-- 本周以来净值增长率(%)  -->
+    <decimal id="40600111" name="ChgRatTw" presence="optional" />
+  </template>
+  
+  <template id="40600120" name="ChgRat1m">
+    <!-- 最近一月增长率(%) -->
+    <decimal id="40600120" name="ChgRat1m" presence="optional" />
+  </template>
+  
+  <template id="40600121" name="ChgRatTm">
+    <!-- 本月以来净值增长率(%) -->
+    <decimal id="40600121" name="ChgRatTm" presence="optional" />
+  </template>
+  
+  <template id="40600130" name="ChgRat3m">
+    <!-- 最近三月增长率(%) -->
+    <decimal id="40600130" name="ChgRat3m" presence="optional" />
+  </template>
+  
+  <template id="40600140" name="ChgRat6m">
+    <!-- 最近六月增长率(%) -->
+    <decimal id="40600140" name="ChgRat6m" presence="optional" />
+  </template>
+  
+  <template id="40600150" name="ChgRat1y">
+    <!-- 最近一年增长率(%) -->
+    <decimal id="40600150" name="ChgRat1y" presence="optional" />
+  </template>
+  
+  <template id="40600151" name="ChgRatTy">
+    <!-- 本年以来净值增长率(%) -->
+    <decimal id="40600151" name="ChgRatTy" presence="optional" />
+  </template>
+  
+  <template id="40600160" name="ChgRat2y">
+    <!-- 最近两年增长率(%) -->
+    <decimal id="40600160" name="ChgRat2y" presence="optional" />
+  </template>
+  
+  <template id="40600170" name="ChgRat3y">
+    <!-- 最近三年增长率(%) -->
+    <decimal id="40600170" name="ChgRat3y" presence="optional" />
+  </template>
+  
+  <template id="40600180" name="ChgRatBgn">
+    <!-- 成立以来增长率(%) -->
+    <decimal id="40600180" name="ChgRatBgn" presence="optional" />
+  </template>
+  
+  <template id="40600190" name="AnnChgRatBgn">
+    <!-- 成立以来年化增长率(%) -->
+    <decimal id="40600190" name="AnnChgRatBgn" presence="optional" />
+  </template>
+
+  <template id="40600200" name="NavPremium">
+    <!-- 净值溢价率(%) -->
+    <decimal id="40600200" name="NavPremium" presence="optional" />
+  </template>
+
+  
+  <template id="40400200" name="AccuCash">
+    <!-- 成立以来每10份分红(元) -->
+    <decimal id="40400200" name="AccuCash" presence="optional" />
+  </template>
+  
+  <template id="40400210" name="AccuCashTy">
+    <!-- 本年以来每10份分红(元) -->
+    <decimal id="40400210" name="AccuCashTy" presence="optional" />
+  </template>
+  
+  <template id="40400310" name="UnitYld">
+    <!-- 最新万份收益(元) -->
+    <decimal id="40400310" name="UnitYld" presence="optional" />
+  </template>
+  
+  <template id="40600320" name="AnnYldRat">
+    <!-- 最新七日年化收益率(%) -->
+    <decimal id="40600320" name="AnnYldRat" presence="optional" />
+  </template>
+  
+  <template id="40400330" name="D1UintYld">
+    <!-- 上期万份收益(元) -->
+    <decimal id="40400330" name="D1UintYld" presence="optional" />
+  </template>
+  
+  <template id="40600340" name="D1AnnYldRat">
+    <!-- 上期七日年化收益率(%) -->
+    <decimal id="40600340" name="D1AnnYldRat" presence="optional" />
+  </template>
+  
+  <template id="40400350" name="UnitYldAvg6m">
+    <!-- 近半年平均万份收益(元) -->
+    <decimal id="40400350" name="UnitYldAvg6m" presence="optional" />
+  </template>
+  
+  <template id="40400360" name="UnitYldStddev6m">
+    <!-- 近半年万份收益标准差(元) -->
+    <decimal id="40400360" name="UnitYldStddev6m" presence="optional" />
+  </template>
+  
+  <template id="40400370" name="UnitYldAvg12m">
+    <!-- 近一年平均万份收益(元) -->
+    <decimal id="40400370" name="UnitYldAvg12m" presence="optional" />
+  </template>
+  
+  <template id="40400380" name="UnitYldStddev12m">
+    <!-- 近一年万份收益标准差(元) -->
+    <decimal id="40400380" name="UnitYldStddev12m" presence="optional" />
+  </template>
+  
+  <template id="40400390" name="UnitYldAvgBeg">
+    <!-- 成立以来平均万份收益(元) -->
+    <decimal id="40400390" name="UnitYldAvgBeg" presence="optional" />
+  </template>
+  
+  <template id="40400400" name="UnitYldStddevBeg">
+    <!-- 成立以来万份收益标准差(元) -->
+    <decimal id="40400400" name="UnitYldStddevBeg" presence="optional" />
+  </template>
+  
+  <template id="40100500" name="FndInfoType">
+    <!-- 基金类型 -->
+    <decimal id="40100500" name="FndInfoType" presence="optional" />
+  </template>
+  
+  <template id="40200510" name="ContrEFT">
+    <!-- 成立日期 -->
+    <uInt32 id="40200510" name="ContrEFT" presence="optional" />
+  </template>
+  
+  <template id="40100520" name="InvTypCom">
+    <!-- 投资类型 -->
+    <unicode id="40100520" name="InvTypCom" presence="optional" />
+  </template>
+  
+  <template id="40100530" name="PurSt">
+    <!-- 申购状态 -->
+    <uInt32 id="40100530" name="PurSt" presence="optional" />
+  </template>
+  
+  <template id="40100540" name="RedemSt">
+    <!-- 赎回状态 -->
+    <uInt32 id="40100540" name="RedemSt" presence="optional" />
+  </template>
+  
+  <template id="40400550" name="IssVol">
+    <!-- 募集份额(亿份) -->
+    <decimal id="40400550" name="IssVol" presence="optional" />
+  </template>
+  
+  <template id="40400560" name="LatShr">
+    <!-- 最新份额(亿份) -->
+    <decimal id="40400560" name="LatShr" presence="optional" />
+  </template>
+  
+  <template id="40200570" name="LatShrDt">
+    <!-- 最新份额日期 -->
+    <uInt32 id="40200570" name="LatShrDt" presence="optional" />
+  </template>
+  
+  <template id="40400580" name="IssNav">
+    <!-- 募集资金(亿元) -->
+    <uInt32 id="40400580" name="IssNav" presence="optional" />
+  </template>
+  
+  <template id="40400590" name="Nav">
+    <!-- 最新份额(亿份) -->
+    <decimal id="40400590" name="Nav" presence="optional" />
+  </template>
+  
+  <template id="40200600" name="NavDt">
+    <!--最新资产日期 -->
+    <uInt32 id="40200600" name="NavDt" presence="optional" />
+  </template>
+  
+  <template id="40100610" name="MngPsnName">
+    <!--在任基金经理 -->
+    <unicode id="40100610" name="MngPsnName" presence="optional" />
+  </template>
+
+  <template id="40100620" name="FmcComName">
+    <!--基金管理公司 -->
+    <unicode id="40100620" name="FmcComName" presence="optional" />
+  </template>
+  
+  <template id="40100710" name="FndUnitMngInfo">
+    <!--历史基金经理表现 -->
+    <sequence id="40100710" name="FndUnitMngInfo" presence="optional">
+      <unicode name="PsnName" presence="optional" />
+      <unicode name="WorkDate" presence="optional" />
+      <decimal name="YldRat" presence="optional" />
+    </sequence>
+  </template>
+
+
+  <!-- 债券: 50XXX  -->
+  <template id="50401001" name="TermMaturityYear">
+    <!-- 剩余期限 -->
+    <decimal id="50401001" name="TermMaturityYear" presence="optional" />
+  </template>
+
+  <template id="50401011" name="RatLvl">
+    <!-- 主体评级 -->
+    <unicode id="50401011" name="RatLvl" presence="optional" />
+  </template>
+
+  <template id="50401021" name="RatIssr">
+    <!-- 债券评级 -->
+    <unicode id="50401021" name="RatIssr" presence="optional" />
+  </template>
+  
+  <template id="50401031" name="AccruedInterest">
+    <!-- 应计利息 -->
+    <decimal id="50401031" name="AccruedInterest" presence="optional" />
+  </template>
+
+  <template id="50401041" name="YieldBB">
+    <!-- 到期收益(本币) -->
+    <decimal id="50401041" name="YieldBB" presence="optional" />
+  </template>
+
+  <template id="50401051" name="DUR">
+    <!-- 修正久期 -->
+    <decimal id="50401051" name="DUR" presence="optional" />
+  </template>
+
+  <template id="50401061" name="MAC">
+    <!-- 麦氏久期 -->
+    <decimal id="50401061" name="MAC" presence="optional" />
+  </template>
+
+  <template id="50401071" name="COV">
+    <!-- 凸性 -->
+    <decimal id="50401071" name="COV" presence="optional" />
+  </template>
+
+  <template id="50401081" name="BasePoint">
+    <!-- 基点价值 -->
+    <decimal id="50401081" name="BasePoint" presence="optional" />
+  </template>
+
+  <template id="50401091" name="EffectSpreadBB">
+    <!-- 有效利差(本币) -->
+    <decimal id="50401091" name="EffectSpreadBB" presence="optional" />
+  </template>
+
+  <template id="50401101" name="SpreadDUR">
+    <!-- 利差久期 -->
+    <decimal id="50401101" name="SpreadDUR" presence="optional" />
+  </template>
+
+  <template id="50401111" name="SpreadCOV">
+    <!-- 利差凸性 -->
+    <decimal id="50401111" name="SpreadCOV" presence="optional" />
+  </template>
+
+  <template id="50401121" name="RateDUR">
+    <!-- 利率久期 -->
+    <decimal id="50401121" name="RateDUR" presence="optional" />
+  </template>
+
+  
+
+
+
+  <template id="10850012" name="TrendLine">
+    <uInt64 name="BeforeCount" />
+    <uInt64 name="AfterCount" />
+    <!-- 分时线 -->
+    <sequence id="10850012" name="TrendLine" presence="optional">
+      <uInt32 name="Date" />
+      <uInt32 name="Time" presence="optional" />
+      <decimal name="Now" presence="optional" />
+      <decimal name="Amount" presence="optional" />
+      <uInt64 name="Volume" presence="optional" />
+    </sequence>
+  </template>
+
+  <template id="10852012" name="KLine">
+    <uInt64 name="BeforeCount" />
+    <uInt64 name="AfterCount" />
+    <!-- K线 -->
+    <sequence id="10852012" name="KLine" presence="optional">
+      <uInt32 name="Date" />
+      <uInt32 name="Time" presence="optional" />
+      <decimal name="Open" presence="optional" />
+      <decimal name="High" presence="optional" />
+      <decimal name="Low" presence="optional" />
+      <decimal name="Now" presence="optional" />
+      <decimal name="Amount" presence="optional" />
+      <uInt64 name="Volume" presence="optional" />
+    </sequence>
+  </template>
+
+  <template id="10853012" name="KLine1M">
+    <uInt64 name="BeforeCount" />
+    <uInt64 name="AfterCount" />
+    <!-- K线 -->
+    <sequence id="10853012" name="KLine1M" presence="optional">
+      <uInt32 name="Date" />
+      <uInt32 name="Time" presence="optional" />
+      <decimal name="Open" presence="optional" />
+      <decimal name="High" presence="optional" />
+      <decimal name="Low" presence="optional" />
+      <decimal name="Now" presence="optional" />
+      <decimal name="Amount" presence="optional" />
+      <uInt64 name="Volume" presence="optional" />
+    </sequence>
+  </template>
+
+  <template id="10854012" name="SubDeal">
+    <uInt64 name="BeforeCount" />
+    <uInt64 name="AfterCount" />
+    <!-- 分笔 -->
+    <sequence id="10854012" name="SubDeal" presence="optional">
+      <uInt32 name="Date" />
+      <uInt32 name="Time" presence="optional" />
+      <decimal name="Now" presence="optional" />
+      <decimal name="Change" presence="optional" />
+      <uInt64 name="VolumeSpread" presence="optional" />
+      <uInt32 name="TradeDirection" presence="optional" />
+      <int64 name="PositionSpread" presence="optional" />
+    </sequence>
+  </template>
+
+  <template id="10855012" name="Nav">
+    <uInt64 name="BeforeCount" />
+    <uInt64 name="AfterCount" />
+    <!-- K线 -->
+    <sequence id="10855012" name="Nav" presence="optional">
+      <uInt32 name="Date" />
+      <uInt32 name="Time" presence="optional" />
+      <decimal name="Open" presence="optional" />
+      <decimal name="High" presence="optional" />
+      <decimal name="Low" presence="optional" />
+      <decimal name="Now" presence="optional" />
+      <decimal name="Amount" presence="optional" />
+      <uInt64 name="Volume" presence="optional" />
+    </sequence>
+  </template>
+  
+  <template id="10856012" name="Factor">
+    <!-- 复权因子-->
+    <sequence id="10856012" name="Factor" presence="optional">
+      <uInt32 name="Date" />
+      <decimal name="Factor" />
+      <unicode name="Reason" presence="optional" />
+    </sequence>
+  </template>
+  
+  <template id="10857012" name="SingleLineChgRat1D">
+    <uInt64 name="BeforeCount" />
+    <uInt64 name="AfterCount" />
+    <!-- 日收益率线 -->
+    <sequence id="10857012" name="SingleLineChgRat1D" presence="optional">
+      <uInt32 name="Date" />
+      <decimal name="Now" presence="optional" />
+    </sequence>
+  </template>
+  
+  <template id="10857022" name="SingleLineChgRat1W">
+    <uInt64 name="BeforeCount" />
+    <uInt64 name="AfterCount" />
+    <!-- 周收益率线 -->
+    <sequence id="10857022" name="SingleLineChgRat1W" presence="optional">
+      <uInt32 name="Date" />
+      <decimal name="Now" presence="optional" />
+    </sequence>
+  </template>
+  
+  <template id="10857032" name="SingleLineChgRat1M">
+    <uInt64 name="BeforeCount" />
+    <uInt64 name="AfterCount" />
+    <!-- 月收益率线 -->
+    <sequence id="10857032" name="SingleLineChgRat1M" presence="optional">
+      <uInt32 name="Date" />
+      <decimal name="Now" presence="optional" />
+    </sequence>
+  </template>
+  
+  <template id="10857112" name="SingleLineChgRat1MRk">
+    <uInt64 name="BeforeCount" />
+    <uInt64 name="AfterCount" />
+    <!-- 一月收益率排名线 -->
+    <sequence id="10857112" name="SingleLineChgRat1MRk" presence="optional">
+      <uInt32 name="Date" />
+      <decimal name="Now" presence="optional" />
+    </sequence>
+  </template>
+  
+  <template id="10857122" name="SingleLineChgRat6MRk">
+    <uInt64 name="BeforeCount" />
+    <uInt64 name="AfterCount" />
+    <!-- 半年收益率排名线 -->
+    <sequence id="10857122" name="SingleLineChgRat6MRk" presence="optional">
+      <uInt32 name="Date" />
+      <decimal name="Now" presence="optional" />
+    </sequence>
+  </template>
+  
+  <template id="10857132" name="SingleLineChgRat1YRk">
+    <uInt64 name="BeforeCount" />
+    <uInt64 name="AfterCount" />
+    <!-- 一年收益率排名线 -->
+    <sequence id="10857132" name="SingleLineChgRat1YRk" presence="optional">
+      <uInt32 name="Date" />
+      <decimal name="Now" presence="optional" />
+    </sequence>
+  </template>
+  
+  
+  <template id="10858012" name="FundFlow">
+    <uInt64 name="BeforeCount" />
+    <uInt64 name="AfterCount" />
+    <!-- 分时线 -->
+    <sequence id="10858012" name="FundFlow" presence="optional">
+      <uInt32 name="Date" />
+      <uInt32 name="Time" presence="optional" />
+      <decimal name="FundFlowIn" presence="optional" />
+      <decimal name="FundFlowOut" presence="optional" />
+      <decimal name="FundFlowNet" presence="optional" />
+    </sequence>
+  </template>
+  
+  <template id="10890018" name="HeartBeat">
+    <uInt32 name="HeartBeatFlag" />
+  </template>
+
+  <!-- 代码指标推送 -->
+  <template id="10890117" name="CodeIndicatePub">
+    <uInt32 name="Date" />
+    <uInt32 name="Time" />
+    <uInt32 name="MarketOpen" presence="optional" />
+    <uInt32 name="MarketClose" presence="optional" />
+    <sequence id="10890117" name="CodeSq" presence="optional">
+      <string name="Code" />
+      <uInt32 name="Date" presence="optional" />
+      <uInt32 name="Time" presence="optional" />
+      <uInt32 name="MarketStatus" presence="optional" />
+      <uInt32 name="Clear" presence="optional" />
+      <sequence name="IndicateSq" presence="optional">
+        <uInt32 name="Indicate" />
+        <templateRef presence="optional" />
+      </sequence>
+    </sequence>
+  </template>
+
+  <!-- 通用行情推送指标用于source server级联 -->
+  <template id="10890417" name="GenericIndicatePub">
+    <sequence id="10890417" name="GenericCodeSeq" presence="optional">
+      <string id="10100010" name="Code"><delta/></string>
+      <uInt32 id="10200110" name="Date"><delta/></uInt32>
+      <uInt32 id="10200120" name="Time"><delta/></uInt32>
+      <unicode id="10100020" name="Name" presence="optional"></unicode>
+      <uInt32 id="10100011" name="Clear" presence="optional" />
+      <decimal id="10300220" name="PrevClose" presence="optional" >
+        <exponent>
+          <default value="-3" />
+        </exponent>
+        <mantissa>
+          <delta />
+      </mantissa></decimal> 
+      <decimal id="10300250" name="Open" presence="optional" >
+        <exponent>
+          <default value="-3" />
+        </exponent>
+        <mantissa>
+          <delta />
+      </mantissa></decimal>
+      <decimal id="10300260" name="High" presence="optional" >
+        <exponent>
+          <default value="-3" />
+        </exponent>
+        <mantissa>
+          <delta />
+      </mantissa></decimal>
+      <decimal id="10300270" name="Low" presence="optional" >
+        <exponent>
+          <default value="-3" />
+        </exponent>
+        <mantissa>
+          <delta />
+      </mantissa></decimal>
+      <decimal id="10300280" name="Now" presence="optional" >
+        <exponent>
+          <default value="-3" />
+        </exponent>
+        <mantissa>
+          <delta />
+      </mantissa></decimal>
+      <decimal id="10300291" name="AvgPrice" presence="optional" >
+        <exponent>
+          <default value="-3" />
+        </exponent>
+        <mantissa>
+          <delta />
+      </mantissa></decimal>
+      <decimal id="10400911" name="Amount" presence="optional" >
+        <exponent>
+          <default value="-3" />
+        </exponent>
+        <mantissa>
+          <delta />
+      </mantissa></decimal>
+      <decimal id="10300410" name="BidPrice1" presence="optional" >
+        <exponent>
+          <default value="-3" />
+        </exponent>
+        <mantissa>
+          <delta />
+      </mantissa></decimal>
+      <decimal id="10300420" name="BidPrice2" presence="optional" >
+        <exponent>
+          <default value="-3" />
+        </exponent>
+        <mantissa>
+          <delta />
+      </mantissa></decimal>
+      <decimal id="10300430" name="BidPrice3" presence="optional" >
+        <exponent>
+          <default value="-3" />
+        </exponent>
+        <mantissa>
+          <delta />
+      </mantissa></decimal>
+      <decimal id="10300440" name="BidPrice4" presence="optional" >
+        <exponent>
+          <default value="-3" />
+        </exponent>
+        <mantissa>
+          <delta />
+      </mantissa></decimal>
+      <decimal id="10300450" name="BidPrice5" presence="optional" >
+        <exponent>
+          <default value="-3" />
+        </exponent>
+        <mantissa>
+          <delta />
+      </mantissa></decimal>
+      <decimal id="10300510" name="AskPrice1" presence="optional" >
+        <exponent>
+          <default value="-3" />
+        </exponent>
+        <mantissa>
+          <delta />
+      </mantissa></decimal>
+      <decimal id="10300520" name="AskPrice2" presence="optional" >
+        <exponent>
+          <default value="-3" />
+        </exponent>
+        <mantissa>
+          <delta />
+      </mantissa></decimal>
+      <decimal id="10300530" name="AskPrice3" presence="optional" >
+        <exponent>
+          <default value="-3" />
+        </exponent>
+        <mantissa>
+          <delta />
+      </mantissa></decimal>
+      <decimal id="10300540" name="AskPrice4" presence="optional" >
+        <exponent>
+          <default value="-3" />
+        </exponent>
+        <mantissa>
+          <delta />
+      </mantissa></decimal>
+      <decimal id="10300550" name="AskPrice5" presence="optional" >
+        <exponent>
+          <default value="-3" />
+        </exponent>
+        <mantissa>
+          <delta />
+      </mantissa></decimal>
+      <uInt64 id="10500820" name="Volume" presence="optional" ><delta/></uInt64>
+      <uInt64 id="10500610" name="BidVolume1" presence="optional" ><delta/></uInt64>
+      <uInt64 id="10500620" name="BidVolume2" presence="optional" ><delta/></uInt64>
+      <uInt64 id="10500630" name="BidVolume3" presence="optional" ><delta/></uInt64>
+      <uInt64 id="10500640" name="BidVolume4" presence="optional" ><delta/></uInt64>
+      <uInt64 id="10500650" name="BidVolume5" presence="optional" ><delta/></uInt64>
+      <uInt64 id="10500710" name="AskVolume1" presence="optional" ><delta/></uInt64>
+      <uInt64 id="10500720" name="AskVolume2" presence="optional" ><delta/></uInt64>
+      <uInt64 id="10500730" name="AskVolume3" presence="optional" ><delta/></uInt64>
+      <uInt64 id="10500740" name="AskVolume4" presence="optional" ><delta/></uInt64>
+      <uInt64 id="10500750" name="AskVolume5" presence="optional" ><delta/></uInt64>
+      <uInt64 id="10500831" name="VolumeSpread" presence="optional" ><delta/></uInt64>
+      <uInt64 id="60501010" name="Position" presence="optional" ><delta/></uInt64>
+      <uInt32 id="10500941" name="DealCount" presence="optional" ><delta/></uInt32>
+      <uInt32 id="30400110" name="UpCount" presence="optional" />
+      <uInt32 id="30400120" name="SameCount" presence="optional" />
+      <uInt32 id="30400130" name="DownCount" presence="optional" />
+      <decimal id="10400990" name="FundFlowIn" presence="optional" >
+        <exponent>
+          <default value="-3" />
+        </exponent>
+        <mantissa>
+          <delta />
+      </mantissa></decimal> 
+      <decimal id="10401000" name="FundFlowOut" presence="optional" >
+        <exponent>
+          <default value="-3" />
+        </exponent>
+        <mantissa>
+          <delta />
+      </mantissa></decimal> 
+      <decimal id="10401011" name="FundFlowNet" presence="optional" >
+        <exponent>
+          <default value="-3" />
+        </exponent>
+        <mantissa>
+          <delta />
+      </mantissa></decimal> 
+    </sequence>
+  </template>  
+
+  <!-- 股票行情专用(财务股本)推送指标用于source server级联 -->
+  <template id="10890418" name="StockFinacialPub">
+    <sequence id="10890418" name="StockFinacialSeq" presence="optional">
+      <string id="10100010" name="Code"><delta/></string>
+      <!-- 股票行情专用(财务股本)STK_QUOTE_FIN_SHR-->
+      <!--发行机构id -->
+      <decimal id="20100110" name="ComId" presence="optional" />
+      <!--上市日期 -->
+      <decimal id="20100120" name="LstDt" presence="optional" />
+      <!--发行价格 -->
+      <decimal id="20100130" name="IssPrc" presence="optional" />
+      <!--交易状态 -->
+      <unicode id="20100140" name="TrdSts" presence="optional" />
+      <!-- 股本结构 -->
+      <!--无限售条件人民币普通股 -->
+      <decimal id="20100310" name="AShrNtlc" presence="optional" />
+      <!--无限售条件境内上市外资股 -->
+      <decimal id="20100320" name="BShrNtlc" presence="optional" />
+      <!--无限售条件境外上市外资股 -->
+      <decimal id="20100330" name="FShrNtlc" presence="optional" />
+      <!--其他无限售条件已上市流通股份 -->
+      <decimal id="20100340" name="OthShrNtlc" presence="optional" />
+      <!-- 国有法人持有的有限售条件流通股份 -->
+      <decimal id="20100350" name="PromStsLpShrTlc" presence="optional" />
+      <!-- 国家持有的有限售条件流通股份 -->
+      <decimal id="20100360" name="PromStsShrTlc" presence="optional" />
+      <!-- 境内非国有法人持有的有限售条件流通股份 -->
+      <decimal id="20100370" name="PromDcDleShrTlc" presence="optional" />
+      <!-- 境内自然人持有的有限售条件流通股份 -->
+      <decimal id="20100380" name="PromDcDnpShrTlc" presence="optional" />
+      <!-- 境外法人持有的有限售条件流通股份 -->
+      <decimal id="20100390" name="FcFleShrTlc" presence="optional" />
+      <!-- 境外自然人持有的有限售条件流通股份 -->
+      <decimal id="20100400" name="FcFnpShrTlc" presence="optional" />
+      <!--归属上市公司的每股净资产（元/股） -->
+      <decimal id="20100510" name="Bvps" presence="optional" />
+      <!--现金及现金等价物净增加额（元） -->
+      <decimal id="20100520" name="CashEqNetIncr" presence="optional" />
+      <!--每股资本公积（元/股） -->
+      <decimal id="20100530" name="CptlRsvPs" presence="optional" />
+      <!--摊薄每股收益（元/股） -->
+      <decimal id="20100540" name="Eps" presence="optional" />
+      <!--每股收益(上年末) -->
+      <decimal id="20100550" name="EpsPe" presence="optional" />
+      <!--EPS_TTM -->
+      <decimal id="20100560" name="EpsTtm" presence="optional" />
+      <!--筹资活动产生的现金流量净额（元） -->
+      <decimal id="20100610" name="NetCfFin" presence="optional" />
+      <!--投资活动产生的现金流量净额（元） -->
+      <decimal id="20100620" name="NetCfInv" presence="optional" />
+      <!--经营活动产生的现金流量净额（元） -->
+      <decimal id="20100630" name="NetCfOper" presence="optional" />
+      <!--每股现金流量净额（元/股） -->
+      <decimal id="20100640" name="NetCfPs" presence="optional" />
+      <!--归属上市公司股东的净利润（元） -->
+      <decimal id="20100650" name="NetProfPco" presence="optional" />
+      <!--归属上市公司净利润(上年末) -->
+      <decimal id="20100660" name="NetProfPcoPe" presence="optional" />
+      <!--归属上市公司净利润_TTM -->
+      <decimal id="20100670" name="NetProfPcoTtm" presence="optional" />
+      <!--归属上市公司股东的净利润同比增长（%） -->
+      <decimal id="20100680" name="NetProfPcoYoy" presence="optional" />
+      <!--营业收入（元） -->
+      <decimal id="20100690" name="OperInc" presence="optional" />
+      <!--营业利润（元） -->
+      <decimal id="20100700" name="OperProf" presence="optional" />
+      <!--每股未分配利润（元/股） -->
+      <decimal id="20100810" name="RetProfPs" presence="optional" />
+      <!--全面摊薄净资产收益率（%） -->
+      <decimal id="20100820" name="Roe" presence="optional" />
+      <!--销售毛利率（%） -->
+      <decimal id="20100830" name="SaleGpm" presence="optional" />
+      <!--所有者权益（元） -->
+      <decimal id="20100840" name="Sheqy" presence="optional" />
+      <!--资产总额（元） -->
+      <decimal id="20100910" name="TtlAst" presence="optional" />
+      <!--流动资产（元） -->
+      <decimal id="20100920" name="TtlCurAst" presence="optional" />
+      <!--流动负债（元） -->
+      <decimal id="20100930" name="TtlCurLiab" presence="optional" />
+      <!--负债（元） -->
+      <decimal id="20100940" name="TtlLiab" presence="optional" />
+      <!--非流动资产（元） -->
+      <decimal id="20100950" name="TtlNcurAst" presence="optional" />
+      <!--非流动负债（元） -->
+      <decimal id="20100960" name="TtlNcurLiab" presence="optional" />
+      <!--利润总额（元） -->
+      <decimal id="20100970" name="TtlProf" presence="optional" />
+      <!--总股本（股） -->
+      <decimal id="20100980" name="TtlShr" presence="optional" />
+      <!--无限售条件流通股份合计 -->
+      <decimal id="20100990" name="TtlShrNtlc" presence="optional" />
+      <!--有限售条件流通股合计 -->
+      <decimal id="20101000" name="TtlShrTlc" presence="optional" />
+      <!--最新年报年度 -->
+      <decimal id="20101210" name="YearA" presence="optional" />
+      <!--最新报告期 -->
+      <decimal id="20101220" name="MaxEndDt" presence="optional" />
+      <!--最新年报报告期 -->
+      <decimal id="20101230" name="MaxYDt" presence="optional" />
+      <!--预测EPS_1 -->
+      <decimal id="20101310" name="AvgEps1" presence="optional" />
+      <!--预测EPS_2 -->
+      <decimal id="20101320" name="AvgEps2" presence="optional" />
+      <!--预测净利润_1 -->
+      <decimal id="20101330" name="AvgNetProf1" presence="optional" />
+      <!--预测净利润_2 -->
+      <decimal id="20101430" name="AvgNetProf2" presence="optional" />
+      <!--预测年度1 -->
+      <decimal id="20101350" name="MaxYDt1" presence="optional" />
+      <!--预测年度2 -->
+      <decimal id="20101360" name="MaxYDt2" presence="optional" />
+      <!--五日前收盘价 -->
+      <decimal id="20101510" name="PrevClsPrcFd" presence="optional" />
+      <!--一月前收盘价 -->
+      <decimal id="20101520" name="PrevClsPrcOm" presence="optional" />
+      <!--一年前收盘价 -->
+      <decimal id="20101530" name="PrevClsPrcOy" presence="optional" />
+      <!--六月前收盘价 -->
+      <decimal id="20101540" name="PrevClsPrcSm" presence="optional" />
+      <!--三月前收盘价 -->
+      <decimal id="20101550" name="PrevClsPrcTm" presence="optional" />
+      <!--去年末收盘价 -->
+      <decimal id="20101560" name="PrevClsPrcYb" presence="optional" />
+      <!--复权因子(五日) -->
+      <decimal id="20101570" name="SfAdjOneFd" presence="optional" />
+      <!--复权因子(一个月) -->
+      <decimal id="20101580" name="SfAdjOneOm" presence="optional" />
+      <!--复权因子(一年) -->
+      <decimal id="20101590" name="SfAdjOneOy" presence="optional" />
+      <!--复权因子(六个月) -->
+      <decimal id="20101600" name="SfAdjOneSm" presence="optional" />
+      <!--复权因子(三个月) -->
+      <decimal id="20101610" name="SfAdjOneTm" presence="optional" />
+      <!--复权因子(去年末) -->
+      <decimal id="20101620" name="SfAdjOneYb" presence="optional" />
+      <!--周成交量（股） -->
+      <decimal id="20101710" name="TnvVolRw" presence="optional" />
+      <!--一年涨跌幅 -->
+      <decimal id="20101810" name="ChgRatRy" presence="optional" />
+      <!--上年末收盘价 -->
+      <decimal id="20101910" name="ClsPrcLy" presence="optional" />
+      <!-- 新闻评级日期 -->
+      <uInt32 id="20202010" name="NewsRatingDate" presence="optional" />
+      <!-- 新闻评级分值  -->
+      <int32 id="20602020" name="NewsRatingLevel" presence="optional" />
+      <!-- 新闻评级事件  -->
+      <unicode id="20602030" name="NewsRatingName" presence="optional" />
+    </sequence>
+  </template>
+
+  <!-- 基金行情推送指标用于source server级联 -->
+  <template id="10890419" name="FndNuitPub">
+    <sequence id="10890419" name="FndNuitSeq" presence="optional">
+      <string id="10100010" name="Code"><delta/></string>
+      <unicode id="10100020" name="Name" presence="optional"></unicode>
+      <!-- 净值日期 -->
+      <uInt32 id="40200010" name="NavDate" presence="optional" />
+      <!-- 最新单位净值 -->
+      <decimal id="40300010" name="UnitNav" presence="optional" />
+      <!-- 最新累计净值  -->
+      <decimal id="40300020" name="AccuUnitNav" presence="optional" />
+      <!-- 最新复权净值  -->
+      <decimal id="40300021" name="AdjUnitNav" presence="optional" />
+      <!-- 上期单位净值  -->
+      <decimal id="40300030" name="D1UnitNav" presence="optional" />
+      <!-- 上期累计净值  -->
+      <decimal id="40300040" name="D1AccuUnitNav" presence="optional" />
+      <!-- 上期复权净值  -->
+      <decimal id="40300041" name="D1AdjUnitNav" presence="optional" />
+      <!-- 最新净值增长率(%)  -->
+      <decimal id="40600050" name="DayChgRat" presence="optional" />
+      <!-- 上期净值增长率(%)  -->
+      <decimal id="40600051" name="D1DayChgRat" presence="optional" />
+      <!-- 最近一周增长率(%)  -->
+      <decimal id="40600110" name="ChgRat1w" presence="optional" />
+      <!-- 本周以来净值增长率(%)  -->
+      <decimal id="40600111" name="ChgRatTw" presence="optional" />
+      <!-- 最近一月增长率(%) -->
+      <decimal id="40600120" name="ChgRat1m" presence="optional" />
+      <!-- 本月以来净值增长率(%) -->
+      <decimal id="40600121" name="ChgRatTm" presence="optional" />
+      <!-- 最近三月增长率(%) -->
+      <decimal id="40600130" name="ChgRat3m" presence="optional" />
+      <!-- 最近六月增长率(%) -->
+      <decimal id="40600140" name="ChgRat6m" presence="optional" />
+      <!-- 最近一年增长率(%) -->
+      <decimal id="40600150" name="ChgRat1y" presence="optional" />
+      <!-- 本年以来净值增长率(%) -->
+      <decimal id="40600151" name="ChgRatTy" presence="optional" />
+      <!-- 最近两年增长率(%) -->
+      <decimal id="40600160" name="ChgRat2y" presence="optional" />
+      <!-- 最近三年增长率(%) -->
+      <decimal id="40600170" name="ChgRat3y" presence="optional" />
+      <!-- 成立以来增长率(%) -->
+      <decimal id="40600180" name="ChgRatBgn" presence="optional" />
+      <!-- 成立以来年化增长率(%) -->
+      <decimal id="40600190" name="AnnChgRatBgn" presence="optional" />
+      <!-- 成立以来每10份分红(元) -->
+      <decimal id="40400200" name="AccuCash" presence="optional" />
+      <!-- 本年以来每10份分红(元) -->
+      <decimal id="40400210" name="AccuCashTy" presence="optional" />
+      <!-- 最新万份收益(元) -->
+      <decimal id="40400310" name="UnitYld" presence="optional" />
+      <!-- 最新七日年化收益率(%) -->
+      <decimal id="40600320" name="AnnYldRat" presence="optional" />
+      <!-- 上期万份收益(元) -->
+      <decimal id="40400330" name="D1UnitYld" presence="optional" />
+      <!-- 上期七日年化收益率(%) -->
+      <decimal id="40600340" name="D1AnnYldRat" presence="optional" />
+      <!-- 近半年平均万份收益(元) -->
+      <decimal id="40400350" name="UnitYldAvg6m" presence="optional" />
+      <!-- 近半年万份收益标准差(元) -->
+      <decimal id="40400360" name="UnitYldStddev6m" presence="optional" />
+      <!-- 近一年平均万份收益(元) -->
+      <decimal id="40400370" name="UnitYldAvg12m" presence="optional" />
+      <!-- 近一年万份收益标准差(元) -->
+      <decimal id="40400380" name="UnitYldStddev12m" presence="optional" />
+      <!-- 成立以来平均万份收益(元) -->
+      <decimal id="40400390" name="UnitYldAvgBeg" presence="optional" />
+      <!-- 成立以来万份收益标准差(元) -->
+      <decimal id="40400400" name="UnitYldStddevBeg" presence="optional" />
+      <!-- 基金类型 -->
+      <decimal id="40100500" name="FndInfoType" presence="optional" />
+      <!-- 成立日期 -->
+      <uInt32 id="40200510" name="ContrEFT" presence="optional" />
+      <!-- 投资类型 -->
+      <unicode id="40100520" name="InvTypCom" presence="optional" />
+      <!-- 申购状态 -->
+      <uInt32 id="40100530" name="PurSt" presence="optional" />
+      <!-- 赎回状态 -->
+      <uInt32 id="40100540" name="RedemSt" presence="optional" />
+      <!-- 募集份额(亿份) -->
+      <decimal id="40400550" name="IssVol" presence="optional" />
+      <!-- 最新份额(亿份) -->
+      <decimal id="40400560" name="LatShr" presence="optional" />
+      <!-- 最新份额日期 -->
+      <uInt32 id="40200570" name="LatShrDt" presence="optional" />
+      <!-- 募集资金(亿元) -->
+      <uInt32 id="40400580" name="IssNav" presence="optional" />
+      <!-- 最新份额(亿份) -->
+      <decimal id="40400590" name="Nav" presence="optional" />
+      <!--最新资产日期 -->
+      <uInt32 id="40200600" name="NavDt" presence="optional" />
+      <!--在任基金经理 -->
+      <unicode id="40100610" name="MngPsnName" presence="optional" />
+      <!--基金管理公司 -->
+      <unicode id="40100620" name="FmcComName" presence="optional" />
+    </sequence>
+  </template>
+
+
+  <!-- 期货静态数据行情推送指标用于source server级联 -->
+  <template id="10890420" name="FuturesPub">
+    <sequence id="10890420" name="FuturesSeq" presence="optional">
+      <string id="10100010" name="Code"><delta/></string>
+      <!-- 合约乘数 -->
+      <decimal id="60601100" name="FuturesFactor" presence="optional" />
+      <!-- 合约乘数单位  -->
+      <decimal id="60601110" name="FuturesFactorUnit" presence="optional" />
+      <!-- 报价单位  -->
+      <unicode id="60601120" name="FuturesQuoteUnit" presence="optional" />
+      <!-- 最小变动价位  -->
+      <decimal id="60601130" name="FuturesMinPriceUnit" presence="optional" />
+    </sequence>
+  </template>
+
+  <!-- 单个指标请求 -->
+  <template id="10890118" name="ScalarRequest">
+    <uInt32 name="MessageType" />
+    <string name="Code" />
+    <uInt32 name="Indicate" />
+  </template>
+
+  <!-- 单个指标应答 -->
+  <template id="10890119" name="ScalarResponse">
+    <string name="Code">
+    </string>
+    <uInt32 name="Indicate">
+    </uInt32>
+    <templateRef />
+  </template>
+
+  <!-- 序列化指标请求 -->
+  <template id="10890128" name="SerialsRequest">
+    <string name="Code" />
+    <uInt32 name="Indicate" />
+    <uInt32 name="BeginDate" presence="optional" />
+    <uInt32 name="BeginTime" presence="optional" />
+    <uInt32 name="NumberType" presence="optional" />
+    <int32 name="NumberFromBegin" presence="optional" />
+  </template>
+
+  <!-- 序列化指标应答 -->
+  <template id="10890129" name="SerialsResponse">
+    <string name="Code" />
+    <uInt32 name="Indicate" />
+    <uInt32 name="BeginDate" presence="optional" />
+    <uInt32 name="BeginTime" presence="optional" />
+    <uInt32 name="NumberType" presence="optional" />
+    <int32 name="NumberFromBegin" presence="optional" />
+    <templateRef />
+  </template>
+  
+  <!-- 批量指标请求 -->
+  <template id="10890138" name="MultiScalarRequest">
+    <sequence name="SubCodeSq" presence="optional">
+      <string name="Code" presence="optional" />
+      <sequence name="IndicateSq" presence="optional">
+        <uInt32 name="Indicate" />
+      </sequence>
+    </sequence>
+    <sequence name="UnSubCodeSq" presence="optional">
+      <string name="Code" presence="optional" />
+      <sequence name="IndicateSq" presence="optional">
+        <uInt32 name="Indicate" />
+      </sequence>
+    </sequence>
+  </template>
+
+  <!-- 批量指标应答 -->
+  <template id="10890139" name="MultiScalarResponse">
+    <sequence name="CodeSq">
+      <string name="Code" />
+      <sequence name="IndicateSq">
+        <uInt32 name="Indicate" />
+        <templateRef />
+      </sequence>
+    </sequence>
+  </template>
+  
+  <!-- 校验批量指标请求 -->
+  <template id="10890148" name="CheckMultiScalarRequest">
+    <int32 name="Check" presence="optional" />
+  </template>
+  
+  <!-- 校验批量指标应答 -->
+  <template id="10890149" name="CheckMultiScalarResponse">
+    <sequence name="CodeSq">
+      <string name="Code" />
+      <sequence name="IndicateSq">
+        <uInt32 name="Indicate" />
+      </sequence>
+    </sequence>
+  </template>
+
+  <!-- 订阅信息请求 -->
+  <template id="10890158" name="SubInfoRequest">
+    <int32 name="SubInfo" presence="optional" />
+  </template>
+  
+  <!-- 订阅信息应答 -->
+  <template id="10890159" name="SubInfoResponse">
+    <uInt32 name="TotalConnectCnt" />
+    <uInt32 name="TotalCodeCnt" />
+    <uInt32 name="TotalIndicateCnt" />
+    <sequence name="SubInfoSq">
+      <string name="IP" />
+      <uInt32 name="CodeCnt" />
+      <uInt32 name="IndicateCnt" />
+    </sequence>
+  </template>
+
+  <!-- 板块成分推送 -->
+  <template id="10890217" name="SectorCodePub">
+    <uInt64 name="SectorId" />
+    <sequence name="CodeSq" presence="optional">
+      <string name="Code" ><delta/></string>
+      <unicode name="Name" ></unicode>
+    </sequence>
+  </template>
+
+  <!-- 排序请求 -->
+  <template id="10890318" name="SortRequest">
+    <uInt64 name="SectorId" />
+    <uInt32 name="Indicate" />
+    <uInt32 name="SortType" />
+    <sequence id="10890318" name="Code" presence="optional">
+      <string name="Code" />
+    </sequence>
+  </template>
+
+  <!-- 排序应答 -->
+  <template id="10890319" name="SortResponse">
+    <uInt64 name="SectorId" />
+    <uInt32 name="Indicate" />
+    <uInt32 name="SortType" />
+    <sequence id="10890319" name="Code" presence="optional">
+      <string name="Code" />
+    </sequence>
+  </template>
+  
+  <!-- 股票行情专用(财务股本)STK_QUOTE_FIN_SHR-->
+  <!--发行机构id -->
+  <template id="20100110" name="ComId">
+    <decimal id="20100110" name="ComId" presence="optional" />
+  </template>
+  <!--上市日期 -->
+  <template id="20100120" name="LstDt">
+    <decimal id="20100120" name="LstDt" presence="optional" />
+  </template>
+  <!--发行价格 -->
+  <template id="20100130" name="IssPrc">
+    <decimal id="20100130" name="IssPrc" presence="optional" />
+  </template>
+  <!--交易状态 -->
+  <template id="20100140" name="TrdSts">
+    <unicode id="20100140" name="TrdSts" presence="optional" />
+  </template>
+
+  <!-- 股本结构 -->
+  <!--无限售条件人民币普通股 -->
+  <template id="20100310" name="AShrNtlc">
+    <decimal id="20100310" name="AShrNtlc" presence="optional" />
+  </template>
+  <!--无限售条件境内上市外资股 -->
+  <template id="20100320" name="BShrNtlc">
+    <decimal id="20100320" name="BShrNtlc" presence="optional" />
+  </template>
+  <!--无限售条件境外上市外资股 -->
+  <template id="20100330" name="FShrNtlc">
+    <decimal id="20100330" name="FShrNtlc" presence="optional" />
+  </template>
+  <!--其他无限售条件已上市流通股份 -->
+  <template id="20100340" name="OthShrNtlc">
+    <decimal id="20100340" name="OthShrNtlc" presence="optional" />
+  </template>
+  <!-- 国有法人持有的有限售条件流通股份 -->
+  <template id="20100350" name="PromStsLpShrTlc">
+    <decimal id="20100350" name="PromStsLpShrTlc" presence="optional" />
+  </template>
+  <!-- 国家持有的有限售条件流通股份 -->
+  <template id="20100360" name="PromStsShrTlc">
+    <decimal id="20100360" name="PromStsShrTlc" presence="optional" />
+  </template>
+  <!-- 境内非国有法人持有的有限售条件流通股份 -->
+  <template id="20100370" name="PromDcDleShrTlc">
+    <decimal id="20100370" name="PromDcDleShrTlc" presence="optional" />
+  </template>
+  <!-- 境内自然人持有的有限售条件流通股份 -->
+  <template id="20100380" name="PromDcDnpShrTlc">
+    <decimal id="20100380" name="PromDcDnpShrTlc" presence="optional" />
+  </template>
+  <!-- 境外法人持有的有限售条件流通股份 -->
+  <template id="20100390" name="FcFleShrTlc">
+    <decimal id="20100390" name="FcFleShrTlc" presence="optional" />
+  </template>
+  <!-- 境外自然人持有的有限售条件流通股份 -->
+  <template id="20100400" name="FcFnpShrTlc">
+    <decimal id="20100400" name="FcFnpShrTlc" presence="optional" />
+  </template>
+
+  <!--归属上市公司的每股净资产（元/股） -->
+  <template id="20100510" name="Bvps">
+    <decimal id="20100510" name="Bvps" presence="optional" />
+  </template>
+  <!--现金及现金等价物净增加额（元） -->
+  <template id="20100520" name="CashEqNetIncr">
+    <decimal id="20100520" name="CashEqNetIncr" presence="optional" />
+  </template>
+  <!--每股资本公积（元/股） -->
+  <template id="20100530" name="CptlRsvPs">
+    <decimal id="20100530" name="CptlRsvPs" presence="optional" />
+  </template>
+  <!--摊薄每股收益（元/股） -->
+  <template id="20100540" name="Eps">
+    <decimal id="20100540" name="Eps" presence="optional" />
+  </template>
+  <!--每股收益(上年末) -->
+  <template id="20100550" name="EpsPe">
+    <decimal id="20100550" name="EpsPe" presence="optional" />
+  </template>
+  <!--EPS_TTM -->
+  <template id="20100560" name="EpsTtm">
+    <decimal id="20100560" name="EpsTtm" presence="optional" />
+  </template>
+  <template id="20100561" name="PEttm">
+    <decimal id="20100561" name="PEttm" presence="optional" />
+  </template>
+
+
+  <!--筹资活动产生的现金流量净额（元） -->
+  <template id="20100610" name="NetCfFin">
+    <decimal id="20100610" name="NetCfFin" presence="optional" />
+  </template>
+  <!--投资活动产生的现金流量净额（元） -->
+  <template id="20100620" name="NetCfInv">
+    <decimal id="20100620" name="NetCfInv" presence="optional" />
+  </template>
+  <!--经营活动产生的现金流量净额（元） -->
+  <template id="20100630" name="NetCfOper">
+    <decimal id="20100630" name="NetCfOper" presence="optional" />
+  </template>
+  <!--每股现金流量净额（元/股） -->
+  <template id="20100640" name="NetCfPs">
+    <decimal id="20100640" name="NetCfPs" presence="optional" />
+  </template>
+  <!--归属上市公司股东的净利润（元） -->
+  <template id="20100650" name="NetProfPco">
+    <decimal id="20100650" name="NetProfPco" presence="optional" />
+  </template>
+  <!--归属上市公司净利润(上年末) -->
+  <template id="20100660" name="NetProfPcoPe">
+    <decimal id="20100660" name="NetProfPcoPe" presence="optional" />
+  </template>
+  <!--归属上市公司净利润_TTM -->
+  <template id="20100670" name="NetProfPcoTtm">
+    <decimal id="20100670" name="NetProfPcoTtm" presence="optional" />
+  </template>
+  <!--归属上市公司股东的净利润同比增长（%） -->
+  <template id="20100680" name="NetProfPcoYoy">
+    <decimal id="20100680" name="NetProfPcoYoy" presence="optional" />
+  </template>
+  <!--营业收入（元） -->
+  <template id="20100690" name="OperInc">
+    <decimal id="20100690" name="OperInc" presence="optional" />
+  </template>
+  <!--营业利润（元） -->
+  <template id="20100700" name="OperProf">
+    <decimal id="20100700" name="OperProf" presence="optional" />
+  </template>
+
+  <!--每股未分配利润（元/股） -->
+  <template id="20100810" name="RetProfPs">
+    <decimal id="20100810" name="RetProfPs" presence="optional" />
+  </template>
+  <!--全面摊薄净资产收益率（%） -->
+  <template id="20100820" name="Roe">
+    <decimal id="20100820" name="Roe" presence="optional" />
+  </template>
+  <!--销售毛利率（%） -->
+  <template id="20100830" name="SaleGpm">
+    <decimal id="20100830" name="SaleGpm" presence="optional" />
+  </template>
+  <!--所有者权益（元） -->
+  <template id="20100840" name="Sheqy">
+    <decimal id="20100840" name="Sheqy" presence="optional" />
+  </template>
+
+  <!--资产总额（元） -->
+  <template id="20100910" name="TtlAst">
+    <decimal id="20100910" name="TtlAst" presence="optional" />
+  </template>
+  <!--流动资产（元） -->
+  <template id="20100920" name="TtlCurAst">
+    <decimal id="20100920" name="TtlCurAst" presence="optional" />
+  </template>
+  <!--流动负债（元） -->
+  <template id="20100930" name="TtlCurLiab">
+    <decimal id="20100930" name="TtlCurLiab" presence="optional" />
+  </template>
+  <!--负债（元） -->
+  <template id="20100940" name="TtlLiab">
+    <decimal id="20100940" name="TtlLiab" presence="optional" />
+  </template>
+  <!--非流动资产（元） -->
+  <template id="20100950" name="TtlNcurAst">
+    <decimal id="20100950" name="TtlNcurAst" presence="optional" />
+  </template>
+  <!--非流动负债（元） -->
+  <template id="20100960" name="TtlNcurLiab">
+    <decimal id="20100960" name="TtlNcurLiab" presence="optional" />
+  </template>
+  <!--利润总额（元） -->
+  <template id="20100970" name="TtlProf">
+    <decimal id="20100970" name="TtlProf" presence="optional" />
+  </template>
+  <!--总股本（股） -->
+  <template id="20100980" name="TtlShr">
+    <decimal id="20100980" name="TtlShr" presence="optional" />
+  </template>
+  <!--无限售条件流通股份合计 -->
+  <template id="20100990" name="TtlShrNtlc">
+    <decimal id="20100990" name="TtlShrNtlc" presence="optional" />
+  </template>
+  <!--有限售条件流通股合计 -->
+  <template id="20101000" name="TtlShrTlc">
+    <decimal id="20101000" name="TtlShrTlc" presence="optional" />
+  </template>
+
+  <!--最新年报年度 -->
+  <template id="20101210" name="YearA">
+    <decimal id="20101210" name="YearA" presence="optional" />
+  </template>
+
+  <!--最新报告期 -->
+  <template id="20101220" name="MaxEndDt">
+    <decimal id="20101220" name="MaxEndDt" presence="optional" />
+  </template>
+
+  <!--最新年报报告期 -->
+  <template id="20101230" name="MaxYDt">
+    <decimal id="20101230" name="MaxYDt" presence="optional" />
+  </template>
+
+  <!--预测EPS_1 -->
+  <template id="20101310" name="AvgEps1">
+    <decimal id="20101310" name="AvgEps1" presence="optional" />
+  </template>
+  <!--预测EPS_2 -->
+  <template id="20101320" name="AvgEps2">
+    <decimal id="20101320" name="AvgEps2" presence="optional" />
+  </template>
+  <!--预测净利润_1 -->
+  <template id="20101330" name="AvgNetProf1">
+    <decimal id="20101330" name="AvgNetProf1" presence="optional" />
+  </template>
+  <!--预测净利润_2 -->
+  <template id="20101340" name="AvgNetProf2">
+    <decimal id="20101430" name="AvgNetProf2" presence="optional" />
+  </template>
+  <!--预测年度1 -->
+  <template id="20101350" name="MaxYDt1">
+    <decimal id="20101350" name="MaxYDt1" presence="optional" />
+  </template>
+  <!--预测年度2 -->
+  <template id="20101360" name="MaxYDt2">
+    <decimal id="20101360" name="MaxYDt2" presence="optional" />
+  </template>
+
+  <!--五日前收盘价 -->
+  <template id="20101510" name="PrevClsPrcFd">
+    <decimal id="20101510" name="PrevClsPrcFd" presence="optional" />
+  </template>
+  <!--一月前收盘价 -->
+  <template id="20101520" name="PrevClsPrcOm">
+    <decimal id="20101520" name="PrevClsPrcOm" presence="optional" />
+  </template>
+  <!--一年前收盘价 -->
+  <template id="20101530" name="PrevClsPrcOy">
+    <decimal id="20101530" name="PrevClsPrcOy" presence="optional" />
+  </template>
+  <!--六月前收盘价 -->
+  <template id="20101540" name="PrevClsPrcSm">
+    <decimal id="20101540" name="PrevClsPrcSm" presence="optional" />
+  </template>
+  <!--三月前收盘价 -->
+  <template id="20101550" name="PrevClsPrcTm">
+    <decimal id="20101550" name="PrevClsPrcTm" presence="optional" />
+  </template>
+  <!--去年末收盘价 -->
+  <template id="20101560" name="PrevClsPrcYb">
+    <decimal id="20101560" name="PrevClsPrcYb" presence="optional" />
+  </template>
+  <!--复权因子(五日) -->
+  <template id="20101570" name="SfAdjOneFd">
+    <decimal id="20101570" name="SfAdjOneFd" presence="optional" />
+  </template>
+  <!--复权因子(一个月) -->
+  <template id="20101580" name="SfAdjOneOm">
+    <decimal id="20101580" name="SfAdjOneOm" presence="optional" />
+  </template>
+  <!--复权因子(一年) -->
+  <template id="20101590" name="SfAdjOneOy">
+    <decimal id="20101590" name="SfAdjOneOy" presence="optional" />
+  </template>
+  <!--复权因子(六个月) -->
+  <template id="20101600" name="SfAdjOneSm">
+    <decimal id="20101600" name="SfAdjOneSm" presence="optional" />
+  </template>
+  <!--复权因子(三个月) -->
+  <template id="20101610" name="SfAdjOneTm">
+    <decimal id="20101610" name="SfAdjOneTm" presence="optional" />
+  </template>
+  <!--复权因子(去年末) -->
+  <template id="20101620" name="SfAdjOneYb">
+    <decimal id="20101620" name="SfAdjOneYb" presence="optional" />
+  </template>
+
+  <!-- 新闻评级日期 -->
+  <template id="20202010" name="NewsRatingDate">
+    <uInt32 id="20202010" name="NewsRatingDate" presence="optional" />
+  </template>
+  <!-- 新闻评级分值  -->
+  <template id="20602020" name="NewsRatingLevel">
+    <int32 id="20602020" name="NewsRatingLevel" presence="optional" />
+  </template>
+  <!-- 新闻评级事件  -->
+  <template id="20602030" name="NewsRatingName">
+    <unicode id="20602030" name="NewsRatingName" presence="optional" />
+  </template>
+
+
+  <!--周成交量（股） -->
+  <template id="20101710" name="TnvVolRw">
+    <decimal id="20101710" name="TnvVolRw" presence="optional" />
+  </template>
+  <!--一年涨跌幅 -->
+  <template id="20101810" name="ChgRatRy">
+    <decimal id="20101810" name="ChgRatRy" presence="optional" />
+  </template>
+  <!--上年末收盘价 -->
+  <template id="20101910" name="ClsPrcLy">
+    <decimal id="20101910" name="ClsPrcLy" presence="optional" />
+  </template>
+
+  <!--上涨家数 -->
+  <template id="30400110" name="UpCount">
+    <uInt32 id="30400110" name="UpCount" presence="optional" />
+  </template>
+  <!--平盘家数 -->
+  <template id="30400120" name="SameCount">
+    <uInt32 id="30400120" name="SameCount" presence="optional" />
+  </template>
+  <!--下跌家数-->
+  <template id="30400130" name="DownCount">
+    <uInt32 id="30400130" name="DownCount" presence="optional" />
+  </template>
+  <!--停牌家数 -->
+  <template id="30400140" name="SuspensionCount">
+    <uInt32 id="30400140" name="SuspensionCount" presence="optional" />
+  </template>
+  <!--板块Id -->
+  <template id="30400150" name="SectorId">
+    <uInt64 id="30400150" name="SectorId" presence="optional" />
+  </template>
+</templates>
