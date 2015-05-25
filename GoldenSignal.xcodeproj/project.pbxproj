@@ -120,7 +120,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		011B84301B0DB51F003005BC /* GoldenSignal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoldenSignal.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		011B84301B0DB51F003005BC /* 金信号.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "金信号.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		011B84341B0DB51F003005BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		011B84351B0DB51F003005BC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		011B84371B0DB51F003005BC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -351,7 +351,7 @@
 		011B84311B0DB51F003005BC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				011B84301B0DB51F003005BC /* GoldenSignal.app */,
+				011B84301B0DB51F003005BC /* 金信号.app */,
 				011B84491B0DB520003005BC /* GoldenSignalTests.xctest */,
 			);
 			name = Products;
@@ -671,7 +671,7 @@
 			);
 			name = GoldenSignal;
 			productName = GoldenSignal;
-			productReference = 011B84301B0DB51F003005BC /* GoldenSignal.app */;
+			productReference = 011B84301B0DB51F003005BC /* 金信号.app */;
 			productType = "com.apple.product-type.application";
 		};
 		011B84481B0DB520003005BC /* GoldenSignalTests */ = {
@@ -1022,7 +1022,7 @@
 					/Users/frank/Program/GoldenSignal/lib/quote_lib,
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "金信号";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
@@ -1060,7 +1060,7 @@
 					/Users/frank/Program/GoldenSignal/lib/quote_lib,
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "金信号";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;

@@ -9,6 +9,7 @@
 #import "QuoteMainViewController.h"
 #import "StockViewController.h"
 #import "SectCollectionViewController.h"
+#import <Masonry.h>
 
 @interface QuoteMainViewController ()
 {
@@ -31,8 +32,12 @@
     
     titleTabVC = [[TitleTabViewController alloc] initWithNibName:@"TitleTabViewController" bundle:nil];
     titleTabVC.delegate = self;
-    titleTabVC.view.frame = CGRectMake(0, 64, CGRectGetWidth(self.view.frame), 30);
     [self.view addSubview:titleTabVC.view];
+    [titleTabVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.height.mas_equalTo(30);
+        make.top.equalTo(self.view).with.offset(64);
+    }];
     
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 94, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)-49-94)];
     scrollView.bounces = NO;
