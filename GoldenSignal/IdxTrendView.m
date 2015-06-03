@@ -96,10 +96,20 @@
             });
         }];
         
-        [_kvo observe:_viewModel keyPath:@"TtlAmount" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
+        [_kvo observe:_viewModel keyPath:@"Volume" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                float amount = [change[NSKeyValueChangeNewKey] floatValue];
-                self.amount.text = amount != 0 ? [NSString stringWithFormat:@"%.0f亿", amount] : @"—";
+                float volume = [change[NSKeyValueChangeNewKey] floatValue] / 1000000.0;
+                if (volume > 0) {
+                    if (volume >= 10000) {
+                        self.volume.text = [NSString stringWithFormat:@"%.3f亿", volume/10000.0];
+                    }
+                    else {
+                        self.volume.text = [NSString stringWithFormat:@"%.0f万", volume];
+                    }
+                }
+                else {
+                    self.volume.text = @"—";
+                }
             });
         }];
     }

@@ -60,7 +60,7 @@
 - (void)setDefaultParameters
 {
     _color = [UIColor orangeColor];
-    _fillColor = [_color colorWithAlphaComponent:0.25];
+    _fillColor = [_color colorWithAlphaComponent:0.15];
     _lineWidth = 1;
     _margin = 0.0f;
     
@@ -143,19 +143,19 @@
     [self.layer addSublayer:pathLayer];
     [self.layers addObject:pathLayer];
     
-//    if(_fillColor) {
-//        UIBezierPath *fillPath = [self getLinePath:scale withClose:YES];
-//        CAShapeLayer* fillLayer = [CAShapeLayer layer];
-//        fillLayer.frame = self.bounds;
-//        fillLayer.path = fillPath.CGPath;
-//        fillLayer.strokeColor = nil;
-//        fillLayer.fillColor = _fillColor.CGColor;
-//        fillLayer.lineWidth = 0;
-//        fillLayer.lineJoin = kCALineJoinRound;
-//        
-//        [self.layer addSublayer:fillLayer];
-//        [self.layers addObject:fillLayer];
-//    }
+    if(_fillColor) {
+        UIBezierPath *fillPath = [self getLinePath:scale close:YES];
+        CAShapeLayer* fillLayer = [CAShapeLayer layer];
+        fillLayer.frame = self.bounds;
+        fillLayer.path = fillPath.CGPath;
+        fillLayer.strokeColor = nil;
+        fillLayer.fillColor = _fillColor.CGColor;
+        fillLayer.lineWidth = 0;
+        fillLayer.lineJoin = kCALineJoinRound;
+        
+        [self.layer addSublayer:fillLayer];
+        [self.layers addObject:fillLayer];
+    }
 }
 
 - (UIBezierPath*)getLinePath:(float)scale close:(BOOL)closed
@@ -186,26 +186,32 @@
         prevLine = line;
     }
     
-    /* 绘制分时线 */
     UIBezierPath* path = [UIBezierPath bezierPath];
-    for (int i = 0; i < temp.count; i++) {
-        if(i > 0) {
-            [path addLineToPoint:CGPointFromString(temp[i])];
+    if (temp.count > 0) {
+        /* 绘制分时线 */
+        
+        for (int i = 0; i < temp.count; i++) {
+            if(i > 0) {
+                [path addLineToPoint:CGPointFromString(temp[i])];
+            }
+            else {
+                [path moveToPoint:CGPointFromString(temp[i])];
+            }
         }
-        else {
-            [path moveToPoint:CGPointFromString(temp[i])];
+        
+        if(closed) {
+            CGPoint lastPoint = CGPointFromString([temp lastObject]);
+            CGPoint lPoint = CGPointMake(lastPoint.x, _margin + self.chartHeight);
+            [path addLineToPoint:lPoint];
+            CGPoint fristPoint = CGPointFromString([temp firstObject]);
+            CGPoint fPoint = CGPointMake(fristPoint.x, _margin + self.chartHeight);
+            [path addLineToPoint:fPoint];
+            [path addLineToPoint:fristPoint];
         }
-    }
-    
-    if(closed) {
-        // Closing the path for the fill drawing
-//        [path addLineToPoint:[self getPointForIndex:_data.count - 1 withScale:scale]];
-//        [path addLineToPoint:[self getPointForIndex:_data.count - 1 withScale:0]];
-//        [path addLineToPoint:[self getPointForIndex:0 withScale:0]];
-//        [path addLineToPoint:[self getPointForIndex:0 withScale:scale]];
     }
     return path;
 }
+
 
 - (void)clearLayers
 {

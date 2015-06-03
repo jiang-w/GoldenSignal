@@ -46,14 +46,9 @@
 @property(nonatomic, readonly) float ChangeRange;
 
 /**
- *  总股本（股）
+ *  成交量（手）
  */
-@property(nonatomic, readonly) double TtlShr;
-
-/**
- *  总市值（亿）
- */
-@property(nonatomic, readonly) double TtlAmount;
+@property(nonatomic, readonly) double Volume;
 
 
 - (void)subscribeQuotationScalarWithCode:(NSString *)code;

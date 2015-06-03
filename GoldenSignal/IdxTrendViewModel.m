@@ -22,7 +22,7 @@ static NSArray *indicaters;
     if (self) {
         _propertyUpdateQueue = dispatch_queue_create("IndicatorUpdate", nil);
         _service = [BDQuotationService sharedInstance];
-        indicaters = @[@"Name", @"Now", @"PrevClose", @"Open", @"TtlShr"];
+        indicaters = @[@"Name", @"Now", @"PrevClose", @"Open", @"Volume"];
         
         [[NSNotificationCenter defaultCenter]
          addObserver:self selector:@selector(subscribeScalarChanged:) name:QUOTE_SCALAR_NOTIFICATION object:nil];
@@ -40,10 +40,6 @@ static NSArray *indicaters;
     return (self.Now - self.PrevClose);
 }
 
-- (double)TtlAmount {
-    return self.Now * self.TtlShr / 100000000.0;
-}
-
 // 设置依赖键(kvo)
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key
 {
@@ -52,10 +48,6 @@ static NSArray *indicaters;
     
     if ([key isEqualToString:@"ChangeRange"] || [key isEqualToString:@"Change"]) {
         moreKeyPaths = [NSArray arrayWithObjects:@"self.Now", @"self.PrevClose", nil];
-    }
-    
-    if ([key isEqualToString:@"TtlAmount"]) {
-        moreKeyPaths = [NSArray arrayWithObjects:@"self.Now", @"self.TtlShr", nil];
     }
     
     if (moreKeyPaths) {
@@ -100,8 +92,8 @@ static NSArray *indicaters;
     [self setValue:[NSNumber numberWithFloat:open] forKey:@"Open"];
     float now = [[_service getCurrentIndicateWithCode:code andName:@"Now"] floatValue];
     [self setValue:[NSNumber numberWithFloat:now] forKey:@"Now"];
-    float ttlShr = [[_service getCurrentIndicateWithCode:code andName:@"TtlShr"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:ttlShr] forKey:@"TtlShr"];
+    float volume = [[_service getCurrentIndicateWithCode:code andName:@"Volume"] floatValue];
+    [self setValue:[NSNumber numberWithFloat:volume] forKey:@"Volume"];
 }
 
 

@@ -18,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *change;
 @property (weak, nonatomic) IBOutlet UILabel *changeRange;
 @property (weak, nonatomic) IBOutlet UILabel *open;
-@property (weak, nonatomic) IBOutlet UILabel *amount;
+@property (weak, nonatomic) IBOutlet UILabel *volume;
 @property (weak, nonatomic) IBOutlet UIView *chart;
 
 
