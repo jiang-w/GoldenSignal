@@ -106,6 +106,12 @@
 		011B856B1B0DC981003005BC /* libquickfast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 011B85651B0DC981003005BC /* libquickfast.a */; };
 		011B856C1B0DC981003005BC /* libquote.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 011B85661B0DC981003005BC /* libquote.a */; };
 		011B856E1B0DCDAB003005BC /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 011B856D1B0DCDAB003005BC /* libxml2.dylib */; };
+		014FF3891B1D5276007DB608 /* QuoteHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014FF3871B1D5276007DB608 /* QuoteHomeViewController.m */; };
+		014FF38A1B1D5276007DB608 /* QuoteHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 014FF3881B1D5276007DB608 /* QuoteHomeViewController.xib */; };
+		014FF3921B1DAE31007DB608 /* IdxTrendChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 014FF3911B1DAE31007DB608 /* IdxTrendChart.m */; };
+		01CA5C4B1B1ECC03003B824F /* IdxTrendViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CA5C4A1B1ECC03003B824F /* IdxTrendViewModel.m */; };
+		01CA5C531B1EDF37003B824F /* IdxTrendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CA5C521B1EDF37003B824F /* IdxTrendView.m */; };
+		01CA5C551B1EDF6C003B824F /* IdxTrendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01CA5C541B1EDF6C003B824F /* IdxTrendView.xib */; };
 		A616444470EDEE9488217D26 /* libPods-GoldenSignal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB20464A3DBDD4132272778 /* libPods-GoldenSignal.a */; };
 /* End PBXBuildFile section */
 
@@ -306,6 +312,16 @@
 		011B85651B0DC981003005BC /* libquickfast.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libquickfast.a; path = ../lib/quote_lib/libquickfast.a; sourceTree = "<group>"; };
 		011B85661B0DC981003005BC /* libquote.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libquote.a; path = ../lib/quote_lib/libquote.a; sourceTree = "<group>"; };
 		011B856D1B0DCDAB003005BC /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		014FF3861B1D5276007DB608 /* QuoteHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteHomeViewController.h; sourceTree = "<group>"; };
+		014FF3871B1D5276007DB608 /* QuoteHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuoteHomeViewController.m; sourceTree = "<group>"; };
+		014FF3881B1D5276007DB608 /* QuoteHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuoteHomeViewController.xib; sourceTree = "<group>"; };
+		014FF3901B1DAE31007DB608 /* IdxTrendChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxTrendChart.h; sourceTree = "<group>"; };
+		014FF3911B1DAE31007DB608 /* IdxTrendChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdxTrendChart.m; sourceTree = "<group>"; };
+		01CA5C491B1ECC03003B824F /* IdxTrendViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxTrendViewModel.h; sourceTree = "<group>"; };
+		01CA5C4A1B1ECC03003B824F /* IdxTrendViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdxTrendViewModel.m; sourceTree = "<group>"; };
+		01CA5C511B1EDF37003B824F /* IdxTrendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxTrendView.h; sourceTree = "<group>"; };
+		01CA5C521B1EDF37003B824F /* IdxTrendView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdxTrendView.m; sourceTree = "<group>"; };
+		01CA5C541B1EDF6C003B824F /* IdxTrendView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IdxTrendView.xib; sourceTree = "<group>"; };
 		0AB20464A3DBDD4132272778 /* libPods-GoldenSignal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoldenSignal.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		56FC5DACAC185D0FC9450CD1 /* Pods-GoldenSignal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoldenSignal.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoldenSignal/Pods-GoldenSignal.release.xcconfig"; sourceTree = "<group>"; };
 		EACB60ED09D93342F3B7E18B /* Pods-GoldenSignal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoldenSignal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoldenSignal/Pods-GoldenSignal.debug.xcconfig"; sourceTree = "<group>"; };
@@ -518,6 +534,8 @@
 				011B84D91B0DBD4F003005BC /* SubDealViewModel.m */,
 				011B84DA1B0DBD4F003005BC /* TrendLineViewModel.h */,
 				011B84DB1B0DBD4F003005BC /* TrendLineViewModel.m */,
+				01CA5C491B1ECC03003B824F /* IdxTrendViewModel.h */,
+				01CA5C4A1B1ECC03003B824F /* IdxTrendViewModel.m */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -624,6 +642,14 @@
 				011B854B1B0DBEFE003005BC /* TrendLineView.m */,
 				011B854C1B0DBEFE003005BC /* TrendQuoteView.h */,
 				011B854D1B0DBEFE003005BC /* TrendQuoteView.m */,
+				014FF3861B1D5276007DB608 /* QuoteHomeViewController.h */,
+				014FF3871B1D5276007DB608 /* QuoteHomeViewController.m */,
+				014FF3881B1D5276007DB608 /* QuoteHomeViewController.xib */,
+				014FF3901B1DAE31007DB608 /* IdxTrendChart.h */,
+				014FF3911B1DAE31007DB608 /* IdxTrendChart.m */,
+				01CA5C511B1EDF37003B824F /* IdxTrendView.h */,
+				01CA5C521B1EDF37003B824F /* IdxTrendView.m */,
+				01CA5C541B1EDF6C003B824F /* IdxTrendView.xib */,
 			);
 			name = Markets;
 			sourceTree = "<group>";
@@ -740,8 +766,10 @@
 				011B85081B0DBE1F003005BC /* TitleTabViewCell.xib in Resources */,
 				011B85521B0DBEFE003005BC /* IndicatorsView.xib in Resources */,
 				011B855B1B0DBEFE003005BC /* SectCollectionViewController.xib in Resources */,
+				014FF38A1B1D5276007DB608 /* QuoteHomeViewController.xib in Resources */,
 				011B85251B0DBEA9003005BC /* NewsListViewCell.xib in Resources */,
 				011B845D1B0DB9D8003005BC /* NewsDetail.html in Resources */,
+				01CA5C551B1EDF6C003B824F /* IdxTrendView.xib in Resources */,
 				011B85591B0DBEFE003005BC /* QuoteViewCell.xib in Resources */,
 				011B850A1B0DBE1F003005BC /* TitleTabViewController.xib in Resources */,
 				011B84411B0DB51F003005BC /* Images.xcassets in Resources */,
@@ -823,11 +851,13 @@
 				011B852A1B0DBEA9003005BC /* SlideImageViewController.m in Sources */,
 				011B84F61B0DBDBC003005BC /* RegisterViewController.m in Sources */,
 				011B855C1B0DBEFE003005BC /* SectQuoteViewController.m in Sources */,
+				014FF3891B1D5276007DB608 /* QuoteHomeViewController.m in Sources */,
 				011B85061B0DBE1F003005BC /* RootTabBarController.m in Sources */,
 				011B84A31B0DBC57003005BC /* BDKLine.m in Sources */,
 				011B84DD1B0DBD4F003005BC /* FiveBetsViewModel.m in Sources */,
 				011B85271B0DBEA9003005BC /* NewsMainViewController.m in Sources */,
 				011B855F1B0DBEFE003005BC /* TrendLineView.m in Sources */,
+				014FF3921B1DAE31007DB608 /* IdxTrendChart.m in Sources */,
 				011B84E81B0DBD4F003005BC /* TrendLineViewModel.m in Sources */,
 				011B84C01B0DBCBA003005BC /* BDUserTicket.m in Sources */,
 				011B846D1B0DBADB003005BC /* SmartTime.m in Sources */,
@@ -849,6 +879,7 @@
 				011B846E1B0DBADB003005BC /* Stopwatch.m in Sources */,
 				011B84881B0DBB83003005BC /* BDNetworkService.m in Sources */,
 				011B855E1B0DBEFE003005BC /* SubDealView.m in Sources */,
+				01CA5C531B1EDF37003B824F /* IdxTrendView.m in Sources */,
 				011B84E51B0DBD4F003005BC /* SectCollectionViewModel.m in Sources */,
 				011B84E41B0DBD4F003005BC /* RegisterViewModel.m in Sources */,
 				011B846B1B0DBADB003005BC /* NSDate+Utility.m in Sources */,
@@ -874,6 +905,7 @@
 				011B84871B0DBB83003005BC /* BDFieldQuery.m in Sources */,
 				011B84E01B0DBD4F003005BC /* LoginViewModel.m in Sources */,
 				011B84BC1B0DBCBA003005BC /* BDStockPool.m in Sources */,
+				01CA5C4B1B1ECC03003B824F /* IdxTrendViewModel.m in Sources */,
 				011B85261B0DBEA9003005BC /* NewsListViewController.m in Sources */,
 				011B854F1B0DBEFE003005BC /* F10ViewController.m in Sources */,
 			);

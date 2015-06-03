@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QuoteHomeViewController">
+            <connections>
+                <outlet property="lbBoardView" destination="07D-XB-7N1" id="zJX-0N-QQv"/>
+                <outlet property="lmBoardView" destination="NVU-fL-XKN" id="ZBy-5f-EyQ"/>
+                <outlet property="ltBoardView" destination="PWF-bu-HiI" id="bnC-2Z-KOm"/>
+                <outlet property="rbBoardView" destination="BS6-qk-45K" id="Mev-oN-BB8"/>
+                <outlet property="rmBoardView" destination="kxM-1H-F1p" id="jS4-cb-EXV"/>
+                <outlet property="rtBoardView" destination="df0-9I-YXW" id="OQA-96-9Y7"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PWF-bu-HiI">
+                    <rect key="frame" x="0.0" y="0.0" width="299" height="199"/>
+                    <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="UAh-rg-nYM" appends="YES" id="cSo-xh-EuU"/>
+                    </connections>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="df0-9I-YXW">
+                    <rect key="frame" x="301" y="0.0" width="299" height="199"/>
+                    <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="vJE-P7-JEC" appends="YES" id="lt6-50-hvt"/>
+                    </connections>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NVU-fL-XKN">
+                    <rect key="frame" x="0.0" y="201" width="299" height="198"/>
+                    <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                    <gestureRecognizers/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="nyU-fS-Vzk" appends="YES" id="HLI-G1-WuX"/>
+                    </connections>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kxM-1H-F1p">
+                    <rect key="frame" x="301" y="201" width="299" height="198"/>
+                    <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                    <gestureRecognizers/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="wg3-iJ-7Dd" appends="YES" id="QeV-vh-i6p"/>
+                    </connections>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="07D-XB-7N1">
+                    <rect key="frame" x="0.0" y="401" width="299" height="199"/>
+                    <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                    <gestureRecognizers/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="OJO-sb-nQz" appends="YES" id="ng8-kQ-X0l"/>
+                    </connections>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BS6-qk-45K">
+                    <rect key="frame" x="301" y="401" width="299" height="199"/>
+                    <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                    <gestureRecognizers/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="NeA-tO-z5H" appends="YES" id="i2E-wl-4YI"/>
+                    </connections>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="07D-XB-7N1" secondAttribute="bottom" id="0t0-UK-hlv"/>
+                <constraint firstItem="BS6-qk-45K" firstAttribute="height" secondItem="df0-9I-YXW" secondAttribute="height" id="2xX-ih-etb"/>
+                <constraint firstItem="BS6-qk-45K" firstAttribute="height" secondItem="PWF-bu-HiI" secondAttribute="height" id="3qs-fj-hJb"/>
+                <constraint firstItem="BS6-qk-45K" firstAttribute="height" secondItem="07D-XB-7N1" secondAttribute="height" id="6Bt-Xs-CbY"/>
+                <constraint firstItem="BS6-qk-45K" firstAttribute="width" secondItem="kxM-1H-F1p" secondAttribute="width" id="6Dy-za-hoy"/>
+                <constraint firstItem="df0-9I-YXW" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="8I7-uC-IAC"/>
+                <constraint firstItem="07D-XB-7N1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="8nH-QM-c2e"/>
+                <constraint firstItem="PWF-bu-HiI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="KdH-7U-v1r"/>
+                <constraint firstItem="NVU-fL-XKN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="OIe-zN-yaW"/>
+                <constraint firstItem="07D-XB-7N1" firstAttribute="top" secondItem="NVU-fL-XKN" secondAttribute="bottom" constant="2" id="OqW-gr-kTd"/>
+                <constraint firstItem="BS6-qk-45K" firstAttribute="top" secondItem="kxM-1H-F1p" secondAttribute="bottom" constant="2" id="VHe-NB-0W5"/>
+                <constraint firstItem="BS6-qk-45K" firstAttribute="width" secondItem="PWF-bu-HiI" secondAttribute="width" id="a2t-Pg-h1r"/>
+                <constraint firstItem="BS6-qk-45K" firstAttribute="width" secondItem="07D-XB-7N1" secondAttribute="width" id="blQ-SH-sDZ"/>
+                <constraint firstItem="BS6-qk-45K" firstAttribute="width" secondItem="NVU-fL-XKN" secondAttribute="width" id="dC7-Ff-D3U"/>
+                <constraint firstItem="NVU-fL-XKN" firstAttribute="top" secondItem="PWF-bu-HiI" secondAttribute="bottom" constant="2" id="duS-V6-0ja"/>
+                <constraint firstItem="BS6-qk-45K" firstAttribute="height" secondItem="kxM-1H-F1p" secondAttribute="height" id="o0d-vv-7Je"/>
+                <constraint firstItem="df0-9I-YXW" firstAttribute="leading" secondItem="PWF-bu-HiI" secondAttribute="trailing" constant="2" id="ptj-mH-Aax"/>
+                <constraint firstAttribute="trailing" secondItem="BS6-qk-45K" secondAttribute="trailing" id="s5s-1F-Udt"/>
+                <constraint firstItem="BS6-qk-45K" firstAttribute="width" secondItem="df0-9I-YXW" secondAttribute="width" id="sKr-Uy-gNL"/>
+                <constraint firstAttribute="trailing" secondItem="kxM-1H-F1p" secondAttribute="trailing" id="sSf-aJ-x1g"/>
+                <constraint firstItem="BS6-qk-45K" firstAttribute="height" secondItem="NVU-fL-XKN" secondAttribute="height" id="tQb-W5-WBq"/>
+                <constraint firstItem="PWF-bu-HiI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="tbY-bg-ehr"/>
+                <constraint firstAttribute="trailing" secondItem="df0-9I-YXW" secondAttribute="trailing" id="wbX-X5-kd1"/>
+                <constraint firstItem="kxM-1H-F1p" firstAttribute="top" secondItem="df0-9I-YXW" secondAttribute="bottom" constant="2" id="y1b-5N-LbF"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+        </view>
+        <tapGestureRecognizer id="UAh-rg-nYM">
+            <connections>
+                <action selector="tapBoardView:" destination="-1" id="pBK-HT-rkG"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="vJE-P7-JEC">
+            <connections>
+                <action selector="tapBoardView:" destination="-1" id="xrw-mO-M24"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="nyU-fS-Vzk">
+            <connections>
+                <action selector="tapBoardView:" destination="-1" id="Qb1-il-R7K"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="wg3-iJ-7Dd">
+            <connections>
+                <action selector="tapBoardView:" destination="-1" id="hfw-WF-Oyj"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="OJO-sb-nQz">
+            <connections>
+                <action selector="tapBoardView:" destination="-1" id="uoo-6S-TVV"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="NeA-tO-z5H">
+            <connections>
+                <action selector="tapBoardView:" destination="-1" id="Qt0-0i-OUI"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+</document>

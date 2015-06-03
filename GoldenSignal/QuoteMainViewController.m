@@ -9,6 +9,7 @@
 #import "QuoteMainViewController.h"
 #import "StockViewController.h"
 #import "SectCollectionViewController.h"
+#import "QuoteHomeViewController.h"
 #import <Masonry.h>
 
 @interface QuoteMainViewController ()
@@ -24,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _controllerDic = [NSMutableDictionary dictionary];
-    _sectArray = [NSMutableArray arrayWithArray:@[@{@"100924": @"A股"}, @{@"100929": @"创业"}, @{@"101932": @"中小"}, @{@"100938": @"上50"}, @{@"100943": @"沪深300"}, @{@"more": @"更多"}]];
+    _sectArray = [NSMutableArray arrayWithArray:@[@{@"home": @"首页"}, @{@"100924": @"A股"}, @{@"100929": @"创业"}, @{@"101932": @"中小"}, @{@"100938": @"上50"}, @{@"100943": @"沪深300"}, @{@"more": @"更多"}]];
     
 //    if (IOS_7) {
 //        [self setEdgesForExtendedLayout:UIRectEdgeNone];
@@ -63,7 +64,11 @@
 - (void)addControllerWithIndex:(NSInteger)index {
     UIViewController *controller;
     NSString *code = [[[_sectArray objectAtIndex:index] allKeys] firstObject];
-    if ([code isEqualToString:@"more"]) {
+    if ([code isEqualToString:@"home"]) {
+        QuoteHomeViewController *home = [[QuoteHomeViewController alloc] initWithNibName:@"QuoteHomeViewController" bundle:nil];
+        controller = home;
+    }
+    else if ([code isEqualToString:@"more"]) {
         SectCollectionViewController *sect = [[SectCollectionViewController alloc] initWithNibName:@"SectCollectionViewController" bundle:nil];
         sect.delegate = self;
         controller = sect;
