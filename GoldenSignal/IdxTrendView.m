@@ -78,7 +78,6 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 float nowPrice = [change[NSKeyValueChangeNewKey] floatValue];
                 self.now.text = [NSString stringWithFormat:@"%.2f", nowPrice];
-                self.head.backgroundColor = [self textColorValue:nowPrice otherValue:_viewModel.PrevClose];
             });
         }];
         
@@ -86,6 +85,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 float changeVal = [change[NSKeyValueChangeNewKey] floatValue];
                 self.change.text = [NSString stringWithFormat:@"%.2f", changeVal];
+                self.head.backgroundColor = [self textColorValue:changeVal otherValue:0];
             });
         }];
         

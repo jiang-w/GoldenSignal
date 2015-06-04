@@ -19,6 +19,8 @@
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"]) {
         NSLog(@"是第一次启动");
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
+        NSNumber *userIdentity = [self createUserIdentity];
+        [[NSUserDefaults standardUserDefaults] setValue:userIdentity forKey:@"userIdentity"];
     }
     
     dispatch_queue_t queue = dispatch_queue_create("initApplicationData", nil);
@@ -88,6 +90,16 @@
     if (![top isKindOfClass:[StockViewController class]]) {
         [navigation pushViewController:stockVC animated:YES];
     }
+}
+
+- (NSNumber *)createUserIdentity {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyMMddHHmmss"];
+    NSString *valueString = [NSString stringWithFormat:@"5%@%d%d", [dateFormatter stringFromDate:[NSDate date]], arc4random() % 10, arc4random() % 10];
+    
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    NSNumber *identity = [numberFormatter numberFromString:valueString];
+    return identity;
 }
 
 @end
