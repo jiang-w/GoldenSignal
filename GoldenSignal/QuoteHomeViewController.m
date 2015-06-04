@@ -44,17 +44,24 @@
 - (void)addChartViews {
     for (NSString *key in [_idxCodesDic allKeys]) {
         UIView *contain = _idxCodesDic[key];
-//        IdxTrendView *trend = [IdxTrendView createViewWithIdxCode:key];
-//        [contain addSubview:trend];
-//        [trend mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.top.left.bottom.and.right.equalTo(contain);
-//        }];
+        IdxTrendView *trend = [IdxTrendView createViewWithIdxCode:key];
+        [contain addSubview:trend];
+        [trend mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.bottom.and.right.equalTo(contain);
+        }];
         
         IdxKLineView *kLine = [IdxKLineView createViewWithIdxCode:key];
         [contain addSubview:kLine];
         [kLine mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.bottom.and.right.equalTo(contain);
         }];
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"HHmmss"];
+        NSString *dateString = [formatter stringFromDate:[NSDate date]];
+        if ([dateString intValue] > 93000) {
+            [contain exchangeSubviewAtIndex:0 withSubviewAtIndex:1];
+        }
     }
 }
 

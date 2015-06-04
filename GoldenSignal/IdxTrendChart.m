@@ -38,7 +38,6 @@
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     dispatch_async(dispatch_get_main_queue(), ^{
         @try {
-            [self drawGrid];
             if (_vm.lines.count > 0 && _vm.prevClose > 0) {
                 [self clearLayers];
                 [self strokeChart];

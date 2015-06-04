@@ -86,6 +86,7 @@
     UIGraphicsPushContext(ctx);
     CGContextSetLineWidth(ctx, _boundLineWidth);
     CGContextSetStrokeColorWithColor(ctx, [_boundColor CGColor]);
+    CGContextSetLineDash (ctx, 0, 0, 0);
     
     // draw bound
     CGContextMoveToPoint(ctx, _margin, _margin);

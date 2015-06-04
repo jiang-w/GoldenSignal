@@ -1082,7 +1082,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "金信号";
-				PROVISIONING_PROFILE = "27269a1c-1047-4531-b529-4dd5ce15651c";
+				PROVISIONING_PROFILE = "274f3f08-d595-4628-9a00-e6520018364b";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
@@ -1123,7 +1123,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "金信号";
-				PROVISIONING_PROFILE = "27269a1c-1047-4531-b529-4dd5ce15651c";
+				PROVISIONING_PROFILE = "274f3f08-d595-4628-9a00-e6520018364b";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
