@@ -44,17 +44,17 @@
 - (void)addChartViews {
     for (NSString *key in [_idxCodesDic allKeys]) {
         UIView *contain = _idxCodesDic[key];
-        IdxTrendView *trend = [IdxTrendView createViewWithIdxCode:key];
-        [contain addSubview:trend];
-        [trend mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.bottom.and.right.equalTo(contain);
-        }];
-        
-//        IdxKLineView *kLine = [IdxKLineView createViewWithIdxCode:key];
-//        [contain addSubview:kLine];
-//        [kLine mas_makeConstraints:^(MASConstraintMaker *make) {
+//        IdxTrendView *trend = [IdxTrendView createViewWithIdxCode:key];
+//        [contain addSubview:trend];
+//        [trend mas_makeConstraints:^(MASConstraintMaker *make) {
 //            make.top.left.bottom.and.right.equalTo(contain);
 //        }];
+        
+        IdxKLineView *kLine = [IdxKLineView createViewWithIdxCode:key];
+        [contain addSubview:kLine];
+        [kLine mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.bottom.and.right.equalTo(contain);
+        }];
     }
 }
 

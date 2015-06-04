@@ -8,6 +8,7 @@
 
 #import "IdxKLineView.h"
 #import "IdxKLineViewModel.h"
+#import "IdxKLineChart.h"
 #import <FBKVOController.h>
 #import <Masonry.h>
 
@@ -34,9 +35,19 @@
         [self kvoController];
     }
     [_viewModel subscribeQuotationScalarWithCode:code];
-//    [self addTrendViewWithCode:code];
+    [self addKLineViewWithCode:code];
 }
 
+- (void)addKLineViewWithCode:(NSString *)code {
+    for (UIView *sub in self.chart.subviews) {
+        [sub removeFromSuperview];
+    }
+    IdxKLineChart *chartView = [[IdxKLineChart alloc] initWithFrame:CGRectZero andIdxCode:code];
+    [self.chart addSubview:chartView];
+    [chartView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.and.right.equalTo(self.chart);
+    }];
+}
 
 - (void)kvoController {
     if (_viewModel) {
