@@ -72,14 +72,9 @@
 
 - (IBAction)tapBoardView:(UITapGestureRecognizer *)sender {
     UIView *view = sender.view;
-    CGContextRef context=UIGraphicsGetCurrentContext();
-    [UIView beginAnimations:nil context:context];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-    [UIView setAnimationDuration:1.0];
-    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:view cache:YES];
-    [view exchangeSubviewAtIndex:0 withSubviewAtIndex:1];
-    [UIView setAnimationDelegate:self];
-    [UIView commitAnimations];
+    [UIView transitionWithView:view duration:1.0 options:UIViewAnimationOptionTransitionFlipFromTop animations:^{
+        [view exchangeSubviewAtIndex:0 withSubviewAtIndex:1];
+    } completion:nil];
 }
 
 @end
