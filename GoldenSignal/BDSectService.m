@@ -33,13 +33,41 @@
     return sectArray;
 }
 
-- (NSArray *)getSecuCodesBySectId:(long)sectId SortByIndicateName:(NSString *)name {
+- (NSArray *)getSecuCodesBySectId:(long)sectId sortByIndicateName:(NSString *)name ascending:(BOOL)asc {
     @try {
         NSHTTPURLResponse *response;
         NSError *error;
-        NSString *url = [NSString stringWithFormat:@"%@/SortRequest?sector-id=%ld&indicate-name=%@&sort-type=2"
+        NSString *url = [NSString stringWithFormat:@"%@/SortRequest?sector-id=%ld&indicate-name=%@&sort-type=%d"
                          , QUOTE_HTTP_URL
-                         , sectId, name != nil ? name : @"ChangeRange"];
+                         , sectId, name != nil ? name : @"ChangeRange"
+                         , asc ? 1 : 2];
+        NSData *data = [[BDNetworkService sharedInstance] syncGetRequest:url returnResponse:&response error:&error];
+        if (data) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
+            NSArray *codes = [dic objectForKey:@"codes"];
+            return codes;
+        }
+        else {
+            return nil;
+        }
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Failure: 获取板块(%ld)成分出错 %@", sectId, exception.reason);
+    }
+}
+
+- (NSArray *)getSecuCodesBySectId:(long)sectId andCodes:(NSArray *)codeArray sortByIndicateName:(NSString *)name ascending:(BOOL)asc {
+    @try {
+        NSHTTPURLResponse *response;
+        NSError *error;
+        NSString *url = [NSString stringWithFormat:@"%@/SortRequest?sector-id=%ld&indicate-name=%@&sort-type=%d"
+                         , QUOTE_HTTP_URL
+                         , sectId, name != nil ? name : @"ChangeRange"
+                         , asc ? 1 : 2];
+        if (codeArray != nil && codeArray.count > 0) {
+            NSString *codesParm = [codeArray componentsJoinedByString:@","];
+            url = [NSString stringWithFormat:@"%@&codes=%@", url, codesParm];
+        }
         NSData *data = [[BDNetworkService sharedInstance] syncGetRequest:url returnResponse:&response error:&error];
         if (data) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];

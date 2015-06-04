@@ -52,7 +52,8 @@
 
 - (void)loadSortedSecuCodes {
     BDSectService *service = [[BDSectService alloc] init];
-    _sectCodeArray = [service getSecuCodesBySectId:_sectId SortByIndicateName:nil];
+//    _sectCodeArray = [service getSecuCodesBySectId:_sectId SortByIndicateName:nil];
+    _sectCodeArray = [service getSecuCodesBySectId:_sectId andCodes:nil sortByIndicateName:nil ascending:NO];
     if (_sectCodeArray.count > 0) {
         // 返回主线程刷新视图
         dispatch_sync(dispatch_get_main_queue(), ^{

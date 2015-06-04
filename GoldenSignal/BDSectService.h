@@ -25,9 +25,22 @@
  *
  *  @param sectId        板块ID
  *  @param name          用于排序的指标名称
+ *  @param asc           是否为升序排列
  *
  *  @return 证券编码数组
  */
-- (NSArray *)getSecuCodesBySectId:(long)sectId SortByIndicateName:(NSString *)name;
+- (NSArray *)getSecuCodesBySectId:(long)sectId sortByIndicateName:(NSString *)name ascending:(BOOL)asc;
+
+/**
+ *  获取板块成分
+ *
+ *  @param sectId        板块ID
+ *  @param codeArray     自定义证券编码（字符串数组）
+ *  @param name          用于排序的指标名称
+ *  @param asc           是否为升序排列
+ *
+ *  @return 证券编码数组
+ */
+- (NSArray *)getSecuCodesBySectId:(long)sectId andCodes:(NSArray *)codeArray sortByIndicateName:(NSString *)name ascending:(BOOL)asc;
 
 @end
