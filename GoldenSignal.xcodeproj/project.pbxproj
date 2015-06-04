@@ -106,6 +106,9 @@
 		011B856B1B0DC981003005BC /* libquickfast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 011B85651B0DC981003005BC /* libquickfast.a */; };
 		011B856C1B0DC981003005BC /* libquote.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 011B85661B0DC981003005BC /* libquote.a */; };
 		011B856E1B0DCDAB003005BC /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 011B856D1B0DCDAB003005BC /* libxml2.dylib */; };
+		0129EF5A1B1FE73F00690920 /* IdxKLineView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0129EF591B1FE73F00690920 /* IdxKLineView.xib */; };
+		0129EF5D1B1FED4B00690920 /* IdxKLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0129EF5C1B1FED4B00690920 /* IdxKLineView.m */; };
+		0129EF601B1FF42700690920 /* IdxKLineViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0129EF5F1B1FF42700690920 /* IdxKLineViewModel.m */; };
 		014FF3891B1D5276007DB608 /* QuoteHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014FF3871B1D5276007DB608 /* QuoteHomeViewController.m */; };
 		014FF38A1B1D5276007DB608 /* QuoteHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 014FF3881B1D5276007DB608 /* QuoteHomeViewController.xib */; };
 		014FF3921B1DAE31007DB608 /* IdxTrendChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 014FF3911B1DAE31007DB608 /* IdxTrendChart.m */; };
@@ -312,6 +315,11 @@
 		011B85651B0DC981003005BC /* libquickfast.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libquickfast.a; path = ../lib/quote_lib/libquickfast.a; sourceTree = "<group>"; };
 		011B85661B0DC981003005BC /* libquote.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libquote.a; path = ../lib/quote_lib/libquote.a; sourceTree = "<group>"; };
 		011B856D1B0DCDAB003005BC /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		0129EF591B1FE73F00690920 /* IdxKLineView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IdxKLineView.xib; sourceTree = "<group>"; };
+		0129EF5B1B1FED4B00690920 /* IdxKLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxKLineView.h; sourceTree = "<group>"; };
+		0129EF5C1B1FED4B00690920 /* IdxKLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdxKLineView.m; sourceTree = "<group>"; };
+		0129EF5E1B1FF42700690920 /* IdxKLineViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxKLineViewModel.h; sourceTree = "<group>"; };
+		0129EF5F1B1FF42700690920 /* IdxKLineViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdxKLineViewModel.m; sourceTree = "<group>"; };
 		014FF3861B1D5276007DB608 /* QuoteHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteHomeViewController.h; sourceTree = "<group>"; };
 		014FF3871B1D5276007DB608 /* QuoteHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuoteHomeViewController.m; sourceTree = "<group>"; };
 		014FF3881B1D5276007DB608 /* QuoteHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuoteHomeViewController.xib; sourceTree = "<group>"; };
@@ -536,6 +544,8 @@
 				011B84DB1B0DBD4F003005BC /* TrendLineViewModel.m */,
 				01CA5C491B1ECC03003B824F /* IdxTrendViewModel.h */,
 				01CA5C4A1B1ECC03003B824F /* IdxTrendViewModel.m */,
+				0129EF5E1B1FF42700690920 /* IdxKLineViewModel.h */,
+				0129EF5F1B1FF42700690920 /* IdxKLineViewModel.m */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -650,6 +660,9 @@
 				01CA5C511B1EDF37003B824F /* IdxTrendView.h */,
 				01CA5C521B1EDF37003B824F /* IdxTrendView.m */,
 				01CA5C541B1EDF6C003B824F /* IdxTrendView.xib */,
+				0129EF5B1B1FED4B00690920 /* IdxKLineView.h */,
+				0129EF5C1B1FED4B00690920 /* IdxKLineView.m */,
+				0129EF591B1FE73F00690920 /* IdxKLineView.xib */,
 			);
 			name = Markets;
 			sourceTree = "<group>";
@@ -769,6 +782,7 @@
 				014FF38A1B1D5276007DB608 /* QuoteHomeViewController.xib in Resources */,
 				011B85251B0DBEA9003005BC /* NewsListViewCell.xib in Resources */,
 				011B845D1B0DB9D8003005BC /* NewsDetail.html in Resources */,
+				0129EF5A1B1FE73F00690920 /* IdxKLineView.xib in Resources */,
 				01CA5C551B1EDF6C003B824F /* IdxTrendView.xib in Resources */,
 				011B85591B0DBEFE003005BC /* QuoteViewCell.xib in Resources */,
 				011B850A1B0DBE1F003005BC /* TitleTabViewController.xib in Resources */,
@@ -845,6 +859,7 @@
 				011B85241B0DBEA9003005BC /* NewsListViewCell.m in Sources */,
 				011B850B1B0DBE1F003005BC /* UINavigationItem+CustomBackButton.m in Sources */,
 				011B84A21B0DBC57003005BC /* BDChannel.m in Sources */,
+				0129EF5D1B1FED4B00690920 /* IdxKLineView.m in Sources */,
 				011B84E11B0DBD4F003005BC /* NewsDetailViewModel.m in Sources */,
 				011B84A51B0DBC57003005BC /* BDNewsTag.m in Sources */,
 				011B84B91B0DBCBA003005BC /* BDCustomTagCollection.m in Sources */,
@@ -862,6 +877,7 @@
 				011B84C01B0DBCBA003005BC /* BDUserTicket.m in Sources */,
 				011B846D1B0DBADB003005BC /* SmartTime.m in Sources */,
 				011B85561B0DBEFE003005BC /* LiteTrendView.m in Sources */,
+				0129EF601B1FF42700690920 /* IdxKLineViewModel.m in Sources */,
 				011B84A71B0DBC57003005BC /* BDSectInfo.m in Sources */,
 				011B84851B0DBB83003005BC /* BDCoreService.m in Sources */,
 				011B84A61B0DBC57003005BC /* BDReport.m in Sources */,

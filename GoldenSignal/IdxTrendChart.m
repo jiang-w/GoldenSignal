@@ -30,7 +30,7 @@
         
         _vm = [[TrendLineViewModel alloc] initWithCode:_code];
         [_vm addObserver:self forKeyPath:@"priceRange" options:NSKeyValueObservingOptionNew context:NULL];
-        [_vm loadTrendLineForDays:1 andInterval:5];
+        [_vm loadTrendLineForDays:1 andInterval:1];
     }
     return self;
 }

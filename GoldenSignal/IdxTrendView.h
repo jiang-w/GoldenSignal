@@ -10,7 +10,6 @@
 
 @interface IdxTrendView : UIView
 
-@property (nonatomic, strong, readonly) NSString *idxCode;
 @property (weak, nonatomic) IBOutlet UIView *head;
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UILabel *code;

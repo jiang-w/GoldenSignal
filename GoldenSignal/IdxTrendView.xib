@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <objects>
@@ -17,32 +18,32 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上证指数" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eSa-aT-0K5" userLabel="name">
-                                    <rect key="frame" x="8" y="6" width="40" height="12"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
-                                    <color key="textColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="000001.SHI" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="53N-Rc-Msb" userLabel="code">
-                                    <rect key="frame" x="8" y="23" width="49" height="11"/>
+                                    <rect key="frame" x="8" y="6" width="36" height="11"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="9"/>
                                     <color key="textColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="000001.SHI" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="53N-Rc-Msb" userLabel="code">
+                                    <rect key="frame" x="8" y="24" width="43" height="10"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="8"/>
+                                    <color key="textColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4910.53" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KZi-vv-FOO" userLabel="now">
-                                    <rect key="frame" x="503" y="6" width="59" height="20"/>
+                                    <rect key="frame" x="506" y="5" width="59" height="20"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <color key="textColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="81.79" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5bR-zF-78p" userLabel="change">
-                                    <rect key="frame" x="570" y="6" width="26" height="12"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
+                                    <rect key="frame" x="573" y="6" width="23" height="11"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="9"/>
                                     <color key="textColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.69%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ouf-h9-U6L" userLabel="changeRange">
-                                    <rect key="frame" x="566" y="22" width="30" height="12"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
+                                    <rect key="frame" x="569" y="23" width="27" height="11"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="9"/>
                                     <color key="textColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -53,7 +54,7 @@
                                 <constraint firstAttribute="bottom" secondItem="Ouf-h9-U6L" secondAttribute="bottom" constant="6" id="8gC-8O-uqo"/>
                                 <constraint firstItem="eSa-aT-0K5" firstAttribute="top" secondItem="hvM-P6-G30" secondAttribute="top" constant="6" id="Ky4-4J-I8O"/>
                                 <constraint firstAttribute="trailing" secondItem="5bR-zF-78p" secondAttribute="trailing" constant="4" id="PEu-fv-aVi"/>
-                                <constraint firstItem="KZi-vv-FOO" firstAttribute="top" secondItem="hvM-P6-G30" secondAttribute="top" constant="6" id="Wnp-9l-QjL"/>
+                                <constraint firstItem="KZi-vv-FOO" firstAttribute="top" secondItem="hvM-P6-G30" secondAttribute="top" constant="5" id="Wnp-9l-QjL"/>
                                 <constraint firstAttribute="height" constant="40" id="bEL-jb-7JI"/>
                                 <constraint firstItem="5bR-zF-78p" firstAttribute="top" secondItem="hvM-P6-G30" secondAttribute="top" constant="6" id="gBq-lE-8lY"/>
                                 <constraint firstItem="53N-Rc-Msb" firstAttribute="leading" secondItem="hvM-P6-G30" secondAttribute="leading" constant="8" id="h7x-8x-W8V"/>
