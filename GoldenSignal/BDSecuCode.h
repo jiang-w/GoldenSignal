@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum {
+    stock,
+    idx
+} SecuType;
+
 @interface BDSecuCode : NSObject
 
 @property(nonatomic, strong)NSString *bdCode;
@@ -18,4 +23,7 @@
 
 @property(nonatomic, strong)NSString *py;
 
+@property(nonatomic, assign)SecuType typ;
+
 @end
+

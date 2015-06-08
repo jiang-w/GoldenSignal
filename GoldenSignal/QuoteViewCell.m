@@ -62,8 +62,12 @@
         [_kvo observe:_viewModel keyPath:@"Name" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(QuoteViewCell *view, QuoteCellViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 view.name.text = model.Name != nil ? _viewModel.Name : @"—";
-                NSInteger index = model.Code.length - 3;
-                view.trdCode.text = [model.Code substringToIndex:index];
+            });
+        }];
+        //  交易代码
+        [_kvo observe:_viewModel keyPath:@"TrdCode" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(QuoteViewCell *view, QuoteCellViewModel *model, NSDictionary *change) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                view.trdCode.text = model.TrdCode != nil ? _viewModel.TrdCode : @"—";
             });
         }];
         //  当前价

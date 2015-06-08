@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0A67185FA49392E4F4DA46A8"
+               BlueprintIdentifier = "679C86312FA702D5558A6ADC"
                BuildableName = "libPods-GoldenSignal-GHSidebarNav.a"
                BlueprintName = "Pods-GoldenSignal-GHSidebarNav"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -1,15 +1,15 @@
 //
-//  QuoteCellViewModel.m
+//  IdxQuoteCellViewModel.m
 //  GoldenSignal
 //
-//  Created by Frank on 15/1/20.
+//  Created by Frank on 15/6/8.
 //  Copyright (c) 2015年 bigdata. All rights reserved.
 //
 
-#import "QuoteCellViewModel.h"
+#import "IdxQuoteCellViewModel.h"
 #import "BDQuotationService.h"
 
-@implementation QuoteCellViewModel
+@implementation IdxQuoteCellViewModel
 {
     dispatch_queue_t _propertyUpdateQueue;
     BDQuotationService *_service;
@@ -22,7 +22,7 @@ static NSArray *indicaters;
     if (self) {
         _propertyUpdateQueue = dispatch_queue_create("IndicatorUpdate", nil);
         _service = [BDQuotationService sharedInstance];
-        indicaters = @[@"Name", @"Now", @"PrevClose", @"VolumeSpread", @"TtlShr", @"PEttm", @"NewsRatingLevel", @"NewsRatingName", @"NewsRatingDate"];
+        indicaters = @[@"Now", @"PrevClose", @"Volume", @"Amount", @"UpCount", @"SameCount", @"DownCount"];
         
         [[NSNotificationCenter defaultCenter]
          addObserver:self selector:@selector(subscribeScalarChanged:) name:QUOTE_SCALAR_NOTIFICATION object:nil];
@@ -30,15 +30,10 @@ static NSArray *indicaters;
     return self;
 }
 
-
 #pragma mark Property kvo
 
 - (float)ChangeRange {
     return (self.Now - self.PrevClose) / self.PrevClose;
-}
-
-- (double)TtlAmount {
-    return self.Now * self.TtlShr / 100000000.0;
 }
 
 // 设置依赖键(kvo)
@@ -50,11 +45,7 @@ static NSArray *indicaters;
     if ([key isEqualToString:@"ChangeRange"]) {
         moreKeyPaths = [NSArray arrayWithObjects:@"self.Now", @"self.PrevClose", nil];
     }
-    
-    if ([key isEqualToString:@"TtlAmount"]) {
-        moreKeyPaths = [NSArray arrayWithObjects:@"self.Now", @"self.TtlShr", nil];
-    }
-    
+
     if (moreKeyPaths) {
         keyPaths = [keyPaths setByAddingObjectsFromArray:moreKeyPaths];
     }
@@ -92,23 +83,11 @@ static NSArray *indicaters;
     BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:code];
     [self setValue:secu.trdCode forKey:@"TrdCode"];
     [self setValue:secu.name forKey:@"Name"];
-    
+
     float prevClose = [[_service getCurrentIndicateWithCode:code andName:@"PrevClose"] floatValue];
     [self setValue:[NSNumber numberWithFloat:prevClose] forKey:@"PrevClose"];
     float now = [[_service getCurrentIndicateWithCode:code andName:@"Now"] floatValue];
     [self setValue:[NSNumber numberWithFloat:now] forKey:@"Now"];
-    float ttlShr = [[_service getCurrentIndicateWithCode:code andName:@"TtlShr"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:ttlShr] forKey:@"TtlShr"];
-    int volumeSpread = [[_service getCurrentIndicateWithCode:code andName:@"VolumeSpread"] intValue];
-    [self setValue:[NSNumber numberWithInt:volumeSpread] forKey:@"VolumeSpread"];
-    float peTtm = [[_service getCurrentIndicateWithCode:code andName:@"PEttm"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:peTtm] forKey:@"PEttm"];
-    int date = [[_service getCurrentIndicateWithCode:code andName:@"NewsRatingDate"] intValue];
-    [self setValue:[NSNumber numberWithInt:date] forKey:@"NewsRatingDate"];
-    int level = [[_service getCurrentIndicateWithCode:code andName:@"NewsRatingLevel"] intValue];
-    [self setValue:[NSNumber numberWithInt:level] forKey:@"NewsRatingLevel"];
-    NSString *label = [_service getCurrentIndicateWithCode:code andName:@"NewsRatingName"];
-    [self setValue:label forKey:@"NewsRatingName"];
 }
 
 
@@ -117,7 +96,7 @@ static NSArray *indicaters;
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:QUOTE_SCALAR_NOTIFICATION object:nil];
     [_service unsubscribeScalarWithCode:self.Code indicaters:indicaters];
-    NSLog(@"%@ QuoteCellViewModel dealloc", self.Code);
+    NSLog(@"%@ IdxQuoteCellViewModel dealloc", self.Code);
 }
 
 @end

@@ -1,14 +1,14 @@
 //
-//  QuoteCellViewModel.h
+//  IdxQuoteCellViewModel.h
 //  GoldenSignal
 //
-//  Created by Frank on 15/1/20.
+//  Created by Frank on 15/6/8.
 //  Copyright (c) 2015年 bigdata. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@interface QuoteCellViewModel : NSObject
+@interface IdxQuoteCellViewModel : NSObject
 
 /**
  *  代码
@@ -41,39 +41,29 @@
 @property(nonatomic, readonly) float ChangeRange;
 
 /**
- *  现量
+ *  日成交量
  */
-@property(nonatomic, readonly) int VolumeSpread;
+@property(nonatomic, readonly) long Volume;
 
 /**
- *  总股本（股）
+ *  日成交额(金额)
  */
-@property(nonatomic, readonly) double TtlShr;
+@property(nonatomic, readonly) double Amount;
 
 /**
- *  总市值（亿）
+ *  上涨家数
  */
-@property(nonatomic, readonly) double TtlAmount;
+@property(nonatomic, readonly) int UpCount;
 
 /**
- *  市盈率(PE)
+ *  平盘家数
  */
-@property(nonatomic, readonly) float PEttm;
+@property(nonatomic, readonly) int SameCount;
 
 /**
- *  新闻事件日期
+ *  下跌家数
  */
-@property(nonatomic, readonly) int NewsRatingDate;
-
-/**
- *  新闻事件评级
- */
-@property(nonatomic, readonly) int NewsRatingLevel;
-
-/**
- *  新闻事件分类
- */
-@property(nonatomic, readonly) NSString *NewsRatingName;
+@property(nonatomic, readonly) int DownCount;
 
 
 - (void)subscribeQuotationScalarWithCode:(NSString *)code;

@@ -8,6 +8,7 @@
 
 #import "CustomStockViewController.h"
 #import "QuoteViewCell.h"
+#import "IdxQuoteViewCell.h"
 #import "StockViewController.h"
 
 @interface CustomStockViewController ()
@@ -43,19 +44,44 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *tableCellIdentifier = @"QuoteCell";
-    QuoteViewCell *cell = (QuoteViewCell *)[tableView dequeueReusableCellWithIdentifier:tableCellIdentifier];
-    if (cell == nil) {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"QuoteViewCell" owner:self options:nil];
-        for (id obj in nib) {
-            if ([obj isKindOfClass:[QuoteViewCell class]]) {
-                cell = obj;
-                break;
+    UITableViewCell *cell = nil;
+    NSString *bdCode = [[BDStockPool sharedInstance].codes objectAtIndex:indexPath.row];
+    BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:bdCode];
+    switch (secu.typ) {
+        case stock: {
+            QuoteViewCell *stockCell = (QuoteViewCell *)[tableView dequeueReusableCellWithIdentifier:@"QuoteCell"];
+            if (stockCell == nil) {
+                NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"QuoteViewCell" owner:self options:nil];
+                for (id obj in nib) {
+                    if ([obj isKindOfClass:[QuoteViewCell class]]) {
+                        stockCell = (QuoteViewCell *)obj;
+                        break;
+                    }
+                }
             }
+            stockCell.code = bdCode;
+            cell = stockCell;
+            break;
         }
+        case idx: {
+            IdxQuoteViewCell *idxCell = (IdxQuoteViewCell *)[tableView dequeueReusableCellWithIdentifier:@"IdxQuoteCell"];
+            if (idxCell == nil) {
+                NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"IdxQuoteViewCell" owner:self options:nil];
+                for (id obj in nib) {
+                    if ([obj isKindOfClass:[IdxQuoteViewCell class]]) {
+                        idxCell = (IdxQuoteViewCell *)obj;
+                        break;
+                    }
+                }
+            }
+            idxCell.code = bdCode;
+            cell = idxCell;
+            break;
+        }
+        default:
+            break;
     }
     
-    cell.code = [[BDStockPool sharedInstance].codes objectAtIndex:indexPath.row];
     if (indexPath.row % 2 == 0) {
         cell.backgroundColor = [UIColor blackColor];
     }

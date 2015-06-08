@@ -116,6 +116,9 @@
 		01CA5C4B1B1ECC03003B824F /* IdxTrendViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CA5C4A1B1ECC03003B824F /* IdxTrendViewModel.m */; };
 		01CA5C531B1EDF37003B824F /* IdxTrendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CA5C521B1EDF37003B824F /* IdxTrendView.m */; };
 		01CA5C551B1EDF6C003B824F /* IdxTrendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01CA5C541B1EDF6C003B824F /* IdxTrendView.xib */; };
+		01D8DA3A1B253E4F0033956E /* IdxQuoteCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D8DA391B253E4F0033956E /* IdxQuoteCellViewModel.m */; };
+		01D8DA3E1B253F9C0033956E /* IdxQuoteViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D8DA3C1B253F9C0033956E /* IdxQuoteViewCell.m */; };
+		01D8DA3F1B253F9C0033956E /* IdxQuoteViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D8DA3D1B253F9C0033956E /* IdxQuoteViewCell.xib */; };
 		A616444470EDEE9488217D26 /* libPods-GoldenSignal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB20464A3DBDD4132272778 /* libPods-GoldenSignal.a */; };
 /* End PBXBuildFile section */
 
@@ -333,6 +336,11 @@
 		01CA5C511B1EDF37003B824F /* IdxTrendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxTrendView.h; sourceTree = "<group>"; };
 		01CA5C521B1EDF37003B824F /* IdxTrendView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdxTrendView.m; sourceTree = "<group>"; };
 		01CA5C541B1EDF6C003B824F /* IdxTrendView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IdxTrendView.xib; sourceTree = "<group>"; };
+		01D8DA381B253E4F0033956E /* IdxQuoteCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxQuoteCellViewModel.h; sourceTree = "<group>"; };
+		01D8DA391B253E4F0033956E /* IdxQuoteCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdxQuoteCellViewModel.m; sourceTree = "<group>"; };
+		01D8DA3B1B253F9C0033956E /* IdxQuoteViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxQuoteViewCell.h; sourceTree = "<group>"; };
+		01D8DA3C1B253F9C0033956E /* IdxQuoteViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdxQuoteViewCell.m; sourceTree = "<group>"; };
+		01D8DA3D1B253F9C0033956E /* IdxQuoteViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IdxQuoteViewCell.xib; sourceTree = "<group>"; };
 		0AB20464A3DBDD4132272778 /* libPods-GoldenSignal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoldenSignal.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		56FC5DACAC185D0FC9450CD1 /* Pods-GoldenSignal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoldenSignal.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoldenSignal/Pods-GoldenSignal.release.xcconfig"; sourceTree = "<group>"; };
 		EACB60ED09D93342F3B7E18B /* Pods-GoldenSignal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoldenSignal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoldenSignal/Pods-GoldenSignal.debug.xcconfig"; sourceTree = "<group>"; };
@@ -535,6 +543,8 @@
 				011B84CF1B0DBD4F003005BC /* NewsListViewModel.m */,
 				011B84D01B0DBD4F003005BC /* QuoteCellViewModel.h */,
 				011B84D11B0DBD4F003005BC /* QuoteCellViewModel.m */,
+				01D8DA381B253E4F0033956E /* IdxQuoteCellViewModel.h */,
+				01D8DA391B253E4F0033956E /* IdxQuoteCellViewModel.m */,
 				011B84D21B0DBD4F003005BC /* RegisterViewModel.h */,
 				011B84D31B0DBD4F003005BC /* RegisterViewModel.m */,
 				011B84D41B0DBD4F003005BC /* SectCollectionViewModel.h */,
@@ -620,8 +630,6 @@
 		011B850C1B0DBE56003005BC /* Markets */ = {
 			isa = PBXGroup;
 			children = (
-				011B852B1B0DBEFE003005BC /* CustomStockViewController.h */,
-				011B852C1B0DBEFE003005BC /* CustomStockViewController.m */,
 				011B852D1B0DBEFE003005BC /* F10ViewController.h */,
 				011B852E1B0DBEFE003005BC /* F10ViewController.m */,
 				011B852F1B0DBEFE003005BC /* FiveBetsView.h */,
@@ -637,14 +645,19 @@
 				011B85391B0DBEFE003005BC /* LiteKLineView.m */,
 				011B853A1B0DBEFE003005BC /* LiteTrendView.h */,
 				011B853B1B0DBEFE003005BC /* LiteTrendView.m */,
-				011B853E1B0DBEFE003005BC /* QuoteViewCell.h */,
-				011B853F1B0DBEFE003005BC /* QuoteViewCell.m */,
-				011B85401B0DBEFE003005BC /* QuoteViewCell.xib */,
 				011B85411B0DBEFE003005BC /* SectCollectionViewController.h */,
 				011B85421B0DBEFE003005BC /* SectCollectionViewController.m */,
 				011B85431B0DBEFE003005BC /* SectCollectionViewController.xib */,
+				011B852B1B0DBEFE003005BC /* CustomStockViewController.h */,
+				011B852C1B0DBEFE003005BC /* CustomStockViewController.m */,
 				011B85441B0DBEFE003005BC /* SectQuoteViewController.h */,
 				011B85451B0DBEFE003005BC /* SectQuoteViewController.m */,
+				011B853E1B0DBEFE003005BC /* QuoteViewCell.h */,
+				011B853F1B0DBEFE003005BC /* QuoteViewCell.m */,
+				011B85401B0DBEFE003005BC /* QuoteViewCell.xib */,
+				01D8DA3B1B253F9C0033956E /* IdxQuoteViewCell.h */,
+				01D8DA3C1B253F9C0033956E /* IdxQuoteViewCell.m */,
+				01D8DA3D1B253F9C0033956E /* IdxQuoteViewCell.xib */,
 				011B85461B0DBEFE003005BC /* StockViewController.h */,
 				011B85471B0DBEFE003005BC /* StockViewController.m */,
 				011B85481B0DBEFE003005BC /* SubDealView.h */,
@@ -782,6 +795,7 @@
 				011B843F1B0DB51F003005BC /* Main.storyboard in Resources */,
 				011B845E1B0DB9D8003005BC /* SubscribeTemplate.xml in Resources */,
 				011B85081B0DBE1F003005BC /* TitleTabViewCell.xib in Resources */,
+				01D8DA3F1B253F9C0033956E /* IdxQuoteViewCell.xib in Resources */,
 				011B85521B0DBEFE003005BC /* IndicatorsView.xib in Resources */,
 				011B855B1B0DBEFE003005BC /* SectCollectionViewController.xib in Resources */,
 				014FF38A1B1D5276007DB608 /* QuoteHomeViewController.xib in Resources */,
@@ -864,6 +878,7 @@
 				011B84861B0DBB83003005BC /* BDDatabaseAccess.m in Sources */,
 				011B85241B0DBEA9003005BC /* NewsListViewCell.m in Sources */,
 				011B850B1B0DBE1F003005BC /* UINavigationItem+CustomBackButton.m in Sources */,
+				01D8DA3A1B253E4F0033956E /* IdxQuoteCellViewModel.m in Sources */,
 				011B84A21B0DBC57003005BC /* BDChannel.m in Sources */,
 				0129EF5D1B1FED4B00690920 /* IdxKLineView.m in Sources */,
 				011B84E11B0DBD4F003005BC /* NewsDetailViewModel.m in Sources */,
@@ -886,6 +901,7 @@
 				0129EF601B1FF42700690920 /* IdxKLineViewModel.m in Sources */,
 				011B84A71B0DBC57003005BC /* BDSectInfo.m in Sources */,
 				011B84851B0DBB83003005BC /* BDCoreService.m in Sources */,
+				01D8DA3E1B253F9C0033956E /* IdxQuoteViewCell.m in Sources */,
 				011B84A61B0DBC57003005BC /* BDReport.m in Sources */,
 				011B84391B0DB51F003005BC /* AppDelegate.m in Sources */,
 				011B848A1B0DBB83003005BC /* BDQuery.m in Sources */,
