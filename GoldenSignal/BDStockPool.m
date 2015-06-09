@@ -36,7 +36,7 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         NSNotificationCenter *notification = [NSNotificationCenter defaultCenter];
-        [notification postNotificationName:CUSTOM_STOCK_CHANGED_NOTIFICATION object:nil];
+        [notification postNotificationName:CUSTOM_STOCK_CHANGED_NOTIFICATION object:nil userInfo:@{@"op": @"add"}];
     }
 }
 
@@ -59,7 +59,7 @@
             [[NSUserDefaults standardUserDefaults] synchronize];
             
             NSNotificationCenter *notification = [NSNotificationCenter defaultCenter];
-            [notification postNotificationName:CUSTOM_STOCK_CHANGED_NOTIFICATION object:nil];
+            [notification postNotificationName:CUSTOM_STOCK_CHANGED_NOTIFICATION object:nil userInfo:@{@"op": @"remove"}];
         }
     }
 }

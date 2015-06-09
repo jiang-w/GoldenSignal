@@ -29,7 +29,6 @@
     [super viewDidLoad];
     
     _asc = NO;
-    _secuCodes = [NSArray arrayWithArray:[BDStockPool sharedInstance].codes];
     [self loadSortedSecuCodes];
     
     [[NSNotificationCenter defaultCenter]
@@ -42,15 +41,18 @@
 }
 
 - (void)customStockChanged:(NSNotification *)notification {
-    _secuCodes = [NSArray arrayWithArray:[BDStockPool sharedInstance].codes];
-    [self loadSortedSecuCodes];
+    NSString *op = notification.userInfo[@"op"];
+    if ([op isEqualToString:@"add"]) {
+        [self loadSortedSecuCodes];
+    }
 }
 
 - (void)loadSortedSecuCodes {
     NSNumber *userId = [[NSUserDefaults standardUserDefaults] valueForKey:@"userIdentity"];
-    BDSectService *service = [[BDSectService alloc] init];
-    _secuCodes = [service getSecuCodesBySectId:[userId longValue] andCodes:_secuCodes sortByIndicateName:nil ascending:_asc];
+    _secuCodes = [NSArray arrayWithArray:[BDStockPool sharedInstance].codes];
     if (_secuCodes.count > 0) {
+        BDSectService *service = [[BDSectService alloc] init];
+        _secuCodes = [service getSecuCodesBySectId:[userId longValue] andCodes:_secuCodes sortByIndicateName:nil ascending:_asc];
         // 返回主线程刷新视图
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
@@ -173,8 +175,9 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         QuoteViewCell *cell = (QuoteViewCell *)[tableView cellForRowAtIndexPath:indexPath];
         [[BDStockPool sharedInstance] removeStockWithCode:cell.code];
+        _secuCodes = [NSArray arrayWithArray:[BDStockPool sharedInstance].codes];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-    }   
+    }
 }
 
 /*
