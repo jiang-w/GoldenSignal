@@ -17,6 +17,7 @@
     long _sectId;
     NSArray *_sectCodeArray;
     dispatch_queue_t loadDataQueue;
+    BOOL _asc;
 }
 @end
 
@@ -44,6 +45,7 @@
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     });
 
+    _asc = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,15 +55,57 @@
 
 - (void)loadSortedSecuCodes {
     BDSectService *service = [[BDSectService alloc] init];
-//    _sectCodeArray = [service getSecuCodesBySectId:_sectId SortByIndicateName:nil];
-    _sectCodeArray = [service getSecuCodesBySectId:_sectId andCodes:nil sortByIndicateName:nil ascending:NO];
+    _sectCodeArray = [service getSecuCodesBySectId:_sectId andCodes:nil sortByIndicateName:nil ascending:_asc];
     if (_sectCodeArray.count > 0) {
         // 返回主线程刷新视图
-        dispatch_sync(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
+        
+//        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+//        [MBProgressHUD hideHUDForView:self.view animated:YES];
     }
+}
+
+
+#pragma mark - Table view delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 26;
+}
+
+//系统方法设置标题视图，此方法Header不随cell移动
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    NSArray *titlesAry = @[@"涨幅%↓",@"指标",@"分时",@"K线",@"金信号"];
+    UIView *middleView = [[UIView alloc]initWithFrame:CGRectMake(0, 94, CGRectGetWidth(self.view.frame), 26)];
+    middleView.backgroundColor = [UIColor blackColor];
+    CGRect mainFrame = self.view.frame;
+    UILabel *titleLabel;
+    for (int i=0; i<titlesAry.count; i++) {
+        titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10+(mainFrame.size.width/5)*i, 0, mainFrame.size.width/5-10, 30)];
+        titleLabel.font = [UIFont systemFontOfSize:13];
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.textColor = RGB(249, 191, 0, 1);
+        titleLabel.userInteractionEnabled = YES;
+        titleLabel.text = titlesAry[i];
+        [middleView addSubview:titleLabel];
+        
+        if (i == 0) {
+            titleLabel.text = _asc == YES ? @"涨幅%↑" : titlesAry[i];
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+            btn.backgroundColor = [UIColor clearColor];
+            btn.frame = titleLabel.frame;
+            [btn addTarget:self action:@selector(clickSort) forControlEvents:UIControlEventTouchUpInside];
+            [titleLabel addSubview:btn];
+        }
+    }
+    return middleView;
+}
+
+- (void)clickSort {
+    _asc = !_asc;
+    [self loadSortedSecuCodes];
 }
 
 #pragma mark - Table view data source
