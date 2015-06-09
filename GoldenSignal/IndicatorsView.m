@@ -190,8 +190,6 @@
         //NSLog(@"移除自选股:%@", self.code);
         [pool removeStockWithCode:self.code];
     }
-    NSNotificationCenter *notification = [NSNotificationCenter defaultCenter];
-    [notification postNotificationName:CUSTOM_STOCK_CHANGED_NOTIFICATION object:nil];
 }
 
 @end

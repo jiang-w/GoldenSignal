@@ -10,15 +10,27 @@
 #import "QuoteViewCell.h"
 #import "IdxQuoteViewCell.h"
 #import "StockViewController.h"
+#import "BDSectService.h"
+#import "MBProgressHUD/MBProgressHUD.h"
+
 
 @interface CustomStockViewController ()
 
 @end
 
 @implementation CustomStockViewController
+{
+    NSArray *_secuCodes;
+    BOOL _asc;
+    dispatch_queue_t loadDataQueue;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _asc = NO;
+    _secuCodes = [NSArray arrayWithArray:[BDStockPool sharedInstance].codes];
+    [self loadSortedSecuCodes];
     
     [[NSNotificationCenter defaultCenter]
      addObserver:self selector:@selector(customStockChanged:) name:CUSTOM_STOCK_CHANGED_NOTIFICATION object:nil];
@@ -30,13 +42,66 @@
 }
 
 - (void)customStockChanged:(NSNotification *)notification {
-    [self.tableView reloadData];
+    _secuCodes = [NSArray arrayWithArray:[BDStockPool sharedInstance].codes];
+    [self loadSortedSecuCodes];
+}
+
+- (void)loadSortedSecuCodes {
+    NSNumber *userId = [[NSUserDefaults standardUserDefaults] valueForKey:@"userIdentity"];
+    BDSectService *service = [[BDSectService alloc] init];
+    _secuCodes = [service getSecuCodesBySectId:[userId longValue] andCodes:_secuCodes sortByIndicateName:nil ascending:_asc];
+    if (_secuCodes.count > 0) {
+        // 返回主线程刷新视图
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
+    }
+}
+
+#pragma mark - Table view delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 26;
+}
+
+//系统方法设置标题视图，此方法Header不随cell移动
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    NSArray *titlesAry = @[@"涨幅%↓",@"指标",@"分时",@"K线",@"金信号"];
+    UIView *middleView = [[UIView alloc]initWithFrame:CGRectMake(0, 94, CGRectGetWidth(self.view.frame), 26)];
+    middleView.backgroundColor = [UIColor blackColor];
+    CGRect mainFrame = self.view.frame;
+    UILabel *titleLabel;
+    for (int i=0; i<titlesAry.count; i++) {
+        titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10+(mainFrame.size.width/5)*i, 0, mainFrame.size.width/5-10, 30)];
+        titleLabel.font = [UIFont systemFontOfSize:13];
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.textColor = RGB(249, 191, 0, 1);
+        titleLabel.userInteractionEnabled = YES;
+        titleLabel.text = titlesAry[i];
+        [middleView addSubview:titleLabel];
+        
+        if (i == 0) {
+            titleLabel.text = _asc == YES ? @"涨幅%↑" : titlesAry[i];
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+            btn.backgroundColor = [UIColor clearColor];
+            btn.frame = titleLabel.frame;
+            [btn addTarget:self action:@selector(clickSort) forControlEvents:UIControlEventTouchUpInside];
+            [titleLabel addSubview:btn];
+        }
+    }
+    return middleView;
+}
+
+- (void)clickSort {
+    _asc = !_asc;
+    [self loadSortedSecuCodes];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [BDStockPool sharedInstance].codes.count;
+    return _secuCodes.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -45,7 +110,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
-    NSString *bdCode = [[BDStockPool sharedInstance].codes objectAtIndex:indexPath.row];
+    NSString *bdCode = [_secuCodes objectAtIndex:indexPath.row];
     BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:bdCode];
     switch (secu.typ) {
         case stock: {

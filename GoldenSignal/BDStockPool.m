@@ -34,22 +34,33 @@
         [_codeArray addObject:code];
         [[NSUserDefaults standardUserDefaults] setObject:_codeArray forKey:@"StockPool"];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        NSNotificationCenter *notification = [NSNotificationCenter defaultCenter];
+        [notification postNotificationName:CUSTOM_STOCK_CHANGED_NOTIFICATION object:nil];
     }
 }
 
 - (void)removeStockWithCode:(NSString *)code {
     if (code != nil) {
         int i = 0;
+        BOOL deleted = NO;
         while (i < _codeArray.count) {
             if ([_codeArray[i] isEqualToString:code]) {
                 [_codeArray removeObjectAtIndex:i];
+                deleted = YES;
             }
             else {
                 i++;
             }
         }
-        [[NSUserDefaults standardUserDefaults] setObject:_codeArray forKey:@"StockPool"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        if (deleted) {
+            [[NSUserDefaults standardUserDefaults] setObject:_codeArray forKey:@"StockPool"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            NSNotificationCenter *notification = [NSNotificationCenter defaultCenter];
+            [notification postNotificationName:CUSTOM_STOCK_CHANGED_NOTIFICATION object:nil];
+        }
     }
 }
 
