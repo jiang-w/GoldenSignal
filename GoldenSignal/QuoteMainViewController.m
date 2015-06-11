@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _controllerDic = [NSMutableDictionary dictionary];
-    _sectArray = [NSMutableArray arrayWithArray:@[@{@"home": @"首页"}, @{@"100924": @"A股"}, @{@"100839": @"指数"}, @{@"101202": @"板块"}, @{@"100929": @"创业板"},  @{@"100943": @"沪深300"}, @{@"more": @"更多"}]];
+    _sectArray = [NSMutableArray arrayWithArray:@[@{@"home": @"首页"}, @{@"100924": @"A股"}, @{@"100851": @"指数"}, @{@"100929": @"创业板"},  @{@"100943": @"沪深300"}, @{@"more": @"更多"}]];
     
 //    if (IOS_7) {
 //        [self setEdgesForExtendedLayout:UIRectEdgeNone];

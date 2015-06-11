@@ -62,7 +62,9 @@
         //  股票名称
         [_kvo observe:_viewModel keyPath:@"Name" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(IdxQuoteViewCell *view, IdxQuoteCellViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                view.name.text = model.Name != nil ? _viewModel.Name : @"—";
+                NSString *name = [model.Name stringByReplacingOccurrencesOfString:@"申万一级" withString:@""];
+                name = [name stringByReplacingOccurrencesOfString:@"申万" withString:@""];
+                view.name.text = name != nil ? name : @"—";
             });
         }];
         //  交易代码
