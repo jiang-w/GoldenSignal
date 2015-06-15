@@ -69,6 +69,40 @@
     }
 }
 
+- (NSArray *)getNewsEventBySecuCodes:(NSArray *)codes lastId:(long)lastNewsId quantity:(int)quantity {
+    Stopwatch *watch = [Stopwatch startNew];
+    NSArray *newsArray = nil;
+    
+    NSHTTPURLResponse *response;
+    NSError *error;
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setValue:@"NewsEventService.Gets" forKey:@"Service"];
+    [parameters setValue:@"GetsService" forKey:@"Function"];
+    [parameters setValue:[NSNumber numberWithInt:0] forKey:@"label"];
+    [parameters setObject:[NSNumber numberWithLong:lastNewsId] forKey:@"lastId"];
+    [parameters setObject:[NSNumber numberWithInt:quantity] forKey:@"count"];
+    if (codes.count > 0) {
+        NSString *codeString = [codes componentsJoinedByString:@","];
+        [parameters setObject:codeString forKey:@"secuCode"];
+    }
+    [parameters setValue:@"JSON" forKey:@"ATYPE"];
+    
+    @try {
+        NSData *data = [[BDNetworkService sharedInstance] syncPostRequest:POSTURL parameters:parameters returnResponse:&response error:&error];
+        newsArray = [self paraseNews:data];
+        
+        [watch stop];
+        NSLog(@"Success: 加载新闻列表 Timeout:%.3fs", watch.elapsed);
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Failure: 加载新闻列表 %@",exception.reason);
+    }
+    @finally {
+        return  newsArray;
+    }
+}
+
+
 #pragma mark - parsing
 
 // 解析新闻数据

@@ -29,10 +29,10 @@
 /**
  *  根据证券编码加载新闻列表
  *
- *  @param code         证券编码
+ *  @param codes        证券编码列表
  *  @param lastNewsId   最新一条新闻ID
  *  @param quantity     返回新闻的数量
  */
-//- (NSArray *)getNewsEventBySecuCode:(NSString *)code lastId:(long)lastNewsId quantity:(int)quantity;
+- (NSArray *)getNewsEventBySecuCodes:(NSArray *)codes lastId:(long)lastNewsId quantity:(int)quantity;
 
 @end
