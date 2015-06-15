@@ -45,8 +45,13 @@
     if (_news) {
         htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${title}" withString:_news.title];
         NSDateFormatter *dateFormatter = [NSDateFormatter new];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-        htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${date}" withString:[dateFormatter stringFromDate:_news.date]];
+        if (_news.date) {
+            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+            htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${date}" withString:[dateFormatter stringFromDate:_news.date]];
+        }
+        else {
+            htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${date}" withString:@"-"];
+        }
         htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${author}" withString:_news.author];
         // 新闻内容格式处理
         NSString *formatContent = [_news.content stringByReplacingOccurrencesOfRegex:@"\\s{2,}" withString:@"</p><p>"];

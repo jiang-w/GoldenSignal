@@ -146,6 +146,11 @@
     NSTimeInterval unixTime = [[jsonDateString substringWithRange:NSMakeRange(startPosition, 13)] doubleValue] / 1000; //WCF will send 13 digit-long value for the time interval since 1970 (millisecond precision) whereas iOS works with 10 digit-long values (second precision), hence the divide by 1000
     NSDate *ret = [[NSDate dateWithTimeIntervalSince1970:unixTime] dateByAddingTimeInterval:offset];
     return ret;
+    
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    [formatter setDateFormat:@"yyyyMMddHHmmss"];
+//    NSDate* outputDate = [formatter dateFromString:jsonDateString];
+//    return outputDate;
 }
 
 @end

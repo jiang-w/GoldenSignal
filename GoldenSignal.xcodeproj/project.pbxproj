@@ -1094,7 +1094,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					../lib/quote_lib,
-					/Users/frank/Program/GoldenSignal/lib/quote_lib,
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "金信号";
@@ -1135,7 +1134,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					../lib/quote_lib,
-					/Users/frank/Program/GoldenSignal/lib/quote_lib,
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "金信号";
