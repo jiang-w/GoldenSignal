@@ -82,13 +82,13 @@ NSMutableDictionary *BookingPoint;
     context->set_on_receive_bookpoint(handle_receive_bookpoint);
     context->set_on_connect_socket(handle_connect_socket);
     context->set_on_close_socket(handle_close_socket);
-    NSLog(@"创建连接----");
+    NSLog(@"连接行情服务器...");
 }
 
 // 断开与行情服务器连接
 - (void)disconnect {
     if (context != nil) {
-        NSLog(@"断开连接----");
+        NSLog(@"断开行情服务器链接...");
         delete context;
         context = nil;
     }
@@ -96,14 +96,14 @@ NSMutableDictionary *BookingPoint;
 
 void handle_connect_socket()
 {
-    NSLog(@"socket连接成功");
+    NSLog(@"%s:%s 连接成功", QUOTE_SERVER_HOST, QUOTE_SERVER_PORT);
     // 连接成功发出通知
     [[NSNotificationCenter defaultCenter] postNotificationName:QUOTE_SOCKET_CONNECT object:nil userInfo:nil];
 }
 
 void handle_close_socket()
 {
-    NSLog(@"socket连接中断");
+    NSLog(@"%s:%s 连接中断", QUOTE_SERVER_HOST, QUOTE_SERVER_PORT);
     // 连接断开发出通知
     [[NSNotificationCenter defaultCenter] postNotificationName:QUOTE_SOCKET_CLOSE object:nil userInfo:nil];
 }
