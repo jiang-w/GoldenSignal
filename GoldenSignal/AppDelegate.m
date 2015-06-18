@@ -25,13 +25,8 @@
     
     dispatch_queue_t queue = dispatch_queue_create("initApplicationData", nil);
     dispatch_async(queue, ^{
-        @try {
-            // 初始化键盘精灵数据
-            [[BDKeyboardWizard sharedInstance] requestServiceData];
-        }
-        @catch (NSException *exception) {
-            NSLog(@"初始化键盘精灵数据出错：%@", exception.reason);
-        }
+        // 更新键盘精灵数据
+        [[BDKeyboardWizard sharedInstance] update];
     });
     
     // 获取Storyboard中的视图控制器
@@ -44,7 +39,7 @@
     
     return YES;
 }
-							
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

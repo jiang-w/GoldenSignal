@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 typedef enum {
-    stock,
-    idx
+    stock = 10,
+    idx = 13
 } SecuType;
 
 @interface BDSecuCode : NSObject
@@ -24,6 +24,10 @@ typedef enum {
 @property(nonatomic, strong)NSString *py;
 
 @property(nonatomic, assign)SecuType typ;
+
+@property(nonatomic, strong)NSDate *updateTime;
+
+@property(nonatomic, assign)int exchCode;
 
 @end
 

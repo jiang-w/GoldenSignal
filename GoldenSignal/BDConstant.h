@@ -8,14 +8,15 @@
 
 #define customTagsPath [NSHomeDirectory() stringByAppendingPathComponent:@"/Documents/customTags.arc"]
 #define allTagsPath [NSHomeDirectory() stringByAppendingPathComponent:@"/Documents/allTags.arc"]
-#define KEYBOARD_WIZARD_DATABASE [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/KeyboardWizard.db"]
+//#define KEYBOARD_WIZARD_DATABASE [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/KeyboardWizard.db"]
+#define KEYBOARD_WIZARD_DATABASE [[NSBundle mainBundle] pathForResource:@"base" ofType:@"db"]
 
 /* 基础服务地址 */
 #define BASEURL @"http://t1.chinabigdata.com"
 #define POSTURL BASEURL@"/PostService.aspx?"
 
 /* 行情服务器 */
-#define QUOTE_SERVER_HOST "q1.chinabigdata.com"
+#define QUOTE_SERVER_HOST "123.57.144.48"   //q1.chinabigdata.com
 #define QUOTE_SERVER_PORT "443"
 //#define QUOTE_SERVER_HOST "10.10.141.172"
 //#define QUOTE_SERVER_PORT "5011"

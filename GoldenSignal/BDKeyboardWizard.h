@@ -16,6 +16,6 @@
 
 - (NSArray *)fuzzyQueryWithText:(NSString *)text;
 
-- (void)requestServiceData;
+- (void)update;
 
 @end

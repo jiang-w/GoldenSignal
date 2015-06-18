@@ -113,6 +113,7 @@
 		014FF3891B1D5276007DB608 /* QuoteHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014FF3871B1D5276007DB608 /* QuoteHomeViewController.m */; };
 		014FF38A1B1D5276007DB608 /* QuoteHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 014FF3881B1D5276007DB608 /* QuoteHomeViewController.xib */; };
 		014FF3921B1DAE31007DB608 /* IdxTrendChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 014FF3911B1DAE31007DB608 /* IdxTrendChart.m */; };
+		01A95D1F1B32B42C008CF76B /* base.db in Resources */ = {isa = PBXBuildFile; fileRef = 01A95D1E1B32B41E008CF76B /* base.db */; };
 		01CA5C4B1B1ECC03003B824F /* IdxTrendViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CA5C4A1B1ECC03003B824F /* IdxTrendViewModel.m */; };
 		01CA5C531B1EDF37003B824F /* IdxTrendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CA5C521B1EDF37003B824F /* IdxTrendView.m */; };
 		01CA5C551B1EDF6C003B824F /* IdxTrendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01CA5C541B1EDF6C003B824F /* IdxTrendView.xib */; };
@@ -331,6 +332,7 @@
 		014FF3881B1D5276007DB608 /* QuoteHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuoteHomeViewController.xib; sourceTree = "<group>"; };
 		014FF3901B1DAE31007DB608 /* IdxTrendChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxTrendChart.h; sourceTree = "<group>"; };
 		014FF3911B1DAE31007DB608 /* IdxTrendChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdxTrendChart.m; sourceTree = "<group>"; };
+		01A95D1E1B32B41E008CF76B /* base.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = base.db; sourceTree = "<group>"; };
 		01CA5C491B1ECC03003B824F /* IdxTrendViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxTrendViewModel.h; sourceTree = "<group>"; };
 		01CA5C4A1B1ECC03003B824F /* IdxTrendViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdxTrendViewModel.m; sourceTree = "<group>"; };
 		01CA5C511B1EDF37003B824F /* IdxTrendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxTrendView.h; sourceTree = "<group>"; };
@@ -418,6 +420,7 @@
 				011B845C1B0DB9D8003005BC /* SubscribeTemplate.xml */,
 				011B84341B0DB51F003005BC /* Info.plist */,
 				011B84351B0DB51F003005BC /* main.m */,
+				01A95D1E1B32B41E008CF76B /* base.db */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -792,6 +795,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01A95D1F1B32B42C008CF76B /* base.db in Resources */,
 				011B843F1B0DB51F003005BC /* Main.storyboard in Resources */,
 				011B845E1B0DB9D8003005BC /* SubscribeTemplate.xml in Resources */,
 				011B85081B0DBE1F003005BC /* TitleTabViewCell.xib in Resources */,
