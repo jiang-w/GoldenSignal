@@ -8,8 +8,7 @@
 
 #define customTagsPath [NSHomeDirectory() stringByAppendingPathComponent:@"/Documents/customTags.arc"]
 #define allTagsPath [NSHomeDirectory() stringByAppendingPathComponent:@"/Documents/allTags.arc"]
-//#define KEYBOARD_WIZARD_DATABASE [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/KeyboardWizard.db"]
-#define KEYBOARD_WIZARD_DATABASE [[NSBundle mainBundle] pathForResource:@"base" ofType:@"db"]
+#define KEYBOARD_WIZARD_DATABASE [NSHomeDirectory() stringByAppendingPathComponent:@"/Documents/base.db"]
 
 /* 基础服务地址 */
 #define BASEURL @"http://t1.chinabigdata.com"

@@ -24,6 +24,21 @@
     return sharedInstance;
 }
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        NSError *error;
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if (![fileManager fileExistsAtPath:KEYBOARD_WIZARD_DATABASE]) {
+            NSString *sourcePath = [[NSBundle mainBundle] pathForResource:@"base" ofType:@"db"];
+            if (![fileManager copyItemAtPath:sourcePath toPath:KEYBOARD_WIZARD_DATABASE error:&error]) {
+                NSAssert(0, @"Failed to create database file with message '%@'.", [error localizedDescription]);
+            }
+        }
+    }
+    return self;
+}
+
 - (BDSecuCode *)queryWithSecuCode:(NSString *)bdCode {
     BDSecuCode *secu = nil;
     BDDatabaseAccess *dbAccess = [[BDDatabaseAccess alloc] initWithPath:KEYBOARD_WIZARD_DATABASE];
@@ -76,15 +91,18 @@
 }
 
 - (void)InsertOrUpdateSecuCode:(BDSecuCode *)secu {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    
     BDSecuCode *original = [self queryWithSecuCode:secu.bdCode];
     BDDatabaseAccess *dbAccess = [[BDDatabaseAccess alloc] initWithPath:KEYBOARD_WIZARD_DATABASE];
     if (original) {
         NSString *sql = [NSString stringWithFormat:@"update %@ set TRD_CODE = ?, SECU_SHT = ?, PY_SHT = ?, TYP_CODEI = ?, UPD_TIME = ?, EXCH = ? where BD_CODE = ?", TABLENAME];
-        [dbAccess updateTable:sql, secu.trdCode, secu.name, secu.py, [NSNumber numberWithInt:(int)secu.typ], secu.updateTime, [NSNumber numberWithInt:secu.exchCode], secu.bdCode];
+        [dbAccess updateTable:sql, secu.trdCode, secu.name, secu.py, [NSNumber numberWithInt:(int)secu.typ], [dateFormatter stringFromDate:secu.updateTime], [NSNumber numberWithInt:secu.exchCode], secu.bdCode];
     }
     else {
         NSString *sql = [NSString stringWithFormat:@"insert into %@ values (?,?,?,?,?,?,?)", TABLENAME];
-        [dbAccess insertTable:sql, secu.bdCode, secu.trdCode, secu.name, secu.py, [NSNumber numberWithInt:(int)secu.typ], secu.updateTime, [NSNumber numberWithInt:secu.exchCode]];
+        [dbAccess insertTable:sql, secu.bdCode, secu.trdCode, secu.name, secu.py, [NSNumber numberWithInt:(int)secu.typ], [dateFormatter stringFromDate:secu.updateTime], [NSNumber numberWithInt:secu.exchCode]];
     }
 }
 
