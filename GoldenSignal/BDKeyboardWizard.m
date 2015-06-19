@@ -11,6 +11,7 @@
 #import "BDDatabaseAccess.h"
 
 #define TABLENAME @"SecuInfo"
+#define DB_DATE_FORMAT @"yyyy-MM-dd HH:mm:ss"
 
 @implementation BDKeyboardWizard
 
@@ -92,7 +93,7 @@
 
 - (void)InsertOrUpdateSecuCode:(BDSecuCode *)secu {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    dateFormatter.dateFormat = DB_DATE_FORMAT;
     
     BDSecuCode *original = [self queryWithSecuCode:secu.bdCode];
     BDDatabaseAccess *dbAccess = [[BDDatabaseAccess alloc] initWithPath:KEYBOARD_WIZARD_DATABASE];
@@ -114,7 +115,7 @@
     secu.py = [rs stringForColumn:@"PY_SHT"];
     secu.typ = (SecuType)[rs intForColumn:@"TYP_CODEI"];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    dateFormatter.dateFormat = DB_DATE_FORMAT;
     secu.updateTime = [dateFormatter dateFromString:[rs stringForColumn:@"UPD_TIME"]];
     secu.exchCode = [rs intForColumn:@"EXCH"];
     return secu;
@@ -140,7 +141,7 @@
     FMResultSet *rs = [dbAccess queryTable:sql];
     if ([rs next]){
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+        dateFormatter.dateFormat = DB_DATE_FORMAT;
         maxDate = [dateFormatter dateFromString:[rs stringForColumn:@"upd_time"]];
     }
     [rs close];
