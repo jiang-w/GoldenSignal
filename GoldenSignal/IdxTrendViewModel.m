@@ -84,7 +84,7 @@ static NSArray *indicaters;
 
 - (void)initPropertyWithCode:(NSString *)code {
     [self setValue:code forKey:@"Code"];
-    NSString *name = [_service getCurrentIndicateWithCode:code andName:@"Name"];
+    NSString *name = [[[BDKeyboardWizard sharedInstance] queryWithSecuCode:code] name];
     [self setValue:name forKey:@"Name"];
     float prevClose = [[_service getCurrentIndicateWithCode:code andName:@"PrevClose"] floatValue];
     [self setValue:[NSNumber numberWithFloat:prevClose] forKey:@"PrevClose"];

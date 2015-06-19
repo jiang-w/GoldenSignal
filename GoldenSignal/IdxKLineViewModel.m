@@ -22,7 +22,7 @@ static NSArray *indicaters;
     if (self) {
         _propertyUpdateQueue = dispatch_queue_create("IndicatorUpdate", nil);
         _service = [BDQuotationService sharedInstance];
-        indicaters = @[@"Name", @"Now", @"PrevClose"];
+        indicaters = @[@"Now", @"PrevClose"];
         
         [[NSNotificationCenter defaultCenter]
          addObserver:self selector:@selector(subscribeScalarChanged:) name:QUOTE_SCALAR_NOTIFICATION object:nil];
@@ -83,7 +83,7 @@ static NSArray *indicaters;
 
 - (void)initPropertyWithCode:(NSString *)code {
     [self setValue:code forKey:@"Code"];
-    NSString *name = [_service getCurrentIndicateWithCode:code andName:@"Name"];
+    NSString *name = [[[BDKeyboardWizard sharedInstance] queryWithSecuCode:code] name];
     [self setValue:name forKey:@"Name"];
     float prevClose = [[_service getCurrentIndicateWithCode:code andName:@"PrevClose"] floatValue];
     [self setValue:[NSNumber numberWithFloat:prevClose] forKey:@"PrevClose"];

@@ -75,7 +75,7 @@
         [_kvo observe:_viewModel keyPath:@"ChangeRange" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 float changeRange = [change[NSKeyValueChangeNewKey] floatValue] * 100;
-                self.changeRange.text = [NSString stringWithFormat:@"(%.2f%%)", changeRange];
+                self.changeRange.text = isnan(changeRange) ? @"(0.00%)" : [NSString stringWithFormat:@"(%.2f%%)", changeRange];
             });
         }];
     }

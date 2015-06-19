@@ -29,21 +29,11 @@
     _kvo = [FBKVOController controllerWithObserver:self];
 }
 
-- (NSString *)code {
-    if (_viewModel) {
-        return _viewModel.Code;
-    }
-    else {
-        return nil;
-    }
-}
-
 - (void)subscribeDataWithCode:(NSString *)code {
     if (_viewModel == nil) {
         _viewModel = [[IdxTrendViewModel alloc] init];
         [self kvoController];
     }
-    self.code.text = code;
     [_viewModel subscribeQuotationScalarWithCode:code];
     [self addTrendViewWithCode:code];
 }
@@ -61,6 +51,12 @@
 
 - (void)kvoController {
     if (_viewModel) {
+        [_kvo observe:_viewModel keyPath:@"Code" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.code.text = [NSString stringWithFormat:@"%@", change[NSKeyValueChangeNewKey]];
+            });
+        }];
+        
         [_kvo observe:_viewModel keyPath:@"Name" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.name.text = [NSString stringWithFormat:@"%@", change[NSKeyValueChangeNewKey]];
@@ -92,7 +88,7 @@
         [_kvo observe:_viewModel keyPath:@"ChangeRange" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 float changeRange = [change[NSKeyValueChangeNewKey] floatValue] * 100;
-                self.changeRange.text = [NSString stringWithFormat:@"%.2f%%", changeRange];
+                self.changeRange.text = isnan(changeRange) ? @"0.00%" : [NSString stringWithFormat:@"%.2f%%", changeRange];
             });
         }];
         
