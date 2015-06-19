@@ -114,6 +114,8 @@
 		014FF38A1B1D5276007DB608 /* QuoteHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 014FF3881B1D5276007DB608 /* QuoteHomeViewController.xib */; };
 		014FF3921B1DAE31007DB608 /* IdxTrendChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 014FF3911B1DAE31007DB608 /* IdxTrendChart.m */; };
 		01A95D1F1B32B42C008CF76B /* base.db in Resources */ = {isa = PBXBuildFile; fileRef = 01A95D1E1B32B41E008CF76B /* base.db */; };
+		01A95D251B32BE6A008CF76B /* BDStockPoolInfoService.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A95D241B32BE6A008CF76B /* BDStockPoolInfoService.m */; };
+		01BDBCA21B33B8400038A825 /* BDPrompt.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BDBCA11B33B8400038A825 /* BDPrompt.m */; };
 		01CA5C4B1B1ECC03003B824F /* IdxTrendViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CA5C4A1B1ECC03003B824F /* IdxTrendViewModel.m */; };
 		01CA5C531B1EDF37003B824F /* IdxTrendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CA5C521B1EDF37003B824F /* IdxTrendView.m */; };
 		01CA5C551B1EDF6C003B824F /* IdxTrendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01CA5C541B1EDF6C003B824F /* IdxTrendView.xib */; };
@@ -333,6 +335,10 @@
 		014FF3901B1DAE31007DB608 /* IdxTrendChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxTrendChart.h; sourceTree = "<group>"; };
 		014FF3911B1DAE31007DB608 /* IdxTrendChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdxTrendChart.m; sourceTree = "<group>"; };
 		01A95D1E1B32B41E008CF76B /* base.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = base.db; sourceTree = "<group>"; };
+		01A95D231B32BE6A008CF76B /* BDStockPoolInfoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDStockPoolInfoService.h; sourceTree = "<group>"; };
+		01A95D241B32BE6A008CF76B /* BDStockPoolInfoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDStockPoolInfoService.m; sourceTree = "<group>"; };
+		01BDBCA01B33B8400038A825 /* BDPrompt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPrompt.h; sourceTree = "<group>"; };
+		01BDBCA11B33B8400038A825 /* BDPrompt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPrompt.m; sourceTree = "<group>"; };
 		01CA5C491B1ECC03003B824F /* IdxTrendViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxTrendViewModel.h; sourceTree = "<group>"; };
 		01CA5C4A1B1ECC03003B824F /* IdxTrendViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdxTrendViewModel.m; sourceTree = "<group>"; };
 		01CA5C511B1EDF37003B824F /* IdxTrendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxTrendView.h; sourceTree = "<group>"; };
@@ -483,6 +489,8 @@
 				011B84821B0DBB83003005BC /* BDSectService.m */,
 				011B84831B0DBB83003005BC /* BDStockNewsService.h */,
 				011B84841B0DBB83003005BC /* BDStockNewsService.m */,
+				01A95D231B32BE6A008CF76B /* BDStockPoolInfoService.h */,
+				01A95D241B32BE6A008CF76B /* BDStockPoolInfoService.m */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -490,6 +498,7 @@
 		011B848F1B0DBBFC003005BC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				011B84961B0DBC57003005BC /* BDModel.h */,
 				011B84A91B0DBCBA003005BC /* BDCustomTagCollection.h */,
 				011B84AA1B0DBCBA003005BC /* BDCustomTagCollection.m */,
 				011B84AB1B0DBCBA003005BC /* BDKeyboardWizard.h */,
@@ -508,11 +517,12 @@
 				011B84B81B0DBCBA003005BC /* BDUserTicket.m */,
 				011B84901B0DBC57003005BC /* BDBulletin.h */,
 				011B84911B0DBC57003005BC /* BDBulletin.m */,
+				01BDBCA01B33B8400038A825 /* BDPrompt.h */,
+				01BDBCA11B33B8400038A825 /* BDPrompt.m */,
 				011B84921B0DBC57003005BC /* BDChannel.h */,
 				011B84931B0DBC57003005BC /* BDChannel.m */,
 				011B84941B0DBC57003005BC /* BDKLine.h */,
 				011B84951B0DBC57003005BC /* BDKLine.m */,
-				011B84961B0DBC57003005BC /* BDModel.h */,
 				011B84971B0DBC57003005BC /* BDNews.h */,
 				011B84981B0DBC57003005BC /* BDNews.m */,
 				011B84991B0DBC57003005BC /* BDNewsTag.h */,
@@ -911,6 +921,7 @@
 				011B848A1B0DBB83003005BC /* BDQuery.m in Sources */,
 				011B855A1B0DBEFE003005BC /* SectCollectionViewController.m in Sources */,
 				011B84E71B0DBD4F003005BC /* SubDealViewModel.m in Sources */,
+				01BDBCA21B33B8400038A825 /* BDPrompt.m in Sources */,
 				011B84BE1B0DBCBA003005BC /* BDTrendLine.m in Sources */,
 				011B84E61B0DBD4F003005BC /* StockNewsViewModel.m in Sources */,
 				011B85531B0DBEFE003005BC /* KeyboardWizardViewController.m in Sources */,
@@ -925,6 +936,7 @@
 				011B84E51B0DBD4F003005BC /* SectCollectionViewModel.m in Sources */,
 				011B84E41B0DBD4F003005BC /* RegisterViewModel.m in Sources */,
 				011B846B1B0DBADB003005BC /* NSDate+Utility.m in Sources */,
+				01A95D251B32BE6A008CF76B /* BDStockPoolInfoService.m in Sources */,
 				011B84E21B0DBD4F003005BC /* NewsListViewModel.m in Sources */,
 				011B85511B0DBEFE003005BC /* IndicatorsView.m in Sources */,
 				011B84361B0DB51F003005BC /* main.m in Sources */,

@@ -24,5 +24,6 @@
 #import "BDReport.h"
 #import "BDStockPool.h"
 #import "BDSectInfo.h"
+#import "BDPrompt.h"
 
 #endif

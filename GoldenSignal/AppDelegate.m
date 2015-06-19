@@ -11,6 +11,7 @@
 #import "SideMenuViewController.h"
 #import "AdViewController.h"
 #import "StockViewController.h"
+#import "BDStockPoolInfoService.h"
 
 @implementation AppDelegate
 
