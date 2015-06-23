@@ -54,7 +54,7 @@
 }
 
 - (NSArray *)fuzzyQueryWithText:(NSString *)text {
-    Stopwatch *watch = [Stopwatch startNew];
+//    Stopwatch *watch = [Stopwatch startNew];
     NSMutableArray *resultArray = [NSMutableArray array];
     BDDatabaseAccess *dbAccess = [[BDDatabaseAccess alloc] initWithPath:KEYBOARD_WIZARD_DATABASE];
     NSString *sql = [NSString stringWithFormat:@"select * from %@ where TRD_CODE like '%%%@%%' or PY_SHT like '%%%@%%' or SECU_SHT like '%%%@%%' order by TRD_CODE limit 0,10", TABLENAME, text, text, text];
@@ -64,8 +64,8 @@
         [resultArray addObject:secu];
     }
     [rs close];
-    [watch stop];
-    NSLog(@"键盘精灵查询(%@) Timeout:%.3fs", text, watch.elapsed);
+//    [watch stop];
+//    NSLog(@"键盘精灵查询(%@) Timeout:%.3fs", text, watch.elapsed);
     return resultArray;
 }
 

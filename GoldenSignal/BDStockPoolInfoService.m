@@ -108,7 +108,12 @@
             formatter.dateFormat = @"yyyy-MM-dd";
             report.date = [formatter dateFromString:item[@"PUB_DT"]];
             report.rating = item[@"RAT_ORIG_DESC"];
-            report.targ_prc = [item[@"TARG_PRC"] floatValue];
+            if (item[@"TARG_PRC"] != [NSNull null]) {
+                report.targ_prc = [item[@"TARG_PRC"] floatValue];
+            }
+            else {
+                report.targ_prc = 0;
+            }
             report.com = item[@"COM_NAME"];
             report.aut = item[@"AUT"];
             report.abst = item[@"ABST"];

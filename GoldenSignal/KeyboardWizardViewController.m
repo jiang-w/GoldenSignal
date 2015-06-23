@@ -44,16 +44,52 @@
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.backgroundColor = [UIColor colorWithRed:29/255.0 green:34/255.0 blue:40/255.0 alpha:1];
+        cell.backgroundColor = [UIColor clearColor];
         cell.textLabel.textColor = [UIColor whiteColor];
-        cell.textLabel.font = [UIFont systemFontOfSize:12];
+        cell.textLabel.font = [UIFont systemFontOfSize:14];
     }
     
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         BDSecuCode *secuCode = searchResults[indexPath.row];
         cell.textLabel.text = [NSString stringWithFormat:@"%@  %@", secuCode.trdCode, secuCode.name];
+        if ([[BDStockPool sharedInstance] containStockWithCode:secuCode.bdCode]) {
+            UILabel *label = [[UILabel alloc] init];
+            label.text = @"已添加";
+            label.textColor = [UIColor grayColor];
+            label.font = [UIFont systemFontOfSize:12];
+            [label sizeToFit];
+            cell.accessoryView = label;
+        }
+        else {
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeContactAdd];
+            btn.backgroundColor = [UIColor clearColor];
+            btn.tintColor = [UIColor whiteColor];
+            [btn addTarget:self action:@selector(btnClicked:event:) forControlEvents:UIControlEventTouchUpInside];
+            cell.accessoryView = btn;
+        }
     }
     return cell;
+}
+
+- (void)btnClicked:(id)sender event:(id)event {
+    UITableView *tableView = self.searchDisplayController.searchResultsTableView;
+    NSSet *touches = [event allTouches];
+    UITouch *touch = [touches anyObject];
+    CGPoint currentTouchPosition = [touch locationInView:tableView];
+    NSIndexPath *indexPath = [tableView indexPathForRowAtPoint:currentTouchPosition];
+    if (indexPath != nil) {
+        BDStockPool *pool = [BDStockPool sharedInstance];
+        BDSecuCode *secuCode = [searchResults objectAtIndex:indexPath.row];
+        [pool addStockWithCode:secuCode.bdCode];
+        
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        UILabel *label = [[UILabel alloc] init];
+        label.text = @"已添加";
+        label.textColor = [UIColor grayColor];
+        label.font = [UIFont systemFontOfSize:12];
+        [label sizeToFit];
+        cell.accessoryView = label;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -71,18 +107,6 @@
 #pragma UISearchDisplayDelegate
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-//    searchResults = [[NSMutableArray alloc]init];
-//    if (self.secuSearchBar.text.length > 0) {
-//        for (int i=0; i < dataArray.count; i++) {
-//            BDSecuCode *secuCode = dataArray[i];
-//            NSRange range1 = [secuCode.trdCode rangeOfString:self.secuSearchBar.text options:NSCaseInsensitiveSearch];
-//            NSRange range2 = [secuCode.py rangeOfString:self.secuSearchBar.text options:NSCaseInsensitiveSearch];
-//            NSRange range3 = [secuCode.name rangeOfString:self.secuSearchBar.text options:NSCaseInsensitiveSearch];
-//            if (range1.length > 0 || range2.length || range3.length) {
-//                [searchResults addObject:dataArray[i]];
-//            }
-//        }
-//    }
     searchResults = [[NSMutableArray alloc]init];
     [searchResults addObjectsFromArray:[[BDKeyboardWizard sharedInstance] fuzzyQueryWithText:self.secuSearchBar.text]];
 }
