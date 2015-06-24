@@ -10,6 +10,7 @@
 #import "StockViewController.h"
 #import "SectCollectionViewController.h"
 #import "QuoteHomeViewController.h"
+#import "IdxDetailViewController.h"
 #import <Masonry.h>
 
 @interface QuoteMainViewController ()
@@ -99,7 +100,18 @@
 #pragma mark - Navigation
 
 - (void)didSelectSecuCode:(NSString *)code {
-    [self performSegueWithIdentifier:@"StockViewSegue" sender:code];
+    BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:code];
+    if (secu.typ == idx) {
+        IdxDetailViewController *idxVC = [[IdxDetailViewController alloc] init];
+        idxVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:idxVC animated:NO];
+        [idxVC loadDataWithCode:code];
+    }
+    else {
+        [self performSegueWithIdentifier:@"StockViewSegue" sender:code];
+    }
+    
+//    [self performSegueWithIdentifier:@"StockViewSegue" sender:code];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

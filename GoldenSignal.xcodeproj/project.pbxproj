@@ -114,6 +114,11 @@
 		014FF38A1B1D5276007DB608 /* QuoteHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 014FF3881B1D5276007DB608 /* QuoteHomeViewController.xib */; };
 		014FF3921B1DAE31007DB608 /* IdxTrendChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 014FF3911B1DAE31007DB608 /* IdxTrendChart.m */; };
 		01A95D251B32BE6A008CF76B /* BDStockPoolInfoService.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A95D241B32BE6A008CF76B /* BDStockPoolInfoService.m */; };
+		01AD748E1B3948CF006EC988 /* IdxQuoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AD748D1B3948CF006EC988 /* IdxQuoteView.m */; };
+		01AD74901B3948E7006EC988 /* IdxQuoteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01AD748F1B3948E7006EC988 /* IdxQuoteView.xib */; };
+		01AD74931B395789006EC988 /* IdxQuoteViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AD74921B395789006EC988 /* IdxQuoteViewModel.m */; };
+		01B5418F1B3A572700AF5C05 /* TrendLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B5418E1B3A572700AF5C05 /* TrendLineChart.m */; };
+		01B541921B3A5A4100AF5C05 /* IdxDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B541911B3A5A4100AF5C05 /* IdxDetailViewController.m */; };
 		01BDBCA21B33B8400038A825 /* BDPrompt.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BDBCA11B33B8400038A825 /* BDPrompt.m */; };
 		01CA5C4B1B1ECC03003B824F /* IdxTrendViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CA5C4A1B1ECC03003B824F /* IdxTrendViewModel.m */; };
 		01CA5C531B1EDF37003B824F /* IdxTrendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CA5C521B1EDF37003B824F /* IdxTrendView.m */; };
@@ -336,6 +341,15 @@
 		01A95D231B32BE6A008CF76B /* BDStockPoolInfoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDStockPoolInfoService.h; sourceTree = "<group>"; };
 		01A95D241B32BE6A008CF76B /* BDStockPoolInfoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDStockPoolInfoService.m; sourceTree = "<group>"; };
 		01AD74861B38F982006EC988 /* base.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = base.db; sourceTree = "<group>"; };
+		01AD748C1B3948CF006EC988 /* IdxQuoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxQuoteView.h; sourceTree = "<group>"; };
+		01AD748D1B3948CF006EC988 /* IdxQuoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdxQuoteView.m; sourceTree = "<group>"; };
+		01AD748F1B3948E7006EC988 /* IdxQuoteView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IdxQuoteView.xib; sourceTree = "<group>"; };
+		01AD74911B395789006EC988 /* IdxQuoteViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxQuoteViewModel.h; sourceTree = "<group>"; };
+		01AD74921B395789006EC988 /* IdxQuoteViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdxQuoteViewModel.m; sourceTree = "<group>"; };
+		01B5418D1B3A572700AF5C05 /* TrendLineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrendLineChart.h; sourceTree = "<group>"; };
+		01B5418E1B3A572700AF5C05 /* TrendLineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendLineChart.m; sourceTree = "<group>"; };
+		01B541901B3A5A4100AF5C05 /* IdxDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxDetailViewController.h; sourceTree = "<group>"; };
+		01B541911B3A5A4100AF5C05 /* IdxDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdxDetailViewController.m; sourceTree = "<group>"; };
 		01BDBCA01B33B8400038A825 /* BDPrompt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPrompt.h; sourceTree = "<group>"; };
 		01BDBCA11B33B8400038A825 /* BDPrompt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPrompt.m; sourceTree = "<group>"; };
 		01CA5C491B1ECC03003B824F /* IdxTrendViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxTrendViewModel.h; sourceTree = "<group>"; };
@@ -571,6 +585,8 @@
 				01CA5C4A1B1ECC03003B824F /* IdxTrendViewModel.m */,
 				0129EF5E1B1FF42700690920 /* IdxKLineViewModel.h */,
 				0129EF5F1B1FF42700690920 /* IdxKLineViewModel.m */,
+				01AD74911B395789006EC988 /* IdxQuoteViewModel.h */,
+				01AD74921B395789006EC988 /* IdxQuoteViewModel.m */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -693,6 +709,13 @@
 				0129EF5B1B1FED4B00690920 /* IdxKLineView.h */,
 				0129EF5C1B1FED4B00690920 /* IdxKLineView.m */,
 				0129EF591B1FE73F00690920 /* IdxKLineView.xib */,
+				01B541901B3A5A4100AF5C05 /* IdxDetailViewController.h */,
+				01B541911B3A5A4100AF5C05 /* IdxDetailViewController.m */,
+				01AD748C1B3948CF006EC988 /* IdxQuoteView.h */,
+				01AD748D1B3948CF006EC988 /* IdxQuoteView.m */,
+				01AD748F1B3948E7006EC988 /* IdxQuoteView.xib */,
+				01B5418D1B3A572700AF5C05 /* TrendLineChart.h */,
+				01B5418E1B3A572700AF5C05 /* TrendLineChart.m */,
 			);
 			name = Markets;
 			sourceTree = "<group>";
@@ -815,6 +838,7 @@
 				011B845D1B0DB9D8003005BC /* NewsDetail.html in Resources */,
 				0129EF5A1B1FE73F00690920 /* IdxKLineView.xib in Resources */,
 				01CA5C551B1EDF6C003B824F /* IdxTrendView.xib in Resources */,
+				01AD74901B3948E7006EC988 /* IdxQuoteView.xib in Resources */,
 				011B85591B0DBEFE003005BC /* QuoteViewCell.xib in Resources */,
 				011B850A1B0DBE1F003005BC /* TitleTabViewController.xib in Resources */,
 				011B84411B0DB51F003005BC /* Images.xcassets in Resources */,
@@ -907,6 +931,7 @@
 				011B855F1B0DBEFE003005BC /* TrendLineView.m in Sources */,
 				014FF3921B1DAE31007DB608 /* IdxTrendChart.m in Sources */,
 				011B84E81B0DBD4F003005BC /* TrendLineViewModel.m in Sources */,
+				01AD748E1B3948CF006EC988 /* IdxQuoteView.m in Sources */,
 				011B84C01B0DBCBA003005BC /* BDUserTicket.m in Sources */,
 				011B846D1B0DBADB003005BC /* SmartTime.m in Sources */,
 				011B85561B0DBEFE003005BC /* LiteTrendView.m in Sources */,
@@ -917,6 +942,7 @@
 				011B84A61B0DBC57003005BC /* BDReport.m in Sources */,
 				011B84391B0DB51F003005BC /* AppDelegate.m in Sources */,
 				011B848A1B0DBB83003005BC /* BDQuery.m in Sources */,
+				01B5418F1B3A572700AF5C05 /* TrendLineChart.m in Sources */,
 				011B855A1B0DBEFE003005BC /* SectCollectionViewController.m in Sources */,
 				011B84E71B0DBD4F003005BC /* SubDealViewModel.m in Sources */,
 				01BDBCA21B33B8400038A825 /* BDPrompt.m in Sources */,
@@ -939,6 +965,7 @@
 				011B85511B0DBEFE003005BC /* IndicatorsView.m in Sources */,
 				011B84361B0DB51F003005BC /* main.m in Sources */,
 				011B84BD1B0DBCBA003005BC /* BDSubDeal.m in Sources */,
+				01B541921B3A5A4100AF5C05 /* IdxDetailViewController.m in Sources */,
 				011B85541B0DBEFE003005BC /* KLineView.m in Sources */,
 				011B84BF1B0DBCBA003005BC /* BDUserInfo.m in Sources */,
 				011B85281B0DBEA9003005BC /* ReportListViewCell.m in Sources */,
@@ -946,6 +973,7 @@
 				011B846F1B0DBADB003005BC /* UIImageView+ImageLoading.m in Sources */,
 				011B85601B0DBEFE003005BC /* TrendQuoteView.m in Sources */,
 				011B854E1B0DBEFE003005BC /* CustomStockViewController.m in Sources */,
+				01AD74931B395789006EC988 /* IdxQuoteViewModel.m in Sources */,
 				011B85231B0DBEA9003005BC /* NewsDetailViewController.m in Sources */,
 				011B848E1B0DBB83003005BC /* BDStockNewsService.m in Sources */,
 				011B84891B0DBB83003005BC /* BDNewsService.m in Sources */,
