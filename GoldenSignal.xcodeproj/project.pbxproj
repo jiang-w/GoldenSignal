@@ -119,6 +119,7 @@
 		01AD74931B395789006EC988 /* IdxQuoteViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AD74921B395789006EC988 /* IdxQuoteViewModel.m */; };
 		01B5418F1B3A572700AF5C05 /* TrendLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B5418E1B3A572700AF5C05 /* TrendLineChart.m */; };
 		01B541921B3A5A4100AF5C05 /* IdxDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B541911B3A5A4100AF5C05 /* IdxDetailViewController.m */; };
+		01B541951B3A918200AF5C05 /* TrendLineChartViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B541941B3A918200AF5C05 /* TrendLineChartViewModel.m */; };
 		01BDBCA21B33B8400038A825 /* BDPrompt.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BDBCA11B33B8400038A825 /* BDPrompt.m */; };
 		01CA5C4B1B1ECC03003B824F /* IdxTrendViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CA5C4A1B1ECC03003B824F /* IdxTrendViewModel.m */; };
 		01CA5C531B1EDF37003B824F /* IdxTrendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CA5C521B1EDF37003B824F /* IdxTrendView.m */; };
@@ -350,6 +351,8 @@
 		01B5418E1B3A572700AF5C05 /* TrendLineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendLineChart.m; sourceTree = "<group>"; };
 		01B541901B3A5A4100AF5C05 /* IdxDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxDetailViewController.h; sourceTree = "<group>"; };
 		01B541911B3A5A4100AF5C05 /* IdxDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdxDetailViewController.m; sourceTree = "<group>"; };
+		01B541931B3A918200AF5C05 /* TrendLineChartViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrendLineChartViewModel.h; sourceTree = "<group>"; };
+		01B541941B3A918200AF5C05 /* TrendLineChartViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendLineChartViewModel.m; sourceTree = "<group>"; };
 		01BDBCA01B33B8400038A825 /* BDPrompt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPrompt.h; sourceTree = "<group>"; };
 		01BDBCA11B33B8400038A825 /* BDPrompt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPrompt.m; sourceTree = "<group>"; };
 		01CA5C491B1ECC03003B824F /* IdxTrendViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxTrendViewModel.h; sourceTree = "<group>"; };
@@ -587,6 +590,8 @@
 				0129EF5F1B1FF42700690920 /* IdxKLineViewModel.m */,
 				01AD74911B395789006EC988 /* IdxQuoteViewModel.h */,
 				01AD74921B395789006EC988 /* IdxQuoteViewModel.m */,
+				01B541931B3A918200AF5C05 /* TrendLineChartViewModel.h */,
+				01B541941B3A918200AF5C05 /* TrendLineChartViewModel.m */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -915,6 +920,7 @@
 				011B85241B0DBEA9003005BC /* NewsListViewCell.m in Sources */,
 				011B850B1B0DBE1F003005BC /* UINavigationItem+CustomBackButton.m in Sources */,
 				01D8DA3A1B253E4F0033956E /* IdxQuoteCellViewModel.m in Sources */,
+				01B541951B3A918200AF5C05 /* TrendLineChartViewModel.m in Sources */,
 				011B84A21B0DBC57003005BC /* BDChannel.m in Sources */,
 				0129EF5D1B1FED4B00690920 /* IdxKLineView.m in Sources */,
 				011B84E11B0DBD4F003005BC /* NewsDetailViewModel.m in Sources */,

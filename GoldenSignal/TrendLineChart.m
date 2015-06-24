@@ -7,13 +7,19 @@
 //
 
 #import "TrendLineChart.h"
+#import "TrendLineChartViewModel.h"
 
 @implementation TrendLineChart
+{
+    TrendLineChartViewModel *_viewModel;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self setDefaultParameters];
+        _viewModel = [[TrendLineChartViewModel alloc] init];
+        [_viewModel loadTrendLineWithSecuCode:@"000001.SHI" ForDays:1 andInterval:1];
     }
     return self;
 }
