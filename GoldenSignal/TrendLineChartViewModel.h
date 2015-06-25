@@ -18,12 +18,12 @@
 /**
  *  前收价
  */
-@property(nonatomic, assign, readonly) float prevClose;
+@property(nonatomic, assign, readonly) double prevClose;
 
 /**
  *  是否已经完成初始化(加载完历史走势数据)
  */
-@property(nonatomic, assign, readonly)BOOL initialized;
+@property(nonatomic, assign, readonly) BOOL initialized;
 
 
 - (void)loadTrendLineWithSecuCode:(NSString *)code ForDays:(int)days andInterval:(int)interval;

@@ -118,6 +118,7 @@
 		01AD74901B3948E7006EC988 /* IdxQuoteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01AD748F1B3948E7006EC988 /* IdxQuoteView.xib */; };
 		01AD74931B395789006EC988 /* IdxQuoteViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AD74921B395789006EC988 /* IdxQuoteViewModel.m */; };
 		01B4C70E1B3B9A0E002B1118 /* BDTradingDayService.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B4C70D1B3B9A0E002B1118 /* BDTradingDayService.m */; };
+		01B4C7101B3BCAC6002B1118 /* base.db in Resources */ = {isa = PBXBuildFile; fileRef = 01B4C70F1B3BCAB0002B1118 /* base.db */; };
 		01B5418F1B3A572700AF5C05 /* TrendLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B5418E1B3A572700AF5C05 /* TrendLineChart.m */; };
 		01B541921B3A5A4100AF5C05 /* IdxDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B541911B3A5A4100AF5C05 /* IdxDetailViewController.m */; };
 		01B541951B3A918200AF5C05 /* TrendLineChartViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B541941B3A918200AF5C05 /* TrendLineChartViewModel.m */; };
@@ -342,7 +343,6 @@
 		014FF3911B1DAE31007DB608 /* IdxTrendChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdxTrendChart.m; sourceTree = "<group>"; };
 		01A95D231B32BE6A008CF76B /* BDStockPoolInfoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDStockPoolInfoService.h; sourceTree = "<group>"; };
 		01A95D241B32BE6A008CF76B /* BDStockPoolInfoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDStockPoolInfoService.m; sourceTree = "<group>"; };
-		01AD74861B38F982006EC988 /* base.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = base.db; sourceTree = "<group>"; };
 		01AD748C1B3948CF006EC988 /* IdxQuoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxQuoteView.h; sourceTree = "<group>"; };
 		01AD748D1B3948CF006EC988 /* IdxQuoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdxQuoteView.m; sourceTree = "<group>"; };
 		01AD748F1B3948E7006EC988 /* IdxQuoteView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IdxQuoteView.xib; sourceTree = "<group>"; };
@@ -350,6 +350,7 @@
 		01AD74921B395789006EC988 /* IdxQuoteViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdxQuoteViewModel.m; sourceTree = "<group>"; };
 		01B4C70C1B3B9A0E002B1118 /* BDTradingDayService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDTradingDayService.h; sourceTree = "<group>"; };
 		01B4C70D1B3B9A0E002B1118 /* BDTradingDayService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDTradingDayService.m; sourceTree = "<group>"; };
+		01B4C70F1B3BCAB0002B1118 /* base.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = base.db; sourceTree = "<group>"; };
 		01B5418D1B3A572700AF5C05 /* TrendLineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrendLineChart.h; sourceTree = "<group>"; };
 		01B5418E1B3A572700AF5C05 /* TrendLineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendLineChart.m; sourceTree = "<group>"; };
 		01B541901B3A5A4100AF5C05 /* IdxDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxDetailViewController.h; sourceTree = "<group>"; };
@@ -445,7 +446,7 @@
 				011B845C1B0DB9D8003005BC /* SubscribeTemplate.xml */,
 				011B84341B0DB51F003005BC /* Info.plist */,
 				011B84351B0DB51F003005BC /* main.m */,
-				01AD74861B38F982006EC988 /* base.db */,
+				01B4C70F1B3BCAB0002B1118 /* base.db */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -837,6 +838,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01B4C7101B3BCAC6002B1118 /* base.db in Resources */,
 				011B843F1B0DB51F003005BC /* Main.storyboard in Resources */,
 				011B845E1B0DB9D8003005BC /* SubscribeTemplate.xml in Resources */,
 				011B85081B0DBE1F003005BC /* TitleTabViewCell.xib in Resources */,

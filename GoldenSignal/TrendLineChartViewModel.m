@@ -132,6 +132,7 @@
                     NSLog(@"TrendLineViewModel 初始化分时线异常：%@",[exception reason]);
                 }
             }
+            
 //
 //            if (self.initialized) {
 //                @try {
