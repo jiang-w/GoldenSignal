@@ -25,7 +25,27 @@
  */
 @property(nonatomic, assign, readonly) BOOL initialized;
 
+/**
+ *  间隔的分钟数
+ */
+@property(nonatomic, assign, readonly) NSUInteger interval;
 
-- (void)loadTrendLineWithSecuCode:(NSString *)code ForDays:(int)days andInterval:(int)interval;
+/**
+ *  走势线
+ */
+@property(nonatomic, retain, readonly) NSMutableArray *lines;
+
+/**
+ *  价格区间
+ */
+@property(nonatomic, assign, readonly)PriceRange priceRange;
+
+/**
+ *  包含哪些日期的走势线
+ */
+@property(nonatomic, retain, readonly)NSArray *dates;
+
+- (instancetype)initWithCode:(NSString *)code;
+- (void)loadTrendLineForDays:(NSUInteger)days andInterval:(NSUInteger)interval;
 
 @end

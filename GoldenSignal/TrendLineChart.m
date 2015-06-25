@@ -9,17 +9,23 @@
 #import "TrendLineChart.h"
 #import "TrendLineChartViewModel.h"
 
+@interface TrendLineChart()
+
+@property (nonatomic, strong) NSMutableArray* layers;
+
+@end
+
 @implementation TrendLineChart
 {
-    TrendLineChartViewModel *_viewModel;
+    TrendLineChartViewModel *_vm;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self setDefaultParameters];
-        _viewModel = [[TrendLineChartViewModel alloc] init];
-        [_viewModel loadTrendLineWithSecuCode:@"000001.SHI" ForDays:1 andInterval:1];
+        _vm = [[TrendLineChartViewModel alloc] initWithCode:@"000001.SHI"];
+        [_vm loadTrendLineForDays:1 andInterval:1];
     }
     return self;
 }
@@ -118,5 +124,105 @@
         }
     }
 }
+
+//- (void)strokeLineChart
+//{
+//    CGFloat minBound = _vm.priceRange.low;
+//    CGFloat maxBound = _vm.priceRange.high;
+//    CGFloat scale = CGRectGetHeight([self lineChartRect]) / (maxBound - minBound);
+//    
+//    UIBezierPath *linePath = [self getLinePath:scale close:NO];
+//    CAShapeLayer *pathLayer = [CAShapeLayer layer];
+//    pathLayer.frame = self.bounds;
+//    pathLayer.path = linePath.CGPath;
+//    pathLayer.strokeColor = [_lineColor CGColor];
+//    pathLayer.fillColor = nil;
+//    pathLayer.lineWidth = _lineWidth;
+//    pathLayer.lineJoin = kCALineJoinRound;
+//    
+//    [self.layer addSublayer:pathLayer];
+//    [self.layers addObject:pathLayer];
+//    
+//    if(_fillColor) {
+//        UIBezierPath *fillPath = [self getLinePath:scale close:YES];
+//        CAShapeLayer* fillLayer = [CAShapeLayer layer];
+//        fillLayer.frame = self.bounds;
+//        fillLayer.path = fillPath.CGPath;
+//        fillLayer.strokeColor = nil;
+//        fillLayer.fillColor = _fillColor.CGColor;
+//        fillLayer.lineWidth = 0;
+//        fillLayer.lineJoin = kCALineJoinRound;
+//        
+//        [self.layer addSublayer:fillLayer];
+//        [self.layers addObject:fillLayer];
+//    }
+//}
+
+//- (UIBezierPath*)getLinePath:(float)scale close:(BOOL)closed
+//{
+//    CGRect frame = [CGPointMake(_margin_left, _margin_top), [self lineChartRect]];
+//    NSMutableArray *temp = [NSMutableArray array];      // 存放分时线点
+//    BDTrendLine *prevLine = nil;
+//    CGPoint point;
+//    for (BDTrendLine *line in _vm.lines) {
+//        int sn = [_vm getSerialNumberWithTime:line.time];
+//        if (prevLine == nil) {
+//            if (sn != 0) {
+//                point = [_vm getPointInFrame:frame WithSerialNumber:0 andPrice:line.price];
+//                [temp addObject:NSStringFromCGPoint(point)];
+//            }
+//        }
+//        else {
+//            if (sn > 0) {
+//                int prevTime = [_vm getTimeWithSerialNumber:sn-1];
+//                if (prevTime > prevLine.time) {
+//                    point = [_vm getPointInFrame:frame WithSerialNumber:sn-1 andPrice:prevLine.price];
+//                    [temp addObject:NSStringFromCGPoint(point)];
+//                }
+//            }
+//        }
+//        point = [_vm getPointInFrame:frame WithSerialNumber:sn andPrice:line.price];
+//        [temp addObject:NSStringFromCGPoint(point)];
+//        prevLine = line;
+//    }
+//    
+//    UIBezierPath* path = [UIBezierPath bezierPath];
+//    if (temp.count > 0) {
+//        /* 绘制分时线 */
+//        
+//        for (int i = 0; i < temp.count; i++) {
+//            if(i > 0) {
+//                [path addLineToPoint:CGPointFromString(temp[i])];
+//            }
+//            else {
+//                [path moveToPoint:CGPointFromString(temp[i])];
+//            }
+//        }
+//        
+//        if(closed) {
+//            CGPoint lastPoint = CGPointFromString([temp lastObject]);
+//            CGPoint lPoint = CGPointMake(lastPoint.x, _margin + self.chartHeight);
+//            [path addLineToPoint:lPoint];
+//            CGPoint fristPoint = CGPointFromString([temp firstObject]);
+//            CGPoint fPoint = CGPointMake(fristPoint.x, _margin + self.chartHeight);
+//            [path addLineToPoint:fPoint];
+//            [path addLineToPoint:fristPoint];
+//        }
+//    }
+//    return path;
+//}
+
+
+- (void)clearLayers
+{
+    for (CAShapeLayer *layer in self.layers) {
+        [layer removeFromSuperlayer];
+    }
+    [self.layers removeAllObjects];
+}
+
+//- (void)dealloc {
+//    [_vm removeObserver:self forKeyPath:@"priceRange"];
+//}
 
 @end
