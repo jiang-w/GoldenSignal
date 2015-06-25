@@ -30,9 +30,9 @@
     if (self) {
         NSError *error;
         NSFileManager *fileManager = [NSFileManager defaultManager];
-        if (![fileManager fileExistsAtPath:KEYBOARD_WIZARD_DATABASE]) {
+        if (![fileManager fileExistsAtPath:SQLITE_BASE_DATABASE]) {
             NSString *sourcePath = [[NSBundle mainBundle] pathForResource:@"base" ofType:@"db"];
-            if (![fileManager copyItemAtPath:sourcePath toPath:KEYBOARD_WIZARD_DATABASE error:&error]) {
+            if (![fileManager copyItemAtPath:sourcePath toPath:SQLITE_BASE_DATABASE error:&error]) {
                 NSAssert(0, @"Failed to create database file with message '%@'.", [error localizedDescription]);
             }
         }
@@ -42,7 +42,7 @@
 
 - (BDSecuCode *)queryWithSecuCode:(NSString *)bdCode {
     BDSecuCode *secu = nil;
-    BDDatabaseAccess *dbAccess = [[BDDatabaseAccess alloc] initWithPath:KEYBOARD_WIZARD_DATABASE];
+    BDDatabaseAccess *dbAccess = [[BDDatabaseAccess alloc] initWithPath:SQLITE_BASE_DATABASE];
     NSString *sql = [NSString stringWithFormat:@"select * from %@ where BD_CODE = ?", TABLENAME];
     FMResultSet *rs = [dbAccess queryTable:sql, bdCode];
     while ([rs next]){
@@ -56,7 +56,7 @@
 - (NSArray *)fuzzyQueryWithText:(NSString *)text {
 //    Stopwatch *watch = [Stopwatch startNew];
     NSMutableArray *resultArray = [NSMutableArray array];
-    BDDatabaseAccess *dbAccess = [[BDDatabaseAccess alloc] initWithPath:KEYBOARD_WIZARD_DATABASE];
+    BDDatabaseAccess *dbAccess = [[BDDatabaseAccess alloc] initWithPath:SQLITE_BASE_DATABASE];
     NSString *sql = [NSString stringWithFormat:@"select * from %@ where TRD_CODE like '%%%@%%' or PY_SHT like '%%%@%%' or SECU_SHT like '%%%@%%' order by TRD_CODE limit 0,10", TABLENAME, text, text, text];
     FMResultSet *rs = [dbAccess queryTable:sql];
     while ([rs next]){
@@ -99,7 +99,7 @@
     dateFormatter.dateFormat = DB_DATE_FORMAT;
     
     BDSecuCode *original = [self queryWithSecuCode:secu.bdCode];
-    BDDatabaseAccess *dbAccess = [[BDDatabaseAccess alloc] initWithPath:KEYBOARD_WIZARD_DATABASE];
+    BDDatabaseAccess *dbAccess = [[BDDatabaseAccess alloc] initWithPath:SQLITE_BASE_DATABASE];
     if (original) {
         NSString *sql = [NSString stringWithFormat:@"update %@ set TRD_CODE = ?, SECU_SHT = ?, PY_SHT = ?, TYP_CODEI = ?, UPD_TIME = ?, EXCH = ? where BD_CODE = ?", TABLENAME];
         [dbAccess updateTable:sql, secu.trdCode, secu.name, secu.py, [NSNumber numberWithInt:(int)secu.typ], [dateFormatter stringFromDate:secu.updateTime], [NSNumber numberWithInt:secu.exchCode], secu.bdCode];
@@ -139,7 +139,7 @@
 
 - (NSDate *)getMaxUpdateTime {
     NSDate *maxDate = nil;
-    BDDatabaseAccess *dbAccess = [[BDDatabaseAccess alloc] initWithPath:KEYBOARD_WIZARD_DATABASE];
+    BDDatabaseAccess *dbAccess = [[BDDatabaseAccess alloc] initWithPath:SQLITE_BASE_DATABASE];
     NSString *sql = [NSString stringWithFormat:@"select max(upd_time) upd_time from %@", TABLENAME];
     FMResultSet *rs = [dbAccess queryTable:sql];
     if ([rs next]){

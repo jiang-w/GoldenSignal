@@ -115,11 +115,11 @@
             NSArray *response = [self paraseTrendLines:responseObject];
             for (id item in response) {
                 BDTrendLine *line = [[BDTrendLine alloc] init];
-                line.date = [[item objectForKey:@"date"] intValue];
-                line.time = [[item objectForKey:@"time"] intValue] / 100000;
-                line.price = [[item objectForKey:@"now"] floatValue];
+                line.date = [[item objectForKey:@"date"] unsignedIntValue];
+                line.time = [[item objectForKey:@"time"] unsignedIntValue] / 100000;
+                line.price = [[item objectForKey:@"now"] doubleValue];
                 line.amount = [[item objectForKey:@"amount"] doubleValue];
-                line.volume = [[item objectForKey:@"volume"] unsignedIntValue];
+                line.volume = [[item objectForKey:@"volume"] unsignedLongValue];
                 // 添加走势线
                 NSString *key = [NSString stringWithFormat:@"%d%d", line.date, line.time];
                 if ([dic.allKeys containsObject:key]) {
@@ -197,11 +197,11 @@
                     NSMutableArray *dateArray = [NSMutableArray array];
                     for (id item in [value objectForKey:@"TrendLine"]) {
                         BDTrendLine *line = [[BDTrendLine alloc] init];
-                        line.date = [[item objectForKey:@"Date"] intValue];
-                        line.time = [[item objectForKey:@"Time"] intValue] / 100000;
-                        line.price = [[item objectForKey:@"Now"] floatValue];
+                        line.date = [[item objectForKey:@"Date"] unsignedIntValue];
+                        line.time = [[item objectForKey:@"Time"] unsignedIntValue] / 100000;
+                        line.price = [[item objectForKey:@"Now"] doubleValue];
                         line.amount = [[item objectForKey:@"Amount"] doubleValue];
-                        line.volume = [[item objectForKey:@"Volume"] unsignedIntValue];
+                        line.volume = [[item objectForKey:@"Volume"] unsignedLongValue];
                         // 添加走势线
                         NSString *key = [NSString stringWithFormat:@"%d%d", line.date, line.time];
                         if ([dic.allKeys containsObject:key]) {
@@ -248,19 +248,19 @@
             if (self.initialized) {
                 @try {
                     if ([indicateName isEqualToString:@"Date"]) {
-                        _latestLine.date = [value intValue];
+                        _latestLine.date = [value unsignedIntValue];
                     }
                     else if ([indicateName isEqualToString:@"Time"]) {
-                        _latestLine.time = [value intValue] / 100000;
+                        _latestLine.time = [value unsignedIntValue] / 100000;
                     }
                     else if ([indicateName isEqualToString:@"Now"]) {
-                        _latestLine.price = [value floatValue];
+                        _latestLine.price = [value doubleValue];
                     }
                     else if ([indicateName isEqualToString:@"Amount"]) {
                         _latestLine.amount = [value doubleValue];
                     }
                     else if ([indicateName isEqualToString:@"Volume"]) {
-                        _latestLine.volume = [value unsignedIntValue];
+                        _latestLine.volume = [value unsignedLongValue];
                         
                         BDTrendLine *lastLine = [self.lines lastObject];
                         int mergeMinute = floor((_latestLine.time - lastLine.time) * 1.0 / self.interval) * self.interval + lastLine.time;
