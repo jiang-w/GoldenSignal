@@ -158,6 +158,7 @@
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %d", date];
         NSArray *lines = [_vm.lines filteredArrayUsingPredicate:predicate];
         CGRect frame = CGRectMake(chartFrame.origin.x + xOffset * i, chartFrame.origin.y, xOffset, chartFrame.size.height);
+        
         UIBezierPath *linePath = [self getDailyLinePathInFrame:frame withLines:lines andIsClosed:NO];
         CAShapeLayer *pathLayer = [CAShapeLayer layer];
         pathLayer.frame = self.bounds;

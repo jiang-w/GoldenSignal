@@ -52,7 +52,7 @@
     /* 添加指数走势图 */
     self.trendLineChart = [[TrendLineChart alloc] init];
     self.trendLineChart.margin = 6;
-    self.trendLineChart.days = 5;
+//    self.trendLineChart.days = 2;
     self.trendLineChart.lineColor = [UIColor orangeColor];
     self.trendLineChart.fillColor = [[UIColor orangeColor] colorWithAlphaComponent:0.15];
     [self.trendLineChart loadDataWithSecuCode:_idxCode];
@@ -65,10 +65,10 @@
         }];
     }
     
-    BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:_idxCode];
-    if (secu) {
-    
-    }
+//    BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:_idxCode];
+//    if (secu) {
+//        self.navigationController.title = secu.name;
+//    }
 }
 
 - (void)addSubView:(UIView *) subView withHeight:(CGFloat)height andSpace:(CGFloat)space {
