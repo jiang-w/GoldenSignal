@@ -21,16 +21,6 @@
 @property(nonatomic, assign, readonly) double prevClose;
 
 /**
- *  是否已经完成初始化(加载完历史走势数据)
- */
-@property(nonatomic, assign, readonly) BOOL initialized;
-
-/**
- *  间隔的分钟数
- */
-@property(nonatomic, assign, readonly) NSUInteger interval;
-
-/**
  *  走势线
  */
 @property(nonatomic, retain, readonly) NSMutableArray *lines;
@@ -45,7 +35,11 @@
  */
 @property(nonatomic, retain, readonly)NSArray *dates;
 
-- (instancetype)initWithCode:(NSString *)code;
-- (void)loadTrendLineForDays:(NSUInteger)days andInterval:(NSUInteger)interval;
+
+- (void)loadDataWithSecuCode:(NSString *)code forDays:(NSUInteger)days andInterval:(NSUInteger)interval;
+
+- (CGPoint)getPointInFrame:(CGRect)frame withSerialNumber:(int)number andPrice:(float)price;
+- (int)getSerialNumberWithTime:(int)time;
+- (int)getTimeWithSerialNumber:(int)number;
 
 @end

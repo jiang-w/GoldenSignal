@@ -31,4 +31,9 @@
 @property (nonatomic) CGFloat lineWidth;
 @property (nonatomic, strong) UIColor* fillColor;
 
+@property (nonatomic) NSUInteger days;
+@property (nonatomic) NSUInteger interval;
+
+- (void)loadDataWithSecuCode:(NSString *)code;
+
 @end

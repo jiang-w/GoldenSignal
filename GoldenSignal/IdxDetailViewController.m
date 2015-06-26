@@ -21,9 +21,6 @@
 @end
 
 @implementation IdxDetailViewController
-{
-    NSString *_code;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,7 +37,7 @@
     }];
     
     self.containerView = [[UIView alloc] init];
-    self.containerView.backgroundColor = [UIColor redColor];
+//    self.containerView.backgroundColor = [UIColor redColor];
     [self.scrollView addSubview:self.containerView];
     [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.scrollView);
@@ -55,6 +52,10 @@
     /* 添加指数走势图 */
     self.trendLineChart = [[TrendLineChart alloc] init];
     self.trendLineChart.margin = 6;
+    self.trendLineChart.days = 5;
+    self.trendLineChart.lineColor = [UIColor orangeColor];
+    self.trendLineChart.fillColor = [[UIColor orangeColor] colorWithAlphaComponent:0.15];
+    [self.trendLineChart loadDataWithSecuCode:_idxCode];
     [self addSubView:self.trendLineChart withHeight:180 andSpace:0];
     
     UIView *lastView = self.containerView.subviews.lastObject;
@@ -62,6 +63,11 @@
         [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(lastView.mas_bottom);
         }];
+    }
+    
+    BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:_idxCode];
+    if (secu) {
+    
     }
 }
 
