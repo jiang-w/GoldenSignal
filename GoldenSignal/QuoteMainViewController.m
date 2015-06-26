@@ -103,9 +103,9 @@
     BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:code];
     if (secu.typ == idx) {
         IdxDetailViewController *idxVC = [[IdxDetailViewController alloc] init];
+        idxVC.idxCode = secu.bdCode;
         idxVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:idxVC animated:NO];
-        [idxVC loadDataWithCode:code];
     }
     else {
         [self performSegueWithIdentifier:@"StockViewSegue" sender:code];

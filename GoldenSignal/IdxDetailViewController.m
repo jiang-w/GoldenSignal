@@ -49,7 +49,7 @@
 
     /* 添加指数标价 */
     self.idxQuoteView = [IdxQuoteView createView];
-    [self.idxQuoteView subscribeIndicatorsWithCode:@"000001.SHI"];
+    [self.idxQuoteView subscribeIndicatorsWithCode:_idxCode];
     [self addSubView:self.idxQuoteView withHeight:110 andSpace:0];
     
     /* 添加指数走势图 */
@@ -80,16 +80,6 @@
             make.height.mas_equalTo(height);
         }];
     }
-}
-
-- (void)loadDataWithCode:(NSString *)code {
-//    if (![code isEqualToString:_code]) {
-//        BDSecuCode *secuCode = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:code];
-//        if (secuCode) {
-//            _code = code;
-//            [self.idxQuoteView subscribeIndicatorsWithCode:code];
-//        }
-//    }
 }
 
 @end
