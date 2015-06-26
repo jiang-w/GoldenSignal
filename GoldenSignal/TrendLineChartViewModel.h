@@ -38,8 +38,7 @@
 
 - (void)loadDataWithSecuCode:(NSString *)code forDays:(NSUInteger)days andInterval:(NSUInteger)interval;
 
-- (CGPoint)getPointInFrame:(CGRect)frame withSerialNumber:(int)number andPrice:(float)price;
-- (int)getSerialNumberWithTime:(int)time;
-- (int)getTimeWithSerialNumber:(int)number;
+- (NSArray *)getPricePointInFrame:(CGRect)frame forTradingDay:(NSString *)date;
+
 
 @end

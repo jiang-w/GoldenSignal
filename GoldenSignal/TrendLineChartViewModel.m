@@ -47,9 +47,9 @@
 
 // 价格区间
 - (PriceRange)priceRange {
-    float max = 0;
+    double max = 0;
     for (BDTrendLine *line in _lines) {
-        float dif = fabs(line.price - _prevClose);
+        double dif = fabs(line.price - _prevClose);
         if (dif > max) {
             max = dif;
         }
@@ -187,17 +187,45 @@
 
 #pragma mark - View
 
-- (CGPoint)getPointInFrame:(CGRect)frame withSerialNumber:(int)number andPrice:(float)price {
+// 获取某交易日（日期格式'yyyy-MM-dd'）的分时点
+- (NSArray *)getPricePointInFrame:(CGRect)frame forTradingDay:(NSString *)date {
+    NSMutableArray *points = [NSMutableArray array];
+    NSArray *priceArr = [self getPriceSerialForTradingDay:date];
     PriceRange priceRange = self.priceRange;
-    if (number >= 0) {
-        int pointCount = floor(240.0 / _interval) + 2;
-        float xOffset = CGRectGetMinX(frame) + number * CGRectGetWidth(frame) / (pointCount - 1);
-        float yOffset = CGRectGetMinY(frame) + (priceRange.high - price) / (priceRange.high - priceRange.low) * CGRectGetHeight(frame);
-        return CGPointMake(xOffset, yOffset);
+    
+    for (int i = 0; i < priceArr.count; i++) {
+        double price = [priceArr[i] doubleValue];
+        CGFloat xOffset = CGRectGetMinX(frame) + i * CGRectGetWidth(frame) / (priceArr.count - 1);
+        CGFloat yOffset = CGRectGetMinY(frame) + (priceRange.high - price) / (priceRange.high - priceRange.low) * CGRectGetHeight(frame);
+        CGPoint point = CGPointMake(xOffset, yOffset);
+        [points addObject:NSStringFromCGPoint(point)];
     }
-    else {
-        return CGPointZero;
+    return points;
+}
+
+// 获取某交易日的价格序列（日期格式'yyyy-MM-dd'）
+- (NSArray *)getPriceSerialForTradingDay:(NSString *)date {
+    NSMutableArray *serial = [NSMutableArray array];
+    int dateVal = [[date stringByReplacingOccurrencesOfString:@"-" withString:@""] intValue];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %d", dateVal];
+    NSArray *lines = [_lines filteredArrayUsingPredicate:predicate];
+
+    int i = 0;
+    while (i < lines.count) {
+        BDTrendLine *line = lines[i];
+        int sn = [self getSerialNumberWithTime:line.time];
+        if (serial.count == 0) {
+            serial[0] = [NSNumber numberWithDouble:line.price];
+        }
+        else {
+            while (serial.count < sn) {
+                serial[serial.count - 1] = serial[serial.count - 2];
+            }
+            serial[sn] = [NSNumber numberWithDouble:line.price];
+            i++;
+        }
     }
+    return serial;
 }
 
 - (int)getSerialNumberWithTime:(int)time {
@@ -211,20 +239,6 @@
         sn = floor(120.0 / _interval) + 1 + floor(escapeMintue * 1.0 / _interval);
     }
     return sn;
-}
-
-- (int)getTimeWithSerialNumber:(int)number {
-    int time = 0;
-    int threshold = [self getSerialNumberWithTime:1300];
-    if (number < threshold) {
-        int mintue = (int)(9 * 60 + 30 + number * _interval);
-        time = mintue / 60 * 100 + mintue % 60;
-    }
-    else {
-        int mintue = (int)(13 * 60 + (number - threshold) * _interval);
-        time = mintue / 60 * 100 + mintue % 60;
-    }
-    return time;
 }
 
 #pragma mark - Dealloc

@@ -20,6 +20,8 @@
     TrendLineChartViewModel *_vm;
 }
 
+#pragma mark - init
+
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
@@ -32,6 +34,28 @@
     }
     return self;
 }
+
+- (void)setDefaultParameters {
+    self.margin = 0.0f;
+    self.space = 4.0f;
+    
+    _lineColor = [UIColor whiteColor];
+    _fillColor = [UIColor clearColor];
+    _lineWidth = 1;
+    
+    _boundColor = [UIColor colorWithWhite:1 alpha:1.0];
+    _boundWidth = 0.5;
+    
+    _innerGridColor = [UIColor colorWithWhite:0.5 alpha:1.0];
+    _innerGridWidth = 0.5;
+    _drawInnerGrid = YES;
+    
+    _days = 1;
+    _interval = 1;
+}
+
+
+#pragma mark - property
 
 - (void)setMargin:(CGFloat)value {
     _margin = value;
@@ -58,24 +82,8 @@
     return rect;
 }
 
-- (void)setDefaultParameters {
-    self.margin = 0.0f;
-    self.space = 4.0f;
-    
-    _lineColor = [UIColor whiteColor];
-    _fillColor = [UIColor clearColor];
-    _lineWidth = 1;
-    
-    _boundColor = [UIColor colorWithWhite:1 alpha:1.0];
-    _boundWidth = 0.5;
-    
-    _innerGridColor = [UIColor colorWithWhite:0.5 alpha:1.0];
-    _innerGridWidth = 0.5;
-    _drawInnerGrid = YES;
-    
-    _days = 1;
-    _interval = 1;
-}
+
+#pragma mark - loading data
 
 - (void)loadDataWithSecuCode:(NSString *)code {
     [_vm loadDataWithSecuCode:code forDays:_days andInterval:_interval];
@@ -94,6 +102,9 @@
         }
     });
 }
+
+
+#pragma mark - draw
 
 - (void)drawRect:(CGRect)rect {
     [self drawGrid];
@@ -154,12 +165,9 @@
     CGRect chartFrame = [self lineChartFrame];
     CGFloat xOffset = CGRectGetWidth(chartFrame) / dates.count;
     for (int i = 0; i < dates.count; i++) {
-        int date = [[dates[i] stringByReplacingOccurrencesOfString:@"-" withString:@""] intValue];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %d", date];
-        NSArray *lines = [_vm.lines filteredArrayUsingPredicate:predicate];
         CGRect frame = CGRectMake(chartFrame.origin.x + xOffset * i, chartFrame.origin.y, xOffset, chartFrame.size.height);
         // 绘制日分时线
-        UIBezierPath *linePath = [self getDailyLinePathInFrame:frame withLines:lines andIsClosed:NO];
+        UIBezierPath *linePath = [self getPricePathInFrame:frame forTradingDay:dates[i] andIsClosed:NO];
         CAShapeLayer *pathLayer = [CAShapeLayer layer];
         pathLayer.frame = self.bounds;
         pathLayer.path = linePath.CGPath;
@@ -171,7 +179,7 @@
         [self.layers addObject:pathLayer];
         // 填充
         if(_fillColor && _fillColor != [UIColor clearColor]) {
-            UIBezierPath *fillPath = [self getDailyLinePathInFrame:frame withLines:lines andIsClosed:YES];
+            UIBezierPath *fillPath = [self getPricePathInFrame:frame forTradingDay:dates[i] andIsClosed:YES];
             CAShapeLayer* fillLayer = [CAShapeLayer layer];
             fillLayer.frame = self.bounds;
             fillLayer.path = fillPath.CGPath;
@@ -185,49 +193,24 @@
     }
 }
 
-// 计算日分时线
-- (UIBezierPath *)getDailyLinePathInFrame:(CGRect)frame withLines:(NSArray *)lines andIsClosed:(BOOL)closed {
-    NSMutableArray *temp = [NSMutableArray array];      // 存放分时线点
-    BDTrendLine *prevLine = nil;
-    CGPoint point;
-    for (BDTrendLine *line in lines) {
-        int sn = [_vm getSerialNumberWithTime:line.time];
-        if (prevLine == nil) {
-            if (sn != 0) {
-                point = [_vm getPointInFrame:frame withSerialNumber:0 andPrice:line.price];
-                [temp addObject:NSStringFromCGPoint(point)];
-            }
-        }
-        else {
-            if (sn > 0) {
-                int prevTime = [_vm getTimeWithSerialNumber:sn-1];
-                if (prevTime > prevLine.time) {
-                    point = [_vm getPointInFrame:frame withSerialNumber:sn-1 andPrice:prevLine.price];
-                    [temp addObject:NSStringFromCGPoint(point)];
-                }
-            }
-        }
-        point = [_vm getPointInFrame:frame withSerialNumber:sn andPrice:line.price];
-        [temp addObject:NSStringFromCGPoint(point)];
-        prevLine = line;
-    }
-    
+- (UIBezierPath *)getPricePathInFrame:(CGRect)frame forTradingDay:(NSString *)date andIsClosed:(BOOL)closed {
+    NSArray *points = [_vm getPricePointInFrame:frame forTradingDay:date];
     UIBezierPath* path = [UIBezierPath bezierPath];
-    if (temp.count > 0) {
-        for (int i = 0; i < temp.count; i++) {
+    if (points.count > 0) {
+        for (int i = 0; i < points.count; i++) {
             if(i > 0) {
-                [path addLineToPoint:CGPointFromString(temp[i])];
+                [path addLineToPoint:CGPointFromString(points[i])];
             }
             else {
-                [path moveToPoint:CGPointFromString(temp[i])];
+                [path moveToPoint:CGPointFromString(points[i])];
             }
         }
         
         if(closed) {
-            CGPoint lastPoint = CGPointFromString([temp lastObject]);
+            CGPoint lastPoint = CGPointFromString([points lastObject]);
             CGPoint lPoint = CGPointMake(lastPoint.x, CGRectGetMaxY(frame));
             [path addLineToPoint:lPoint];
-            CGPoint fristPoint = CGPointFromString([temp firstObject]);
+            CGPoint fristPoint = CGPointFromString([points firstObject]);
             CGPoint fPoint = CGPointMake(fristPoint.x, CGRectGetMaxY(frame));
             [path addLineToPoint:fPoint];
             [path addLineToPoint:fristPoint];
@@ -236,7 +219,6 @@
     return path;
 }
 
-
 - (void)clearLayers
 {
     for (CAShapeLayer *layer in self.layers) {
@@ -244,6 +226,9 @@
     }
     [self.layers removeAllObjects];
 }
+
+
+#pragma mark - Dealloc
 
 - (void)dealloc {
     [_vm removeObserver:self forKeyPath:@"lines"];

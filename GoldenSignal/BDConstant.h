@@ -57,8 +57,8 @@ typedef enum {
 }operStatus;
 
 typedef struct {
-    float low;
-    float high;
+    double low;
+    double high;
 }PriceRange;
 
 typedef enum {

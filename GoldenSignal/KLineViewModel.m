@@ -57,8 +57,8 @@
 
 // 价格区间
 - (PriceRange)priceRange {
-    float maxPrice = 0;
-    float minPrice = 0;
+    double maxPrice = 0;
+    double minPrice = 0;
     for (BDKLine *kLine in _lines) {
         if (kLine.high > maxPrice) {
             maxPrice = kLine.high;
