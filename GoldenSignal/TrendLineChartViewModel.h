@@ -40,5 +40,7 @@
 
 - (NSArray *)getPricePointInFrame:(CGRect)frame forTradingDay:(NSString *)date;
 
+- (NSArray *)getAvgPricePointInFrame:(CGRect)frame forTradingDay:(NSString *)date;
+
 
 @end

@@ -187,17 +187,25 @@
 
 #pragma mark - View
 
-// 获取某交易日（日期格式'yyyy-MM-dd'）的分时点
+// 获取某交易日（日期格式'yyyy-MM-dd'）的均线
+- (NSArray *)getAvgPricePointInFrame:(CGRect)frame forTradingDay:(NSString *)date {
+    NSMutableArray *points = [NSMutableArray array];
+    NSArray *priceArr = [self getAvgPriceSerialForTradingDay:date];
+    for (int i = 0; i < priceArr.count; i++) {
+        double price = [priceArr[i] doubleValue];
+        CGPoint point = [self getPointInFrame:frame withSerialNumber:i andPrice:price];
+        [points addObject:NSStringFromCGPoint(point)];
+    }
+    return points;
+}
+
+// 获取某交易日（日期格式'yyyy-MM-dd'）的分时线
 - (NSArray *)getPricePointInFrame:(CGRect)frame forTradingDay:(NSString *)date {
     NSMutableArray *points = [NSMutableArray array];
     NSArray *priceArr = [self getPriceSerialForTradingDay:date];
-    PriceRange priceRange = self.priceRange;
-    
     for (int i = 0; i < priceArr.count; i++) {
         double price = [priceArr[i] doubleValue];
-        CGFloat xOffset = CGRectGetMinX(frame) + i * CGRectGetWidth(frame) / (priceArr.count - 1);
-        CGFloat yOffset = CGRectGetMinY(frame) + (priceRange.high - price) / (priceRange.high - priceRange.low) * CGRectGetHeight(frame);
-        CGPoint point = CGPointMake(xOffset, yOffset);
+        CGPoint point = [self getPointInFrame:frame withSerialNumber:i andPrice:price];
         [points addObject:NSStringFromCGPoint(point)];
     }
     return points;
@@ -228,6 +236,57 @@
     return serial;
 }
 
+// 获取某交易日的均价序列（日期格式'yyyy-MM-dd'）
+- (NSArray *)getAvgPriceSerialForTradingDay:(NSString *)date {
+    NSMutableArray *serial = [NSMutableArray array];
+    int dateVal = [[date stringByReplacingOccurrencesOfString:@"-" withString:@""] intValue];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %d", dateVal];
+    NSArray *lines = [_lines filteredArrayUsingPredicate:predicate];
+    NSArray *volumes = [self getVolumeSerialForTradingDay:date];
+    
+    for (int i = 0; i < lines.count; i++) {
+        BDTrendLine *line = lines[i];
+        double avgPrice = 0;
+        if ([volumes[i] unsignedLongValue] > 0) {
+            avgPrice = line.amount / [volumes[i] unsignedLongValue];
+        }
+        [serial addObject:[NSNumber numberWithDouble:avgPrice]];
+    }
+    return serial;
+}
+
+// 获取某交易日的成交量序列（日期格式'yyyy-MM-dd'）
+- (NSArray *)getVolumeSerialForTradingDay:(NSString *)date {
+    NSMutableArray *serial = [NSMutableArray array];
+    int dateVal = [[date stringByReplacingOccurrencesOfString:@"-" withString:@""] intValue];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %d", dateVal];
+    NSArray *lines = [_lines filteredArrayUsingPredicate:predicate];
+    int i = 0;
+    while (i < lines.count) {
+        if (i > 0) {
+            BDTrendLine *line = lines[i];
+            int sn = [self getSerialNumberWithTime:line.time];
+            while (serial.count < sn) {
+                [serial addObject:[NSNumber numberWithUnsignedLong:0]];
+            }
+            BDTrendLine *prevLine = lines[i-1];
+            if (sn - [self getSerialNumberWithTime:prevLine.time] == 1) {
+                unsigned long volume = line.volume - prevLine.volume;
+                [serial addObject:[NSNumber numberWithUnsignedLong:volume]];
+            }
+            else {
+                [serial addObject:[NSNumber numberWithUnsignedLong:0]];
+            }
+            i++;
+        }
+        else {
+            [serial addObject:[NSNumber numberWithUnsignedLong:0]];
+            i++;
+        }
+    }
+    return serial;
+}
+
 - (int)getSerialNumberWithTime:(int)time {
     int sn = -1;
     if (time >= 930 && time <= 1130) {
@@ -239,6 +298,19 @@
         sn = floor(120.0 / _interval) + 1 + floor(escapeMintue * 1.0 / _interval);
     }
     return sn;
+}
+
+- (CGPoint)getPointInFrame:(CGRect)frame withSerialNumber:(int)sn andPrice:(double)price {
+    PriceRange priceRange = self.priceRange;
+    if (sn >= 0) {
+        int pointCount = floor(240.0 / _interval) + 2;
+        float xOffset = CGRectGetMinX(frame) + sn * CGRectGetWidth(frame) / (pointCount - 1);
+        float yOffset = CGRectGetMinY(frame) + (priceRange.high - price) / (priceRange.high - priceRange.low) * CGRectGetHeight(frame);
+        return CGPointMake(xOffset, yOffset);
+    }
+    else {
+        return CGPointZero;
+    }
 }
 
 #pragma mark - Dealloc

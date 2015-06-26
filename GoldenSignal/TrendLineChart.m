@@ -40,6 +40,7 @@
     self.space = 4.0f;
     
     _lineColor = [UIColor whiteColor];
+    _avgLineColor = [UIColor yellowColor];
     _fillColor = [UIColor clearColor];
     _lineWidth = 1;
     
@@ -190,11 +191,48 @@
             [self.layer addSublayer:fillLayer];
             [self.layers addObject:fillLayer];
         }
+        // 绘制均线
+        UIBezierPath *avgLinePath = [self getAvgPricePathInFrame:frame forTradingDay:dates[i] andIsClosed:NO];
+        CAShapeLayer *avgLineLayer = [CAShapeLayer layer];
+        avgLineLayer.frame = self.bounds;
+        avgLineLayer.path = avgLinePath.CGPath;
+        avgLineLayer.strokeColor = [_avgLineColor CGColor];
+        avgLineLayer.fillColor = nil;
+        avgLineLayer.lineWidth = _lineWidth;
+        avgLineLayer.lineJoin = kCALineJoinRound;
+        [self.layer addSublayer:avgLineLayer];
+        [self.layers addObject:avgLineLayer];
     }
 }
 
 - (UIBezierPath *)getPricePathInFrame:(CGRect)frame forTradingDay:(NSString *)date andIsClosed:(BOOL)closed {
     NSArray *points = [_vm getPricePointInFrame:frame forTradingDay:date];
+    UIBezierPath* path = [UIBezierPath bezierPath];
+    if (points.count > 0) {
+        for (int i = 0; i < points.count; i++) {
+            if(i > 0) {
+                [path addLineToPoint:CGPointFromString(points[i])];
+            }
+            else {
+                [path moveToPoint:CGPointFromString(points[i])];
+            }
+        }
+        
+        if(closed) {
+            CGPoint lastPoint = CGPointFromString([points lastObject]);
+            CGPoint lPoint = CGPointMake(lastPoint.x, CGRectGetMaxY(frame));
+            [path addLineToPoint:lPoint];
+            CGPoint fristPoint = CGPointFromString([points firstObject]);
+            CGPoint fPoint = CGPointMake(fristPoint.x, CGRectGetMaxY(frame));
+            [path addLineToPoint:fPoint];
+            [path addLineToPoint:fristPoint];
+        }
+    }
+    return path;
+}
+
+- (UIBezierPath *)getAvgPricePathInFrame:(CGRect)frame forTradingDay:(NSString *)date andIsClosed:(BOOL)closed {
+    NSArray *points = [_vm getAvgPricePointInFrame:frame forTradingDay:date];
     UIBezierPath* path = [UIBezierPath bezierPath];
     if (points.count > 0) {
         for (int i = 0; i < points.count; i++) {

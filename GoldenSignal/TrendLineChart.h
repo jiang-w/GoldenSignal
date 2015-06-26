@@ -20,16 +20,17 @@
 // space between line chart and volume chart
 @property (nonatomic) CGFloat space;
 
-@property (nonatomic, strong) UIColor* boundColor;
+@property (nonatomic, strong) UIColor *boundColor;
 @property (nonatomic) CGFloat boundWidth;
 // if true than draw inner grid
 @property (nonatomic) BOOL drawInnerGrid;
-@property (nonatomic, strong) UIColor* innerGridColor;
+@property (nonatomic, strong) UIColor *innerGridColor;
 @property (nonatomic) CGFloat innerGridWidth;
 
-@property (nonatomic, strong) UIColor* lineColor;
+@property (nonatomic, strong) UIColor *lineColor;
+@property (nonatomic, strong) UIColor *avgLineColor;
 @property (nonatomic) CGFloat lineWidth;
-@property (nonatomic, strong) UIColor* fillColor;
+@property (nonatomic, strong) UIColor *fillColor;
 
 @property (nonatomic) NSUInteger days;
 @property (nonatomic) NSUInteger interval;
