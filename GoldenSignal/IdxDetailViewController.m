@@ -52,7 +52,7 @@
     /* 添加指数走势图 */
     self.trendLineChart = [[TrendLineChart alloc] init];
     self.trendLineChart.margin = 6;
-//    self.trendLineChart.days = 2;
+//    self.trendLineChart.days = 5;
     self.trendLineChart.lineColor = [UIColor orangeColor];
     self.trendLineChart.fillColor = [[UIColor orangeColor] colorWithAlphaComponent:0.15];
     [self.trendLineChart loadDataWithSecuCode:_idxCode];

@@ -158,7 +158,7 @@
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %d", date];
         NSArray *lines = [_vm.lines filteredArrayUsingPredicate:predicate];
         CGRect frame = CGRectMake(chartFrame.origin.x + xOffset * i, chartFrame.origin.y, xOffset, chartFrame.size.height);
-        
+        // 绘制日分时线
         UIBezierPath *linePath = [self getDailyLinePathInFrame:frame withLines:lines andIsClosed:NO];
         CAShapeLayer *pathLayer = [CAShapeLayer layer];
         pathLayer.frame = self.bounds;
@@ -169,7 +169,7 @@
         pathLayer.lineJoin = kCALineJoinRound;
         [self.layer addSublayer:pathLayer];
         [self.layers addObject:pathLayer];
-        
+        // 填充
         if(_fillColor && _fillColor != [UIColor clearColor]) {
             UIBezierPath *fillPath = [self getDailyLinePathInFrame:frame withLines:lines andIsClosed:YES];
             CAShapeLayer* fillLayer = [CAShapeLayer layer];
@@ -185,11 +185,12 @@
     }
 }
 
-- (UIBezierPath*)getDailyLinePathInFrame:(CGRect)frame withLines:(NSArray *)lines andIsClosed:(BOOL)closed {
+// 计算日分时线
+- (UIBezierPath *)getDailyLinePathInFrame:(CGRect)frame withLines:(NSArray *)lines andIsClosed:(BOOL)closed {
     NSMutableArray *temp = [NSMutableArray array];      // 存放分时线点
     BDTrendLine *prevLine = nil;
     CGPoint point;
-    for (BDTrendLine *line in _vm.lines) {
+    for (BDTrendLine *line in lines) {
         int sn = [_vm getSerialNumberWithTime:line.time];
         if (prevLine == nil) {
             if (sn != 0) {
@@ -213,8 +214,6 @@
     
     UIBezierPath* path = [UIBezierPath bezierPath];
     if (temp.count > 0) {
-        /* 绘制分时线 */
-        
         for (int i = 0; i < temp.count; i++) {
             if(i > 0) {
                 [path addLineToPoint:CGPointFromString(temp[i])];
