@@ -7,7 +7,7 @@
 //
 
 #import "IdxTrendChart.h"
-#import "TrendLineViewModel.h"
+#import "TrendLineChartViewModel.h"
 
 @interface IdxTrendChart()
 
@@ -18,42 +18,23 @@
 
 @implementation IdxTrendChart
 {
-    TrendLineViewModel *_vm;
+    TrendLineChartViewModel *_vm;
 }
 
 - (id)initWithFrame:(CGRect)frame andIdxCode:(NSString *)code
 {
     self = [super initWithFrame:frame];
     if (self) {
+        _vm = [[TrendLineChartViewModel alloc] init];
         _code = code;
-        [self commonInit];
+        _layers = [NSMutableArray array];
+        [self setDefaultParameters];
         
-        _vm = [[TrendLineViewModel alloc] initWithCode:_code];
-        [_vm addObserver:self forKeyPath:@"priceRange" options:NSKeyValueObservingOptionNew context:NULL];
-        [_vm loadTrendLineForDays:1 andInterval:1];
+        [_vm addObserver:self forKeyPath:@"lines" options:NSKeyValueObservingOptionNew context:NULL];
+        [_vm addObserver:self forKeyPath:@"prevClose" options:NSKeyValueObservingOptionNew context:NULL];
+        [_vm loadDataWithSecuCode:_code forDays:1 andInterval:1];
     }
     return self;
-}
-
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        @try {
-            if (_vm.lines.count > 0 && _vm.prevClose > 0) {
-                [self clearLayers];
-                [self strokeChart];
-            }
-        }
-        @catch (NSException *exception) {
-            NSLog(@"绘制指数走势线异常: %@", exception.reason);
-        }
-    });
-}
-
-- (void)commonInit
-{
-    _layers = [NSMutableArray array];
-    self.backgroundColor = [UIColor clearColor];
-    [self setDefaultParameters];
 }
 
 - (void)setDefaultParameters
@@ -73,12 +54,26 @@
     _drawInnerGrid = YES;
 }
 
-- (CGFloat)chartWidth {
-    return self.frame.size.width - 2 * _margin;
+- (CGRect)lineChartFrame {
+    CGPoint origin = CGPointMake(_margin, _margin);
+    CGFloat width = CGRectGetWidth(self.frame) - _margin * 2;
+    CGFloat height = CGRectGetHeight(self.frame) - _margin * 2;
+    CGRect rect = CGRectMake(origin.x, origin.y, width, height);
+    return rect;
 }
 
-- (CGFloat)chartHeight {
-    return self.frame.size.height - 2 * _margin;
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        @try {
+            if (_vm.lines.count > 0 && _vm.prevClose > 0) {
+                [self clearLayers];
+                [self strokeLineChart];
+            }
+        }
+        @catch (NSException *exception) {
+            NSLog(@"IdxTrendChart 绘制指数走势线异常: %@", exception.reason);
+        }
+    });
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -93,11 +88,8 @@
     CGContextSetStrokeColorWithColor(ctx, [_boundColor CGColor]);
     
     // draw bound
-    CGContextMoveToPoint(ctx, _margin, _margin);
-    CGContextAddLineToPoint(ctx, _margin, self.chartHeight + _margin);
-    CGContextAddLineToPoint(ctx, self.chartWidth + _margin, self.chartHeight + _margin);
-    CGContextAddLineToPoint(ctx, self.chartWidth + _margin, _margin);
-    CGContextAddLineToPoint(ctx, _margin, _margin);
+    CGRect lineChartRect = [self lineChartFrame];
+    CGContextAddRect(ctx, lineChartRect);
     CGContextStrokePath(ctx);
     
     // draw grid
@@ -107,30 +99,27 @@
         CGContextSetLineDash(ctx, 0, (CGFloat[]){1, 2}, 2);
         
         for(int i = 1; i < _horizontalGridStep; i++) {
-            CGPoint point = CGPointMake(i * self.chartWidth / _horizontalGridStep + _margin, _margin);
-            
+            CGPoint point = CGPointMake(i * CGRectGetWidth(lineChartRect) / _horizontalGridStep + _margin, _margin);
             CGContextMoveToPoint(ctx, point.x, point.y);
-            CGContextAddLineToPoint(ctx, point.x, point.y + self.chartHeight);
+            CGContextAddLineToPoint(ctx, point.x, CGRectGetMaxY(lineChartRect));
             CGContextStrokePath(ctx);
         }
         
         for(int i = 1; i < _verticalGridStep; i++) {
-            CGPoint point = CGPointMake(_margin, (i) * self.chartHeight / _verticalGridStep + _margin);
-            
+            CGPoint point = CGPointMake(_margin, i * CGRectGetHeight(lineChartRect) / _verticalGridStep + _margin);
             CGContextMoveToPoint(ctx, point.x, point.y);
-            CGContextAddLineToPoint(ctx, self.chartWidth + _margin, point.y);
+            CGContextAddLineToPoint(ctx, CGRectGetMaxX(lineChartRect), point.y);
             CGContextStrokePath(ctx);
         }
     }
 }
 
-- (void)strokeChart
-{
-    CGFloat minBound = _vm.priceRange.low;
-    CGFloat maxBound = _vm.priceRange.high;
-    CGFloat scale = self.chartHeight / (maxBound - minBound);
+- (void)strokeLineChart {
+    NSString *date = [_vm.dates firstObject];
+    CGRect chartFrame = [self lineChartFrame];
     
-    UIBezierPath *linePath = [self getLinePath:scale close:NO];
+    // 绘制日分时线
+    UIBezierPath *linePath = [self getPricePathInFrame:chartFrame forTradingDay:date andIsClosed:NO];
     CAShapeLayer *pathLayer = [CAShapeLayer layer];
     pathLayer.frame = self.bounds;
     pathLayer.path = linePath.CGPath;
@@ -138,12 +127,11 @@
     pathLayer.fillColor = nil;
     pathLayer.lineWidth = _lineWidth;
     pathLayer.lineJoin = kCALineJoinRound;
-    
     [self.layer addSublayer:pathLayer];
     [self.layers addObject:pathLayer];
-    
-    if(_fillColor) {
-        UIBezierPath *fillPath = [self getLinePath:scale close:YES];
+    // 填充
+    if(_fillColor && _fillColor != [UIColor clearColor]) {
+        UIBezierPath *fillPath = [self getPricePathInFrame:chartFrame forTradingDay:date andIsClosed:YES];
         CAShapeLayer* fillLayer = [CAShapeLayer layer];
         fillLayer.frame = self.bounds;
         fillLayer.path = fillPath.CGPath;
@@ -151,66 +139,36 @@
         fillLayer.fillColor = _fillColor.CGColor;
         fillLayer.lineWidth = 0;
         fillLayer.lineJoin = kCALineJoinRound;
-        
         [self.layer addSublayer:fillLayer];
         [self.layers addObject:fillLayer];
     }
 }
 
-- (UIBezierPath*)getLinePath:(float)scale close:(BOOL)closed
-{
-    CGRect frame = CGRectMake(_margin, _margin, self.chartWidth, self.chartHeight);
-    NSMutableArray *temp = [NSMutableArray array];      // 存放分时线点
-    BDTrendLine *prevLine = nil;
-    CGPoint point;
-    for (BDTrendLine *line in _vm.lines) {
-        int sn = [_vm getSerialNumberWithTime:line.time];
-        if (prevLine == nil) {
-            if (sn != 0) {
-                point = [_vm getPointInFrame:frame WithSerialNumber:0 andPrice:line.price];
-                [temp addObject:NSStringFromCGPoint(point)];
-            }
-        }
-        else {
-            if (sn > 0) {
-                int prevTime = [_vm getTimeWithSerialNumber:sn-1];
-                if (prevTime > prevLine.time) {
-                    point = [_vm getPointInFrame:frame WithSerialNumber:sn-1 andPrice:prevLine.price];
-                    [temp addObject:NSStringFromCGPoint(point)];
-                }
-            }
-        }
-        point = [_vm getPointInFrame:frame WithSerialNumber:sn andPrice:line.price];
-        [temp addObject:NSStringFromCGPoint(point)];
-        prevLine = line;
-    }
-    
+- (UIBezierPath *)getPricePathInFrame:(CGRect)frame forTradingDay:(NSString *)date andIsClosed:(BOOL)closed {
+    NSArray *points = [_vm getPricePointInFrame:frame forTradingDay:date];
     UIBezierPath* path = [UIBezierPath bezierPath];
-    if (temp.count > 0) {
-        /* 绘制分时线 */
-        
-        for (int i = 0; i < temp.count; i++) {
+    if (points.count > 0) {
+        for (int i = 0; i < points.count; i++) {
             if(i > 0) {
-                [path addLineToPoint:CGPointFromString(temp[i])];
+                [path addLineToPoint:CGPointFromString(points[i])];
             }
             else {
-                [path moveToPoint:CGPointFromString(temp[i])];
+                [path moveToPoint:CGPointFromString(points[i])];
             }
         }
         
         if(closed) {
-            CGPoint lastPoint = CGPointFromString([temp lastObject]);
-            CGPoint lPoint = CGPointMake(lastPoint.x, _margin + self.chartHeight);
+            CGPoint lastPoint = CGPointFromString([points lastObject]);
+            CGPoint lPoint = CGPointMake(lastPoint.x, CGRectGetMaxY(frame));
             [path addLineToPoint:lPoint];
-            CGPoint fristPoint = CGPointFromString([temp firstObject]);
-            CGPoint fPoint = CGPointMake(fristPoint.x, _margin + self.chartHeight);
+            CGPoint fristPoint = CGPointFromString([points firstObject]);
+            CGPoint fPoint = CGPointMake(fristPoint.x, CGRectGetMaxY(frame));
             [path addLineToPoint:fPoint];
             [path addLineToPoint:fristPoint];
         }
     }
     return path;
 }
-
 
 - (void)clearLayers
 {
@@ -221,7 +179,8 @@
 }
 
 - (void)dealloc {
-    [_vm removeObserver:self forKeyPath:@"priceRange"];
+    [_vm removeObserver:self forKeyPath:@"lines"];
+    [_vm removeObserver:self forKeyPath:@"prevClose"];
 }
 
 @end

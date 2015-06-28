@@ -12,13 +12,18 @@
 
 #define IndicaterNames @[@"Date", @"Time", @"Now", @"Amount", @"Volume", @"PrevClose"]
 
+@interface TrendLineChartViewModel()
+
+@property(nonatomic, assign) BOOL initialized;  // 是否加载完历史数据
+@property(nonatomic, assign) NSUInteger interval;   // 间隔的分钟数
+@property(nonatomic, assign) NSUInteger days;   // 几个交易日
+
+@end
+
 @implementation TrendLineChartViewModel
 {
     dispatch_queue_t _propertyUpdateQueue;
     BDQuotationService *_service;
-    BOOL _initialized;  // 是否加载完历史数据
-    NSUInteger _interval;   // 间隔的分钟数
-    NSUInteger _days;   // 几个交易日
 }
 
 #pragma mark Init
@@ -28,19 +33,15 @@
     if (self) {
         _propertyUpdateQueue = dispatch_queue_create("TrendLineUpdate", nil);
         _service = [BDQuotationService sharedInstance];
-        [self initProperties];
+        _lines = [NSMutableArray array];
+        self.initialized = NO;
+        self.interval = 1;
+        self.days = 1;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subscribeScalarChanged:) name:QUOTE_SCALAR_NOTIFICATION object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reconnection) name:QUOTE_SOCKET_CONNECT object:nil];
     }
     return self;
-}
-
-- (void)initProperties {
-    _initialized = NO;
-    _interval = 1;
-    _days = 1;
-    _lines = [NSMutableArray array];
 }
 
 #pragma mark Property
@@ -57,11 +58,13 @@
     return (PriceRange){_prevClose - max, _prevClose + max};
 }
 
-- (NSArray *)dates {
+- (void)setDays:(NSUInteger)days {
+    _days = days;
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[BDTradingDayService getTradingDaysUntilNowForDays:_days]];
     [arr sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
-    return arr;
+    _dates = arr;
 }
+
 
 #pragma mark Loading date
 
@@ -70,11 +73,13 @@
         if (_code) {
             [_service unsubscribeScalarWithCode:_code indicaters:IndicaterNames];
         }
-        [self setValue:[code copy] forKey:@"code"];
-        _initialized = NO;
-        _interval = interval;
-        _days = days;
+        self.initialized = NO;
+        self.interval = interval;
+        self.days = days;
+        _code = [code copy];
         [_lines removeAllObjects];
+
+        _prevClose = [[_service getCurrentIndicateWithCode:_code andName:@"PrevClose"] doubleValue];
         [_service subscribeSerialsWithCode:_code indicateName:@"TrendLine" beginDate:0 beginTime:0 numberType:(int)interval number:(int)days];
         [_service subscribeScalarWithCode:_code indicaters:IndicaterNames];
     }
@@ -84,8 +89,8 @@
 #pragma mark Subscribe
 
 - (void)reconnection {
-    if (_initialized) {
-        [self loadDataWithSecuCode:_code forDays:_days andInterval:_interval];
+    if (self.initialized) {
+        [self loadDataWithSecuCode:self.code forDays:self.days andInterval:self.interval];
     }
 }
 
@@ -93,10 +98,10 @@
     unsigned int mergeMinute = 0;
     unsigned int minute = time / 100000;
     if (minute <= 1130) {
-        mergeMinute = floor((time - 930) * 1.0 / _interval) * _interval + 930;
+        mergeMinute = floor((time - 930) * 1.0 / self.interval) * self.interval + 930;
     }
     if (minute >= 1300) {
-        mergeMinute = floor((time - 1300) * 1.0 / _interval) * _interval + 1300;
+        mergeMinute = floor((time - 1300) * 1.0 / self.interval) * self.interval + 1300;
     }
     return mergeMinute;
 }
@@ -112,7 +117,6 @@
         line.volume = [[item objectForKey:@"Volume"] unsignedLongValue];
         [arr addObject:line];
     }
-//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"time >= 930 and time <= 1500"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"time BETWEEN {930, 1130} or time BETWEEN {1300, 1500}"];
     arr = [NSMutableArray arrayWithArray:[arr filteredArrayUsingPredicate:predicate]];
     [arr sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES],
@@ -128,26 +132,29 @@
     
     if (self.code && [self.code isEqualToString:code]) {
         dispatch_async(_propertyUpdateQueue, ^{
-            if ([indicateName isEqualToString:@"TrendLine"] && !_initialized) {
+            if ([indicateName isEqualToString:@"TrendLine"] && !self.initialized) {
                 @try {
                     NSArray *lineArray = [self paraseTrendLines:[value objectForKey:@"TrendLine"]];
                     [self setValue:lineArray forKey:@"lines"];  // kvo
-                    _initialized = YES;
-                    id prevCloseValue = [_service getCurrentIndicateWithCode:self.code andName:@"PrevClose"];
-                    if (prevCloseValue) {
-                        [self setValue:prevCloseValue forKey:@"prevClose"];
-                    }
+                    self.initialized = YES;
                 }
                 @catch (NSException *exception) {
                     NSLog(@"TrendLineChartViewModel 初始化分时线异常：%@",[exception reason]);
                 }
             }
             
-            if (_initialized) {
+            if ([indicateName isEqualToString:@"PrevClose"]) {
+                if (value) {
+                    [self setValue:value forKey:@"prevClose"];  // kvo
+                }
+            }
+            
+            if (self.initialized) {
                 @try {
-                    if ([indicateName isEqualToString:@"Date"] || [indicateName isEqualToString:@"Time"]
-                        || [indicateName isEqualToString:@"Now"] || [indicateName isEqualToString:@"Amount"]
-                        || [indicateName isEqualToString:@"Volume"]) {
+//                    if ([indicateName isEqualToString:@"Date"] || [indicateName isEqualToString:@"Time"]
+//                        || [indicateName isEqualToString:@"Now"] || [indicateName isEqualToString:@"Amount"]
+//                        || [indicateName isEqualToString:@"Volume"]) {
+                    if ([indicateName isEqualToString:@"Time"]) {
                         unsigned int date = [[_service getCurrentIndicateWithCode:self.code andName:@"Date"] unsignedIntValue];
                         unsigned int time = [[_service getCurrentIndicateWithCode:self.code andName:@"Time"] unsignedIntValue] / 100000;
                         double price = [[_service getCurrentIndicateWithCode:self.code andName:@"Now"] doubleValue];
@@ -171,11 +178,6 @@
                         
                         [self setValue:self.lines forKey:@"lines"];  // kvo
                     }
-                    else if ([indicateName isEqualToString:@"PrevClose"]) {
-                        if (value) {
-                            [self setValue:value forKey:@"prevClose"];  // kvo
-                        }
-                    }
                 }
                 @catch (NSException *exception) {
                     NSLog(@"TrendLineChartViewModel 订阅指标数据异常：%@",[exception reason]);
@@ -185,7 +187,7 @@
     }
 }
 
-#pragma mark - View
+#pragma mark - Chart line
 
 // 获取某交易日（日期格式'yyyy-MM-dd'）的均线
 - (NSArray *)getAvgPricePointInFrame:(CGRect)frame forTradingDay:(NSString *)date {
@@ -211,6 +213,8 @@
     return points;
 }
 
+#pragma mark serial
+
 // 获取某交易日的价格序列（日期格式'yyyy-MM-dd'）
 - (NSArray *)getPriceSerialForTradingDay:(NSString *)date {
     NSMutableArray *serial = [NSMutableArray array];
@@ -227,7 +231,7 @@
         }
         else {
             while (serial.count < sn) {
-                serial[serial.count - 1] = serial[serial.count - 2];
+                serial[serial.count] = serial[serial.count - 1];
             }
             serial[sn] = [NSNumber numberWithDouble:line.price];
             i++;

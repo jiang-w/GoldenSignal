@@ -94,12 +94,14 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         @try {
             if (_vm.lines.count > 0 && _vm.prevClose > 0) {
+                NSLog(@"lines:%lu  prevClose:%f",(unsigned long)_vm.lines.count, _vm.prevClose);
+                
                 [self clearLayers];
                 [self strokeLineChart];
             }
         }
         @catch (NSException *exception) {
-            NSLog(@"绘制指数走势线异常: %@", exception.reason);
+            NSLog(@"TrendLineChart 绘制指数走势线异常: %@", exception.reason);
         }
     });
 }
@@ -165,6 +167,8 @@
     NSArray *dates = _vm.dates;
     CGRect chartFrame = [self lineChartFrame];
     CGFloat xOffset = CGRectGetWidth(chartFrame) / dates.count;
+    
+    Stopwatch *watch = [Stopwatch startNew];
     for (int i = 0; i < dates.count; i++) {
         CGRect frame = CGRectMake(chartFrame.origin.x + xOffset * i, chartFrame.origin.y, xOffset, chartFrame.size.height);
         // 绘制日分时线
@@ -192,17 +196,20 @@
             [self.layers addObject:fillLayer];
         }
         // 绘制均线
-        UIBezierPath *avgLinePath = [self getAvgPricePathInFrame:frame forTradingDay:dates[i] andIsClosed:NO];
-        CAShapeLayer *avgLineLayer = [CAShapeLayer layer];
-        avgLineLayer.frame = self.bounds;
-        avgLineLayer.path = avgLinePath.CGPath;
-        avgLineLayer.strokeColor = [_avgLineColor CGColor];
-        avgLineLayer.fillColor = nil;
-        avgLineLayer.lineWidth = _lineWidth;
-        avgLineLayer.lineJoin = kCALineJoinRound;
-        [self.layer addSublayer:avgLineLayer];
-        [self.layers addObject:avgLineLayer];
+        //        UIBezierPath *avgLinePath = [self getAvgPricePathInFrame:frame forTradingDay:dates[i] andIsClosed:NO];
+        //        CAShapeLayer *avgLineLayer = [CAShapeLayer layer];
+        //        avgLineLayer.frame = self.bounds;
+        //        avgLineLayer.path = avgLinePath.CGPath;
+        //        avgLineLayer.strokeColor = [_avgLineColor CGColor];
+        //        avgLineLayer.fillColor = nil;
+        //        avgLineLayer.lineWidth = _lineWidth;
+        //        avgLineLayer.lineJoin = kCALineJoinRound;
+        //        [self.layer addSublayer:avgLineLayer];
+        //        [self.layers addObject:avgLineLayer];
     }
+    
+    [watch stop];
+    NSLog(@"绘制分时线 Timeout:%.3fs", watch.elapsed);
 }
 
 - (UIBezierPath *)getPricePathInFrame:(CGRect)frame forTradingDay:(NSString *)date andIsClosed:(BOOL)closed {
