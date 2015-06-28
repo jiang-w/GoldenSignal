@@ -202,25 +202,29 @@
 
 #pragma mark - Chart line
 
-// 获取某交易日（日期格式'yyyy-MM-dd'）的均线
-- (NSArray *)getAvgPricePointInFrame:(CGRect)frame forTradingDay:(NSString *)date {
+// 获取某交易日（日期格式'yyyy-MM-dd'）的分时线
+- (NSArray *)getPricePointInFrame:(CGRect)frame forTradingDay:(NSString *)date {
     NSMutableArray *points = [NSMutableArray array];
-    NSArray *priceArr = [self getAvgPriceSerialForTradingDay:date];
+    NSArray *priceArr = [self getPriceSerialForTradingDay:date];
+    PriceRange priceRange = self.priceRange;
+    double scale = (priceRange.high - priceRange.low) / CGRectGetHeight(frame);
     for (int i = 0; i < priceArr.count; i++) {
         double price = [priceArr[i] doubleValue];
-        CGPoint point = [self getPointInFrame:frame withSerialNumber:i andPrice:price];
+        CGPoint point = [self getPointInFrame:frame withScale:scale andValue:price - priceRange.low serialNumber:i];
         [points addObject:NSStringFromCGPoint(point)];
     }
     return points;
 }
 
-// 获取某交易日（日期格式'yyyy-MM-dd'）的分时线
-- (NSArray *)getPricePointInFrame:(CGRect)frame forTradingDay:(NSString *)date {
+// 获取某交易日（日期格式'yyyy-MM-dd'）的均线
+- (NSArray *)getAvgPricePointInFrame:(CGRect)frame forTradingDay:(NSString *)date {
     NSMutableArray *points = [NSMutableArray array];
-    NSArray *priceArr = [self getPriceSerialForTradingDay:date];
+    NSArray *priceArr = [self getAvgPriceSerialForTradingDay:date];
+    PriceRange priceRange = self.priceRange;
+    double scale = (priceRange.high - priceRange.low) / CGRectGetHeight(frame);
     for (int i = 0; i < priceArr.count; i++) {
         double price = [priceArr[i] doubleValue];
-        CGPoint point = [self getPointInFrame:frame withSerialNumber:i andPrice:price];
+        CGPoint point = [self getPointInFrame:frame withScale:scale andValue:price - priceRange.low serialNumber:i];
         [points addObject:NSStringFromCGPoint(point)];
     }
     return points;
@@ -233,7 +237,7 @@
     double scale = self.maxVolume / CGRectGetHeight(frame);
     for (int i = 0; i < volumeArr.count; i++) {
         unsigned long volume = [volumeArr[i] unsignedLongValue];
-        CGPoint point = [self getPointInFrame:frame andScale:scale withSerialNumber:i andVolume:volume];
+        CGPoint point = [self getPointInFrame:frame withScale:scale andValue:volume serialNumber:i];
         [points addObject:NSStringFromCGPoint(point)];
     }
     return points;
@@ -329,12 +333,11 @@
     return sn;
 }
 
-- (CGPoint)getPointInFrame:(CGRect)frame withSerialNumber:(int)sn andPrice:(double)price {
-    PriceRange priceRange = self.priceRange;
+- (CGPoint)getPointInFrame:(CGRect)frame withScale:(double)scale andValue:(double)value serialNumber:(int)sn {
     if (sn >= 0) {
         int pointCount = floor(240.0 / _interval) + 2;
         float xOffset = CGRectGetMinX(frame) + sn * CGRectGetWidth(frame) / (pointCount - 1);
-        float yOffset = CGRectGetMinY(frame) + (priceRange.high - price) / (priceRange.high - priceRange.low) * CGRectGetHeight(frame);
+        float yOffset = CGRectGetMaxY(frame) - value / scale;
         return CGPointMake(xOffset, yOffset);
     }
     else {
@@ -342,17 +345,6 @@
     }
 }
 
-- (CGPoint)getPointInFrame:(CGRect)frame andScale:(double)scale withSerialNumber:(int)sn andVolume:(unsigned long)volume {
-    if (sn >= 0) {
-        int pointCount = floor(240.0 / _interval) + 2;
-        float xOffset = CGRectGetMinX(frame) + sn * CGRectGetWidth(frame) / (pointCount - 1);
-        float yOffset = CGRectGetMaxY(frame) - volume / scale;
-        return CGPointMake(xOffset, yOffset);
-    }
-    else {
-        return CGPointZero;
-    }
-}
 
 #pragma mark - Dealloc
 
