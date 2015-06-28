@@ -65,6 +65,19 @@
     _dates = arr;
 }
 
+- (unsigned long)maxVolume {
+    NSMutableArray *volumeArr = [NSMutableArray array];
+    for (NSString *date in _dates) {
+        [volumeArr addObjectsFromArray:[self getVolumeSerialForTradingDay:date]];
+    }
+    unsigned long max = 0;
+    for (NSNumber *val in volumeArr) {
+        if ([val unsignedLongValue] > max) {
+            max = [val unsignedLongValue];
+        }
+    }
+    return max;
+}
 
 #pragma mark Loading date
 
@@ -213,6 +226,19 @@
     return points;
 }
 
+// 获取某交易日（日期格式'yyyy-MM-dd'）的成交量
+- (NSArray *)getVolumePointInFrame:(CGRect)frame forTradingDay:(NSString *)date {
+    NSMutableArray *points = [NSMutableArray array];
+    NSArray *volumeArr = [self getVolumeSerialForTradingDay:date];
+    double scale = self.maxVolume / CGRectGetHeight(frame);
+    for (int i = 0; i < volumeArr.count; i++) {
+        unsigned long volume = [volumeArr[i] unsignedLongValue];
+        CGPoint point = [self getPointInFrame:frame andScale:scale withSerialNumber:i andVolume:volume];
+        [points addObject:NSStringFromCGPoint(point)];
+    }
+    return points;
+}
+
 #pragma mark serial
 
 // 获取某交易日的价格序列（日期格式'yyyy-MM-dd'）
@@ -281,12 +307,11 @@
             else {
                 [serial addObject:[NSNumber numberWithUnsignedLong:0]];
             }
-            i++;
         }
         else {
             [serial addObject:[NSNumber numberWithUnsignedLong:0]];
-            i++;
         }
+        i++;
     }
     return serial;
 }
@@ -310,6 +335,18 @@
         int pointCount = floor(240.0 / _interval) + 2;
         float xOffset = CGRectGetMinX(frame) + sn * CGRectGetWidth(frame) / (pointCount - 1);
         float yOffset = CGRectGetMinY(frame) + (priceRange.high - price) / (priceRange.high - priceRange.low) * CGRectGetHeight(frame);
+        return CGPointMake(xOffset, yOffset);
+    }
+    else {
+        return CGPointZero;
+    }
+}
+
+- (CGPoint)getPointInFrame:(CGRect)frame andScale:(double)scale withSerialNumber:(int)sn andVolume:(unsigned long)volume {
+    if (sn >= 0) {
+        int pointCount = floor(240.0 / _interval) + 2;
+        float xOffset = CGRectGetMinX(frame) + sn * CGRectGetWidth(frame) / (pointCount - 1);
+        float yOffset = CGRectGetMaxY(frame) - volume / scale;
         return CGPointMake(xOffset, yOffset);
     }
     else {

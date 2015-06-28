@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoldenSignal/TrendLineChartViewModel.m"
-            timestampString = "457032592.616059"
+            timestampString = "457178638.16611"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
             landmarkName = "-subscribeScalarChanged:"
             landmarkType = "5">
          </BreakpointContent>

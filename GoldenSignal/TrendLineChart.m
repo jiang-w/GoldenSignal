@@ -94,14 +94,15 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         @try {
             if (_vm.lines.count > 0 && _vm.prevClose > 0) {
-                NSLog(@"lines:%lu  prevClose:%f",(unsigned long)_vm.lines.count, _vm.prevClose);
+                NSLog(@"TrendLineChart 绘制走势图 (lines:%lu prevClose:%.2f)",(unsigned long)_vm.lines.count, _vm.prevClose);
                 
                 [self clearLayers];
                 [self strokeLineChart];
+                [self strokeVolumeChart];
             }
         }
         @catch (NSException *exception) {
-            NSLog(@"TrendLineChart 绘制指数走势线异常: %@", exception.reason);
+            NSLog(@"TrendLineChart 绘制走势图异常: %@", exception.reason);
         }
     });
 }
@@ -164,18 +165,18 @@
 }
 
 - (void)strokeLineChart {
+    Stopwatch *watch = [Stopwatch startNew];
     NSArray *dates = _vm.dates;
     CGRect chartFrame = [self lineChartFrame];
     CGFloat xOffset = CGRectGetWidth(chartFrame) / dates.count;
     
-    Stopwatch *watch = [Stopwatch startNew];
     for (int i = 0; i < dates.count; i++) {
         CGRect frame = CGRectMake(chartFrame.origin.x + xOffset * i, chartFrame.origin.y, xOffset, chartFrame.size.height);
         // 绘制日分时线
-        UIBezierPath *linePath = [self getPricePathInFrame:frame forTradingDay:dates[i] andIsClosed:NO];
+        CGPathRef linePath = [self getPricePathInFrame:frame forTradingDay:dates[i] andIsClosed:NO];
         CAShapeLayer *pathLayer = [CAShapeLayer layer];
         pathLayer.frame = self.bounds;
-        pathLayer.path = linePath.CGPath;
+        pathLayer.path = linePath;
         pathLayer.strokeColor = [_lineColor CGColor];
         pathLayer.fillColor = nil;
         pathLayer.lineWidth = _lineWidth;
@@ -184,10 +185,10 @@
         [self.layers addObject:pathLayer];
         // 填充
         if(_fillColor && _fillColor != [UIColor clearColor]) {
-            UIBezierPath *fillPath = [self getPricePathInFrame:frame forTradingDay:dates[i] andIsClosed:YES];
+            CGPathRef fillPath = [self getPricePathInFrame:frame forTradingDay:dates[i] andIsClosed:YES];
             CAShapeLayer* fillLayer = [CAShapeLayer layer];
             fillLayer.frame = self.bounds;
-            fillLayer.path = fillPath.CGPath;
+            fillLayer.path = fillPath;
             fillLayer.strokeColor = nil;
             fillLayer.fillColor = _fillColor.CGColor;
             fillLayer.lineWidth = 0;
@@ -207,12 +208,34 @@
         //        [self.layer addSublayer:avgLineLayer];
         //        [self.layers addObject:avgLineLayer];
     }
-    
     [watch stop];
     NSLog(@"绘制分时线 Timeout:%.3fs", watch.elapsed);
 }
 
-- (UIBezierPath *)getPricePathInFrame:(CGRect)frame forTradingDay:(NSString *)date andIsClosed:(BOOL)closed {
+- (void)strokeVolumeChart {
+    Stopwatch *watch = [Stopwatch startNew];
+    NSArray *dates = _vm.dates;
+    CGRect chartFrame = [self volumeChartFrame];
+    CGFloat xOffset = CGRectGetWidth(chartFrame) / dates.count;
+    
+    for (int i = 0; i < dates.count; i++) {
+        CGRect frame = CGRectMake(chartFrame.origin.x + xOffset * i, chartFrame.origin.y, xOffset, chartFrame.size.height);
+        CGMutablePathRef volumePath = [self getVolumePathInFrame:frame forTradingDay:dates[i]];
+        CAShapeLayer *pathLayer = [CAShapeLayer layer];
+        pathLayer.frame = self.bounds;
+        pathLayer.path = volumePath;
+        pathLayer.strokeColor = [_lineColor CGColor];
+        pathLayer.fillColor = nil;
+        pathLayer.lineWidth = 1;
+        pathLayer.lineJoin = kCALineJoinRound;
+        [self.layer addSublayer:pathLayer];
+        [self.layers addObject:pathLayer];
+    }
+    [watch stop];
+    NSLog(@"绘制交易量 Timeout:%.3fs", watch.elapsed);
+}
+
+- (CGPathRef)getPricePathInFrame:(CGRect)frame forTradingDay:(NSString *)date andIsClosed:(BOOL)closed {
     NSArray *points = [_vm getPricePointInFrame:frame forTradingDay:date];
     UIBezierPath* path = [UIBezierPath bezierPath];
     if (points.count > 0) {
@@ -235,10 +258,10 @@
             [path addLineToPoint:fristPoint];
         }
     }
-    return path;
+    return path.CGPath;
 }
 
-- (UIBezierPath *)getAvgPricePathInFrame:(CGRect)frame forTradingDay:(NSString *)date andIsClosed:(BOOL)closed {
+- (CGPathRef)getAvgPricePathInFrame:(CGRect)frame forTradingDay:(NSString *)date andIsClosed:(BOOL)closed {
     NSArray *points = [_vm getAvgPricePointInFrame:frame forTradingDay:date];
     UIBezierPath* path = [UIBezierPath bezierPath];
     if (points.count > 0) {
@@ -260,6 +283,17 @@
             [path addLineToPoint:fPoint];
             [path addLineToPoint:fristPoint];
         }
+    }
+    return path.CGPath;
+}
+
+- (CGMutablePathRef)getVolumePathInFrame:(CGRect)frame forTradingDay:(NSString *)date {
+    NSArray *points = [_vm getVolumePointInFrame:frame forTradingDay:date];
+    CGMutablePathRef path =CGPathCreateMutable();
+    for (int i = 0; i < points.count; i++) {
+        CGPoint point = CGPointFromString(points[i]);
+        CGPathMoveToPoint(path, NULL, point.x, CGRectGetMaxY(frame));
+        CGPathAddLineToPoint(path,NULL, point.x, point.y);
     }
     return path;
 }

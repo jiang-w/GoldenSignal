@@ -28,7 +28,12 @@
 /**
  *  价格区间
  */
-@property(nonatomic, assign, readonly)PriceRange priceRange;
+@property(nonatomic, assign, readonly) PriceRange priceRange;
+
+/**
+ *  最大交易量
+ */
+@property(nonatomic, assign, readonly) unsigned long maxVolume;
 
 /**
  *  包含哪些日期的走势线
@@ -41,6 +46,8 @@
 - (NSArray *)getPricePointInFrame:(CGRect)frame forTradingDay:(NSString *)date;
 
 - (NSArray *)getAvgPricePointInFrame:(CGRect)frame forTradingDay:(NSString *)date;
+
+- (NSArray *)getVolumePointInFrame:(CGRect)frame forTradingDay:(NSString *)date;
 
 
 @end
