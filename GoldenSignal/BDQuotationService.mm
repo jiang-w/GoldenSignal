@@ -46,8 +46,6 @@ NSMutableDictionary *BookingPoint;
         
         [[NSNotificationCenter defaultCenter]
          addObserver:self selector:@selector(resubmit) name:QUOTE_SOCKET_CONNECT object:nil];
-        [[NSNotificationCenter defaultCenter]
-         addObserver:self selector:@selector(connect) name:QUOTE_SOCKET_CLOSE object:nil];
     }
     return self;
 }
