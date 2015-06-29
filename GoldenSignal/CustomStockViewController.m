@@ -9,7 +9,7 @@
 #import "CustomStockViewController.h"
 #import "QuoteViewCell.h"
 #import "IdxQuoteViewCell.h"
-#import "StockViewController.h"
+#import "StockDetailViewController.h"
 #import "BDSectService.h"
 #import "MBProgressHUD/MBProgressHUD.h"
 
@@ -200,7 +200,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"StockViewSegue"]) {
         NSString *code = (NSString *)sender;
-        StockViewController *stockVC = (StockViewController *)segue.destinationViewController;
+        StockDetailViewController *stockVC = (StockDetailViewController *)segue.destinationViewController;
         stockVC.defaultCode = code;
     }
 }

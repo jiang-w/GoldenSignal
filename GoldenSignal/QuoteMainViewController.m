@@ -7,7 +7,7 @@
 //
 
 #import "QuoteMainViewController.h"
-#import "StockViewController.h"
+#import "StockDetailViewController.h"
 #import "SectCollectionViewController.h"
 #import "QuoteHomeViewController.h"
 #import "IdxDetailViewController.h"
@@ -103,8 +103,8 @@
     BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:code];
     if (secu.typ == idx) {
         IdxDetailViewController *idxVC = [[IdxDetailViewController alloc] init];
-        idxVC.idxCode = secu.bdCode;
         idxVC.hidesBottomBarWhenPushed = YES;
+        [idxVC loadDataWithSecuCode:code];
         [self.navigationController pushViewController:idxVC animated:NO];
     }
     else {
@@ -117,7 +117,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"StockViewSegue"]) {
         NSString *code = (NSString *)sender;
-        StockViewController *stockVC = (StockViewController *)segue.destinationViewController;
+        StockDetailViewController *stockVC = (StockDetailViewController *)segue.destinationViewController;
         stockVC.defaultCode = code;
     }
 }

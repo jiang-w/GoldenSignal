@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 bigdata. All rights reserved.
 //
 
-#import "StockViewController.h"
+#import "StockDetailViewController.h"
 #import "NewsDetailViewController.h"
 #import "NewsListViewCell.h"
 #import "ReportListViewCell.h"
@@ -17,7 +17,7 @@
 
 #import "Masonry.h"
 
-@interface StockViewController ()
+@interface StockDetailViewController ()
 {
     NSString *_code;
     StockNewsViewModel *_quoteNewsViewModel;
@@ -25,7 +25,7 @@
 }
 @end
 
-@implementation StockViewController
+@implementation StockDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

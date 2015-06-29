@@ -16,7 +16,7 @@
 
 #import <PPiFlatSegmentedControl.h>
 
-@interface StockViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface StockDetailViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
 {
     UIView *containerView;
     UIView *chartContainerView;

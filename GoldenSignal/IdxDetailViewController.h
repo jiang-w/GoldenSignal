@@ -10,6 +10,6 @@
 
 @interface IdxDetailViewController : UIViewController <UIScrollViewDelegate>
 
-@property(nonatomic, strong) NSString *idxCode;
+- (void)loadDataWithSecuCode:(NSString *)code;
 
 @end

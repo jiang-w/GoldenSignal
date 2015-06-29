@@ -10,7 +10,7 @@
 #import "BDQuotationService.h"
 #import "SideMenuViewController.h"
 #import "AdViewController.h"
-#import "StockViewController.h"
+#import "StockDetailViewController.h"
 #import "BDStockPoolInfoService.h"
 
 @implementation AppDelegate
@@ -77,13 +77,13 @@
     NSString *bdCode = dic[@"BD_CODE"];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    StockViewController *stockVC = [storyboard instantiateViewControllerWithIdentifier:@"StockViewController"];
+    StockDetailViewController *stockVC = [storyboard instantiateViewControllerWithIdentifier:@"StockViewController"];
     stockVC.defaultCode = bdCode;
     GHRevealViewController *root = (GHRevealViewController *)self.window.rootViewController;
     UITabBarController *tab = (UITabBarController *)root.contentViewController;
     UINavigationController *navigation = (UINavigationController *)tab.viewControllers[tab.selectedIndex];
     UIViewController *top = [navigation.viewControllers lastObject];
-    if (![top isKindOfClass:[StockViewController class]]) {
+    if (![top isKindOfClass:[StockDetailViewController class]]) {
         [navigation pushViewController:stockVC animated:YES];
     }
 }

@@ -10,21 +10,31 @@
 #import "IdxQuoteView.h"
 #import "TrendLineChart.h"
 #import <Masonry.h>
+#import <PPiFlatSegmentedControl.h>
 
 @interface IdxDetailViewController ()
 
 @property(nonatomic, strong) UIScrollView *scrollView;
 @property(nonatomic, strong) UIView *containerView;
+@property(nonatomic, strong) UIView *chartContainerView;
+
 @property(nonatomic, strong) IdxQuoteView *idxQuoteView;
+@property(nonatomic, strong) PPiFlatSegmentedControl *chartTabView;
 @property(nonatomic, strong) TrendLineChart *trendLineChart;
 
 @end
 
 @implementation IdxDetailViewController
+{
+    NSString *_idxCode;
+    NSInteger _chartTab;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self settingView];
+    
+    [self loadChartView];
 }
 
 - (void)settingView {
@@ -46,29 +56,33 @@
 
     /* 添加指数标价 */
     self.idxQuoteView = [IdxQuoteView createView];
-    [self.idxQuoteView subscribeIndicatorsWithCode:_idxCode];
     [self addSubView:self.idxQuoteView withHeight:110 andSpace:0];
+    [self.idxQuoteView subscribeIndicatorsWithCode:_idxCode];
     
-    /* 添加指数走势图 */
-    self.trendLineChart = [[TrendLineChart alloc] init];
-    self.trendLineChart.margin = 6;
-//    self.trendLineChart.days = 5;
-    self.trendLineChart.lineColor = [UIColor orangeColor];
-    self.trendLineChart.fillColor = [[UIColor orangeColor] colorWithAlphaComponent:0.15];
-    [self.trendLineChart loadDataWithSecuCode:_idxCode];
-    [self addSubView:self.trendLineChart withHeight:180 andSpace:0];
+    /* 行情走势图Tab */
+    self.chartTabView = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 320, 30) items:@[@{@"text":@"分时"}, @{@"text":@"五日"}, @{@"text":@"日K"}, @{@"text":@"周K"}, @{@"text":@"月K"}] iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex) {
+        _chartTab = segmentIndex;
+        [self loadChartView];
+    }];
+    self.chartTabView.color = RGB(7, 9, 8, 1);
+    self.chartTabView.borderWidth = 1;
+    self.chartTabView.borderColor = RGB(80.0, 80.0, 80.0, 1.0);
+    self.chartTabView.selectedColor = RGB(30, 30, 30, 1);
+    self.chartTabView.textAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(214, 214, 214, 1)};
+    self.chartTabView.selectedTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(216, 1, 1, 1)};
+    [self addSubView:self.chartTabView withHeight:30 andSpace:2];
     
+    /* 分时、K线容器视图 */
+    self.chartContainerView = [[UIView alloc] init];
+    self.chartContainerView.backgroundColor = RGB(30, 30, 30, 1);
+    [self addSubView:self.chartContainerView withHeight:180 andSpace:4];
+
     UIView *lastView = self.containerView.subviews.lastObject;
     if (lastView) {
         [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(lastView.mas_bottom);
         }];
     }
-    
-//    BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:_idxCode];
-//    if (secu) {
-//        self.navigationController.title = secu.name;
-//    }
 }
 
 - (void)addSubView:(UIView *) subView withHeight:(CGFloat)height andSpace:(CGFloat)space {
@@ -85,6 +99,41 @@
             make.left.and.right.equalTo(self.containerView);
             make.height.mas_equalTo(height);
         }];
+    }
+}
+
+// 加载分时、K线视图
+- (void)loadChartView {
+    for (UIView *sub in self.chartContainerView.subviews) {
+        [sub removeFromSuperview];
+    }
+    
+    switch (_chartTab) {
+        case 0: {
+            if (self.trendLineChart == nil) {
+                self.trendLineChart = [[TrendLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
+                self.trendLineChart.margin = 1;
+                //    self.trendLineChart.days = 5;
+                self.trendLineChart.lineColor = [UIColor orangeColor];
+                self.trendLineChart.fillColor = [[UIColor orangeColor] colorWithAlphaComponent:0.15];
+                [self.trendLineChart loadDataWithSecuCode:_idxCode];
+            }
+            [self.chartContainerView addSubview:self.trendLineChart];
+            break;
+        }
+        default:break;
+    }
+}
+
+- (void)loadDataWithSecuCode:(NSString *)code {
+    if (![code isEqualToString:_idxCode]) {
+        BDSecuCode *secuCode = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:code];
+        if (secuCode) {
+            _idxCode = code;
+            
+            // 载入分时、K线视图
+            [self loadChartView];
+        }
     }
 }
 
