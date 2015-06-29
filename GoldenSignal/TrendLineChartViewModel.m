@@ -297,9 +297,9 @@
     NSArray *lines = [_lines filteredArrayUsingPredicate:predicate];
     int i = 0;
     while (i < lines.count) {
+        BDTrendLine *line = lines[i];
+        int sn = [self getSerialNumberWithTime:line.time];
         if (i > 0) {
-            BDTrendLine *line = lines[i];
-            int sn = [self getSerialNumberWithTime:line.time];
             while (serial.count < sn) {
                 [serial addObject:[NSNumber numberWithUnsignedLong:0]];
             }
@@ -313,7 +313,12 @@
             }
         }
         else {
-            [serial addObject:[NSNumber numberWithUnsignedLong:0]];
+            if (sn == 0) {
+                [serial addObject:[NSNumber numberWithUnsignedLong:line.volume]];
+            }
+            else {
+                [serial addObject:[NSNumber numberWithUnsignedLong:0]];
+            }
         }
         i++;
     }
@@ -352,7 +357,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:QUOTE_SCALAR_NOTIFICATION object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:QUOTE_SOCKET_CONNECT object:nil];
     [_service unsubscribeScalarWithCode:self.code indicaters:IndicaterNames];
-    NSLog(@"%@ TrendLineChartViewModel dealloc", self.code);
+//    NSLog(@"%@ TrendLineChartViewModel dealloc", self.code);
 }
 
 

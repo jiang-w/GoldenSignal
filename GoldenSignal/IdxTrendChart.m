@@ -119,10 +119,10 @@
     CGRect chartFrame = [self lineChartFrame];
     
     // 绘制日分时线
-    UIBezierPath *linePath = [self getPricePathInFrame:chartFrame forTradingDay:date andIsClosed:NO];
+    CGPathRef linePath = [self getPricePathInFrame:chartFrame forTradingDay:date andIsClosed:NO];
     CAShapeLayer *pathLayer = [CAShapeLayer layer];
     pathLayer.frame = self.bounds;
-    pathLayer.path = linePath.CGPath;
+    pathLayer.path = linePath;
     pathLayer.strokeColor = [_color CGColor];
     pathLayer.fillColor = nil;
     pathLayer.lineWidth = _lineWidth;
@@ -131,10 +131,10 @@
     [self.layers addObject:pathLayer];
     // 填充
     if(_fillColor && _fillColor != [UIColor clearColor]) {
-        UIBezierPath *fillPath = [self getPricePathInFrame:chartFrame forTradingDay:date andIsClosed:YES];
+        CGPathRef fillPath = [self getPricePathInFrame:chartFrame forTradingDay:date andIsClosed:YES];
         CAShapeLayer* fillLayer = [CAShapeLayer layer];
         fillLayer.frame = self.bounds;
-        fillLayer.path = fillPath.CGPath;
+        fillLayer.path = fillPath;
         fillLayer.strokeColor = nil;
         fillLayer.fillColor = _fillColor.CGColor;
         fillLayer.lineWidth = 0;
@@ -144,7 +144,7 @@
     }
 }
 
-- (UIBezierPath *)getPricePathInFrame:(CGRect)frame forTradingDay:(NSString *)date andIsClosed:(BOOL)closed {
+- (CGPathRef)getPricePathInFrame:(CGRect)frame forTradingDay:(NSString *)date andIsClosed:(BOOL)closed {
     NSArray *points = [_vm getPricePointInFrame:frame forTradingDay:date];
     UIBezierPath* path = [UIBezierPath bezierPath];
     if (points.count > 0) {
@@ -167,7 +167,7 @@
             [path addLineToPoint:fristPoint];
         }
     }
-    return path;
+    return path.CGPath;
 }
 
 - (void)clearLayers

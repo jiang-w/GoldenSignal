@@ -44,7 +44,7 @@
     _fillColor = [UIColor clearColor];
     _lineWidth = 1;
     
-    _boundColor = [UIColor colorWithWhite:1 alpha:1.0];
+    _boundColor = [UIColor colorWithWhite:0.5 alpha:1.0];
     _boundWidth = 0.5;
     
     _innerGridColor = [UIColor colorWithWhite:0.5 alpha:1.0];
@@ -224,7 +224,7 @@
         CAShapeLayer *pathLayer = [CAShapeLayer layer];
         pathLayer.frame = self.bounds;
         pathLayer.path = volumePath;
-        pathLayer.strokeColor = [_lineColor CGColor];
+        pathLayer.strokeColor = [[UIColor yellowColor] CGColor];
         pathLayer.fillColor = nil;
         pathLayer.lineWidth = 1;
         pathLayer.lineJoin = kCALineJoinRound;
@@ -261,31 +261,31 @@
     return path.CGPath;
 }
 
-- (CGPathRef)getAvgPricePathInFrame:(CGRect)frame forTradingDay:(NSString *)date andIsClosed:(BOOL)closed {
-    NSArray *points = [_vm getAvgPricePointInFrame:frame forTradingDay:date];
-    UIBezierPath* path = [UIBezierPath bezierPath];
-    if (points.count > 0) {
-        for (int i = 0; i < points.count; i++) {
-            if(i > 0) {
-                [path addLineToPoint:CGPointFromString(points[i])];
-            }
-            else {
-                [path moveToPoint:CGPointFromString(points[i])];
-            }
-        }
-        
-        if(closed) {
-            CGPoint lastPoint = CGPointFromString([points lastObject]);
-            CGPoint lPoint = CGPointMake(lastPoint.x, CGRectGetMaxY(frame));
-            [path addLineToPoint:lPoint];
-            CGPoint fristPoint = CGPointFromString([points firstObject]);
-            CGPoint fPoint = CGPointMake(fristPoint.x, CGRectGetMaxY(frame));
-            [path addLineToPoint:fPoint];
-            [path addLineToPoint:fristPoint];
-        }
-    }
-    return path.CGPath;
-}
+//- (CGPathRef)getAvgPricePathInFrame:(CGRect)frame forTradingDay:(NSString *)date andIsClosed:(BOOL)closed {
+//    NSArray *points = [_vm getAvgPricePointInFrame:frame forTradingDay:date];
+//    UIBezierPath* path = [UIBezierPath bezierPath];
+//    if (points.count > 0) {
+//        for (int i = 0; i < points.count; i++) {
+//            if(i > 0) {
+//                [path addLineToPoint:CGPointFromString(points[i])];
+//            }
+//            else {
+//                [path moveToPoint:CGPointFromString(points[i])];
+//            }
+//        }
+//        
+//        if(closed) {
+//            CGPoint lastPoint = CGPointFromString([points lastObject]);
+//            CGPoint lPoint = CGPointMake(lastPoint.x, CGRectGetMaxY(frame));
+//            [path addLineToPoint:lPoint];
+//            CGPoint fristPoint = CGPointFromString([points firstObject]);
+//            CGPoint fPoint = CGPointMake(fristPoint.x, CGRectGetMaxY(frame));
+//            [path addLineToPoint:fPoint];
+//            [path addLineToPoint:fristPoint];
+//        }
+//    }
+//    return path.CGPath;
+//}
 
 - (CGMutablePathRef)getVolumePathInFrame:(CGRect)frame forTradingDay:(NSString *)date {
     NSArray *points = [_vm getVolumePointInFrame:frame forTradingDay:date];

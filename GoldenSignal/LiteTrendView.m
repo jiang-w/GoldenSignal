@@ -7,51 +7,63 @@
 //
 
 #import "LiteTrendView.h"
-#import "TrendLineViewModel.h"
+#import "TrendLineChartViewModel.h"
+
+@interface LiteTrendView()
+
+@property (nonatomic, strong) NSMutableArray* layers;
+@property (nonatomic, strong) NSString *code;
+
+@end
 
 @implementation LiteTrendView
 {
-    TrendLineViewModel *_vm;
+    TrendLineChartViewModel *_vm;
 }
 
 - (id)initWithFrame:(CGRect)frame andCode:(NSString *)code {
     self = [super initWithFrame:frame];
     if (self) {
+        _vm = [[TrendLineChartViewModel alloc] init];
+        _code = code;
+        _layers = [NSMutableArray array];
         self.backgroundColor = [UIColor clearColor];
-        lineFrame = CGRectMake(1, 1, CGRectGetWidth(self.frame)-2, CGRectGetHeight(self.frame)-2);
-        
-        if (code) {
-            _code = [code copy];
-            _vm = [[TrendLineViewModel alloc] initWithCode:code];
-            [_vm addObserver:self forKeyPath:@"priceRange" options:NSKeyValueObservingOptionNew context:NULL];
-            [_vm loadTrendLineForDays:1 andInterval:5];
-        }
+
+        [_vm addObserver:self forKeyPath:@"lines" options:NSKeyValueObservingOptionNew context:NULL];
+        [_vm addObserver:self forKeyPath:@"prevClose" options:NSKeyValueObservingOptionNew context:NULL];
+        [_vm loadDataWithSecuCode:_code forDays:1 andInterval:5];
     }
     return self;
 }
 
+- (CGRect)lineChartFrame {
+    CGRect rect = CGRectMake(1, 1, CGRectGetWidth(self.frame)-2, CGRectGetHeight(self.frame)-2);
+    return rect;
+}
+
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self setNeedsDisplay];
+        @try {
+            if (_vm.lines.count > 0 && _vm.prevClose > 0) {
+                [self clearLayers];
+                [self strokeLineChart];
+            }
+        }
+        @catch (NSException *exception) {
+            NSLog(@"LiteTrendView 绘制走势线异常: %@", exception.reason);
+        }
     });
 }
 
 #pragma mark - Draw View
 
 - (void)drawRect:(CGRect)rect {
-    @try {
-        [self drawGrid];
-        if (_vm.lines.count > 0 && _vm.prevClose > 0) {
-            [self drawDayLineInFrame:lineFrame withLines:_vm.lines];
-        }
-    }
-    @catch (NSException *exception) {
-        NSLog(@"绘制分时线异常: %@", exception.reason);
-    }
+    [self drawGrid];
 }
 
 // 绘制网格
 - (void)drawGrid {
+    CGRect lineFrame = [self lineChartFrame];
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, 0.5);
     CGContextSetStrokeColorWithColor(context, [[UIColor redColor] CGColor]);
@@ -65,52 +77,63 @@
     CGContextStrokePath(context);
 }
 
-// 绘制日分时线
-- (void)drawDayLineInFrame:(CGRect)frame withLines:(NSArray *)lines {
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetLineDash (context, 0, 0, 0);
-    CGContextSetLineWidth(context, 1);
+- (void)strokeLineChart {
+    NSString *date = [_vm.dates firstObject];
+    CGRect chartFrame = [self lineChartFrame];
     
-    NSMutableArray *temp = [NSMutableArray array];      // 存放分时线点
-    BDTrendLine *prevLine = nil;
-    CGPoint point;
-    for (BDTrendLine *line in lines) {
-        int sn = [_vm getSerialNumberWithTime:line.time];
-        if (prevLine == nil) {
-            if (sn != 0) {
-                point = [_vm getPointInFrame:frame WithSerialNumber:0 andPrice:line.price];
-                [temp addObject:NSStringFromCGPoint(point)];
+    // 绘制日分时线
+    CGPathRef linePath = [self getPricePathInFrame:chartFrame forTradingDay:date andIsClosed:NO];
+    CAShapeLayer *pathLayer = [CAShapeLayer layer];
+    pathLayer.frame = self.bounds;
+    pathLayer.path = linePath;
+    pathLayer.strokeColor = [[UIColor orangeColor] CGColor];
+    pathLayer.fillColor = nil;
+    pathLayer.lineWidth = 1;
+    pathLayer.lineJoin = kCALineJoinRound;
+    [self.layer addSublayer:pathLayer];
+    [self.layers addObject:pathLayer];
+}
+
+- (CGPathRef)getPricePathInFrame:(CGRect)frame forTradingDay:(NSString *)date andIsClosed:(BOOL)closed {
+    NSArray *points = [_vm getPricePointInFrame:frame forTradingDay:date];
+    UIBezierPath* path = [UIBezierPath bezierPath];
+    if (points.count > 0) {
+        for (int i = 0; i < points.count; i++) {
+            if(i > 0) {
+                [path addLineToPoint:CGPointFromString(points[i])];
+            }
+            else {
+                [path moveToPoint:CGPointFromString(points[i])];
             }
         }
-        else {
-            if (sn > 0) {
-                int prevTime = [_vm getTimeWithSerialNumber:sn-1];
-                if (prevTime > prevLine.time) {
-                    point = [_vm getPointInFrame:frame WithSerialNumber:sn-1 andPrice:prevLine.price];
-                    [temp addObject:NSStringFromCGPoint(point)];
-                }
-            }
+        
+        if(closed) {
+            CGPoint lastPoint = CGPointFromString([points lastObject]);
+            CGPoint lPoint = CGPointMake(lastPoint.x, CGRectGetMaxY(frame));
+            [path addLineToPoint:lPoint];
+            CGPoint fristPoint = CGPointFromString([points firstObject]);
+            CGPoint fPoint = CGPointMake(fristPoint.x, CGRectGetMaxY(frame));
+            [path addLineToPoint:fPoint];
+            [path addLineToPoint:fristPoint];
         }
-        point = [_vm getPointInFrame:frame WithSerialNumber:sn andPrice:line.price];
-        [temp addObject:NSStringFromCGPoint(point)];
-        prevLine = line;
     }
-    
-    /* 绘制分时线 */
-    CGPoint points[temp.count];
-    for (int i = 0; i < temp.count; i++) {
-        points[i] = CGPointFromString(temp[i]);
+    return path.CGPath;
+}
+
+- (void)clearLayers
+{
+    for (CAShapeLayer *layer in self.layers) {
+        [layer removeFromSuperlayer];
     }
-    CGContextSetStrokeColorWithColor(context, [[UIColor orangeColor] CGColor]);
-    CGContextAddLines(context, points, temp.count);
-    CGContextDrawPath(context, kCGPathStroke);
+    [self.layers removeAllObjects];
 }
 
 
 #pragma mark - Dealloc
 
 - (void)dealloc {
-    [_vm removeObserver:self forKeyPath:@"priceRange"];
+    [_vm removeObserver:self forKeyPath:@"lines"];
+    [_vm removeObserver:self forKeyPath:@"prevClose"];
 }
 
 @end
