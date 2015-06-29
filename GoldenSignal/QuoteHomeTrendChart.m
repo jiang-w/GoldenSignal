@@ -6,17 +6,17 @@
 //  Copyright (c) 2015年 bigdata. All rights reserved.
 //
 
-#import "IdxTrendChart.h"
+#import "QuoteHomeTrendChart.h"
 #import "TrendLineChartViewModel.h"
 
-@interface IdxTrendChart()
+@interface QuoteHomeTrendChart()
 
 @property (nonatomic, strong) NSMutableArray* layers;
 @property (nonatomic, strong) NSString *code;
 
 @end
 
-@implementation IdxTrendChart
+@implementation QuoteHomeTrendChart
 {
     TrendLineChartViewModel *_vm;
 }

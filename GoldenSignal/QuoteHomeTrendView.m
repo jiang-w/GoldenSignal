@@ -8,7 +8,7 @@
 
 #import "QuoteHomeTrendView.h"
 #import "QuoteHomeTrendViewModel.h"
-#import "IdxTrendChart.h"
+#import "QuoteHomeTrendChart.h"
 #import <FBKVOController.h>
 #import <Masonry.h>
 
@@ -42,7 +42,7 @@
     for (UIView *sub in self.chart.subviews) {
         [sub removeFromSuperview];
     }
-    IdxTrendChart *chartView = [[IdxTrendChart alloc] initWithFrame:CGRectZero andIdxCode:code];
+    QuoteHomeTrendChart *chartView = [[QuoteHomeTrendChart alloc] initWithFrame:CGRectZero andIdxCode:code];
     [self.chart addSubview:chartView];
     [chartView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.and.right.equalTo(self.chart);

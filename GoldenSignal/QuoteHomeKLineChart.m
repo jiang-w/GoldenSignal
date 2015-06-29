@@ -6,16 +6,16 @@
 //  Copyright (c) 2015年 bigdata. All rights reserved.
 //
 
-#import "IdxKLineChart.h"
+#import "QuoteHomeKLineChart.h"
 #import "KLineViewModel.h"
 
-@interface IdxKLineChart()
+@interface QuoteHomeKLineChart()
 
 @property (nonatomic, strong) NSString *code;
 
 @end
 
-@implementation IdxKLineChart
+@implementation QuoteHomeKLineChart
 {
     KLineViewModel *_vm;
     int _number;

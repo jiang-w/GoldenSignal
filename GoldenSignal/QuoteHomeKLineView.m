@@ -8,7 +8,7 @@
 
 #import "QuoteHomeKLineView.h"
 #import "QuoteHomeKLineViewModel.h"
-#import "IdxKLineChart.h"
+#import "QuoteHomeKLineChart.h"
 #import <FBKVOController.h>
 #import <Masonry.h>
 
@@ -42,7 +42,7 @@
     for (UIView *sub in self.chart.subviews) {
         [sub removeFromSuperview];
     }
-    IdxKLineChart *chartView = [[IdxKLineChart alloc] initWithFrame:CGRectZero andIdxCode:code];
+    QuoteHomeKLineChart *chartView = [[QuoteHomeKLineChart alloc] initWithFrame:CGRectZero andIdxCode:code];
     [self.chart addSubview:chartView];
     [chartView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.and.right.equalTo(self.chart);
