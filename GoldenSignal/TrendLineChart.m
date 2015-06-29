@@ -8,10 +8,13 @@
 
 #import "TrendLineChart.h"
 #import "TrendLineChartViewModel.h"
+#import <Masonry.h>
 
 @interface TrendLineChart()
 
-@property (nonatomic, strong) NSMutableArray* layers;
+@property(nonatomic, strong) NSMutableArray* layers;
+@property(nonatomic, strong) UILabel *highLabel, *highRateLabel;
+@property(nonatomic, strong) UILabel *lowLabel, *lowRateLabel;
 
 @end
 
@@ -112,6 +115,7 @@
 
 - (void)drawRect:(CGRect)rect {
     [self drawGrid];
+    [self addTextLabel];
 }
 
 - (void)drawGrid {
@@ -164,6 +168,49 @@
     }
 }
 
+- (void)addTextLabel {
+    CGRect frame = self.lineChartFrame;
+    self.highLabel = [[UILabel alloc] init];
+    self.highLabel.textAlignment = NSTextAlignmentLeft;
+    self.highLabel.font = [UIFont systemFontOfSize:9];
+    self.highLabel.textColor = [UIColor redColor];
+    [self addSubview:self.highLabel];
+    [self.highLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).with.offset(CGRectGetMinY(frame) + 1);
+        make.left.equalTo(self).with.offset(CGRectGetMinX(frame) + 1);
+    }];
+
+    self.highRateLabel = [[UILabel alloc] init];
+    self.highRateLabel.textAlignment = NSTextAlignmentRight;
+    self.highRateLabel.font = [UIFont systemFontOfSize:9];
+    self.highRateLabel.textColor = [UIColor redColor];
+    [self addSubview:self.highRateLabel];
+    [self.highRateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).with.offset(CGRectGetMinY(frame) + 1);
+        make.right.equalTo(self.mas_left).with.offset(CGRectGetMaxX(frame) - 1);
+    }];
+    
+    self.lowLabel = [[UILabel alloc] init];
+    self.lowLabel.textAlignment = NSTextAlignmentLeft;
+    self.lowLabel.font = [UIFont systemFontOfSize:9];
+    self.lowLabel.textColor = [UIColor greenColor];
+    [self addSubview:self.lowLabel];
+    [self.lowLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.mas_top).with.offset(CGRectGetMaxY(frame) - 1);
+        make.left.equalTo(self).with.offset(CGRectGetMinX(frame) + 1);
+    }];
+    
+    self.lowRateLabel = [[UILabel alloc] init];
+    self.lowRateLabel.textAlignment = NSTextAlignmentRight;
+    self.lowRateLabel.font = [UIFont systemFontOfSize:9];
+    self.lowRateLabel.textColor = [UIColor greenColor];
+    [self addSubview:self.lowRateLabel];
+    [self.lowRateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.mas_top).with.offset(CGRectGetMaxY(frame) - 1);
+        make.right.equalTo(self.mas_left).with.offset(CGRectGetMaxX(frame) - 1);
+    }];
+}
+
 - (void)strokeLineChart {
     Stopwatch *watch = [Stopwatch startNew];
     NSArray *dates = _vm.dates;
@@ -208,6 +255,13 @@
         //        [self.layer addSublayer:avgLineLayer];
         //        [self.layers addObject:avgLineLayer];
     }
+    
+    PriceRange range = _vm.priceRange;
+    self.highLabel.text = [NSString stringWithFormat:@"%.2f", range.high];
+    self.highRateLabel.text = [NSString stringWithFormat:@"%.2f%%", (range.high - _vm.prevClose) / _vm.prevClose * 100];
+    self.lowLabel.text = [NSString stringWithFormat:@"%.2f", range.low];
+    self.lowRateLabel.text = [NSString stringWithFormat:@"%.2f%%", (range.low - _vm.prevClose) / _vm.prevClose * 100];
+    
     [watch stop];
     NSLog(@"绘制分时线 Timeout:%.3fs", watch.elapsed);
 }
@@ -298,9 +352,8 @@
     return path;
 }
 
-- (void)clearLayers
-{
-    for (CAShapeLayer *layer in self.layers) {
+- (void)clearLayers {
+    for (CALayer *layer in self.layers) {
         [layer removeFromSuperlayer];
     }
     [self.layers removeAllObjects];

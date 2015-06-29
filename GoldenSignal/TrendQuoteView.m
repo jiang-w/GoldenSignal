@@ -52,15 +52,23 @@
     switch (type) {
         case TRENDLINE_1:
             if (_oneDayLine == nil) {
-                _oneDayLine = [[TrendLineView alloc] initWithFrame:_mainView.bounds andCode:_code];
-                [_oneDayLine loadTrendLineDataWithNumberOfDays:1];
+                _oneDayLine = [[TrendLineChart alloc] initWithFrame:_mainView.bounds];
+                _oneDayLine.days = 1;
+                _oneDayLine.margin = 2;
+                _oneDayLine.lineColor = [UIColor orangeColor];
+                _oneDayLine.fillColor = [[UIColor orangeColor] colorWithAlphaComponent:0.15];
+                [_oneDayLine loadDataWithSecuCode:_code];
             }
             [_mainView addSubview:_oneDayLine];
             break;
         case TRENDLINE_5:
             if (_fiveDaysLine == nil) {
-                _fiveDaysLine = [[TrendLineView alloc] initWithFrame:_mainView.bounds andCode:_code];
-                [_fiveDaysLine loadTrendLineDataWithNumberOfDays:5];
+                _fiveDaysLine = [[TrendLineChart alloc] initWithFrame:_mainView.bounds];
+                _fiveDaysLine.days = 5;
+                _fiveDaysLine.margin = 2;
+                _fiveDaysLine.lineColor = [UIColor orangeColor];
+                _fiveDaysLine.fillColor = [[UIColor orangeColor] colorWithAlphaComponent:0.15];
+                [_oneDayLine loadDataWithSecuCode:_code];
             }
             [_mainView addSubview:_fiveDaysLine];
             break;

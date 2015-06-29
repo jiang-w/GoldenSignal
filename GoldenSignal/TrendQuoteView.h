@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TrendLineView.h"
+#import "TrendLineChart.h"
 #import "FiveBetsView.h"
 #import "SubDealView.h"
 
@@ -16,8 +16,8 @@
     UIView *_mainView;
     UIView *_sideView;
     
-    TrendLineView *_oneDayLine;
-    TrendLineView *_fiveDaysLine;
+    TrendLineChart *_oneDayLine;
+    TrendLineChart *_fiveDaysLine;
     FiveBetsView *_fiveBets;
     SubDealView *_subDeal;
 }

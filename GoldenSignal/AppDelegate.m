@@ -11,6 +11,7 @@
 #import "SideMenuViewController.h"
 #import "AdViewController.h"
 #import "StockDetailViewController.h"
+#import "IdxDetailViewController.h"
 #import "BDStockPoolInfoService.h"
 
 @implementation AppDelegate
@@ -74,17 +75,35 @@
 // 收到键盘精灵通知后，触发
 - (void)pushStockViewController:(NSNotification *)notification {
     NSDictionary *dic = notification.userInfo;
-    NSString *bdCode = dic[@"BD_CODE"];
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    StockDetailViewController *stockVC = [storyboard instantiateViewControllerWithIdentifier:@"StockViewController"];
-    stockVC.defaultCode = bdCode;
+    BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:dic[@"BD_CODE"]];
     GHRevealViewController *root = (GHRevealViewController *)self.window.rootViewController;
     UITabBarController *tab = (UITabBarController *)root.contentViewController;
     UINavigationController *navigation = (UINavigationController *)tab.viewControllers[tab.selectedIndex];
     UIViewController *top = [navigation.viewControllers lastObject];
-    if (![top isKindOfClass:[StockDetailViewController class]]) {
-        [navigation pushViewController:stockVC animated:YES];
+    
+    if (secu.typ == idx) {
+        IdxDetailViewController *idxVc = [[IdxDetailViewController alloc] init];
+        [idxVc loadDataWithSecuCode:secu.bdCode];
+    }
+    switch (secu.typ) {
+        case idx: {
+            IdxDetailViewController *idxVc = [[IdxDetailViewController alloc] init];
+            [idxVc loadDataWithSecuCode:secu.bdCode];
+            if (![top isKindOfClass:[IdxDetailViewController class]]) {
+                [navigation pushViewController:idxVc animated:YES];
+            }
+        }
+            break;
+        case stock: {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            StockDetailViewController *stockVC = [storyboard instantiateViewControllerWithIdentifier:@"StockViewController"];
+            stockVC.defaultCode = secu.bdCode;
+            if (![top isKindOfClass:[StockDetailViewController class]]) {
+                [navigation pushViewController:stockVC animated:YES];
+            }
+        }
+        default:
+            break;
     }
 }
 

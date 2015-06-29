@@ -290,7 +290,7 @@
     for (BDTrendLine *line in lines) {
         int sn = [_vm getSerialNumberWithTime:line.time];
         if (prevLine != nil) {
-            unsigned int changeVolume = line.volume - prevLine.volume;
+            unsigned long changeVolume = line.volume - prevLine.volume;
             CGFloat xOffset = CGRectGetMinX(frame) + sn * gapWidth;
             CGFloat yOffset = CGRectGetMinY(frame) + (1 - changeVolume * 1.0 / maxVolume) * CGRectGetHeight(frame);
             CGContextMoveToPoint(context, xOffset, yOffset);
