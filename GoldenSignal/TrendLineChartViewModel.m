@@ -276,15 +276,19 @@
     int dateVal = [[date stringByReplacingOccurrencesOfString:@"-" withString:@""] intValue];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %d", dateVal];
     NSArray *lines = [_lines filteredArrayUsingPredicate:predicate];
-    NSArray *volumes = [self getVolumeSerialForTradingDay:date];
     
-    for (int i = 0; i < lines.count; i++) {
+    int i = 0;
+    while (i < lines.count) {
         BDTrendLine *line = lines[i];
-        double avgPrice = 0;
-        if ([volumes[i] unsignedLongValue] > 0) {
-            avgPrice = line.amount / [volumes[i] unsignedLongValue];
+        if (serial.count == 0) {
+            serial[0] = [NSNumber numberWithDouble:line.amount / line.volume];
         }
-        [serial addObject:[NSNumber numberWithDouble:avgPrice]];
+        int sn = [self getSerialNumberWithTime:line.time];
+        while (serial.count < sn) {
+            serial[serial.count] = serial[serial.count - 1];
+        }
+        serial[sn] = [NSNumber numberWithDouble:line.price / line.volume];
+        i++;
     }
     return serial;
 }

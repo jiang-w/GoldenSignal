@@ -243,7 +243,7 @@
     switch (_chartTab) {
         case 0: {
             if (trendQuoteView == nil || ![trendQuoteView.code isEqualToString:_code]) {
-                trendQuoteView = [[TrendQuoteView alloc] initWithFrame:CGRectMake(0, 0, 320, 180) andCode:_code];
+                trendQuoteView = [[StockTrendView alloc] initWithFrame:CGRectMake(0, 0, 320, 180) andCode:_code];
             }
             [chartContainerView addSubview:trendQuoteView];
             [trendQuoteView subscribeTrendLineAndQuoteWithType:TRENDLINE_1];
@@ -251,7 +251,7 @@
         }
         case 1:
             if (trendQuoteView == nil || ![trendQuoteView.code isEqualToString:_code]) {
-                trendQuoteView = [[TrendQuoteView alloc] initWithFrame:CGRectMake(0, 0, 320, 180) andCode:_code];
+                trendQuoteView = [[StockTrendView alloc] initWithFrame:CGRectMake(0, 0, 320, 180) andCode:_code];
             }
             [chartContainerView addSubview:trendQuoteView];
             [trendQuoteView subscribeTrendLineAndQuoteWithType:TRENDLINE_5];

@@ -11,18 +11,9 @@
 #import "FiveBetsView.h"
 #import "SubDealView.h"
 
-@interface TrendQuoteView : UIView
-{
-    UIView *_mainView;
-    UIView *_sideView;
-    
-    TrendLineChart *_oneDayLine;
-    TrendLineChart *_fiveDaysLine;
-    FiveBetsView *_fiveBets;
-    SubDealView *_subDeal;
-}
+@interface StockTrendView : UIView
 
-@property(nonatomic, strong, readonly)NSString *code;
+@property(nonatomic, strong) NSString *code;
 
 - (id)initWithFrame:(CGRect)frame andCode:(NSString *)code;
 

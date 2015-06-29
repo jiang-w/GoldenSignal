@@ -12,7 +12,7 @@
 #import "FiveBetsView.h"
 #import "SubDealView.h"
 #import "KLineView.h"
-#import "TrendQuoteView.h"
+#import "StockTrendView.h"
 
 #import <PPiFlatSegmentedControl.h>
 
@@ -26,7 +26,7 @@
     PPiFlatSegmentedControl *infoTabView;
     
     IndicatorsView *indicatorsView;
-    TrendQuoteView *trendQuoteView;
+    StockTrendView *trendQuoteView;
     KLineView *dailyKLineView;
     KLineView *weeklyKLineView;
     KLineView *monthlyKLineView;

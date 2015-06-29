@@ -9,12 +9,15 @@
 #import "TrendLineChart.h"
 #import "TrendLineChartViewModel.h"
 #import <Masonry.h>
+#import <MBProgressHUD.h>
 
 @interface TrendLineChart()
 
 @property(nonatomic, strong) NSMutableArray* layers;
 @property(nonatomic, strong) UILabel *highLabel, *highRateLabel;
 @property(nonatomic, strong) UILabel *lowLabel, *lowRateLabel;
+@property(nonatomic) CGRect lineChartFrame;
+@property(nonatomic) CGRect volumeChartFrame;
 
 @end
 
@@ -28,12 +31,15 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _vm = [[TrendLineChartViewModel alloc] init];
         _layers = [NSMutableArray array];
         [self setDefaultParameters];
-        
+        [self addTextLabel];
+        _vm = [[TrendLineChartViewModel alloc] init];
         [_vm addObserver:self forKeyPath:@"lines" options:NSKeyValueObservingOptionNew context:NULL];
         [_vm addObserver:self forKeyPath:@"prevClose" options:NSKeyValueObservingOptionNew context:NULL];
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+        hud.opacity = 0;
     }
     return self;
 }
@@ -78,7 +84,7 @@
 }
 
 - (CGRect)volumeChartFrame {
-    CGRect lineChartRect = [self lineChartFrame];
+    CGRect lineChartRect = self.lineChartFrame;
     CGPoint origin = CGPointMake(CGRectGetMinX(lineChartRect), CGRectGetMaxY(lineChartRect) + _space);
     CGFloat width = CGRectGetWidth(lineChartRect);
     CGFloat height = CGRectGetHeight(self.frame) - _margin_bottom - origin.y;
@@ -98,10 +104,10 @@
         @try {
             if (_vm.lines.count > 0 && _vm.prevClose > 0) {
                 NSLog(@"TrendLineChart 绘制走势图 (lines:%lu prevClose:%.2f)",(unsigned long)_vm.lines.count, _vm.prevClose);
-                
                 [self clearLayers];
                 [self strokeLineChart];
                 [self strokeVolumeChart];
+                [MBProgressHUD hideHUDForView:self animated:YES];
             }
         }
         @catch (NSException *exception) {
@@ -115,7 +121,6 @@
 
 - (void)drawRect:(CGRect)rect {
     [self drawGrid];
-    [self addTextLabel];
 }
 
 - (void)drawGrid {
@@ -125,8 +130,8 @@
     CGContextSetStrokeColorWithColor(ctx, [_boundColor CGColor]);
 
     // draw bound
-    CGRect lineChartRect = [self lineChartFrame];
-    CGRect volumeChartRect = [self volumeChartFrame];
+    CGRect lineChartRect = self.lineChartFrame;
+    CGRect volumeChartRect = self.volumeChartFrame;
     CGContextAddRect(ctx, lineChartRect);
     CGContextStrokePath(ctx);
     CGContextAddRect(ctx, volumeChartRect);
@@ -214,7 +219,7 @@
 - (void)strokeLineChart {
     Stopwatch *watch = [Stopwatch startNew];
     NSArray *dates = _vm.dates;
-    CGRect chartFrame = [self lineChartFrame];
+    CGRect chartFrame = self.lineChartFrame;
     CGFloat xOffset = CGRectGetWidth(chartFrame) / dates.count;
     
     for (int i = 0; i < dates.count; i++) {
@@ -244,16 +249,16 @@
             [self.layers addObject:fillLayer];
         }
         // 绘制均线
-        //        UIBezierPath *avgLinePath = [self getAvgPricePathInFrame:frame forTradingDay:dates[i] andIsClosed:NO];
-        //        CAShapeLayer *avgLineLayer = [CAShapeLayer layer];
-        //        avgLineLayer.frame = self.bounds;
-        //        avgLineLayer.path = avgLinePath.CGPath;
-        //        avgLineLayer.strokeColor = [_avgLineColor CGColor];
-        //        avgLineLayer.fillColor = nil;
-        //        avgLineLayer.lineWidth = _lineWidth;
-        //        avgLineLayer.lineJoin = kCALineJoinRound;
-        //        [self.layer addSublayer:avgLineLayer];
-        //        [self.layers addObject:avgLineLayer];
+        CGPathRef avgLinePath = [self getAvgPricePathInFrame:frame forTradingDay:dates[i]];
+        CAShapeLayer *avgLineLayer = [CAShapeLayer layer];
+        avgLineLayer.frame = self.bounds;
+        avgLineLayer.path = avgLinePath;
+        avgLineLayer.strokeColor = [_avgLineColor CGColor];
+        avgLineLayer.fillColor = nil;
+        avgLineLayer.lineWidth = _lineWidth;
+        avgLineLayer.lineJoin = kCALineJoinRound;
+        [self.layer addSublayer:avgLineLayer];
+        [self.layers addObject:avgLineLayer];
     }
     
     PriceRange range = _vm.priceRange;
@@ -269,7 +274,7 @@
 - (void)strokeVolumeChart {
     Stopwatch *watch = [Stopwatch startNew];
     NSArray *dates = _vm.dates;
-    CGRect chartFrame = [self volumeChartFrame];
+    CGRect chartFrame = self.volumeChartFrame;
     CGFloat xOffset = CGRectGetWidth(chartFrame) / dates.count;
     
     for (int i = 0; i < dates.count; i++) {
@@ -315,31 +320,21 @@
     return path.CGPath;
 }
 
-//- (CGPathRef)getAvgPricePathInFrame:(CGRect)frame forTradingDay:(NSString *)date andIsClosed:(BOOL)closed {
-//    NSArray *points = [_vm getAvgPricePointInFrame:frame forTradingDay:date];
-//    UIBezierPath* path = [UIBezierPath bezierPath];
-//    if (points.count > 0) {
-//        for (int i = 0; i < points.count; i++) {
-//            if(i > 0) {
-//                [path addLineToPoint:CGPointFromString(points[i])];
-//            }
-//            else {
-//                [path moveToPoint:CGPointFromString(points[i])];
-//            }
-//        }
-//        
-//        if(closed) {
-//            CGPoint lastPoint = CGPointFromString([points lastObject]);
-//            CGPoint lPoint = CGPointMake(lastPoint.x, CGRectGetMaxY(frame));
-//            [path addLineToPoint:lPoint];
-//            CGPoint fristPoint = CGPointFromString([points firstObject]);
-//            CGPoint fPoint = CGPointMake(fristPoint.x, CGRectGetMaxY(frame));
-//            [path addLineToPoint:fPoint];
-//            [path addLineToPoint:fristPoint];
-//        }
-//    }
-//    return path.CGPath;
-//}
+- (CGPathRef)getAvgPricePathInFrame:(CGRect)frame forTradingDay:(NSString *)date {
+    NSArray *points = [_vm getAvgPricePointInFrame:frame forTradingDay:date];
+    UIBezierPath* path = [UIBezierPath bezierPath];
+    if (points.count > 0) {
+        for (int i = 0; i < points.count; i++) {
+            if(i > 0) {
+                [path addLineToPoint:CGPointFromString(points[i])];
+            }
+            else {
+                [path moveToPoint:CGPointFromString(points[i])];
+            }
+        }
+    }
+    return path.CGPath;
+}
 
 - (CGMutablePathRef)getVolumePathInFrame:(CGRect)frame forTradingDay:(NSString *)date {
     NSArray *points = [_vm getVolumePointInFrame:frame forTradingDay:date];
