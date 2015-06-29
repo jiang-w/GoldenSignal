@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface IdxTrendViewModel : NSObject
+@interface QuoteHomeTrendViewModel : NSObject
 
 /**
  *  代码
@@ -23,32 +23,32 @@
 /**
  *  前收价
  */
-@property(nonatomic, readonly) float PrevClose;
+@property(nonatomic, readonly) double PrevClose;
 
 /**
  *  开盘价
  */
-@property(nonatomic, readonly) float Open;
+@property(nonatomic, readonly) double Open;
 
 /**
  *  最新报价
  */
-@property(nonatomic, readonly) float Now;
+@property(nonatomic, readonly) double Now;
 
 /**
  *  涨跌
  */
-@property(nonatomic, readonly) float Change;
+@property(nonatomic, readonly) double Change;
 
 /**
  *  涨跌幅
  */
-@property(nonatomic, readonly) float ChangeRange;
+@property(nonatomic, readonly) double ChangeRange;
 
 /**
  *  成交量（手）
  */
-@property(nonatomic, readonly) double Volume;
+@property(nonatomic, readonly) unsigned long Volume;
 
 
 - (void)subscribeQuotationScalarWithCode:(NSString *)code;

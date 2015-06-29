@@ -7,8 +7,8 @@
 //
 
 #import "QuoteHomeViewController.h"
-#import "IdxTrendView.h"
-#import "IdxKLineView.h"
+#import "QuoteHomeTrendView.h"
+#import "QuoteHomeKLineView.h"
 #import <Masonry.h>
 
 @interface QuoteHomeViewController ()
@@ -44,13 +44,13 @@
 - (void)addChartViews {
     for (NSString *key in [_idxCodesDic allKeys]) {
         UIView *contain = _idxCodesDic[key];
-        IdxTrendView *trend = [IdxTrendView createViewWithIdxCode:key];
+        QuoteHomeTrendView *trend = [QuoteHomeTrendView createViewWithIdxCode:key];
         [contain addSubview:trend];
         [trend mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.bottom.and.right.equalTo(contain);
         }];
         
-        IdxKLineView *kLine = [IdxKLineView createViewWithIdxCode:key];
+        QuoteHomeKLineView *kLine = [QuoteHomeKLineView createViewWithIdxCode:key];
         [contain addSubview:kLine];
         [kLine mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.bottom.and.right.equalTo(contain);

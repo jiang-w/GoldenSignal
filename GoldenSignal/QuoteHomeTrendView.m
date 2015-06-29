@@ -6,21 +6,21 @@
 //  Copyright (c) 2015年 bigdata. All rights reserved.
 //
 
-#import "IdxTrendView.h"
-#import "IdxTrendViewModel.h"
+#import "QuoteHomeTrendView.h"
+#import "QuoteHomeTrendViewModel.h"
 #import "IdxTrendChart.h"
 #import <FBKVOController.h>
 #import <Masonry.h>
 
-@implementation IdxTrendView
+@implementation QuoteHomeTrendView
 {
-    IdxTrendViewModel *_viewModel;
+    QuoteHomeTrendViewModel *_viewModel;
     FBKVOController *_kvo;
 }
 
-+ (IdxTrendView *)createViewWithIdxCode:(NSString *)code
++ (QuoteHomeTrendView *)createViewWithIdxCode:(NSString *)code
 {
-    IdxTrendView * view = [[[NSBundle mainBundle] loadNibNamed:@"IdxTrendView" owner:nil options:nil] objectAtIndex:0];
+    QuoteHomeTrendView * view = [[[NSBundle mainBundle] loadNibNamed:@"QuoteHomeTrendView" owner:nil options:nil] objectAtIndex:0];
     [view subscribeDataWithCode:code];
     return view;
 }
@@ -31,7 +31,7 @@
 
 - (void)subscribeDataWithCode:(NSString *)code {
     if (_viewModel == nil) {
-        _viewModel = [[IdxTrendViewModel alloc] init];
+        _viewModel = [[QuoteHomeTrendViewModel alloc] init];
         [self kvoController];
     }
     [_viewModel subscribeQuotationScalarWithCode:code];
@@ -65,21 +65,21 @@
         
         [_kvo observe:_viewModel keyPath:@"Open" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                float open = [change[NSKeyValueChangeNewKey] floatValue];
+                double open = [change[NSKeyValueChangeNewKey] doubleValue];
                 self.open.text = [NSString stringWithFormat:@"%.2f", open];
             });
         }];
         
         [_kvo observe:_viewModel keyPath:@"Now" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                float nowPrice = [change[NSKeyValueChangeNewKey] floatValue];
+                double nowPrice = [change[NSKeyValueChangeNewKey] doubleValue];
                 self.now.text = [NSString stringWithFormat:@"%.2f", nowPrice];
             });
         }];
         
         [_kvo observe:_viewModel keyPath:@"Change" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                float changeVal = [change[NSKeyValueChangeNewKey] floatValue];
+                double changeVal = [change[NSKeyValueChangeNewKey] doubleValue];
                 self.change.text = [NSString stringWithFormat:@"%.2f", changeVal];
                 self.head.backgroundColor = [self textColorValue:changeVal otherValue:0];
             });
@@ -87,17 +87,17 @@
         
         [_kvo observe:_viewModel keyPath:@"ChangeRange" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                float changeRange = [change[NSKeyValueChangeNewKey] floatValue] * 100;
+                double changeRange = [change[NSKeyValueChangeNewKey] doubleValue] * 100;
                 self.changeRange.text = isnan(changeRange) ? @"0.00%" : [NSString stringWithFormat:@"%.2f%%", changeRange];
             });
         }];
         
         [_kvo observe:_viewModel keyPath:@"Volume" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                float volume = [change[NSKeyValueChangeNewKey] floatValue] / 1000000.0;
+                double volume = [change[NSKeyValueChangeNewKey] unsignedIntValue] / 1000000.0;
                 if (volume > 0) {
                     if (volume >= 10000) {
-                        self.volume.text = [NSString stringWithFormat:@"%.3f亿", volume/10000.0];
+                        self.volume.text = [NSString stringWithFormat:@"%.3f亿", volume / 10000];
                     }
                     else {
                         self.volume.text = [NSString stringWithFormat:@"%.0f万", volume];

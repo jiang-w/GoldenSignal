@@ -1,15 +1,15 @@
 //
-//  IdxTrendViewModel.m
+//  IdxKLineViewModel.m
 //  GoldenSignal
 //
-//  Created by Frank on 15/6/3.
+//  Created by Frank on 15/6/4.
 //  Copyright (c) 2015年 bigdata. All rights reserved.
 //
 
-#import "IdxTrendViewModel.h"
+#import "QuoteHomeKLineViewModel.h"
 #import "BDQuotationService.h"
 
-@implementation IdxTrendViewModel
+@implementation QuoteHomeKLineViewModel
 {
     dispatch_queue_t _propertyUpdateQueue;
     BDQuotationService *_service;
@@ -22,7 +22,7 @@ static NSArray *indicaters;
     if (self) {
         _propertyUpdateQueue = dispatch_queue_create("IndicatorUpdate", nil);
         _service = [BDQuotationService sharedInstance];
-        indicaters = @[@"Name", @"Now", @"PrevClose", @"Open", @"Volume"];
+        indicaters = @[@"Now", @"PrevClose"];
         
         [[NSNotificationCenter defaultCenter]
          addObserver:self selector:@selector(subscribeScalarChanged:) name:QUOTE_SCALAR_NOTIFICATION object:nil];
@@ -32,11 +32,11 @@ static NSArray *indicaters;
 
 #pragma mark Property kvo
 
-- (float)ChangeRange {
+- (double)ChangeRange {
     return (self.Now - self.PrevClose) / self.PrevClose;
 }
 
-- (float)Change {
+- (double)Change {
     return (self.Now - self.PrevClose);
 }
 
@@ -55,7 +55,6 @@ static NSArray *indicaters;
     }
     return keyPaths;
 }
-
 
 #pragma mark Subscribe
 
@@ -86,14 +85,10 @@ static NSArray *indicaters;
     [self setValue:code forKey:@"Code"];
     NSString *name = [[[BDKeyboardWizard sharedInstance] queryWithSecuCode:code] name];
     [self setValue:name forKey:@"Name"];
-    float prevClose = [[_service getCurrentIndicateWithCode:code andName:@"PrevClose"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:prevClose] forKey:@"PrevClose"];
-    float open = [[_service getCurrentIndicateWithCode:code andName:@"Open"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:open] forKey:@"Open"];
-    float now = [[_service getCurrentIndicateWithCode:code andName:@"Now"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:now] forKey:@"Now"];
-    float volume = [[_service getCurrentIndicateWithCode:code andName:@"Volume"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:volume] forKey:@"Volume"];
+    double prevClose = [[_service getCurrentIndicateWithCode:code andName:@"PrevClose"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:prevClose] forKey:@"PrevClose"];
+    double now = [[_service getCurrentIndicateWithCode:code andName:@"Now"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:now] forKey:@"Now"];
 }
 
 
@@ -102,7 +97,7 @@ static NSArray *indicaters;
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:QUOTE_SCALAR_NOTIFICATION object:nil];
     [_service unsubscribeScalarWithCode:self.Code indicaters:indicaters];
-    NSLog(@"%@ IdxTrendViewModel dealloc", self.Code);
+    NSLog(@"%@ IdxKLineViewModel dealloc", self.Code);
 }
 
 @end

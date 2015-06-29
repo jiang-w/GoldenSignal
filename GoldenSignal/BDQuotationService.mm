@@ -179,11 +179,11 @@ id convertFieldValue(const Messages::FieldCPtr field)
         case ValueType::MANTISSA:
         case ValueType::INT64:
         {
-            return [NSNumber numberWithLongLong:field->toInt64()];
+            return [NSNumber numberWithLong:field->toInt64()];
         }
         case ValueType::UINT64:
         {
-            return [NSNumber numberWithUnsignedLongLong:field->toUInt64()];
+            return [NSNumber numberWithUnsignedLong:field->toUInt64()];
         }
         case ValueType::DECIMAL:
         {

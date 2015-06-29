@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface IdxKLineViewModel : NSObject
+@interface QuoteHomeKLineViewModel : NSObject
 
 /**
  *  代码
@@ -23,22 +23,22 @@
 /**
  *  前收价
  */
-@property(nonatomic, readonly) float PrevClose;
+@property(nonatomic, readonly) double PrevClose;
 
 /**
  *  最新报价
  */
-@property(nonatomic, readonly) float Now;
+@property(nonatomic, readonly) double Now;
 
 /**
  *  涨跌
  */
-@property(nonatomic, readonly) float Change;
+@property(nonatomic, readonly) double Change;
 
 /**
  *  涨跌幅
  */
-@property(nonatomic, readonly) float ChangeRange;
+@property(nonatomic, readonly) double ChangeRange;
 
 
 - (void)subscribeQuotationScalarWithCode:(NSString *)code;

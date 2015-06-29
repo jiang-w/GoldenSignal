@@ -23,7 +23,7 @@
 /**
  *  前收价
  */
-@property(nonatomic, assign, readonly) float prevClose;
+@property(nonatomic, assign, readonly) double prevClose;
 
 
 - (id)initWithCode:(NSString *)code;

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface IdxKLineView : UIView
+@interface QuoteHomeKLineView : UIView
 
 @property (weak, nonatomic) IBOutlet UIView *head;
 @property (weak, nonatomic) IBOutlet UILabel *name;
@@ -18,6 +18,6 @@
 @property (weak, nonatomic) IBOutlet UIView *chart;
 
 
-+ (IdxKLineView *)createViewWithIdxCode:(NSString *)code;
++ (QuoteHomeKLineView *)createViewWithIdxCode:(NSString *)code;
 
 @end

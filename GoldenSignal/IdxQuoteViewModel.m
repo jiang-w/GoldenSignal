@@ -22,12 +22,38 @@ static NSArray *indicaters;
     if (self) {
         _propertyUpdateQueue = dispatch_queue_create("IndicatorUpdate", nil);
         _service = [BDQuotationService sharedInstance];
-        indicaters = @[@"PrevClose", @"Open", @"Now", @"High", @"Low", @"Amount", @"Volume", @"Change", @"ChangeRange", @"Amplitude", @"VolumeSpread", @"UpCount", @"DownCount"];
+        indicaters = @[@"PrevClose", @"Open", @"Now", @"High", @"Low", @"Amount", @"Volume", @"Amplitude", @"VolumeSpread", @"UpCount", @"DownCount"];
         
         [[NSNotificationCenter defaultCenter]
          addObserver:self selector:@selector(subscribeScalarChanged:) name:QUOTE_SCALAR_NOTIFICATION object:nil];
     }
     return self;
+}
+
+#pragma mark Property kvo
+
+- (double)ChangeRange {
+    return (self.Now - self.PrevClose) / self.PrevClose;
+}
+
+- (double)Change {
+    return (self.Now - self.PrevClose);
+}
+
+// 设置依赖键(kvo)
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key
+{
+    NSSet * keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
+    NSArray * moreKeyPaths = nil;
+    
+    if ([key isEqualToString:@"ChangeRange"] || [key isEqualToString:@"Change"]) {
+        moreKeyPaths = [NSArray arrayWithObjects:@"self.Now", @"self.PrevClose", nil];
+    }
+    
+    if (moreKeyPaths) {
+        keyPaths = [keyPaths setByAddingObjectsFromArray:moreKeyPaths];
+    }
+    return keyPaths;
 }
 
 #pragma mark Subscribe
@@ -57,32 +83,28 @@ static NSArray *indicaters;
 
 - (void)initPropertyWithCode:(NSString *)code {
     [self setValue:code forKey:@"Code"];
-    float prevClose = [[_service getCurrentIndicateWithCode:code andName:@"PrevClose"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:prevClose] forKey:@"PrevClose"];
-    float open = [[_service getCurrentIndicateWithCode:code andName:@"Open"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:open] forKey:@"Open"];
-    float now = [[_service getCurrentIndicateWithCode:code andName:@"Now"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:now] forKey:@"Now"];
-    float high = [[_service getCurrentIndicateWithCode:code andName:@"High"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:high] forKey:@"High"];
-    float low = [[_service getCurrentIndicateWithCode:code andName:@"Low"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:low] forKey:@"Low"];
-    float amount = [[_service getCurrentIndicateWithCode:code andName:@"Amount"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:amount] forKey:@"Amount"];
-    int volume = [[_service getCurrentIndicateWithCode:code andName:@"Volume"] intValue];
-    [self setValue:[NSNumber numberWithInt:volume] forKey:@"Volume"];
-    float change = [[_service getCurrentIndicateWithCode:code andName:@"Change"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:change] forKey:@"Change"];
-    float changeRange = [[_service getCurrentIndicateWithCode:code andName:@"ChangeRange"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:changeRange] forKey:@"ChangeRange"];
-    float amplitude = [[_service getCurrentIndicateWithCode:code andName:@"Amplitude"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:amplitude] forKey:@"Amplitude"];
-    int volumeSpread = [[_service getCurrentIndicateWithCode:code andName:@"VolumeSpread"] intValue];
-    [self setValue:[NSNumber numberWithInt:volumeSpread] forKey:@"VolumeSpread"];
-    int upCount = [[_service getCurrentIndicateWithCode:code andName:@"UpCount"] intValue];
-    [self setValue:[NSNumber numberWithInt:upCount] forKey:@"UpCount"];
-    int downCount = [[_service getCurrentIndicateWithCode:code andName:@"DownCount"] intValue];
-    [self setValue:[NSNumber numberWithInt:downCount] forKey:@"DownCount"];
+    double prevClose = [[_service getCurrentIndicateWithCode:code andName:@"PrevClose"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:prevClose] forKey:@"PrevClose"];
+    double open = [[_service getCurrentIndicateWithCode:code andName:@"Open"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:open] forKey:@"Open"];
+    double now = [[_service getCurrentIndicateWithCode:code andName:@"Now"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:now] forKey:@"Now"];
+    double high = [[_service getCurrentIndicateWithCode:code andName:@"High"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:high] forKey:@"High"];
+    double low = [[_service getCurrentIndicateWithCode:code andName:@"Low"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:low] forKey:@"Low"];
+    double amount = [[_service getCurrentIndicateWithCode:code andName:@"Amount"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:amount] forKey:@"Amount"];
+    unsigned long volume = [[_service getCurrentIndicateWithCode:code andName:@"Volume"] unsignedLongValue];
+    [self setValue:[NSNumber numberWithUnsignedLong:volume] forKey:@"Volume"];
+    double amplitude = [[_service getCurrentIndicateWithCode:code andName:@"Amplitude"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:amplitude] forKey:@"Amplitude"];
+    unsigned long volumeSpread = [[_service getCurrentIndicateWithCode:code andName:@"VolumeSpread"] unsignedLongValue];
+    [self setValue:[NSNumber numberWithUnsignedLong:volumeSpread] forKey:@"VolumeSpread"];
+    unsigned int upCount = [[_service getCurrentIndicateWithCode:code andName:@"UpCount"] unsignedIntValue];
+    [self setValue:[NSNumber numberWithUnsignedInt:upCount] forKey:@"UpCount"];
+    unsigned int downCount = [[_service getCurrentIndicateWithCode:code andName:@"DownCount"] unsignedIntValue];
+    [self setValue:[NSNumber numberWithUnsignedInt:downCount] forKey:@"DownCount"];
 }
 
 

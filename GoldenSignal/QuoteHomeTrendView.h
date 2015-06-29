@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface IdxTrendView : UIView
+@interface QuoteHomeTrendView : UIView
 
 @property (weak, nonatomic) IBOutlet UIView *head;
 @property (weak, nonatomic) IBOutlet UILabel *name;
@@ -21,6 +21,6 @@
 @property (weak, nonatomic) IBOutlet UIView *chart;
 
 
-+ (IdxTrendView *)createViewWithIdxCode:(NSString *)code;
++ (QuoteHomeTrendView *)createViewWithIdxCode:(NSString *)code;
 
 @end

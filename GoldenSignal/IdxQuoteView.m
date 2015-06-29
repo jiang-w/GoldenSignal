@@ -90,7 +90,7 @@
         
         [_kvo observe:_viewModel keyPath:@"ChangeRange" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(IdxQuoteView *view, IdxQuoteViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                CGFloat changeRange = model.ChangeRange * 100.0;
+                double changeRange = model.ChangeRange * 100.0;
                 view.changeRange.text = [NSString stringWithFormat:@"%.2f%%", changeRange];
                 view.changeRange.textColor = [view textColorValue:changeRange otherValue:0];
             });
@@ -98,7 +98,7 @@
         
         [_kvo observe:_viewModel keyPath:@"Amplitude" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(IdxQuoteView *view, IdxQuoteViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                CGFloat amplitude = model.Amplitude * 100.0;
+                double amplitude = model.Amplitude * 100.0;
                 view.changeRange.text = [NSString stringWithFormat:@"%.2f%%", amplitude];
                 view.changeRange.textColor = [view textColorValue:amplitude otherValue:0];
             });
@@ -120,11 +120,12 @@
         
         [_kvo observe:_viewModel keyPath:@"Amount" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(IdxQuoteView *view, IdxQuoteViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                if (model.Amount > 100000000) {
-                    view.amount.text = [NSString stringWithFormat:@"%.2f亿", model.Amount / 100000000.0];
+                double amount = model.Amount / 10000;
+                if (model.Amount > 10000) {
+                    view.amount.text = [NSString stringWithFormat:@"%.0f亿", amount / 10000];
                 }
                 else {
-                    view.amount.text = [NSString stringWithFormat:@"%.2f万", model.Amount / 10000.0];
+                    view.amount.text = [NSString stringWithFormat:@"%.0f万", amount];
                 }
             });
         }];
@@ -132,18 +133,24 @@
         [_kvo observe:_viewModel keyPath:@"Volume" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(IdxQuoteView *view, IdxQuoteViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 double volume = model.Volume / 1000000.0;
-                if (volume > 10000) {
-                    view.volume.text = [NSString stringWithFormat:@"%.2f亿", volume / 10000.0];
+                if (volume >= 10000) {
+                    view.volume.text = [NSString stringWithFormat:@"%.3f亿", volume / 10000];
                 }
                 else {
-                    view.volume.text = [NSString stringWithFormat:@"%.2f万", volume];
+                    view.volume.text = [NSString stringWithFormat:@"%.0f万", volume];
                 }
             });
         }];
         
         [_kvo observe:_viewModel keyPath:@"VolumeSpread" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(IdxQuoteView *view, IdxQuoteViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                view.volumeSpread.text = [NSString stringWithFormat:@"%ld", model.VolumeSpread / 100];
+                unsigned long volume = model.VolumeSpread / 100;
+                if (volume > 10000) {
+                    view.volumeSpread.text = [NSString stringWithFormat:@"%.2f万", volume / 10000.0];
+                }
+                else {
+                    view.volumeSpread.text = [NSString stringWithFormat:@"%ld", volume];
+                }
             });
         }];
         

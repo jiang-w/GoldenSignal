@@ -6,21 +6,21 @@
 //  Copyright (c) 2015年 bigdata. All rights reserved.
 //
 
-#import "IdxKLineView.h"
-#import "IdxKLineViewModel.h"
+#import "QuoteHomeKLineView.h"
+#import "QuoteHomeKLineViewModel.h"
 #import "IdxKLineChart.h"
 #import <FBKVOController.h>
 #import <Masonry.h>
 
-@implementation IdxKLineView
+@implementation QuoteHomeKLineView
 {
-    IdxKLineViewModel *_viewModel;
+    QuoteHomeKLineViewModel *_viewModel;
     FBKVOController *_kvo;
 }
 
-+ (IdxKLineView *)createViewWithIdxCode:(NSString *)code
++ (QuoteHomeKLineView *)createViewWithIdxCode:(NSString *)code
 {
-    IdxKLineView * view = [[[NSBundle mainBundle] loadNibNamed:@"IdxKLineView" owner:nil options:nil] objectAtIndex:0];
+    QuoteHomeKLineView * view = [[[NSBundle mainBundle] loadNibNamed:@"QuoteHomeKLineView" owner:nil options:nil] objectAtIndex:0];
     [view subscribeDataWithCode:code];
     return view;
 }
@@ -31,7 +31,7 @@
 
 - (void)subscribeDataWithCode:(NSString *)code {
     if (_viewModel == nil) {
-        _viewModel = [[IdxKLineViewModel alloc] init];
+        _viewModel = [[QuoteHomeKLineViewModel alloc] init];
         [self kvoController];
     }
     [_viewModel subscribeQuotationScalarWithCode:code];
@@ -59,14 +59,14 @@
         
         [_kvo observe:_viewModel keyPath:@"Now" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                float nowPrice = [change[NSKeyValueChangeNewKey] floatValue];
+                double nowPrice = [change[NSKeyValueChangeNewKey] doubleValue];
                 self.now.text = [NSString stringWithFormat:@"%.2f", nowPrice];
             });
         }];
         
         [_kvo observe:_viewModel keyPath:@"Change" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                float changeVal = [change[NSKeyValueChangeNewKey] floatValue];
+                double changeVal = [change[NSKeyValueChangeNewKey] doubleValue];
                 self.change.text = [NSString stringWithFormat:@"%.2f", changeVal];
                 self.head.backgroundColor = [self textColorValue:changeVal otherValue:0];
             });
@@ -74,7 +74,7 @@
         
         [_kvo observe:_viewModel keyPath:@"ChangeRange" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                float changeRange = [change[NSKeyValueChangeNewKey] floatValue] * 100;
+                double changeRange = [change[NSKeyValueChangeNewKey] doubleValue] * 100;
                 self.changeRange.text = isnan(changeRange) ? @"(0.00%)" : [NSString stringWithFormat:@"(%.2f%%)", changeRange];
             });
         }];
