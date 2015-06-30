@@ -123,39 +123,33 @@
     UITableViewCell *cell = nil;
     NSString *bdCode = [_sectCodeArray objectAtIndex:indexPath.row];
     BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:bdCode];
-    switch (secu.typ) {
-        case stock: {
-            QuoteViewCell *stockCell = (QuoteViewCell *)[tableView dequeueReusableCellWithIdentifier:@"QuoteCell"];
-            if (stockCell == nil) {
-                NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"QuoteViewCell" owner:self options:nil];
-                for (id obj in nib) {
-                    if ([obj isKindOfClass:[QuoteViewCell class]]) {
-                        stockCell = (QuoteViewCell *)obj;
-                        break;
-                    }
+    if (secu != nil && secu.typ == idx) {
+        IdxQuoteViewCell *idxCell = (IdxQuoteViewCell *)[tableView dequeueReusableCellWithIdentifier:@"IdxQuoteCell"];
+        if (idxCell == nil) {
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"IdxQuoteViewCell" owner:self options:nil];
+            for (id obj in nib) {
+                if ([obj isKindOfClass:[IdxQuoteViewCell class]]) {
+                    idxCell = (IdxQuoteViewCell *)obj;
+                    break;
                 }
             }
-            stockCell.code = bdCode;
-            cell = stockCell;
-            break;
         }
-        case idx: {
-            IdxQuoteViewCell *idxCell = (IdxQuoteViewCell *)[tableView dequeueReusableCellWithIdentifier:@"IdxQuoteCell"];
-            if (idxCell == nil) {
-                NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"IdxQuoteViewCell" owner:self options:nil];
-                for (id obj in nib) {
-                    if ([obj isKindOfClass:[IdxQuoteViewCell class]]) {
-                        idxCell = (IdxQuoteViewCell *)obj;
-                        break;
-                    }
+        idxCell.code = bdCode;
+        cell = idxCell;
+    }
+    else {
+        QuoteViewCell *stockCell = (QuoteViewCell *)[tableView dequeueReusableCellWithIdentifier:@"QuoteCell"];
+        if (stockCell == nil) {
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"QuoteViewCell" owner:self options:nil];
+            for (id obj in nib) {
+                if ([obj isKindOfClass:[QuoteViewCell class]]) {
+                    stockCell = (QuoteViewCell *)obj;
+                    break;
                 }
             }
-            idxCell.code = bdCode;
-            cell = idxCell;
-            break;
         }
-        default:
-            break;
+        stockCell.code = bdCode;
+        cell = stockCell;
     }
     
     if (indexPath.row % 2 == 0) {

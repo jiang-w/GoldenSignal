@@ -82,7 +82,7 @@
     CGRect chartFrame = [self lineChartFrame];
     
     // 绘制日分时线
-    CGPathRef linePath = [self getPricePathInFrame:chartFrame forTradingDay:date andIsClosed:NO];
+    CGPathRef linePath = [self getPricePathInFrame:chartFrame forTradingDay:date];
     CAShapeLayer *pathLayer = [CAShapeLayer layer];
     pathLayer.frame = self.bounds;
     pathLayer.path = linePath;
@@ -94,7 +94,7 @@
     [self.layers addObject:pathLayer];
 }
 
-- (CGPathRef)getPricePathInFrame:(CGRect)frame forTradingDay:(NSString *)date andIsClosed:(BOOL)closed {
+- (CGPathRef)getPricePathInFrame:(CGRect)frame forTradingDay:(NSString *)date {
     NSArray *points = [_vm getPricePointInFrame:frame forTradingDay:date];
     UIBezierPath* path = [UIBezierPath bezierPath];
     if (points.count > 0) {
@@ -105,16 +105,6 @@
             else {
                 [path moveToPoint:CGPointFromString(points[i])];
             }
-        }
-        
-        if(closed) {
-            CGPoint lastPoint = CGPointFromString([points lastObject]);
-            CGPoint lPoint = CGPointMake(lastPoint.x, CGRectGetMaxY(frame));
-            [path addLineToPoint:lPoint];
-            CGPoint fristPoint = CGPointFromString([points firstObject]);
-            CGPoint fPoint = CGPointMake(fristPoint.x, CGRectGetMaxY(frame));
-            [path addLineToPoint:fPoint];
-            [path addLineToPoint:fristPoint];
         }
     }
     return path.CGPath;
