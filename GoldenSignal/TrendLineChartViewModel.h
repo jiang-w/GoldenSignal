@@ -38,7 +38,7 @@
 /**
  *  包含哪些日期的走势线
  */
-@property(nonatomic, retain, readonly)NSArray *dates;
+@property(nonatomic, retain, readonly)NSArray *tradingDays;
 
 
 - (void)loadDataWithSecuCode:(NSString *)code forDays:(NSUInteger)days andInterval:(NSUInteger)interval;

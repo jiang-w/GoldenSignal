@@ -58,16 +58,10 @@
     return (PriceRange){_prevClose - max, _prevClose + max};
 }
 
-- (void)setDays:(NSUInteger)days {
-    _days = days;
-    NSMutableArray *arr = [NSMutableArray arrayWithArray:[BDTradingDayService getTradingDaysUntilNowForDays:_days]];
-    [arr sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
-    _dates = arr;
-}
-
 - (unsigned long)maxVolume {
     NSMutableArray *volumeArr = [NSMutableArray array];
-    for (NSString *date in _dates) {
+    NSArray *dates = self.tradingDays;
+    for (NSString *date in dates) {
         [volumeArr addObjectsFromArray:[self getVolumeSerialForTradingDay:date]];
     }
     unsigned long max = 0;
@@ -77,6 +71,23 @@
         }
     }
     return max;
+}
+
+- (NSArray *)tradingDays {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HHmmss"];
+    NSString *timeString = [formatter stringFromDate:[NSDate date]];
+    NSString *dateString = nil;
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    if ([timeString intValue] > 93000) {
+        dateString = [formatter stringFromDate:[NSDate date]];
+    }
+    else {
+        dateString = [formatter stringFromDate:[[NSDate date] addDays:-1]];
+    }
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[BDTradingDayService getTradingDaysToDate:dateString forDays:self.days]];
+    [arr sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
+    return arr;
 }
 
 #pragma mark Loading date
@@ -287,7 +298,7 @@
         while (serial.count < sn) {
             serial[serial.count] = serial[serial.count - 1];
         }
-        serial[sn] = [NSNumber numberWithDouble:line.price / line.volume];
+        serial[sn] = [NSNumber numberWithDouble:line.amount / line.volume];
         i++;
     }
     return serial;

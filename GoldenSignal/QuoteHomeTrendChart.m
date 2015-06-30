@@ -115,7 +115,7 @@
 }
 
 - (void)strokeLineChart {
-    NSString *date = [_vm.dates firstObject];
+    NSString *date = [_vm.tradingDays firstObject];
     CGRect chartFrame = [self lineChartFrame];
     
     // 绘制日分时线

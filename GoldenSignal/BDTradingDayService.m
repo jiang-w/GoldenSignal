@@ -29,4 +29,16 @@
     return arr;
 }
 
++ (NSArray *)getTradingDaysToDate:(NSString *)date forDays:(NSUInteger)days {
+    NSMutableArray *arr = [NSMutableArray array];
+    BDDatabaseAccess *dbAccess = [[BDDatabaseAccess alloc] initWithPath:SQLITE_BASE_DATABASE];
+    NSString *sql = [NSString stringWithFormat:@"select * from %@ where norm_day <= '%@' and is_trd_day = 1 order by norm_day desc limit 0,%lu", TABLENAME, date, days];
+    FMResultSet *rs = [dbAccess queryTable:sql];
+    while ([rs next]){
+        NSString *date = [rs stringForColumn:@"Trd_day"];
+        [arr addObject:date];
+    }
+    return arr;
+}
+
 @end

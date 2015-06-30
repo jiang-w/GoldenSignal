@@ -12,4 +12,6 @@
 
 + (NSArray *)getTradingDaysUntilNowForDays:(NSUInteger)days;
 
++ (NSArray *)getTradingDaysToDate:(NSString *)date forDays:(NSUInteger)days;
+
 @end

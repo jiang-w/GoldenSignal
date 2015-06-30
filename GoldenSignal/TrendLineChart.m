@@ -218,7 +218,7 @@
 
 - (void)strokeLineChart {
     Stopwatch *watch = [Stopwatch startNew];
-    NSArray *dates = _vm.dates;
+    NSArray *dates = _vm.tradingDays;
     CGRect chartFrame = self.lineChartFrame;
     CGFloat xOffset = CGRectGetWidth(chartFrame) / dates.count;
     
@@ -273,7 +273,7 @@
 
 - (void)strokeVolumeChart {
     Stopwatch *watch = [Stopwatch startNew];
-    NSArray *dates = _vm.dates;
+    NSArray *dates = _vm.tradingDays;
     CGRect chartFrame = self.volumeChartFrame;
     CGFloat xOffset = CGRectGetWidth(chartFrame) / dates.count;
     
