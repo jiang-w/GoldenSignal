@@ -24,6 +24,8 @@
 
 - (void)disconnect;
 
+- (BOOL)isConnected;
+
 - (void)resubmit;
 
 @end

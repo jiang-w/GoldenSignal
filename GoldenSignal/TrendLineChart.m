@@ -221,6 +221,7 @@
     NSArray *dates = _vm.tradingDays;
     CGRect chartFrame = self.lineChartFrame;
     CGFloat xOffset = CGRectGetWidth(chartFrame) / dates.count;
+    SecuType typ = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:_vm.code].typ;
     
     for (int i = 0; i < dates.count; i++) {
         CGRect frame = CGRectMake(chartFrame.origin.x + xOffset * i, chartFrame.origin.y, xOffset, chartFrame.size.height);
@@ -248,17 +249,19 @@
             [self.layer addSublayer:fillLayer];
             [self.layers addObject:fillLayer];
         }
-        // 绘制均线
-        CGPathRef avgLinePath = [self getAvgPricePathInFrame:frame forTradingDay:dates[i]];
-        CAShapeLayer *avgLineLayer = [CAShapeLayer layer];
-        avgLineLayer.frame = self.bounds;
-        avgLineLayer.path = avgLinePath;
-        avgLineLayer.strokeColor = [_avgLineColor CGColor];
-        avgLineLayer.fillColor = nil;
-        avgLineLayer.lineWidth = _lineWidth;
-        avgLineLayer.lineJoin = kCALineJoinRound;
-        [self.layer addSublayer:avgLineLayer];
-        [self.layers addObject:avgLineLayer];
+        if (typ == stock) {
+            // 绘制个股均线
+            CGPathRef avgLinePath = [self getAvgPricePathInFrame:frame forTradingDay:dates[i]];
+            CAShapeLayer *avgLineLayer = [CAShapeLayer layer];
+            avgLineLayer.frame = self.bounds;
+            avgLineLayer.path = avgLinePath;
+            avgLineLayer.strokeColor = [_avgLineColor CGColor];
+            avgLineLayer.fillColor = nil;
+            avgLineLayer.lineWidth = _lineWidth;
+            avgLineLayer.lineJoin = kCALineJoinRound;
+            [self.layer addSublayer:avgLineLayer];
+            [self.layers addObject:avgLineLayer];
+        }
     }
     
     PriceRange range = _vm.priceRange;

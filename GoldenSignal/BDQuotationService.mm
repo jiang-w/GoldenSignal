@@ -53,18 +53,18 @@ NSMutableDictionary *BookingPoint;
 #pragma mark - Connect
 
 // 是否与服务器保持连接
-//- (BOOL)isConnected {
-//    if(context == nil) {
-//        return NO;
-//    }
-//    bool b = context->is_connected();
-//    if (b == true) {
-//        return YES;
-//    }
-//    else {
-//        return NO;
-//    }
-//}
+- (BOOL)isConnected {
+    if(context == nil) {
+        return NO;
+    }
+    bool b = context->is_connected();
+    if (b == true) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
+}
 
 // 连接行情服务器
 - (void)connect {
