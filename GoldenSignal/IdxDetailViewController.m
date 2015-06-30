@@ -57,7 +57,7 @@
     /* 添加指数标价 */
     self.idxQuoteView = [IdxQuoteView createView];
     [self addSubView:self.idxQuoteView withHeight:110 andSpace:0];
-    [self.idxQuoteView subscribeIndicatorsWithCode:_idxCode];
+    [self.idxQuoteView loadDataWithIdxCode:_idxCode];
     
     /* 行情走势图Tab */
     self.chartTabView = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 320, 30) items:@[@{@"text":@"分时"}, @{@"text":@"五日"}, @{@"text":@"日K"}, @{@"text":@"周K"}, @{@"text":@"月K"}] iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex) {

@@ -229,7 +229,7 @@
                 <outlet property="amount" destination="Erg-7X-g42" id="ZVS-pi-VOb"/>
                 <outlet property="amplitude" destination="TSa-S4-4a4" id="9MI-CE-Bhi"/>
                 <outlet property="change" destination="VoV-rE-obZ" id="vB8-RU-yox"/>
-                <outlet property="changeRange" destination="kGL-ay-tiA" id="9O7-bb-L2C"/>
+                <outlet property="changeRange" destination="kGL-ay-tiA" id="Zkf-0E-CD8"/>
                 <outlet property="downCount" destination="fBE-iG-2Uq" id="snY-HJ-oJt"/>
                 <outlet property="favoriteButton" destination="1h9-px-eCf" id="8Rj-MV-aGf"/>
                 <outlet property="high" destination="1FB-BP-qKN" id="AJe-Mo-hcY"/>

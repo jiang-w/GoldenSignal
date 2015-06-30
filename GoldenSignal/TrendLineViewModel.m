@@ -68,12 +68,12 @@
 }
 
 // 最大交易量
-- (unsigned int)maxVolume {
-    unsigned int max = 0;
+- (unsigned long)maxVolume {
+    unsigned long max = 0;
     for (int i = 1; i < self.lines.count; i++) {
         BDTrendLine *prevLine = self.lines[i - 1];
         BDTrendLine *currentLine = self.lines[i];
-        unsigned int volumeChange = currentLine.volume - prevLine.volume;
+        unsigned long volumeChange = currentLine.volume - prevLine.volume;
         if (prevLine.date == currentLine.date && volumeChange > max) {
             max = volumeChange;
         }

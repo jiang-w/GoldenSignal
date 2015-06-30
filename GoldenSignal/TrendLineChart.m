@@ -24,6 +24,7 @@
 @implementation TrendLineChart
 {
     TrendLineChartViewModel *_vm;
+    BDSecuCode *_secu;
 }
 
 #pragma mark - init

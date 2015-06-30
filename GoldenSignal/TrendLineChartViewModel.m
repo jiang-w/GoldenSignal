@@ -90,6 +90,7 @@
     return arr;
 }
 
+
 #pragma mark Loading date
 
 - (void)loadDataWithSecuCode:(NSString *)code forDays:(NSUInteger)days andInterval:(NSUInteger)interval {
@@ -262,21 +263,19 @@
     int dateVal = [[date stringByReplacingOccurrencesOfString:@"-" withString:@""] intValue];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %d", dateVal];
     NSArray *lines = [_lines filteredArrayUsingPredicate:predicate];
-
+    
     int i = 0;
     while (i < lines.count) {
         BDTrendLine *line = lines[i];
-        int sn = [self getSerialNumberWithTime:line.time];
         if (serial.count == 0) {
             serial[0] = [NSNumber numberWithDouble:line.price];
         }
-        else {
-            while (serial.count < sn) {
-                serial[serial.count] = serial[serial.count - 1];
-            }
-            serial[sn] = [NSNumber numberWithDouble:line.price];
-            i++;
+        int sn = [self getSerialNumberWithTime:line.time];
+        while (serial.count < sn) {
+            serial[serial.count] = serial[serial.count - 1];
         }
+        serial[sn] = [NSNumber numberWithDouble:line.price];
+        i++;
     }
     return serial;
 }

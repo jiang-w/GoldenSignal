@@ -28,7 +28,7 @@
     _kvo = [FBKVOController controllerWithObserver:self];
 }
 
-- (void)subscribeIndicatorsWithCode:(NSString *)code {
+- (void)loadDataWithIdxCode:(NSString *)code {
     if (_viewModel == nil) {
         _viewModel = [[IdxQuoteViewModel alloc] init];
         [self kvoController];
@@ -99,8 +99,8 @@
         [_kvo observe:_viewModel keyPath:@"Amplitude" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(IdxQuoteView *view, IdxQuoteViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 double amplitude = model.Amplitude * 100.0;
-                view.changeRange.text = [NSString stringWithFormat:@"%.2f%%", amplitude];
-                view.changeRange.textColor = [view textColorValue:amplitude otherValue:0];
+                view.amplitude.text = [NSString stringWithFormat:@"%.2f%%", amplitude];
+                view.amplitude.textColor = [view textColorValue:amplitude otherValue:0];
             });
         }];
         

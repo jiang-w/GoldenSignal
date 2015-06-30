@@ -15,6 +15,9 @@
 #import "BDStockPoolInfoService.h"
 
 @implementation AppDelegate
+{
+    NSTimer *checkTimer;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -39,6 +42,8 @@
     [[NSNotificationCenter defaultCenter]
      addObserver:self selector:@selector(pushStockViewController:) name:KEYBOARD_WIZARD_NOTIFICATION object:nil];
     
+    checkTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(checkConnected) userInfo:nil repeats:YES];
+    
     return YES;
 }
 
@@ -50,6 +55,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    [checkTimer setFireDate:[NSDate distantFuture]];
     // 中断与行情服务器的连接
     BDQuotationService *service = [BDQuotationService sharedInstance];
     [service disconnect];
@@ -62,9 +68,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    // 与行情服务器建立连接
-    BDQuotationService *service = [BDQuotationService sharedInstance];
-    [service connect];
+    [checkTimer setFireDate:[NSDate date]];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -115,6 +119,14 @@
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     NSNumber *identity = [numberFormatter numberFromString:valueString];
     return identity;
+}
+
+// 定时检测与行情服务器的连接状态，断开后尝试重连
+- (void)checkConnected {
+    BDQuotationService *service = [BDQuotationService sharedInstance];
+    if (!service.isConnected) {
+        [service connect];
+    }
 }
 
 @end

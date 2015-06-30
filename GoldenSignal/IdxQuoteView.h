@@ -27,6 +27,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 
 + (IdxQuoteView *)createView;
-- (void)subscribeIndicatorsWithCode:(NSString *)code;
+- (void)loadDataWithIdxCode:(NSString *)code;
 
 @end
