@@ -97,14 +97,17 @@
 #pragma mark - loading data
 
 - (void)loadDataWithSecuCode:(NSString *)code {
-    [_vm loadDataWithSecuCode:code forDays:_days andInterval:_interval];
+    if (_secu == nil || ![_secu.bdCode isEqualToString:code]) {
+        _secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:code];
+        [_vm loadDataWithSecuCode:code forDays:_days andInterval:_interval];
+    }
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     dispatch_async(dispatch_get_main_queue(), ^{
         @try {
             if (_vm.lines.count > 0 && _vm.prevClose > 0) {
-                NSLog(@"TrendLineChart 绘制走势图 (lines:%lu prevClose:%.2f)",(unsigned long)_vm.lines.count, _vm.prevClose);
+                NSLog(@"%@ 绘制走势图 (lines:%lu prevClose:%.2f)", _secu.bdCode, (unsigned long)_vm.lines.count, _vm.prevClose);
                 [self clearLayers];
                 [self strokeLineChart];
                 [self strokeVolumeChart];
@@ -222,7 +225,6 @@
     NSArray *dates = _vm.tradingDays;
     CGRect chartFrame = self.lineChartFrame;
     CGFloat xOffset = CGRectGetWidth(chartFrame) / dates.count;
-    SecuType typ = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:_vm.code].typ;
     
     for (int i = 0; i < dates.count; i++) {
         CGRect frame = CGRectMake(chartFrame.origin.x + xOffset * i, chartFrame.origin.y, xOffset, chartFrame.size.height);
@@ -250,7 +252,7 @@
             [self.layer addSublayer:fillLayer];
             [self.layers addObject:fillLayer];
         }
-        if (typ == stock) {
+        if (_secu.typ == stock) {
             // 绘制个股均线
             CGPathRef avgLinePath = [self getAvgPricePathInFrame:frame forTradingDay:dates[i]];
             CAShapeLayer *avgLineLayer = [CAShapeLayer layer];
@@ -364,6 +366,7 @@
 - (void)dealloc {
     [_vm removeObserver:self forKeyPath:@"lines"];
     [_vm removeObserver:self forKeyPath:@"prevClose"];
+    NSLog(@"TrendLineChart dealloc (%@)", _secu.bdCode);
 }
 
 @end

@@ -77,6 +77,7 @@
         [_kvo observe:_viewModel keyPath:@"Now" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(IdxQuoteView *view, IdxQuoteViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 view.now.text = [NSString stringWithFormat:@"%.2f", model.Now];
+//                view.now.font = [UIFont systemFontOfSize:20 weight:0.5];  // IOS8.2
                 view.now.textColor = [view textColorValue:model.Now otherValue:model.PrevClose];
             });
         }];
@@ -100,7 +101,6 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 double amplitude = model.Amplitude * 100.0;
                 view.amplitude.text = [NSString stringWithFormat:@"%.2f%%", amplitude];
-                view.amplitude.textColor = [view textColorValue:amplitude otherValue:0];
             });
         }];
         

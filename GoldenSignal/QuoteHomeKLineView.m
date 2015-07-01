@@ -61,6 +61,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 double nowPrice = [change[NSKeyValueChangeNewKey] doubleValue];
                 self.now.text = [NSString stringWithFormat:@"%.2f", nowPrice];
+//                self.now.font = [UIFont systemFontOfSize:11 weight:0.5];  // IOS8.2
             });
         }];
         

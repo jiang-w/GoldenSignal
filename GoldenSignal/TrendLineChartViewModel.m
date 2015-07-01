@@ -176,9 +176,6 @@
             
             if (self.initialized) {
                 @try {
-//                    if ([indicateName isEqualToString:@"Date"] || [indicateName isEqualToString:@"Time"]
-//                        || [indicateName isEqualToString:@"Now"] || [indicateName isEqualToString:@"Amount"]
-//                        || [indicateName isEqualToString:@"Volume"]) {
                     if ([indicateName isEqualToString:@"Time"]) {
                         unsigned int date = [[_service getCurrentIndicateWithCode:self.code andName:@"Date"] unsignedIntValue];
                         unsigned int time = [[_service getCurrentIndicateWithCode:self.code andName:@"Time"] unsignedIntValue] / 100000;
