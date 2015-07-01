@@ -44,19 +44,19 @@
 }
 
 - (void)initData {
-    self.now.text = @"-";
-    self.open.text = @"-";
-    self.prevClose.text = @"-";
-    self.change.text = @"-";
-    self.changeRange.text = @"-";
-    self.amplitude.text = @"-";
-    self.high.text = @"-";
-    self.low.text = @"-";
-    self.amount.text = @"-";
-    self.volume.text = @"-";
-    self.volumeSpread.text = @"-";
-    self.upCount.text = @"-";
-    self.downCount.text = @"-";
+    self.now.text = @"0.00";
+    self.open.text = @"0.00";
+    self.prevClose.text = @"0.00";
+    self.change.text = @"0.00";
+    self.changeRange.text = @"0.00%";
+    self.amplitude.text = @"0.00%";
+    self.high.text = @"0.00";
+    self.low.text = @"0.00";
+    self.amount.text = @"0";
+    self.volume.text = @"0";
+    self.volumeSpread.text = @"0";
+    self.upCount.text = @"0";
+    self.downCount.text = @"0";
 }
 
 - (void)kvoController {
@@ -77,7 +77,6 @@
         [_kvo observe:_viewModel keyPath:@"Now" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(IdxQuoteView *view, IdxQuoteViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 view.now.text = [NSString stringWithFormat:@"%.2f", model.Now];
-//                view.now.font = [UIFont systemFontOfSize:20 weight:0.5];  // IOS8.2
                 view.now.textColor = [view textColorValue:model.Now otherValue:model.PrevClose];
             });
         }];

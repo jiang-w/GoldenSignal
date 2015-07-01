@@ -58,18 +58,19 @@
     [self addSubView:self.idxQuoteView withHeight:110 andSpace:0];
     [self.idxQuoteView loadDataWithIdxCode:_idxCode];
     
-//    /* 行情走势图Tab */
-//    self.chartTabView = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 320, 30) items:@[@{@"text":@"分时"}, @{@"text":@"五日"}, @{@"text":@"日K"}, @{@"text":@"周K"}, @{@"text":@"月K"}] iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex) {
-//        _chartTab = segmentIndex;
-//        [self loadChartView];
-//    }];
-//    self.chartTabView.color = RGB(7, 9, 8, 1);
-//    self.chartTabView.borderWidth = 1;
-//    self.chartTabView.borderColor = RGB(80.0, 80.0, 80.0, 1.0);
-//    self.chartTabView.selectedColor = RGB(30, 30, 30, 1);
-//    self.chartTabView.textAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(214, 214, 214, 1)};
-//    self.chartTabView.selectedTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(216, 1, 1, 1)};
-//    [self addSubView:self.chartTabView withHeight:30 andSpace:2];
+    /* 行情走势图Tab */
+    self.chartTabView = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 320, 30) items:@[@{@"text":@"分时"}, @{@"text":@"五日"}, @{@"text":@"日K"}, @{@"text":@"周K"}, @{@"text":@"月K"}] iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex) {
+        // block引起内存泄露
+        _chartTab = segmentIndex;
+        [self loadChartView];
+    }];
+    self.chartTabView.color = RGB(7, 9, 8, 1);
+    self.chartTabView.borderWidth = 1;
+    self.chartTabView.borderColor = RGB(80.0, 80.0, 80.0, 1.0);
+    self.chartTabView.selectedColor = RGB(30, 30, 30, 1);
+    self.chartTabView.textAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(214, 214, 214, 1)};
+    self.chartTabView.selectedTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(216, 1, 1, 1)};
+    [self addSubView:self.chartTabView withHeight:30 andSpace:2];
     
     /* 分时、K线容器视图 */
     self.chartContainerView = [[UIView alloc] init];
