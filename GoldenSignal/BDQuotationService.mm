@@ -134,19 +134,31 @@ void handle_receive_bookpoint(quotelib::BookPointPtr bookpoint, QuickFAST::Messa
 //            formatter.displayFieldValue(field);
 //        }
 //        std::cout << output.str() << std::endl;
-        
+
         id value = convertFieldValue(msg_field.getField());
         if(value) {
-            // 将接收的值存入字典
-            NSString *key = [BDQuotationService generateKeyWithCode:code andIndicaterName:indicateName];
-            @synchronized(BookingPoint) {
-                if ([BookingPoint.allKeys containsObject:key]) {
-                    [BookingPoint[key] setObject:value forKey:@"value"];
+            NSDictionary *userInfo = nil;
+            ScalarBookPoint *scalarBookPoint = dynamic_cast<ScalarBookPoint*>(&*bookpoint);
+            if (scalarBookPoint) {
+                // 将接收的Scalar值存入字典
+                NSString *key = [BDQuotationService generateKeyWithCode:code andIndicaterName:indicateName];
+                @synchronized(BookingPoint) {
+                    if ([BookingPoint.allKeys containsObject:key]) {
+                        [BookingPoint[key] setObject:value forKey:@"value"];
+                    }
                 }
+                userInfo = @{@"code": code, @"name": indicateName, @"value": value};
+            }
+            
+            SerialsBookPoint *serialsBookPoint = dynamic_cast<SerialsBookPoint*>(&*bookpoint);
+            if (serialsBookPoint) {
+                int numberFromBegin = serialsBookPoint->NumberFromBegin();
+                int numberType = (int)serialsBookPoint->NumberType();
+                userInfo = @{@"code": code, @"name": indicateName, @"value": value, @"numberFromBegin": [NSNumber numberWithInt:-numberFromBegin], @"numberType": [NSNumber numberWithInt:numberType]};
             }
             
             // 使用通知队列异步发送通知
-            NSNotification *notification = [[NSNotification alloc] initWithName:QUOTE_SCALAR_NOTIFICATION object:nil userInfo:@{@"code": code, @"name": indicateName, @"value": value}];
+            NSNotification *notification = [[NSNotification alloc] initWithName:QUOTE_SCALAR_NOTIFICATION object:nil userInfo:userInfo];
             [[NSNotificationQueue defaultQueue] enqueueNotification:notification postingStyle:NSPostNow];
         }
     }

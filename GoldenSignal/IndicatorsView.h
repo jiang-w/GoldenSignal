@@ -11,23 +11,23 @@
 @interface IndicatorsView : UIView
 
 @property(nonatomic, strong, readonly)NSString *code;
-@property(nonatomic, strong)IBOutlet UILabel *prevClose;
-@property(nonatomic, strong)IBOutlet UILabel *open;
-@property(nonatomic, strong)IBOutlet UILabel *high;
-@property(nonatomic, strong)IBOutlet UILabel *low;
-@property(nonatomic, strong)IBOutlet UILabel *now;
-@property(nonatomic, strong)IBOutlet UILabel *change;
-@property(nonatomic, strong)IBOutlet UILabel *changeRange;
-@property(nonatomic, strong)IBOutlet UILabel *volumeSpread;
-@property(nonatomic, strong)IBOutlet UILabel *volume;
-@property(nonatomic, strong)IBOutlet UILabel *changeHandsRate;
-@property(nonatomic, strong)IBOutlet UILabel *volRatio;
-@property(nonatomic, strong)IBOutlet UILabel *amount;
-@property(nonatomic, strong)IBOutlet UILabel *ttlAst;
-@property(nonatomic, strong)IBOutlet UILabel *ttlAmountNtlc;
-@property(nonatomic, strong)IBOutlet UIButton *favoriteButton;
-@property(nonatomic, strong)IBOutlet UILabel *PEttm;
-@property(nonatomic, strong)IBOutlet UILabel *Eps;
+@property(nonatomic, weak) IBOutlet UILabel *prevClose;
+@property(nonatomic, weak) IBOutlet UILabel *open;
+@property(nonatomic, weak) IBOutlet UILabel *high;
+@property(nonatomic, weak) IBOutlet UILabel *low;
+@property(nonatomic, weak) IBOutlet UILabel *now;
+@property(nonatomic, weak) IBOutlet UILabel *change;
+@property(nonatomic, weak) IBOutlet UILabel *changeRange;
+@property(nonatomic, weak) IBOutlet UILabel *volumeSpread;
+@property(nonatomic, weak) IBOutlet UILabel *volume;
+@property(nonatomic, weak) IBOutlet UILabel *changeHandsRate;
+@property(nonatomic, weak) IBOutlet UILabel *volRatio;
+@property(nonatomic, weak) IBOutlet UILabel *amount;
+@property(nonatomic, weak) IBOutlet UILabel *ttlAst;
+@property(nonatomic, weak) IBOutlet UILabel *ttlAmountNtlc;
+@property(nonatomic, weak) IBOutlet UIButton *favoriteButton;
+@property(nonatomic, weak) IBOutlet UILabel *PEttm;
+@property(nonatomic, weak) IBOutlet UILabel *Eps;
 
 + (IndicatorsView *)createView;
 

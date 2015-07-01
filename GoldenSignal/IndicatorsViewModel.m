@@ -33,11 +33,11 @@ static NSArray *indicaters;
 
 #pragma mark Property kvo
 
-- (float)TtlAmount {
+- (double)TtlAmount {
     return self.Now * self.TtlShr / 100000000.0;
 }
 
-- (float)TtlAmountNtlc {
+- (double)TtlAmountNtlc {
     return self.Now * self.TtlShrNtlc / 100000000.0;
 }
 
@@ -89,38 +89,38 @@ static NSArray *indicaters;
 
 - (void)initPropertyWithCode:(NSString *)code {
     [self setValue:code forKey:@"Code"];
-    float prevClose = [[_service getCurrentIndicateWithCode:code andName:@"PrevClose"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:prevClose] forKey:@"PrevClose"];
-    float open = [[_service getCurrentIndicateWithCode:code andName:@"Open"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:open] forKey:@"Open"];
-    float now = [[_service getCurrentIndicateWithCode:code andName:@"Now"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:now] forKey:@"Now"];
-    float high = [[_service getCurrentIndicateWithCode:code andName:@"High"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:high] forKey:@"High"];
-    float low = [[_service getCurrentIndicateWithCode:code andName:@"Low"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:low] forKey:@"Low"];
-    float amount = [[_service getCurrentIndicateWithCode:code andName:@"Amount"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:amount] forKey:@"Amount"];
-    int volume = [[_service getCurrentIndicateWithCode:code andName:@"Volume"] intValue];
-    [self setValue:[NSNumber numberWithInt:volume] forKey:@"Volume"];
-    float change = [[_service getCurrentIndicateWithCode:code andName:@"Change"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:change] forKey:@"Change"];
-    float changeRange = [[_service getCurrentIndicateWithCode:code andName:@"ChangeRange"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:changeRange] forKey:@"ChangeRange"];
-    float changeHandsRate = [[_service getCurrentIndicateWithCode:code andName:@"ChangeHandsRate"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:changeHandsRate] forKey:@"ChangeHandsRate"];
-    float volRatio = [[_service getCurrentIndicateWithCode:code andName:@"VolRatio"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:volRatio] forKey:@"VolRatio"];
-    float ttlShr = [[_service getCurrentIndicateWithCode:code andName:@"TtlShr"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:ttlShr] forKey:@"TtlShr"];
-    float ttlShrNtlc = [[_service getCurrentIndicateWithCode:code andName:@"TtlShrNtlc"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:ttlShrNtlc] forKey:@"TtlShrNtlc"];
-    int volumeSpread = [[_service getCurrentIndicateWithCode:code andName:@"VolumeSpread"] intValue];
-    [self setValue:[NSNumber numberWithInt:volumeSpread] forKey:@"VolumeSpread"];
-    float peTtm = [[_service getCurrentIndicateWithCode:code andName:@"PEttm"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:peTtm] forKey:@"PEttm"];
-    float eps = [[_service getCurrentIndicateWithCode:code andName:@"EpsTtm"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:eps] forKey:@"Eps"];
+    double prevClose = [[_service getCurrentIndicateWithCode:code andName:@"PrevClose"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:prevClose] forKey:@"PrevClose"];
+    double open = [[_service getCurrentIndicateWithCode:code andName:@"Open"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:open] forKey:@"Open"];
+    double now = [[_service getCurrentIndicateWithCode:code andName:@"Now"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:now] forKey:@"Now"];
+    double high = [[_service getCurrentIndicateWithCode:code andName:@"High"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:high] forKey:@"High"];
+    double low = [[_service getCurrentIndicateWithCode:code andName:@"Low"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:low] forKey:@"Low"];
+    double amount = [[_service getCurrentIndicateWithCode:code andName:@"Amount"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:amount] forKey:@"Amount"];
+    unsigned long volume = [[_service getCurrentIndicateWithCode:code andName:@"Volume"] unsignedLongValue];
+    [self setValue:[NSNumber numberWithUnsignedLong:volume] forKey:@"Volume"];
+    double change = [[_service getCurrentIndicateWithCode:code andName:@"Change"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:change] forKey:@"Change"];
+    double changeRange = [[_service getCurrentIndicateWithCode:code andName:@"ChangeRange"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:changeRange] forKey:@"ChangeRange"];
+    double changeHandsRate = [[_service getCurrentIndicateWithCode:code andName:@"ChangeHandsRate"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:changeHandsRate] forKey:@"ChangeHandsRate"];
+    double volRatio = [[_service getCurrentIndicateWithCode:code andName:@"VolRatio"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:volRatio] forKey:@"VolRatio"];
+    double ttlShr = [[_service getCurrentIndicateWithCode:code andName:@"TtlShr"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:ttlShr] forKey:@"TtlShr"];
+    double ttlShrNtlc = [[_service getCurrentIndicateWithCode:code andName:@"TtlShrNtlc"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:ttlShrNtlc] forKey:@"TtlShrNtlc"];
+    unsigned long volumeSpread = [[_service getCurrentIndicateWithCode:code andName:@"VolumeSpread"] unsignedLongValue];
+    [self setValue:[NSNumber numberWithUnsignedLong:volumeSpread] forKey:@"VolumeSpread"];
+    double peTtm = [[_service getCurrentIndicateWithCode:code andName:@"PEttm"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:peTtm] forKey:@"PEttm"];
+    double eps = [[_service getCurrentIndicateWithCode:code andName:@"EpsTtm"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:eps] forKey:@"Eps"];
 }
 
 

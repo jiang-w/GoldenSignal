@@ -159,9 +159,13 @@
         dispatch_async(_propertyUpdateQueue, ^{
             if ([indicateName isEqualToString:@"TrendLine"] && !self.initialized) {
                 @try {
-                    NSArray *lineArray = [self paraseTrendLines:[value objectForKey:@"TrendLine"]];
-                    [self setValue:lineArray forKey:@"lines"];  // kvo
-                    self.initialized = YES;
+                    NSUInteger days = [dic[@"numberFromBegin"] intValue];
+                    NSUInteger interval = [dic[@"numberType"] intValue];
+                    if (self.days == days && self.interval == interval) {
+                        NSArray *lineArray = [self paraseTrendLines:[value objectForKey:@"TrendLine"]];
+                        [self setValue:lineArray forKey:@"lines"];  // kvo
+                        self.initialized = YES;
+                    }
                 }
                 @catch (NSException *exception) {
                     NSLog(@"TrendLineChartViewModel 初始化分时线异常：%@",[exception reason]);

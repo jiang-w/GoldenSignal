@@ -49,7 +49,7 @@
     self.margin = 0.0f;
     self.space = 4.0f;
     
-    _lineColor = [UIColor whiteColor];
+    _lineColor = [UIColor orangeColor];
     _avgLineColor = [UIColor yellowColor];
     _fillColor = [UIColor clearColor];
     _lineWidth = 1;
@@ -63,6 +63,8 @@
     
     _days = 1;
     _interval = 1;
+    
+    self.backgroundColor = RGB(30, 30, 30, 1);
 }
 
 
@@ -289,7 +291,7 @@
         CAShapeLayer *pathLayer = [CAShapeLayer layer];
         pathLayer.frame = self.bounds;
         pathLayer.path = volumePath;
-        pathLayer.strokeColor = [[UIColor yellowColor] CGColor];
+        pathLayer.strokeColor = [RGB(230, 239, 64, 1) CGColor];
         pathLayer.fillColor = nil;
         pathLayer.lineWidth = 1;
         pathLayer.lineJoin = kCALineJoinRound;

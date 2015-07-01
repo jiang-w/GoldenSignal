@@ -84,11 +84,7 @@
     UITabBarController *tab = (UITabBarController *)root.contentViewController;
     UINavigationController *navigation = (UINavigationController *)tab.viewControllers[tab.selectedIndex];
     UIViewController *top = [navigation.viewControllers lastObject];
-    
-    if (secu.typ == idx) {
-        IdxDetailViewController *idxVc = [[IdxDetailViewController alloc] init];
-        [idxVc loadDataWithSecuCode:secu.bdCode];
-    }
+
     switch (secu.typ) {
         case idx: {
             IdxDetailViewController *idxVc = [[IdxDetailViewController alloc] init];
