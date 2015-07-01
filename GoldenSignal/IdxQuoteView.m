@@ -192,4 +192,8 @@
     }
 }
 
+- (void)dealloc {
+    NSLog(@"IdxQuoteView dealloc (%@)", _viewModel.Code);
+}
+
 @end

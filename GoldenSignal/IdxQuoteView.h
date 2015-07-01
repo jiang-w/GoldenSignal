@@ -10,7 +10,6 @@
 
 @interface IdxQuoteView : UIView
 
-@property(nonatomic, strong, readonly) NSString *code;
 @property (weak, nonatomic) IBOutlet UILabel *now;
 @property (weak, nonatomic) IBOutlet UILabel *change;
 @property (weak, nonatomic) IBOutlet UILabel *changeRange;

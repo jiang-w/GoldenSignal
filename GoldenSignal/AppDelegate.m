@@ -92,7 +92,7 @@
                 [idxVc loadDataWithSecuCode:secu.bdCode];
                 [navigation pushViewController:idxVc animated:YES];
                 
-                NSLog(@"Retain count is %ld", CFGetRetainCount((__bridge CFTypeRef)idxVc));
+//                NSLog(@"Retain count is %ld", CFGetRetainCount((__bridge CFTypeRef)idxVc));
             }
         }
             break;
