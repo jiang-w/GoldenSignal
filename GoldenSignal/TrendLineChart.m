@@ -291,7 +291,7 @@
         CAShapeLayer *pathLayer = [CAShapeLayer layer];
         pathLayer.frame = self.bounds;
         pathLayer.path = volumePath;
-        pathLayer.strokeColor = [RGB(230, 239, 64, 1) CGColor];
+        pathLayer.strokeColor = [RGB(217, 166, 58, 1) CGColor];
         pathLayer.fillColor = nil;
         pathLayer.lineWidth = 1;
         pathLayer.lineJoin = kCALineJoinRound;

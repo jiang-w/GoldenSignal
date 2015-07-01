@@ -372,7 +372,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:QUOTE_SCALAR_NOTIFICATION object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:QUOTE_SOCKET_CONNECT object:nil];
     [_service unsubscribeScalarWithCode:self.code indicaters:IndicaterNames];
-//    NSLog(@"%@ TrendLineChartViewModel dealloc", self.code);
+    NSLog(@"TrendLineChart ViewsModel dealloc (%@)", self.code);
 }
 
 

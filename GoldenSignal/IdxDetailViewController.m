@@ -33,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self settingView];
-    
+
     [self loadChartView];
 }
 
@@ -47,7 +47,6 @@
     }];
     
     self.containerView = [[UIView alloc] init];
-//    self.containerView.backgroundColor = [UIColor redColor];
     [self.scrollView addSubview:self.containerView];
     [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.scrollView);
@@ -59,18 +58,18 @@
     [self addSubView:self.idxQuoteView withHeight:110 andSpace:0];
     [self.idxQuoteView loadDataWithIdxCode:_idxCode];
     
-    /* 行情走势图Tab */
-    self.chartTabView = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 320, 30) items:@[@{@"text":@"分时"}, @{@"text":@"五日"}, @{@"text":@"日K"}, @{@"text":@"周K"}, @{@"text":@"月K"}] iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex) {
-        _chartTab = segmentIndex;
-        [self loadChartView];
-    }];
-    self.chartTabView.color = RGB(7, 9, 8, 1);
-    self.chartTabView.borderWidth = 1;
-    self.chartTabView.borderColor = RGB(80.0, 80.0, 80.0, 1.0);
-    self.chartTabView.selectedColor = RGB(30, 30, 30, 1);
-    self.chartTabView.textAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(214, 214, 214, 1)};
-    self.chartTabView.selectedTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(216, 1, 1, 1)};
-    [self addSubView:self.chartTabView withHeight:30 andSpace:2];
+//    /* 行情走势图Tab */
+//    self.chartTabView = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 320, 30) items:@[@{@"text":@"分时"}, @{@"text":@"五日"}, @{@"text":@"日K"}, @{@"text":@"周K"}, @{@"text":@"月K"}] iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex) {
+//        _chartTab = segmentIndex;
+//        [self loadChartView];
+//    }];
+//    self.chartTabView.color = RGB(7, 9, 8, 1);
+//    self.chartTabView.borderWidth = 1;
+//    self.chartTabView.borderColor = RGB(80.0, 80.0, 80.0, 1.0);
+//    self.chartTabView.selectedColor = RGB(30, 30, 30, 1);
+//    self.chartTabView.textAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(214, 214, 214, 1)};
+//    self.chartTabView.selectedTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(216, 1, 1, 1)};
+//    [self addSubView:self.chartTabView withHeight:30 andSpace:2];
     
     /* 分时、K线容器视图 */
     self.chartContainerView = [[UIView alloc] init];
@@ -113,7 +112,6 @@
             if (self.trendLineChart == nil) {
                 self.trendLineChart = [[TrendLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
                 self.trendLineChart.margin = 1;
-                //    self.trendLineChart.days = 5;
                 self.trendLineChart.lineColor = [UIColor orangeColor];
                 self.trendLineChart.fillColor = [[UIColor orangeColor] colorWithAlphaComponent:0.15];
                 [self.trendLineChart loadDataWithSecuCode:_idxCode];
@@ -135,6 +133,10 @@
             [self loadChartView];
         }
     }
+}
+
+- (void)dealloc {
+    NSLog(@"IdxDetailViewController dealloc");
 }
 
 @end

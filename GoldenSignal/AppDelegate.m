@@ -87,18 +87,20 @@
 
     switch (secu.typ) {
         case idx: {
-            IdxDetailViewController *idxVc = [[IdxDetailViewController alloc] init];
-            [idxVc loadDataWithSecuCode:secu.bdCode];
             if (![top isKindOfClass:[IdxDetailViewController class]]) {
+                IdxDetailViewController *idxVc = [[IdxDetailViewController alloc] init];
+                [idxVc loadDataWithSecuCode:secu.bdCode];
                 [navigation pushViewController:idxVc animated:YES];
+                
+                NSLog(@"Retain count is %ld", CFGetRetainCount((__bridge CFTypeRef)idxVc));
             }
         }
             break;
         case stock: {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            StockDetailViewController *stockVC = [storyboard instantiateViewControllerWithIdentifier:@"StockViewController"];
-            stockVC.defaultCode = secu.bdCode;
             if (![top isKindOfClass:[StockDetailViewController class]]) {
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                StockDetailViewController *stockVC = [storyboard instantiateViewControllerWithIdentifier:@"StockViewController"];
+                stockVC.defaultCode = secu.bdCode;
                 [navigation pushViewController:stockVC animated:YES];
             }
         }

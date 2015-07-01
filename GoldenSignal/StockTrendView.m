@@ -67,7 +67,6 @@
                 self.oneDayLine.days = 1;
                 self.oneDayLine.margin = 2;
                 self.oneDayLine.fillColor = RGB(225, 112, 35, 0.15);
-                self.oneDayLine.avgLineColor = RGB(230, 239, 64, 1);
                 [self.oneDayLine loadDataWithSecuCode:_code];
             }
             [self.mainView addSubview:self.oneDayLine];
