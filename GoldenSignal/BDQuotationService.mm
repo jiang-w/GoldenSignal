@@ -80,6 +80,7 @@ NSMutableDictionary *BookingPoint;
     context->set_on_receive_bookpoint(handle_receive_bookpoint);
     context->set_on_connect_socket(handle_connect_socket);
     context->set_on_close_socket(handle_close_socket);
+    context->set_on_error(handle_error);
     NSLog(@"连接行情服务器...");
 }
 
@@ -104,6 +105,11 @@ void handle_close_socket()
     NSLog(@"%s:%s 连接中断", QUOTE_SERVER_HOST, QUOTE_SERVER_PORT);
     // 连接断开发出通知
     [[NSNotificationCenter defaultCenter] postNotificationName:QUOTE_SOCKET_CLOSE object:nil userInfo:nil];
+}
+
+void handle_error(const boost::system::error_code& error, const std::string msg)
+{
+    NSLog(@"Error: %@", [NSString stringWithCString:msg.c_str() encoding:NSUTF8StringEncoding]);
 }
 
 #pragma mark - Receive

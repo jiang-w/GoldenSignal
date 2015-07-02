@@ -91,7 +91,7 @@
         [_kvo observe:_viewModel keyPath:@"ChangeRange" options:NSKeyValueObservingOptionNew block:^(IdxQuoteView *view, IdxQuoteViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 double changeRange = model.ChangeRange * 100.0;
-                view.changeRange.text = isnan(changeRange) ? @"—" : [NSString stringWithFormat:@"%.2f%%", changeRange];
+                view.changeRange.text = isnan(changeRange) ? @"0.00%" : [NSString stringWithFormat:@"%.2f%%", changeRange];
                 view.changeRange.textColor = [view textColorValue:changeRange otherValue:0];
             });
         }];

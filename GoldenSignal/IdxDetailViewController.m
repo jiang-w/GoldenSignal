@@ -131,6 +131,8 @@
         if (secuCode) {
             _idxCode = code;
             
+//            [self.idxQuoteView loadDataWithIdxCode:_idxCode];
+            
             // 载入分时、K线视图
 //            [self loadChartView];
         }
