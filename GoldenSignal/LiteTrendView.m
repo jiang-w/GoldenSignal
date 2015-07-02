@@ -7,7 +7,7 @@
 //
 
 #import "LiteTrendView.h"
-#import "TrendLineChartViewModel.h"
+#import "TrendLineViewModel.h"
 
 @interface LiteTrendView()
 
@@ -18,13 +18,13 @@
 
 @implementation LiteTrendView
 {
-    TrendLineChartViewModel *_vm;
+    TrendLineViewModel *_vm;
 }
 
 - (id)initWithFrame:(CGRect)frame andCode:(NSString *)code {
     self = [super initWithFrame:frame];
     if (self) {
-        _vm = [[TrendLineChartViewModel alloc] init];
+        _vm = [[TrendLineViewModel alloc] init];
         _code = code;
         _layers = [NSMutableArray array];
         self.backgroundColor = [UIColor clearColor];

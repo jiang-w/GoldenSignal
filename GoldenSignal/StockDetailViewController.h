@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "IndicatorsView.h"
-#import "TrendLineView.h"
 #import "FiveBetsView.h"
 #import "SubDealView.h"
 #import "KLineView.h"

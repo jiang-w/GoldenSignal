@@ -22,12 +22,13 @@
 @property(nonatomic, strong) PPiFlatSegmentedControl *chartTabView;
 @property(nonatomic, strong) TrendLineChart *trendLineChart;
 
+@property(nonatomic, assign) NSInteger chartTab;
+
 @end
 
 @implementation IdxDetailViewController
 {
     NSString *_idxCode;
-    __block NSInteger _chartTab;
 }
 
 - (void)viewDidLoad {
@@ -58,11 +59,11 @@
     [self addSubView:self.idxQuoteView withHeight:110 andSpace:0];
     [self.idxQuoteView loadDataWithIdxCode:_idxCode];
     
+    __weak IdxDetailViewController *weakSelf = self;    // 解决block循环引用的问题
     /* 行情走势图Tab */
     self.chartTabView = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 320, 30) items:@[@{@"text":@"分时"}, @{@"text":@"五日"}, @{@"text":@"日K"}, @{@"text":@"周K"}, @{@"text":@"月K"}] iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex) {
-        // block引起内存泄露
-//        _chartTab = segmentIndex;
-//        [self loadChartView];
+        weakSelf.chartTab = segmentIndex;
+        [weakSelf loadChartView];
     }];
     self.chartTabView.color = RGB(7, 9, 8, 1);
     self.chartTabView.borderWidth = 1;

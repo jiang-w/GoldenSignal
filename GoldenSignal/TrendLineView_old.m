@@ -6,13 +6,13 @@
 //  Copyright (c) 2014年 bigdata. All rights reserved.
 //
 
-#import "TrendLineView.h"
-#import "TrendLineViewModel.h"
+#import "TrendLineView_old.h"
+#import "TrendLineViewModel_old.h"
 #import "MBProgressHUD/MBProgressHUD.h"
 
-@implementation TrendLineView
+@implementation TrendLineView_old
 {
-    TrendLineViewModel *_vm;
+    TrendLineViewModel_old *_vm;
     int _days;
 }
 
@@ -32,7 +32,7 @@
             
             _code = [code copy];
             _days = 1;
-            _vm = [[TrendLineViewModel alloc] initWithCode:code];
+            _vm = [[TrendLineViewModel_old alloc] initWithCode:code];
             [_vm addObserver:self forKeyPath:@"priceRange" options:NSKeyValueObservingOptionNew context:NULL];
             [_vm addObserver:self forKeyPath:@"maxVolume" options:NSKeyValueObservingOptionNew context:NULL];
         }

@@ -7,7 +7,7 @@
 //
 
 #import "QuoteHomeTrendChart.h"
-#import "TrendLineChartViewModel.h"
+#import "TrendLineViewModel.h"
 
 @interface QuoteHomeTrendChart()
 
@@ -18,14 +18,14 @@
 
 @implementation QuoteHomeTrendChart
 {
-    TrendLineChartViewModel *_vm;
+    TrendLineViewModel *_vm;
 }
 
 - (id)initWithFrame:(CGRect)frame andIdxCode:(NSString *)code
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _vm = [[TrendLineChartViewModel alloc] init];
+        _vm = [[TrendLineViewModel alloc] init];
         _code = code;
         _layers = [NSMutableArray array];
         [self setDefaultParameters];

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TrendLineView : UIView
+@interface TrendLineView_old : UIView
 {
     CGRect lineFrame;
     CGRect volumeFrame;

@@ -1,65 +1,56 @@
 //
-//  BDTrendViewModel.m
+//  TrendLineChartViewModel.m
 //  GoldenSignal
 //
-//  Created by Frank on 15/2/5.
+//  Created by Frank on 15/6/24.
 //  Copyright (c) 2015年 bigdata. All rights reserved.
 //
 
 #import "TrendLineViewModel.h"
 #import "BDQuotationService.h"
-#import "BDNetworkService.h"
+#import "BDTradingDayService.h"
 
 #define IndicaterNames @[@"Date", @"Time", @"Now", @"Amount", @"Volume", @"PrevClose"]
+
+@interface TrendLineViewModel()
+
+@property(nonatomic, assign) BOOL initialized;  // 是否加载完历史数据
+@property(nonatomic, assign) NSUInteger interval;   // 间隔的分钟数
+@property(nonatomic, assign) NSUInteger days;   // 几个交易日
+
+@end
 
 @implementation TrendLineViewModel
 {
     dispatch_queue_t _propertyUpdateQueue;
     BDQuotationService *_service;
-    BDTrendLine *_latestLine;
 }
 
-- (id)initWithCode:(NSString *)code {
+#pragma mark Init
+
+- (instancetype)init {
     self = [super init];
     if (self) {
-        _code = code;
-        _initialized = NO;
-        _requestDays = 1;
-        _interval = 1;
         _propertyUpdateQueue = dispatch_queue_create("TrendLineUpdate", nil);
         _service = [BDQuotationService sharedInstance];
-        [_service subscribeScalarWithCode:self.code indicaters:IndicaterNames];
+        _lines = [NSMutableArray array];
+        self.initialized = NO;
+        self.interval = 1;
+        self.days = 1;
         
-        [[NSNotificationCenter defaultCenter]
-         addObserver:self selector:@selector(subscribeScalarChanged:) name:QUOTE_SCALAR_NOTIFICATION object:nil];
-        [[NSNotificationCenter defaultCenter]
-         addObserver:self selector:@selector(reconnection) name:QUOTE_SOCKET_CONNECT object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subscribeScalarChanged:) name:QUOTE_SCALAR_NOTIFICATION object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reconnection) name:QUOTE_SOCKET_CONNECT object:nil];
     }
     return self;
 }
 
-- (void)loadTrendLineForDays:(int)days andInterval:(int)interval {
-    _requestDays = days;
-    _interval = interval;
-    _initialized = NO;
-    
-    //[self httpRequestTrendLine];
-    [self socketRequestTrendLine];
-}
-
-- (void)reconnection {
-    if (self.initialized) {
-        [self loadTrendLineForDays:_requestDays andInterval:self.interval];
-    }
-}
-
-#pragma mark - Property
+#pragma mark Property
 
 // 价格区间
 - (PriceRange)priceRange {
-    float max = 0;
-    for (BDTrendLine *line in self.lines) {
-        float dif = fabs(line.price - _prevClose);
+    double max = 0;
+    for (BDTrendLine *line in _lines) {
+        double dif = fabs(line.price - _prevClose);
         if (dif > max) {
             max = dif;
         }
@@ -67,121 +58,105 @@
     return (PriceRange){_prevClose - max, _prevClose + max};
 }
 
-// 最大交易量
 - (unsigned long)maxVolume {
+    NSMutableArray *volumeArr = [NSMutableArray array];
+    NSArray *dates = self.tradingDays;
+    for (NSString *date in dates) {
+        [volumeArr addObjectsFromArray:[self getVolumeSerialForTradingDay:date]];
+    }
     unsigned long max = 0;
-    for (int i = 1; i < self.lines.count; i++) {
-        BDTrendLine *prevLine = self.lines[i - 1];
-        BDTrendLine *currentLine = self.lines[i];
-        unsigned long volumeChange = currentLine.volume - prevLine.volume;
-        if (prevLine.date == currentLine.date && volumeChange > max) {
-            max = volumeChange;
+    for (NSNumber *val in volumeArr) {
+        if ([val unsignedLongValue] > max) {
+            max = [val unsignedLongValue];
         }
     }
     return max;
 }
 
-// 设置依赖键(kvo)
-+ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key
-{
-    NSSet * keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-    NSArray * moreKeyPaths = nil;
-    
-    if ([key isEqualToString:@"priceRange"]) {
-        moreKeyPaths = [NSArray arrayWithObjects:@"lines", @"prevClose", nil];
-    }
-    if ([key isEqualToString:@"maxVolume"]) {
-        moreKeyPaths = [NSArray arrayWithObjects:@"lines", nil];
-    }
-    
-    if (moreKeyPaths) {
-        keyPaths = [keyPaths setByAddingObjectsFromArray:moreKeyPaths];
-    }
-    return keyPaths;
-}
-
-
-#pragma mark - Request TrendLine
-
-// http request
-- (void)httpRequestTrendLine {
-    NSString *url = [NSString stringWithFormat:@"%@/SerialsRequest?code=%@&indicate-name=TrendLine&number-type=%d&number-from-begin=-%d"
-                     , QUOTE_HTTP_URL, self.code, self.interval, _requestDays];
-    BDNetworkService *netService = [BDNetworkService sharedInstance];
-    [netService asyncGetRequest:url success:^(id responseObject) {
-        @try {
-            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-            NSMutableArray *dateArray = [NSMutableArray array];
-            NSArray *response = [self paraseTrendLines:responseObject];
-            for (id item in response) {
-                BDTrendLine *line = [[BDTrendLine alloc] init];
-                line.date = [[item objectForKey:@"date"] unsignedIntValue];
-                line.time = [[item objectForKey:@"time"] unsignedIntValue] / 100000;
-                line.price = [[item objectForKey:@"now"] doubleValue];
-                line.amount = [[item objectForKey:@"amount"] doubleValue];
-                line.volume = [[item objectForKey:@"volume"] unsignedLongValue];
-                // 添加走势线
-                NSString *key = [NSString stringWithFormat:@"%d%d", line.date, line.time];
-                if ([dic.allKeys containsObject:key]) {
-                    if (line.volume > ((BDTrendLine *)dic[key]).volume) {
-                        [dic setObject:line forKey:key];
-                    }
-                }
-                else {
-                    [dic setObject:line forKey:key];
-                }
-                // 添加日期
-                if (![dateArray containsObject:[NSNumber numberWithInt:line.date]]) {
-                    [dateArray addObject:[NSNumber numberWithInt:line.date]];
-                }
-            }
-            // 对走势线进行过滤和排序
-            NSMutableArray *lineArray = [NSMutableArray arrayWithArray:dic.allValues];
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"time >= 930 and time <= 1500"];
-            lineArray = [NSMutableArray arrayWithArray:[lineArray filteredArrayUsingPredicate:predicate]];
-            [lineArray sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES],
-                                              [NSSortDescriptor sortDescriptorWithKey:@"time" ascending:YES]]];
-            [self setValue:lineArray forKey:@"lines"];  // kvo
-            // 对日期进行排序
-            [dateArray sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
-            [self setValue:dateArray forKey:@"dates"];
-            
-            _initialized = YES;
-            [self setValue:[_service getCurrentIndicateWithCode:self.code andName:@"PrevClose"] forKey:@"prevClose"];
-            _latestLine = [[BDTrendLine alloc] init];
-            _latestLine.date = [[_service getCurrentIndicateWithCode:self.code andName:@"Date"] intValue];
-            _latestLine.time = [[_service getCurrentIndicateWithCode:self.code andName:@"Time"] intValue];
-            _latestLine.price = [[_service getCurrentIndicateWithCode:self.code andName:@"Now"] floatValue];
-            _latestLine.amount = [[_service getCurrentIndicateWithCode:self.code andName:@"Amount"] floatValue];
-            _latestLine.volume = [[_service getCurrentIndicateWithCode:self.code andName:@"Volume"] intValue];
-        }
-        @catch (NSException *exception) {
-            NSLog(@"TrendLineViewModel 初始化分时线异常：%@",[exception reason]);
-        }
-        
-    } failure:nil];
-}
-
-// 解析分时线数据
-- (NSArray *)paraseTrendLines:(NSData *)data {
-    if (data) {
-        NSError *error;
-        NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
-        NSArray *trendLineArray = jsonDic[@"serials"][@"data"];
-        return trendLineArray;
+- (NSArray *)tradingDays {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HHmmss"];
+    NSString *timeString = [formatter stringFromDate:[NSDate date]];
+    NSString *dateString = nil;
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    if ([timeString intValue] > 93000) {
+        dateString = [formatter stringFromDate:[NSDate date]];
     }
     else {
-        return nil;
+        dateString = [formatter stringFromDate:[[NSDate date] addDays:-1]];
+    }
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[BDTradingDayService getTradingDaysToDate:dateString forDays:self.days]];
+    [arr sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
+    return arr;
+}
+
+
+#pragma mark Loading date
+
+- (void)loadDataWithSecuCode:(NSString *)code forDays:(NSUInteger)days andInterval:(NSUInteger)interval {
+    if (code) {
+        if (![_code isEqualToString:code]) {
+            if (_code) {
+                [_service unsubscribeScalarWithCode:_code indicaters:IndicaterNames];
+            }
+            _initialized = NO;
+            _code = [code copy];
+            // 注意：行情接口重复订阅同一指标，不再返回数据，需要从本地缓存中获取数据
+            _prevClose = [[_service getCurrentIndicateWithCode:code andName:@"PrevClose"] doubleValue];
+            [_service subscribeScalarWithCode:_code indicaters:IndicaterNames];
+        }
+        else {
+            if (_days != days || _interval != interval) {
+                _initialized = NO;
+            }
+        }
+        
+        if (!_initialized) {
+            _interval = interval;
+            _days = days;
+            [_lines removeAllObjects];
+            [_service subscribeSerialsWithCode:_code indicateName:@"TrendLine" beginDate:0 beginTime:0 numberType:(int)_interval number:(int)_days];
+        }
     }
 }
 
-// socket request
-- (void)socketRequestTrendLine {
-    [_service subscribeSerialsWithCode:self.code indicateName:@"TrendLine" beginDate:0 beginTime:0 numberType:self.interval number:_requestDays];
+#pragma mark Subscribe
+
+- (void)reconnection {
+    if (self.initialized) {
+        [self loadDataWithSecuCode:self.code forDays:self.days andInterval:self.interval];
+    }
 }
 
+- (unsigned int)mergeMinuteWithTime:(unsigned int)time {
+    unsigned int mergeMinute = 0;
+    unsigned int minute = time / 100000;
+    if (minute <= 1130) {
+        mergeMinute = floor((time - 930) * 1.0 / self.interval) * self.interval + 930;
+    }
+    if (minute >= 1300) {
+        mergeMinute = floor((time - 1300) * 1.0 / self.interval) * self.interval + 1300;
+    }
+    return mergeMinute;
+}
 
-#pragma mark Subscribe
+- (NSArray *)paraseTrendLines:(NSArray *)data {
+    NSMutableArray *arr = [NSMutableArray array];
+    for (NSDictionary *item in data) {
+        BDTrendLine *line = [[BDTrendLine alloc] init];
+        line.date = [[item objectForKey:@"Date"] unsignedIntValue];
+        line.time = [[item objectForKey:@"Time"] unsignedIntValue] / 100000;
+        line.price = [[item objectForKey:@"Now"] doubleValue];
+        line.amount = [[item objectForKey:@"Amount"] doubleValue];
+        line.volume = [[item objectForKey:@"Volume"] unsignedLongValue];
+        [arr addObject:line];
+    }
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"time BETWEEN {930, 1130} or time BETWEEN {1300, 1500}"];
+    arr = [NSMutableArray arrayWithArray:[arr filteredArrayUsingPredicate:predicate]];
+    [arr sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES],
+                                     [NSSortDescriptor sortDescriptorWithKey:@"time" ascending:YES]]];
+    return arr;
+}
 
 - (void)subscribeScalarChanged:(NSNotification *)notification {
     NSDictionary *dic = notification.userInfo;
@@ -193,148 +168,210 @@
         dispatch_async(_propertyUpdateQueue, ^{
             if ([indicateName isEqualToString:@"TrendLine"] && !self.initialized) {
                 @try {
-                    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-                    NSMutableArray *dateArray = [NSMutableArray array];
-                    for (id item in [value objectForKey:@"TrendLine"]) {
-                        BDTrendLine *line = [[BDTrendLine alloc] init];
-                        line.date = [[item objectForKey:@"Date"] unsignedIntValue];
-                        line.time = [[item objectForKey:@"Time"] unsignedIntValue] / 100000;
-                        line.price = [[item objectForKey:@"Now"] doubleValue];
-                        line.amount = [[item objectForKey:@"Amount"] doubleValue];
-                        line.volume = [[item objectForKey:@"Volume"] unsignedLongValue];
-                        // 添加走势线
-                        NSString *key = [NSString stringWithFormat:@"%d%d", line.date, line.time];
-                        if ([dic.allKeys containsObject:key]) {
-                            if (line.volume > ((BDTrendLine *)dic[key]).volume) {
-                                [dic setObject:line forKey:key];
-                            }
-                        }
-                        else {
-                            [dic setObject:line forKey:key];
-                        }
-                        // 添加日期
-                        if (![dateArray containsObject:[NSNumber numberWithInt:line.date]]) {
-                            [dateArray addObject:[NSNumber numberWithInt:line.date]];
-                        }
+                    NSUInteger days = [dic[@"numberFromBegin"] intValue];
+                    NSUInteger interval = [dic[@"numberType"] intValue];
+                    if (self.days == days && self.interval == interval) {
+                        NSArray *lineArray = [self paraseTrendLines:[value objectForKey:@"TrendLine"]];
+                        [self setValue:lineArray forKey:@"lines"];  // kvo
+                        self.initialized = YES;
                     }
-                    // 对走势线进行过滤和排序
-                    NSMutableArray *lineArray = [NSMutableArray arrayWithArray:dic.allValues];
-                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"time >= 930 and time <= 1500"];
-                    lineArray = [NSMutableArray arrayWithArray:[lineArray filteredArrayUsingPredicate:predicate]];
-                    [lineArray sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES],
-                                                      [NSSortDescriptor sortDescriptorWithKey:@"time" ascending:YES]]];
-                    [self setValue:lineArray forKey:@"lines"];  // kvo
-                    // 对日期进行排序
-                    [dateArray sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
-                    [self setValue:dateArray forKey:@"dates"];
-                    
-                    _initialized = YES;
-                    id prevCloseValue = [_service getCurrentIndicateWithCode:self.code andName:@"PrevClose"];
-                    if (prevCloseValue) {
-                        [self setValue:prevCloseValue forKey:@"prevClose"];
-                    }
-                    _latestLine = [[BDTrendLine alloc] init];
-                    _latestLine.date = [[_service getCurrentIndicateWithCode:self.code andName:@"Date"] intValue];
-                    _latestLine.time = [[_service getCurrentIndicateWithCode:self.code andName:@"Time"] intValue] / 100000;
-                    _latestLine.price = [[_service getCurrentIndicateWithCode:self.code andName:@"Now"] floatValue];
-                    _latestLine.amount = [[_service getCurrentIndicateWithCode:self.code andName:@"Amount"] floatValue];
-                    _latestLine.volume = [[_service getCurrentIndicateWithCode:self.code andName:@"Volume"] intValue];
                 }
                 @catch (NSException *exception) {
-                    NSLog(@"TrendLineViewModel 初始化分时线异常：%@",[exception reason]);
+                    NSLog(@"TrendLineChartViewModel 初始化分时线异常：%@",[exception reason]);
+                }
+            }
+            
+            if ([indicateName isEqualToString:@"PrevClose"]) {
+                if (value) {
+                    [self setValue:value forKey:@"prevClose"];  // kvo
                 }
             }
             
             if (self.initialized) {
                 @try {
-                    if ([indicateName isEqualToString:@"Date"]) {
-                        _latestLine.date = [value unsignedIntValue];
-                    }
-                    else if ([indicateName isEqualToString:@"Time"]) {
-                        _latestLine.time = [value unsignedIntValue] / 100000;
-                    }
-                    else if ([indicateName isEqualToString:@"Now"]) {
-                        _latestLine.price = [value doubleValue];
-                    }
-                    else if ([indicateName isEqualToString:@"Amount"]) {
-                        _latestLine.amount = [value doubleValue];
-                    }
-                    else if ([indicateName isEqualToString:@"Volume"]) {
-                        _latestLine.volume = [value unsignedLongValue];
+                    if ([indicateName isEqualToString:@"Time"]) {
+                        unsigned int date = [[_service getCurrentIndicateWithCode:self.code andName:@"Date"] unsignedIntValue];
+                        unsigned int time = [[_service getCurrentIndicateWithCode:self.code andName:@"Time"] unsignedIntValue] / 100000;
+                        double price = [[_service getCurrentIndicateWithCode:self.code andName:@"Now"] doubleValue];
+                        double amount = [[_service getCurrentIndicateWithCode:self.code andName:@"Amount"] doubleValue];
+                        unsigned long volume = [[_service getCurrentIndicateWithCode:self.code andName:@"Volume"] unsignedLongValue];
                         
-                        BDTrendLine *lastLine = [self.lines lastObject];
-                        int mergeMinute = floor((_latestLine.time - lastLine.time) * 1.0 / self.interval) * self.interval + lastLine.time;
-                        if (mergeMinute == lastLine.time) {
-                            lastLine.price = _latestLine.price;
-                            lastLine.amount = _latestLine.amount;
-                            lastLine.volume = _latestLine.volume;
+                        unsigned int mergeMinute = [self mergeMinuteWithTime:time];
+                        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %lu", date];
+                        NSMutableArray *lineArray = [NSMutableArray arrayWithArray:[self.lines filteredArrayUsingPredicate:predicate]];
+                        [lineArray sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"time" ascending:NO]]];
+                        BDTrendLine *line = [lineArray firstObject];
+                        if (line == nil || mergeMinute > line.time) {
+                            line = [[BDTrendLine alloc] init];
+                            line.date = date;
+                            line.time = mergeMinute;
+                            [self.lines addObject:line];
                         }
-                        else {
-                            BDTrendLine *newLine = [[BDTrendLine alloc] init];
-                            newLine.date = _latestLine.date;
-                            newLine.time = mergeMinute;
-                            newLine.price = _latestLine.price;
-                            newLine.amount = _latestLine.amount;
-                            newLine.volume = _latestLine.volume;
-                            [self.lines addObject:newLine];
-                        }
+                        line.price = price;
+                        line.amount = amount;
+                        line.volume = volume;
+                        
                         [self setValue:self.lines forKey:@"lines"];  // kvo
-                    }
-                    else if ([indicateName isEqualToString:@"PrevClose"]) {
-                        if (value) {
-                            [self setValue:value forKey:@"prevClose"];  // kvo
-                        }
                     }
                 }
                 @catch (NSException *exception) {
-                    NSLog(@"TrendLineViewModel 订阅指标数据异常：%@",[exception reason]);
+                    NSLog(@"TrendLineChartViewModel 订阅指标数据异常：%@",[exception reason]);
                 }
             }
         });
     }
 }
 
+#pragma mark - Chart line
 
-#pragma mark - View
-
-- (CGPoint)getPointInFrame:(CGRect)frame WithSerialNumber:(int)number andPrice:(float)price {
+// 获取某交易日（日期格式'yyyy-MM-dd'）的分时线
+- (NSArray *)getPricePointInFrame:(CGRect)frame forTradingDay:(NSString *)date {
+    NSMutableArray *points = [NSMutableArray array];
+    NSArray *priceArr = [self getPriceSerialForTradingDay:date];
     PriceRange priceRange = self.priceRange;
-    if (number >= 0) {
-        int pointCount = floor(240.0 / self.interval) + 2;
-        float xOffset = CGRectGetMinX(frame) + number * CGRectGetWidth(frame) / (pointCount - 1);
-        float yOffset = CGRectGetMinY(frame) + (priceRange.high - price) / (priceRange.high - priceRange.low) * CGRectGetHeight(frame);
-        return CGPointMake(xOffset, yOffset);
+    double scale = (priceRange.high - priceRange.low) / CGRectGetHeight(frame);
+    for (int i = 0; i < priceArr.count; i++) {
+        double price = [priceArr[i] doubleValue];
+        CGPoint point = [self getPointInFrame:frame withScale:scale andValue:price - priceRange.low serialNumber:i];
+        [points addObject:NSStringFromCGPoint(point)];
     }
-    else {
-        return CGPointZero;
+    return points;
+}
+
+// 获取某交易日（日期格式'yyyy-MM-dd'）的均线
+- (NSArray *)getAvgPricePointInFrame:(CGRect)frame forTradingDay:(NSString *)date {
+    NSMutableArray *points = [NSMutableArray array];
+    NSArray *priceArr = [self getAvgPriceSerialForTradingDay:date];
+    PriceRange priceRange = self.priceRange;
+    double scale = (priceRange.high - priceRange.low) / CGRectGetHeight(frame);
+    for (int i = 0; i < priceArr.count; i++) {
+        double price = [priceArr[i] doubleValue];
+        CGPoint point = [self getPointInFrame:frame withScale:scale andValue:price - priceRange.low serialNumber:i];
+        [points addObject:NSStringFromCGPoint(point)];
     }
+    return points;
+}
+
+// 获取某交易日（日期格式'yyyy-MM-dd'）的成交量
+- (NSArray *)getVolumePointInFrame:(CGRect)frame forTradingDay:(NSString *)date {
+    NSMutableArray *points = [NSMutableArray array];
+    NSArray *volumeArr = [self getVolumeSerialForTradingDay:date];
+    double scale = self.maxVolume / CGRectGetHeight(frame);
+    for (int i = 0; i < volumeArr.count; i++) {
+        unsigned long volume = [volumeArr[i] unsignedLongValue];
+        CGPoint point = [self getPointInFrame:frame withScale:scale andValue:volume serialNumber:i];
+        [points addObject:NSStringFromCGPoint(point)];
+    }
+    return points;
+}
+
+#pragma mark serial
+
+// 获取某交易日的价格序列（日期格式'yyyy-MM-dd'）
+- (NSArray *)getPriceSerialForTradingDay:(NSString *)date {
+    NSMutableArray *serial = [NSMutableArray array];
+    int dateVal = [[date stringByReplacingOccurrencesOfString:@"-" withString:@""] intValue];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %d", dateVal];
+    NSArray *lines = [_lines filteredArrayUsingPredicate:predicate];
+    
+    int i = 0;
+    while (i < lines.count) {
+        BDTrendLine *line = lines[i];
+        if (serial.count == 0) {
+            serial[0] = [NSNumber numberWithDouble:line.price];
+        }
+        int sn = [self getSerialNumberWithTime:line.time];
+        while (serial.count < sn) {
+            serial[serial.count] = serial[serial.count - 1];
+        }
+        serial[sn] = [NSNumber numberWithDouble:line.price];
+        i++;
+    }
+    return serial;
+}
+
+// 获取某交易日的均价序列（日期格式'yyyy-MM-dd'）
+- (NSArray *)getAvgPriceSerialForTradingDay:(NSString *)date {
+    NSMutableArray *serial = [NSMutableArray array];
+    int dateVal = [[date stringByReplacingOccurrencesOfString:@"-" withString:@""] intValue];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %d", dateVal];
+    NSArray *lines = [_lines filteredArrayUsingPredicate:predicate];
+    
+    int i = 0;
+    while (i < lines.count) {
+        BDTrendLine *line = lines[i];
+        if (serial.count == 0) {
+            serial[0] = [NSNumber numberWithDouble:line.amount / line.volume];
+        }
+        int sn = [self getSerialNumberWithTime:line.time];
+        while (serial.count < sn) {
+            serial[serial.count] = serial[serial.count - 1];
+        }
+        serial[sn] = [NSNumber numberWithDouble:line.amount / line.volume];
+        i++;
+    }
+    return serial;
+}
+
+// 获取某交易日的成交量序列（日期格式'yyyy-MM-dd'）
+- (NSArray *)getVolumeSerialForTradingDay:(NSString *)date {
+    NSMutableArray *serial = [NSMutableArray array];
+    int dateVal = [[date stringByReplacingOccurrencesOfString:@"-" withString:@""] intValue];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %d", dateVal];
+    NSArray *lines = [_lines filteredArrayUsingPredicate:predicate];
+    int i = 0;
+    while (i < lines.count) {
+        BDTrendLine *line = lines[i];
+        int sn = [self getSerialNumberWithTime:line.time];
+        if (i > 0) {
+            while (serial.count < sn) {
+                [serial addObject:[NSNumber numberWithUnsignedLong:0]];
+            }
+            BDTrendLine *prevLine = lines[i-1];
+            if (sn - [self getSerialNumberWithTime:prevLine.time] == 1) {
+                unsigned long volume = line.volume - prevLine.volume;
+                [serial addObject:[NSNumber numberWithUnsignedLong:volume]];
+            }
+            else {
+                [serial addObject:[NSNumber numberWithUnsignedLong:0]];
+            }
+        }
+        else {
+            if (sn == 0) {
+                [serial addObject:[NSNumber numberWithUnsignedLong:line.volume]];
+            }
+            else {
+                [serial addObject:[NSNumber numberWithUnsignedLong:0]];
+            }
+        }
+        i++;
+    }
+    return serial;
 }
 
 - (int)getSerialNumberWithTime:(int)time {
     int sn = -1;
     if (time >= 930 && time <= 1130) {
         int escapeMintue = (time / 100 * 60 + time % 100) - (9 * 60 + 30);
-        sn = floor(escapeMintue * 1.0 / self.interval);
+        sn = floor(escapeMintue * 1.0 / _interval);
     }
     if (time >= 1300 && time <= 1500) {
         int escapeMintue = (time / 100 * 60 + time % 100) - 13 * 60;
-        sn = floor(120.0 / self.interval) + 1 + floor(escapeMintue * 1.0 / self.interval);
+        sn = floor(120.0 / _interval) + 1 + floor(escapeMintue * 1.0 / _interval);
     }
     return sn;
 }
 
-- (int)getTimeWithSerialNumber:(int)number {
-    int time = 0;
-    int threshold = [self getSerialNumberWithTime:1300];
-    if (number < threshold) {
-        int mintue = 9 * 60 + 30 + number * self.interval;
-        time = mintue / 60 * 100 + mintue % 60;
+- (CGPoint)getPointInFrame:(CGRect)frame withScale:(double)scale andValue:(double)value serialNumber:(int)sn {
+    if (sn >= 0) {
+        int pointCount = floor(240.0 / _interval) + 2;
+        float xOffset = CGRectGetMinX(frame) + sn * CGRectGetWidth(frame) / (pointCount - 1);
+        float yOffset = CGRectGetMaxY(frame) - value / scale;
+        return CGPointMake(xOffset, yOffset);
     }
     else {
-        int mintue = 13 * 60 + (number - threshold) * self.interval;
-        time = mintue / 60 * 100 + mintue % 60;
+        return CGPointZero;
     }
-    return time;
 }
 
 
@@ -343,8 +380,9 @@
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:QUOTE_SCALAR_NOTIFICATION object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:QUOTE_SOCKET_CONNECT object:nil];
-    [_service unsubscribeScalarWithCode:self.code indicaters:IndicaterNames];
-    //NSLog(@"%@ TrendLineViewModel dealloc", self.code);
+    [_service unsubscribeScalarWithCode:_code indicaters:IndicaterNames];
+//    NSLog(@"TrendLineViewModel dealloc (%@)", self.code);
 }
+
 
 @end
