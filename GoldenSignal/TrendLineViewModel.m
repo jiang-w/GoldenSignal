@@ -1,5 +1,5 @@
 //
-//  TrendLineChartViewModel.m
+//  TrendLineViewModel.m
 //  GoldenSignal
 //
 //  Created by Frank on 15/6/24.
@@ -123,9 +123,8 @@
 #pragma mark Subscribe
 
 - (void)reconnection {
-    if (self.initialized) {
-        [self loadDataWithSecuCode:self.code forDays:self.days andInterval:self.interval];
-    }
+    self.initialized = NO;
+    [self loadDataWithSecuCode:self.code forDays:self.days andInterval:self.interval];
 }
 
 - (unsigned int)mergeMinuteWithTime:(unsigned int)time {
@@ -177,7 +176,7 @@
                     }
                 }
                 @catch (NSException *exception) {
-                    NSLog(@"TrendLineChartViewModel 初始化分时线异常：%@",[exception reason]);
+                    NSLog(@"TrendLineViewModel 初始化分时线异常：%@", [exception reason]);
                 }
             }
             
@@ -215,7 +214,7 @@
                     }
                 }
                 @catch (NSException *exception) {
-                    NSLog(@"TrendLineChartViewModel 订阅指标数据异常：%@",[exception reason]);
+                    NSLog(@"TrendLineViewModel 订阅指标数据异常：%@", [exception reason]);
                 }
             }
         });

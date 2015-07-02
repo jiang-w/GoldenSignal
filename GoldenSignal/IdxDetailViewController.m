@@ -22,7 +22,7 @@
 @property(nonatomic, strong) PPiFlatSegmentedControl *chartTabView;
 @property(nonatomic, strong) TrendLineChart *trendLineChart;
 
-@property(nonatomic, assign) NSInteger chartTab;
+@property(nonatomic, assign) NSInteger chartTabIndex;
 
 @end
 
@@ -62,7 +62,7 @@
     __weak IdxDetailViewController *weakSelf = self;    // 解决block循环引用的问题
     /* 行情走势图Tab */
     self.chartTabView = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 320, 30) items:@[@{@"text":@"分时"}, @{@"text":@"五日"}, @{@"text":@"日K"}, @{@"text":@"周K"}, @{@"text":@"月K"}] iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex) {
-        weakSelf.chartTab = segmentIndex;
+        weakSelf.chartTabIndex = segmentIndex;
         [weakSelf loadChartView];
     }];
     self.chartTabView.color = RGB(7, 9, 8, 1);
@@ -109,7 +109,7 @@
         [sub removeFromSuperview];
     }
     
-    switch (_chartTab) {
+    switch (_chartTabIndex) {
         case 0: {
             if (self.trendLineChart == nil) {
                 self.trendLineChart = [[TrendLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];

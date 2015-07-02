@@ -60,6 +60,8 @@
     
     _days = 1;
     _interval = 1;
+    
+    self.backgroundColor = [UIColor clearColor];
 }
 
 
