@@ -38,9 +38,6 @@
         _vm = [[TrendLineChartViewModel alloc] init];
         [_vm addObserver:self forKeyPath:@"lines" options:NSKeyValueObservingOptionNew context:NULL];
         [_vm addObserver:self forKeyPath:@"prevClose" options:NSKeyValueObservingOptionNew context:NULL];
-        
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
-        hud.opacity = 0;
     }
     return self;
 }
@@ -99,17 +96,21 @@
 #pragma mark - loading data
 
 - (void)loadDataWithSecuCode:(NSString *)code {
-    if (_secu == nil || ![_secu.bdCode isEqualToString:code]) {
-        _secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:code];
-        [_vm loadDataWithSecuCode:code forDays:_days andInterval:_interval];
+    if (code) {
+        if (_secu == nil || ![_secu.bdCode isEqualToString:code]) {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+            hud.opacity = 0;
+            _secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:code];
+            [_vm loadDataWithSecuCode:code forDays:_days andInterval:_interval];
+        }
     }
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     dispatch_async(dispatch_get_main_queue(), ^{
         @try {
+//            NSLog(@"%@ 绘制走势图 (lines:%lu prevClose:%.2f)", _secu.bdCode, (unsigned long)_vm.lines.count, _vm.prevClose);
             if (_vm.lines.count > 0 && _vm.prevClose > 0) {
-                NSLog(@"%@ 绘制走势图 (lines:%lu prevClose:%.2f)", _secu.bdCode, (unsigned long)_vm.lines.count, _vm.prevClose);
                 [self clearLayers];
                 [self strokeLineChart];
                 [self strokeVolumeChart];
@@ -276,7 +277,7 @@
     self.lowRateLabel.text = [NSString stringWithFormat:@"%.2f%%", (range.low - _vm.prevClose) / _vm.prevClose * 100];
     
     [watch stop];
-    NSLog(@"绘制分时线 Timeout:%.3fs", watch.elapsed);
+//    NSLog(@"绘制分时线 Timeout:%.3fs", watch.elapsed);
 }
 
 - (void)strokeVolumeChart {
@@ -299,7 +300,7 @@
         [self.layers addObject:pathLayer];
     }
     [watch stop];
-    NSLog(@"绘制交易量 Timeout:%.3fs", watch.elapsed);
+//    NSLog(@"绘制交易量 Timeout:%.3fs", watch.elapsed);
 }
 
 - (CGPathRef)getPricePathInFrame:(CGRect)frame forTradingDay:(NSString *)date andIsClosed:(BOOL)closed {

@@ -27,7 +27,7 @@
 @implementation IdxDetailViewController
 {
     NSString *_idxCode;
-    NSInteger _chartTab;
+    __block NSInteger _chartTab;
 }
 
 - (void)viewDidLoad {
@@ -61,8 +61,8 @@
     /* 行情走势图Tab */
     self.chartTabView = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 320, 30) items:@[@{@"text":@"分时"}, @{@"text":@"五日"}, @{@"text":@"日K"}, @{@"text":@"周K"}, @{@"text":@"月K"}] iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex) {
         // block引起内存泄露
-        _chartTab = segmentIndex;
-        [self loadChartView];
+//        _chartTab = segmentIndex;
+//        [self loadChartView];
     }];
     self.chartTabView.color = RGB(7, 9, 8, 1);
     self.chartTabView.borderWidth = 1;
@@ -131,7 +131,7 @@
             _idxCode = code;
             
             // 载入分时、K线视图
-            [self loadChartView];
+//            [self loadChartView];
         }
     }
 }

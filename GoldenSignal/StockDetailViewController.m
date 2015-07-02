@@ -44,8 +44,8 @@
     }
     
     // 接收键盘精灵通知
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self selector:@selector(changeSubscribe:) name:KEYBOARD_WIZARD_NOTIFICATION object:nil];
+//    [[NSNotificationCenter defaultCenter]
+//     addObserver:self selector:@selector(changeSubscribe:) name:KEYBOARD_WIZARD_NOTIFICATION object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -198,11 +198,11 @@
 #pragma mark - loading Data and View
 
 // 收到键盘精灵通知后，触发
-- (void)changeSubscribe:(NSNotification *)notification {
-    NSDictionary *dic = notification.userInfo;
-    NSString *bdCode = dic[@"BD_CODE"];
-    [self subscribeQuotationWithCode:bdCode];
-}
+//- (void)changeSubscribe:(NSNotification *)notification {
+//    NSDictionary *dic = notification.userInfo;
+//    NSString *bdCode = dic[@"BD_CODE"];
+//    [self subscribeQuotationWithCode:bdCode];
+//}
 
 // 订阅个股相关数据
 - (void)subscribeQuotationWithCode:(NSString *)code {

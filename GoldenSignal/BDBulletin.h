@@ -30,4 +30,9 @@
  */
 @property(nonatomic, assign) long sn;
 
+/**
+ *  内容
+ */
+@property(nonatomic, strong) NSString *content;
+
 @end

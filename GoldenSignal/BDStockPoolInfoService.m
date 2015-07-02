@@ -204,4 +204,24 @@
     return list;
 }
 
+// 获取公告详细内容数据
+- (BDBulletin *)getBulletinDetailById:(long)id {
+    BDBulletin *bulletin = nil;
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setValue:[NSNumber numberWithLong:id] forKey:@"ID"];
+    BDCoreService *service = [BDCoreService new];
+    NSArray *data = [service syncRequestDatasourceService:1589 parameters:parameters query:nil];
+    for (NSDictionary *item in data) {
+        bulletin = [[BDBulletin alloc] init];
+        bulletin.innerId = id;
+        bulletin.title = item[@"TIT"];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"yyyy-MM-dd";
+        bulletin.date = [formatter dateFromString:item[@"PUB_DT"]];
+        bulletin.content = item[@"CONT"];
+        break;
+    }
+    return bulletin;
+}
+
 @end

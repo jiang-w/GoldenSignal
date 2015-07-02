@@ -95,21 +95,30 @@
 
 - (void)loadDataWithSecuCode:(NSString *)code forDays:(NSUInteger)days andInterval:(NSUInteger)interval {
     if (code) {
-        if (_code) {
-            [_service unsubscribeScalarWithCode:_code indicaters:IndicaterNames];
+        if (![_code isEqualToString:code]) {
+            if (_code) {
+                [_service unsubscribeScalarWithCode:_code indicaters:IndicaterNames];
+            }
+            _initialized = NO;
+            _code = [code copy];
+            // 注意：行情接口重复订阅同一指标，不再返回数据，需要从本地缓存中获取数据
+            _prevClose = [[_service getCurrentIndicateWithCode:code andName:@"PrevClose"] doubleValue];
+            [_service subscribeScalarWithCode:_code indicaters:IndicaterNames];
         }
-        self.initialized = NO;
-        self.interval = interval;
-        self.days = days;
-        _code = [code copy];
-        [_lines removeAllObjects];
-
-        _prevClose = [[_service getCurrentIndicateWithCode:_code andName:@"PrevClose"] doubleValue];
-        [_service subscribeSerialsWithCode:_code indicateName:@"TrendLine" beginDate:0 beginTime:0 numberType:(int)interval number:(int)days];
-        [_service subscribeScalarWithCode:_code indicaters:IndicaterNames];
+        else {
+            if (_days != days || _interval != interval) {
+                _initialized = NO;
+            }
+        }
+        
+        if (!_initialized) {
+            _interval = interval;
+            _days = days;
+            [_lines removeAllObjects];
+            [_service subscribeSerialsWithCode:_code indicateName:@"TrendLine" beginDate:0 beginTime:0 numberType:(int)_interval number:(int)_days];
+        }
     }
 }
-
 
 #pragma mark Subscribe
 
@@ -371,7 +380,7 @@
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:QUOTE_SCALAR_NOTIFICATION object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:QUOTE_SOCKET_CONNECT object:nil];
-    [_service unsubscribeScalarWithCode:self.code indicaters:IndicaterNames];
+    [_service unsubscribeScalarWithCode:_code indicaters:IndicaterNames];
     NSLog(@"TrendLineChart ViewModel dealloc (%@)", self.code);
 }
 

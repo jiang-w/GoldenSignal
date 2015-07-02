@@ -84,25 +84,24 @@
     UITabBarController *tab = (UITabBarController *)root.contentViewController;
     UINavigationController *navigation = (UINavigationController *)tab.viewControllers[tab.selectedIndex];
     UIViewController *top = [navigation.viewControllers lastObject];
-
+    
+    if ([top isKindOfClass:[IdxDetailViewController class]] || [top isKindOfClass:[StockDetailViewController class]]) {
+        [navigation popViewControllerAnimated:NO];
+    }
     switch (secu.typ) {
         case idx: {
-            if (![top isKindOfClass:[IdxDetailViewController class]]) {
-                IdxDetailViewController *idxVc = [[IdxDetailViewController alloc] init];
-                [idxVc loadDataWithSecuCode:secu.bdCode];
-                [navigation pushViewController:idxVc animated:YES];
-                
-//                NSLog(@"Retain count is %ld", CFGetRetainCount((__bridge CFTypeRef)idxVc));
-            }
+            IdxDetailViewController *idxVc = [[IdxDetailViewController alloc] init];
+            [idxVc loadDataWithSecuCode:secu.bdCode];
+            [navigation pushViewController:idxVc animated:YES];
+            
+//            NSLog(@"Retain count is %ld", CFGetRetainCount((__bridge CFTypeRef)idxVc));
         }
             break;
         case stock: {
-            if (![top isKindOfClass:[StockDetailViewController class]]) {
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                StockDetailViewController *stockVC = [storyboard instantiateViewControllerWithIdentifier:@"StockViewController"];
-                stockVC.defaultCode = secu.bdCode;
-                [navigation pushViewController:stockVC animated:YES];
-            }
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            StockDetailViewController *stockVC = [storyboard instantiateViewControllerWithIdentifier:@"StockViewController"];
+            stockVC.defaultCode = secu.bdCode;
+            [navigation pushViewController:stockVC animated:YES];
         }
         default:
             break;
