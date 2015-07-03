@@ -102,16 +102,13 @@
 - (void)didSelectSecuCode:(NSString *)code {
     BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:code];
     if (secu.typ == idx) {
-        IdxDetailViewController *idxVC = [[IdxDetailViewController alloc] init];
+        IdxDetailViewController *idxVC = [[IdxDetailViewController alloc] initWithIdxCode:secu.bdCode];
         idxVC.hidesBottomBarWhenPushed = YES;
-        [idxVC loadDataWithSecuCode:code];
         [self.navigationController pushViewController:idxVC animated:NO];
     }
     else {
-        [self performSegueWithIdentifier:@"StockViewSegue" sender:code];
+        [self performSegueWithIdentifier:@"StockViewSegue" sender:secu.bdCode];
     }
-    
-//    [self performSegueWithIdentifier:@"StockViewSegue" sender:code];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

@@ -16,6 +16,7 @@
 @property(nonatomic, strong) NSMutableArray* layers;
 @property(nonatomic, strong) UILabel *highLabel, *highRateLabel;
 @property(nonatomic, strong) UILabel *lowLabel, *lowRateLabel;
+@property(nonatomic, strong) UILabel *middleLabel, *middleRateLabel;
 @property(nonatomic) CGRect lineChartFrame;
 @property(nonatomic) CGRect volumeChartFrame;
 
@@ -48,7 +49,7 @@
     
     _lineColor = [UIColor orangeColor];
     _avgLineColor = [UIColor yellowColor];
-    _fillColor = [UIColor clearColor];
+    _fillColor = [_lineColor colorWithAlphaComponent:0.15];
     _lineWidth = 1;
     
     _boundColor = [UIColor colorWithWhite:0.5 alpha:1.0];
@@ -189,7 +190,7 @@
     [self addSubview:self.highLabel];
     [self.highLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).with.offset(CGRectGetMinY(frame) + 1);
-        make.left.equalTo(self).with.offset(CGRectGetMinX(frame) + 1);
+        make.left.equalTo(self).with.offset(CGRectGetMinX(frame) + 2);
     }];
 
     self.highRateLabel = [[UILabel alloc] init];
@@ -199,7 +200,7 @@
     [self addSubview:self.highRateLabel];
     [self.highRateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).with.offset(CGRectGetMinY(frame) + 1);
-        make.right.equalTo(self.mas_left).with.offset(CGRectGetMaxX(frame) - 1);
+        make.right.equalTo(self.mas_left).with.offset(CGRectGetMaxX(frame) - 2);
     }];
     
     self.lowLabel = [[UILabel alloc] init];
@@ -209,7 +210,7 @@
     [self addSubview:self.lowLabel];
     [self.lowLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.mas_top).with.offset(CGRectGetMaxY(frame) - 1);
-        make.left.equalTo(self).with.offset(CGRectGetMinX(frame) + 1);
+        make.left.equalTo(self).with.offset(CGRectGetMinX(frame) + 2);
     }];
     
     self.lowRateLabel = [[UILabel alloc] init];
@@ -219,7 +220,27 @@
     [self addSubview:self.lowRateLabel];
     [self.lowRateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.mas_top).with.offset(CGRectGetMaxY(frame) - 1);
-        make.right.equalTo(self.mas_left).with.offset(CGRectGetMaxX(frame) - 1);
+        make.right.equalTo(self.mas_left).with.offset(CGRectGetMaxX(frame) - 2);
+    }];
+    
+    self.middleLabel = [[UILabel alloc] init];
+    self.middleLabel.textAlignment = NSTextAlignmentLeft;
+    self.middleLabel.font = [UIFont systemFontOfSize:9];
+    self.middleLabel.textColor = [UIColor whiteColor];
+    [self addSubview:self.middleLabel];
+    [self.middleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.mas_top).with.offset(CGRectGetHeight(frame) / 2);
+        make.left.equalTo(self).with.offset(CGRectGetMinX(frame) + 2);
+    }];
+    
+    self.middleRateLabel = [[UILabel alloc] init];
+    self.middleRateLabel.textAlignment = NSTextAlignmentRight;
+    self.middleRateLabel.font = [UIFont systemFontOfSize:9];
+    self.middleRateLabel.textColor = [UIColor whiteColor];
+    [self addSubview:self.middleRateLabel];
+    [self.middleRateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.mas_top).with.offset(CGRectGetHeight(frame) / 2);
+        make.right.equalTo(self.mas_left).with.offset(CGRectGetMaxX(frame) - 2);
     }];
 }
 
@@ -275,6 +296,8 @@
     self.highRateLabel.text = [NSString stringWithFormat:@"%.2f%%", (range.high - _vm.prevClose) / _vm.prevClose * 100];
     self.lowLabel.text = [NSString stringWithFormat:@"%.2f", range.low];
     self.lowRateLabel.text = [NSString stringWithFormat:@"%.2f%%", (range.low - _vm.prevClose) / _vm.prevClose * 100];
+    self.middleLabel.text = [NSString stringWithFormat:@"%.2f", _vm.prevClose];
+    self.middleRateLabel.text = @"00.0%";
     
 //    [watch stop];
 //    NSLog(@"绘制分时线 Timeout:%.3fs", watch.elapsed);

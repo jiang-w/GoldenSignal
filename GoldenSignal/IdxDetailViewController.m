@@ -20,22 +20,29 @@
 
 @property(nonatomic, strong) IdxQuoteView *idxQuoteView;
 @property(nonatomic, strong) PPiFlatSegmentedControl *chartTabView;
-@property(nonatomic, strong) TrendLineChart *trendLineChart;
+@property(nonatomic, strong) TrendLineChart *oneDayTrendLine;
+@property(nonatomic, strong) TrendLineChart *fiveDayTrendLine;
 
 @property(nonatomic, assign) NSInteger chartTabIndex;
+@property(nonatomic, strong) NSString *idxCode;
 
 @end
 
 @implementation IdxDetailViewController
-{
-    NSString *_idxCode;
+
+- (instancetype)initWithIdxCode:(NSString *)idxCode {
+    self = [super init];
+    if (self) {
+        self.idxCode = idxCode;
+    }
+    return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self settingView];
-
-    [self loadChartView];
+    [self loadData];
 }
 
 - (void)settingView {
@@ -57,7 +64,6 @@
     /* 添加指数标价 */
     self.idxQuoteView = [IdxQuoteView createView];
     [self addSubView:self.idxQuoteView withHeight:110 andSpace:0];
-    [self.idxQuoteView loadDataWithIdxCode:_idxCode];
     
     __weak IdxDetailViewController *weakSelf = self;    // 解决block循环引用的问题
     /* 行情走势图Tab */
@@ -111,31 +117,33 @@
     
     switch (_chartTabIndex) {
         case 0: {
-            if (self.trendLineChart == nil) {
-                self.trendLineChart = [[TrendLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
-                self.trendLineChart.margin = 1;
-                self.trendLineChart.lineColor = [UIColor orangeColor];
-                self.trendLineChart.fillColor = [[UIColor orangeColor] colorWithAlphaComponent:0.15];
-                [self.trendLineChart loadDataWithSecuCode:_idxCode];
+            if (self.oneDayTrendLine == nil) {
+                self.oneDayTrendLine = [[TrendLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
+                self.oneDayTrendLine.margin = 1;
+                [self.oneDayTrendLine loadDataWithSecuCode:_idxCode];
             }
-            [self.chartContainerView addSubview:self.trendLineChart];
+            [self.chartContainerView addSubview:self.oneDayTrendLine];
             break;
         }
+        case 1: {
+            if (self.fiveDayTrendLine == nil) {
+                self.fiveDayTrendLine = [[TrendLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
+                self.fiveDayTrendLine.margin = 1;
+                self.fiveDayTrendLine.days = 5;
+                [self.fiveDayTrendLine loadDataWithSecuCode:_idxCode];
+            }
+            [self.chartContainerView addSubview:self.fiveDayTrendLine];
+            break;
+        }
+
         default:break;
     }
 }
 
-- (void)loadDataWithSecuCode:(NSString *)code {
-    if (![code isEqualToString:_idxCode]) {
-        BDSecuCode *secuCode = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:code];
-        if (secuCode) {
-            _idxCode = code;
-            
-//            [self.idxQuoteView loadDataWithIdxCode:_idxCode];
-            
-            // 载入分时、K线视图
-//            [self loadChartView];
-        }
+- (void)loadData {
+    if (self.idxCode) {
+        [self.idxQuoteView loadDataWithIdxCode:self.idxCode];
+        [self loadChartView];
     }
 }
 

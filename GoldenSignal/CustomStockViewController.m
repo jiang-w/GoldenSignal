@@ -10,6 +10,7 @@
 #import "QuoteViewCell.h"
 #import "IdxQuoteViewCell.h"
 #import "StockDetailViewController.h"
+#import "IdxDetailViewController.h"
 #import "BDSectService.h"
 #import "MBProgressHUD/MBProgressHUD.h"
 
@@ -160,7 +161,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     QuoteViewCell *cell = (QuoteViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-    [self performSegueWithIdentifier:@"StockViewSegue" sender:cell.code];
+    BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:cell.code];
+    if (secu.typ == idx) {
+        IdxDetailViewController *idxVC = [[IdxDetailViewController alloc] initWithIdxCode:secu.bdCode];
+        idxVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:idxVC animated:NO];
+    }
+    else {
+        [self performSegueWithIdentifier:@"StockViewSegue" sender:secu.bdCode];
+    }
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {

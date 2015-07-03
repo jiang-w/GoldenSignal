@@ -90,8 +90,7 @@
     }
     switch (secu.typ) {
         case idx: {
-            IdxDetailViewController *idxVc = [[IdxDetailViewController alloc] init];
-            [idxVc loadDataWithSecuCode:secu.bdCode];
+            IdxDetailViewController *idxVc = [[IdxDetailViewController alloc] initWithIdxCode:secu.bdCode];
             [navigation pushViewController:idxVc animated:YES];
             
 //            NSLog(@"Retain count is %ld", CFGetRetainCount((__bridge CFTypeRef)idxVc));
