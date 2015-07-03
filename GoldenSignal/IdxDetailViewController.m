@@ -9,6 +9,7 @@
 #import "IdxDetailViewController.h"
 #import "IdxQuoteView.h"
 #import "TrendLineChart.h"
+#import "KLineChart.h"
 #import <Masonry.h>
 #import <PPiFlatSegmentedControl.h>
 
@@ -20,8 +21,13 @@
 
 @property(nonatomic, strong) IdxQuoteView *idxQuoteView;
 @property(nonatomic, strong) PPiFlatSegmentedControl *chartTabView;
+// 分时图
 @property(nonatomic, strong) TrendLineChart *oneDayTrendLine;
 @property(nonatomic, strong) TrendLineChart *fiveDayTrendLine;
+// K线图
+@property(nonatomic, strong) KLineChart *dailyKLine;
+@property(nonatomic, strong) KLineChart *weeklyKLine;
+@property(nonatomic, strong) KLineChart *monthlyKLine;
 
 @property(nonatomic, assign) NSInteger chartTabIndex;
 @property(nonatomic, strong) NSString *idxCode;
@@ -133,6 +139,38 @@
                 [self.fiveDayTrendLine loadDataWithSecuCode:_idxCode];
             }
             [self.chartContainerView addSubview:self.fiveDayTrendLine];
+            break;
+        }
+        case 2: {
+            if (self.dailyKLine == nil) {
+                self.dailyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
+                self.dailyKLine.margin = 1;
+                self.dailyKLine.number = 60;
+                [self.dailyKLine loadDataWithSecuCode:_idxCode];
+            }
+            [self.chartContainerView addSubview:self.dailyKLine];
+            break;
+        }
+        case 3: {
+            if (self.weeklyKLine == nil) {
+                self.weeklyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
+                self.weeklyKLine.margin = 1;
+                self.weeklyKLine.type = KLINE_WEEK;
+                self.weeklyKLine.number = 60;
+                [self.weeklyKLine loadDataWithSecuCode:_idxCode];
+            }
+            [self.chartContainerView addSubview:self.weeklyKLine];
+            break;
+        }
+        case 4: {
+            if (self.monthlyKLine == nil) {
+                self.monthlyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
+                self.monthlyKLine.margin = 1;
+                self.monthlyKLine.type = KLINE_MONTH;
+                self.monthlyKLine.number = 60;
+                [self.monthlyKLine loadDataWithSecuCode:_idxCode];
+            }
+            [self.chartContainerView addSubview:self.monthlyKLine];
             break;
         }
 

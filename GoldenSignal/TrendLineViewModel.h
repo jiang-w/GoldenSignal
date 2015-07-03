@@ -13,7 +13,7 @@
 /**
  *  证券编码（BD_CODE）
  */
-@property(nonatomic, copy, readonly) NSString *code;
+@property(nonatomic, strong, readonly) NSString *code;
 
 /**
  *  前收价
@@ -23,7 +23,7 @@
 /**
  *  走势线
  */
-@property(nonatomic, retain, readonly) NSMutableArray *lines;
+@property(nonatomic, strong, readonly) NSMutableArray *lines;
 
 /**
  *  价格区间
@@ -38,7 +38,7 @@
 /**
  *  包含哪些日期的走势线
  */
-@property(nonatomic, retain, readonly)NSArray *tradingDays;
+@property(nonatomic, strong, readonly) NSArray *tradingDays;
 
 
 - (void)loadDataWithSecuCode:(NSString *)code forDays:(NSUInteger)days andInterval:(NSUInteger)interval;

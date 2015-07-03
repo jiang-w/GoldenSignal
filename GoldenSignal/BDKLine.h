@@ -10,11 +10,11 @@
 
 @interface BDKLine : NSObject
 
-@property(nonatomic, assign) int date;
-@property(nonatomic, assign) float high;
-@property(nonatomic, assign) float low;
-@property(nonatomic, assign) float open;
-@property(nonatomic, assign) float close;
-@property(nonatomic, assign) unsigned int volume;
+@property(nonatomic, assign) unsigned int date;
+@property(nonatomic, assign) double high;
+@property(nonatomic, assign) double low;
+@property(nonatomic, assign) double open;
+@property(nonatomic, assign) double close;
+@property(nonatomic, assign) unsigned long volume;
 
 @end

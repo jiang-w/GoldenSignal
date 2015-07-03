@@ -480,6 +480,7 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:KEYBOARD_WIZARD_NOTIFICATION object:nil];
+    NSLog(@"StockDetailViewController dealloc");
 }
 
 @end

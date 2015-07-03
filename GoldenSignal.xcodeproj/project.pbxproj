@@ -124,6 +124,8 @@
 		01CA5C4B1B1ECC03003B824F /* QuoteHomeTrendViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CA5C4A1B1ECC03003B824F /* QuoteHomeTrendViewModel.m */; };
 		01CA5C531B1EDF37003B824F /* QuoteHomeTrendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CA5C521B1EDF37003B824F /* QuoteHomeTrendView.m */; };
 		01CA5C551B1EDF6C003B824F /* QuoteHomeTrendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01CA5C541B1EDF6C003B824F /* QuoteHomeTrendView.xib */; };
+		01D8A8171B4675F30047BA64 /* KLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D8A8161B4675F30047BA64 /* KLineChart.m */; };
+		01D8A81A1B46849B0047BA64 /* KLineChartViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D8A8191B46849B0047BA64 /* KLineChartViewModel.m */; };
 		01D8DA3A1B253E4F0033956E /* IdxQuoteCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D8DA391B253E4F0033956E /* IdxQuoteCellViewModel.m */; };
 		01D8DA3E1B253F9C0033956E /* IdxQuoteViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D8DA3C1B253F9C0033956E /* IdxQuoteViewCell.m */; };
 		01D8DA3F1B253F9C0033956E /* IdxQuoteViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D8DA3D1B253F9C0033956E /* IdxQuoteViewCell.xib */; };
@@ -358,6 +360,10 @@
 		01CA5C511B1EDF37003B824F /* QuoteHomeTrendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteHomeTrendView.h; sourceTree = "<group>"; };
 		01CA5C521B1EDF37003B824F /* QuoteHomeTrendView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuoteHomeTrendView.m; sourceTree = "<group>"; };
 		01CA5C541B1EDF6C003B824F /* QuoteHomeTrendView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuoteHomeTrendView.xib; sourceTree = "<group>"; };
+		01D8A8151B4675F30047BA64 /* KLineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLineChart.h; sourceTree = "<group>"; };
+		01D8A8161B4675F30047BA64 /* KLineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLineChart.m; sourceTree = "<group>"; };
+		01D8A8181B46849B0047BA64 /* KLineChartViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLineChartViewModel.h; sourceTree = "<group>"; };
+		01D8A8191B46849B0047BA64 /* KLineChartViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLineChartViewModel.m; sourceTree = "<group>"; };
 		01D8DA381B253E4F0033956E /* IdxQuoteCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxQuoteCellViewModel.h; sourceTree = "<group>"; };
 		01D8DA391B253E4F0033956E /* IdxQuoteCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdxQuoteCellViewModel.m; sourceTree = "<group>"; };
 		01D8DA3B1B253F9C0033956E /* IdxQuoteViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxQuoteViewCell.h; sourceTree = "<group>"; };
@@ -590,6 +596,8 @@
 				01AD74921B395789006EC988 /* IdxQuoteViewModel.m */,
 				01B541931B3A918200AF5C05 /* TrendLineViewModel.h */,
 				01B541941B3A918200AF5C05 /* TrendLineViewModel.m */,
+				01D8A8181B46849B0047BA64 /* KLineChartViewModel.h */,
+				01D8A8191B46849B0047BA64 /* KLineChartViewModel.m */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -717,6 +725,8 @@
 				01AD748F1B3948E7006EC988 /* IdxQuoteView.xib */,
 				01B5418D1B3A572700AF5C05 /* TrendLineChart.h */,
 				01B5418E1B3A572700AF5C05 /* TrendLineChart.m */,
+				01D8A8151B4675F30047BA64 /* KLineChart.h */,
+				01D8A8161B4675F30047BA64 /* KLineChart.m */,
 			);
 			name = Markets;
 			sourceTree = "<group>";
@@ -902,6 +912,7 @@
 				011B85051B0DBE1F003005BC /* AdViewController.m in Sources */,
 				011B84A81B0DBC57003005BC /* BDSecuCode.m in Sources */,
 				011B84BB1B0DBCBA003005BC /* BDRegisterInfo.m in Sources */,
+				01D8A8171B4675F30047BA64 /* KLineChart.m in Sources */,
 				011B848D1B0DBB83003005BC /* BDSectService.m in Sources */,
 				011B84DE1B0DBD4F003005BC /* IndicatorsViewModel.m in Sources */,
 				011B846C1B0DBADB003005BC /* NSString+Utility.m in Sources */,
@@ -928,6 +939,7 @@
 				011B855C1B0DBEFE003005BC /* SectQuoteViewController.m in Sources */,
 				014FF3891B1D5276007DB608 /* QuoteHomeViewController.m in Sources */,
 				011B85061B0DBE1F003005BC /* RootTabBarController.m in Sources */,
+				01D8A81A1B46849B0047BA64 /* KLineChartViewModel.m in Sources */,
 				011B84A31B0DBC57003005BC /* BDKLine.m in Sources */,
 				011B84DD1B0DBD4F003005BC /* FiveBetsViewModel.m in Sources */,
 				011B85271B0DBEA9003005BC /* NewsMainViewController.m in Sources */,
