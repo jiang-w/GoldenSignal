@@ -120,6 +120,7 @@
 
 - (void)drawRect:(CGRect)rect {
     [self drawGrid];
+    [self layoutTextLabel];
     if (_vm.lines.count > 0) {
         [self clearLayers];
         [self strokeCandleChart];
@@ -157,54 +158,58 @@
 }
 
 - (void)addTextLabel {
-    CGRect frame = self.lineChartFrame;
     self.highLabel = [[UILabel alloc] init];
     self.highLabel.textAlignment = NSTextAlignmentRight;
     self.highLabel.font = [UIFont systemFontOfSize:9];
     self.highLabel.textColor = [UIColor whiteColor];
     [self addSubview:self.highLabel];
-    [self.highLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.mas_top).with.offset(CGRectGetMinY(frame));
-        make.right.equalTo(self.mas_left).with.offset(CGRectGetMinX(frame) + -2);
-    }];
 
     self.lowLabel = [[UILabel alloc] init];
     self.lowLabel.textAlignment = NSTextAlignmentRight;
     self.lowLabel.font = [UIFont systemFontOfSize:9];
     self.lowLabel.textColor = [UIColor whiteColor];
     [self addSubview:self.lowLabel];
-    [self.lowLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.mas_top).with.offset(CGRectGetMaxY(frame));
-        make.right.equalTo(self.mas_left).with.offset(CGRectGetMinX(frame) + -2);
-    }];
-
-    frame = self.volumeChartFrame;
+    
     self.volumeLabel = [[UILabel alloc] init];
     self.volumeLabel.textAlignment = NSTextAlignmentRight;
     self.volumeLabel.font = [UIFont systemFontOfSize:9];
     self.volumeLabel.textColor = [UIColor whiteColor];
     [self addSubview:self.volumeLabel];
-    [self.volumeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).with.offset(CGRectGetMinY(frame));
-        make.right.equalTo(self.mas_left).with.offset(CGRectGetMinX(frame) + -2);
-    }];
     
     self.beginDateLabel = [[UILabel alloc] init];
     self.beginDateLabel.textAlignment = NSTextAlignmentRight;
     self.beginDateLabel.font = [UIFont systemFontOfSize:9];
     self.beginDateLabel.textColor = [UIColor whiteColor];
     [self addSubview:self.beginDateLabel];
-    [self.beginDateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).with.offset(CGRectGetMaxY(frame) + 2);
-        make.left.equalTo(self).with.offset(CGRectGetMinX(frame));
-    }];
     
     self.endDateLabel = [[UILabel alloc] init];
     self.endDateLabel.textAlignment = NSTextAlignmentRight;
     self.endDateLabel.font = [UIFont systemFontOfSize:9];
     self.endDateLabel.textColor = [UIColor whiteColor];
     [self addSubview:self.endDateLabel];
-    [self.endDateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+}
+
+- (void)layoutTextLabel {
+    CGRect frame = self.lineChartFrame;
+    [self.highLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.mas_top).with.offset(CGRectGetMinY(frame));
+        make.right.equalTo(self.mas_left).with.offset(CGRectGetMinX(frame) + -2);
+    }];
+    [self.lowLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.mas_top).with.offset(CGRectGetMaxY(frame));
+        make.right.equalTo(self.mas_left).with.offset(CGRectGetMinX(frame) + -2);
+    }];
+    
+    frame = self.volumeChartFrame;
+    [self.volumeLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).with.offset(CGRectGetMinY(frame));
+        make.right.equalTo(self.mas_left).with.offset(CGRectGetMinX(frame) + -2);
+    }];
+    [self.beginDateLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).with.offset(CGRectGetMaxY(frame) + 2);
+        make.left.equalTo(self).with.offset(CGRectGetMinX(frame));
+    }];
+    [self.endDateLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).with.offset(CGRectGetMaxY(frame) + 2);
         make.right.equalTo(self.mas_left).with.offset(CGRectGetMaxX(frame));
     }];

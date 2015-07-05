@@ -274,6 +274,7 @@
             if (self.dailyKLine == nil) {
                 self.dailyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
                 self.dailyKLine.number = 60;
+                self.dailyKLine.margin_left = 34;
                 [self.dailyKLine loadDataWithSecuCode:_code];
             }
             [self.chartContainerView addSubview:self.dailyKLine];
@@ -283,6 +284,7 @@
                 self.weeklyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
                 self.weeklyKLine.type = KLINE_WEEK;
                 self.weeklyKLine.number = 60;
+                self.weeklyKLine.margin_left = 34;
                 [self.weeklyKLine loadDataWithSecuCode:_code];
             }
             [self.chartContainerView addSubview:self.weeklyKLine];
@@ -292,6 +294,7 @@
                 self.monthlyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
                 self.monthlyKLine.type = KLINE_MONTH;
                 self.monthlyKLine.number = 60;
+                self.monthlyKLine.margin_left = 34;
                 [self.monthlyKLine loadDataWithSecuCode:_code];
             }
             [self.chartContainerView addSubview:self.monthlyKLine];

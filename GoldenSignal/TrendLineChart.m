@@ -44,7 +44,7 @@
 }
 
 - (void)setDefaultParameters {
-    self.margin = 6;
+    self.margin = 2;
     self.space = 10;
     
     _lineColor = [UIColor orangeColor];
@@ -129,6 +129,7 @@
 
 - (void)drawRect:(CGRect)rect {
     [self drawGrid];
+    [self layoutTextLabel];
 }
 
 - (void)drawGrid {
@@ -182,63 +183,66 @@
 }
 
 - (void)addTextLabel {
-    CGRect frame = self.lineChartFrame;
     self.highLabel = [[UILabel alloc] init];
     self.highLabel.textAlignment = NSTextAlignmentLeft;
     self.highLabel.font = [UIFont systemFontOfSize:9];
     self.highLabel.textColor = [UIColor redColor];
     [self addSubview:self.highLabel];
-    [self.highLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).with.offset(CGRectGetMinY(frame) + 1);
-        make.left.equalTo(self).with.offset(CGRectGetMinX(frame) + 2);
-    }];
 
     self.highRateLabel = [[UILabel alloc] init];
     self.highRateLabel.textAlignment = NSTextAlignmentRight;
     self.highRateLabel.font = [UIFont systemFontOfSize:9];
     self.highRateLabel.textColor = [UIColor redColor];
     [self addSubview:self.highRateLabel];
-    [self.highRateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).with.offset(CGRectGetMinY(frame) + 1);
-        make.right.equalTo(self.mas_left).with.offset(CGRectGetMaxX(frame) - 2);
-    }];
     
     self.lowLabel = [[UILabel alloc] init];
     self.lowLabel.textAlignment = NSTextAlignmentLeft;
     self.lowLabel.font = [UIFont systemFontOfSize:9];
     self.lowLabel.textColor = [UIColor greenColor];
     [self addSubview:self.lowLabel];
-    [self.lowLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.mas_top).with.offset(CGRectGetMaxY(frame) - 1);
-        make.left.equalTo(self).with.offset(CGRectGetMinX(frame) + 2);
-    }];
     
     self.lowRateLabel = [[UILabel alloc] init];
     self.lowRateLabel.textAlignment = NSTextAlignmentRight;
     self.lowRateLabel.font = [UIFont systemFontOfSize:9];
     self.lowRateLabel.textColor = [UIColor greenColor];
     [self addSubview:self.lowRateLabel];
-    [self.lowRateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.mas_top).with.offset(CGRectGetMaxY(frame) - 1);
-        make.right.equalTo(self.mas_left).with.offset(CGRectGetMaxX(frame) - 2);
-    }];
     
     self.middleLabel = [[UILabel alloc] init];
     self.middleLabel.textAlignment = NSTextAlignmentLeft;
     self.middleLabel.font = [UIFont systemFontOfSize:9];
     self.middleLabel.textColor = [UIColor whiteColor];
     [self addSubview:self.middleLabel];
-    [self.middleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.mas_top).with.offset(CGRectGetHeight(frame) / 2);
-        make.left.equalTo(self).with.offset(CGRectGetMinX(frame) + 2);
-    }];
     
     self.middleRateLabel = [[UILabel alloc] init];
     self.middleRateLabel.textAlignment = NSTextAlignmentRight;
     self.middleRateLabel.font = [UIFont systemFontOfSize:9];
     self.middleRateLabel.textColor = [UIColor whiteColor];
     [self addSubview:self.middleRateLabel];
-    [self.middleRateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+}
+
+- (void)layoutTextLabel {
+    CGRect frame = self.lineChartFrame;
+    [self.highLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).with.offset(CGRectGetMinY(frame) + 1);
+        make.left.equalTo(self).with.offset(CGRectGetMinX(frame) + 2);
+    }];
+    [self.highRateLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).with.offset(CGRectGetMinY(frame) + 1);
+        make.right.equalTo(self.mas_left).with.offset(CGRectGetMaxX(frame) - 2);
+    }];
+    [self.lowLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.mas_top).with.offset(CGRectGetMaxY(frame) - 1);
+        make.left.equalTo(self).with.offset(CGRectGetMinX(frame) + 2);
+    }];
+    [self.lowRateLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.mas_top).with.offset(CGRectGetMaxY(frame) - 1);
+        make.right.equalTo(self.mas_left).with.offset(CGRectGetMaxX(frame) - 2);
+    }];
+    [self.middleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.mas_top).with.offset(CGRectGetHeight(frame) / 2);
+        make.left.equalTo(self).with.offset(CGRectGetMinX(frame) + 2);
+    }];
+    [self.middleRateLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_top).with.offset(CGRectGetHeight(frame) / 2);
         make.right.equalTo(self.mas_left).with.offset(CGRectGetMaxX(frame) - 2);
     }];
