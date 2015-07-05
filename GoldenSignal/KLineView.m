@@ -7,14 +7,14 @@
 //
 
 #import "KLineView.h"
-#import "KLineViewModel.h"
+#import "KLineViewModel_old.h"
 #import "MBProgressHUD/MBProgressHUD.h"
 
 #define ExtraKLine 20
 
 @implementation KLineView
 {
-    KLineViewModel *_vm;
+    KLineViewModel_old *_vm;
     int _number;
     NSArray *fetchLines;
 }
@@ -32,7 +32,7 @@
             hud.opacity = 0;
             
             _code = [code copy];
-            _vm = [[KLineViewModel alloc] initWithCode:code];
+            _vm = [[KLineViewModel_old alloc] initWithCode:code];
             [_vm addObserver:self forKeyPath:@"lines" options:NSKeyValueObservingOptionNew context:NULL];
         }
     }

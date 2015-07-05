@@ -7,11 +7,11 @@
 //
 
 #import "LiteKLineView.h"
-#import "KLineViewModel.h"
+#import "KLineViewModel_old.h"
 
 @implementation LiteKLineView
 {
-    KLineViewModel *_vm;
+    KLineViewModel_old *_vm;
     int _number;
 }
 
@@ -24,7 +24,7 @@
         if (code) {
             _code = [code copy];
             _number = 5;
-            _vm = [[KLineViewModel alloc] initWithCode:code];
+            _vm = [[KLineViewModel_old alloc] initWithCode:code];
             [_vm loadKLineWithType:KLINE_DAY andNumber:_number];
             [_vm addObserver:self forKeyPath:@"lines" options:NSKeyValueObservingOptionNew context:NULL];
         }

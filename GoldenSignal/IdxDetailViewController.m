@@ -125,7 +125,6 @@
         case 0: {
             if (self.oneDayTrendLine == nil) {
                 self.oneDayTrendLine = [[TrendLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
-                self.oneDayTrendLine.margin = 1;
                 [self.oneDayTrendLine loadDataWithSecuCode:_idxCode];
             }
             [self.chartContainerView addSubview:self.oneDayTrendLine];
@@ -134,7 +133,6 @@
         case 1: {
             if (self.fiveDayTrendLine == nil) {
                 self.fiveDayTrendLine = [[TrendLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
-                self.fiveDayTrendLine.margin = 1;
                 self.fiveDayTrendLine.days = 5;
                 [self.fiveDayTrendLine loadDataWithSecuCode:_idxCode];
             }
@@ -144,7 +142,6 @@
         case 2: {
             if (self.dailyKLine == nil) {
                 self.dailyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
-                self.dailyKLine.margin = 1;
                 self.dailyKLine.number = 60;
                 [self.dailyKLine loadDataWithSecuCode:_idxCode];
             }
@@ -154,7 +151,6 @@
         case 3: {
             if (self.weeklyKLine == nil) {
                 self.weeklyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
-                self.weeklyKLine.margin = 1;
                 self.weeklyKLine.type = KLINE_WEEK;
                 self.weeklyKLine.number = 60;
                 [self.weeklyKLine loadDataWithSecuCode:_idxCode];
@@ -165,7 +161,6 @@
         case 4: {
             if (self.monthlyKLine == nil) {
                 self.monthlyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
-                self.monthlyKLine.margin = 1;
                 self.monthlyKLine.type = KLINE_MONTH;
                 self.monthlyKLine.number = 60;
                 [self.monthlyKLine loadDataWithSecuCode:_idxCode];

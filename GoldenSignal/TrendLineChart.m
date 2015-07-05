@@ -44,8 +44,8 @@
 }
 
 - (void)setDefaultParameters {
-    self.margin = 0.0f;
-    self.space = 4.0f;
+    self.margin = 6;
+    self.space = 10;
     
     _lineColor = [UIColor orangeColor];
     _avgLineColor = [UIColor yellowColor];

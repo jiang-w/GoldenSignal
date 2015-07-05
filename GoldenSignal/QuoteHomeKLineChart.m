@@ -7,7 +7,7 @@
 //
 
 #import "QuoteHomeKLineChart.h"
-#import "KLineViewModel.h"
+#import "KLineViewModel_old.h"
 
 @interface QuoteHomeKLineChart()
 
@@ -17,7 +17,7 @@
 
 @implementation QuoteHomeKLineChart
 {
-    KLineViewModel *_vm;
+    KLineViewModel_old *_vm;
     int _number;
 }
 
@@ -29,7 +29,7 @@
         [self commonInit];
         
         _number = 40;
-        _vm = [[KLineViewModel alloc] initWithCode:code];
+        _vm = [[KLineViewModel_old alloc] initWithCode:code];
         [_vm loadKLineWithType:KLINE_DAY andNumber:_number];
         [_vm addObserver:self forKeyPath:@"lines" options:NSKeyValueObservingOptionNew context:NULL];
     }
