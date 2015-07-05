@@ -7,9 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TrendLineChart.h"
-#import "FiveBetsView.h"
-#import "SubDealView.h"
 
 @interface StockTrendView : UIView
 

@@ -14,6 +14,11 @@
 @interface KLineChart()
 
 @property(nonatomic, strong) NSMutableArray* layers;
+@property(nonatomic, strong) UILabel *highLabel, *lowLabel;
+@property(nonatomic, strong) UILabel *volumeLabel;
+@property(nonatomic, strong) UILabel *beginDateLabel, *endDateLabel;
+@property(nonatomic) CGRect lineChartFrame;
+@property(nonatomic) CGRect volumeChartFrame;
 
 @end
 
@@ -36,8 +41,11 @@
 }
 
 - (void)setDefaultParameters {
-    self.margin = 6.0f;
-    self.space = 10.0f;
+    self.margin = 6.0;
+    self.margin_left = 42.0;
+    self.margin_top = 10.0;
+    self.margin_bottom = 16.0;
+    self.space = 10.0;
     
     _boundColor = [UIColor colorWithWhite:0.5 alpha:1.0];
     _boundWidth = 0.5;
@@ -97,7 +105,7 @@
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     dispatch_async(dispatch_get_main_queue(), ^{
         @try {
-            NSLog(@"%@ 绘制K线图 (number:%lu)", _secu.bdCode, _number);
+//            NSLog(@"%@ 绘制K线图 (number:%lu)", _secu.bdCode, _number);
             [self setNeedsDisplay];
             [MBProgressHUD hideHUDForView:self animated:YES];
         }
@@ -149,11 +157,61 @@
 }
 
 - (void)addTextLabel {
+    CGRect frame = self.lineChartFrame;
+    self.highLabel = [[UILabel alloc] init];
+    self.highLabel.textAlignment = NSTextAlignmentRight;
+    self.highLabel.font = [UIFont systemFontOfSize:9];
+    self.highLabel.textColor = [UIColor whiteColor];
+    [self addSubview:self.highLabel];
+    [self.highLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.mas_top).with.offset(CGRectGetMinY(frame));
+        make.right.equalTo(self.mas_left).with.offset(CGRectGetMinX(frame) + -2);
+    }];
+
+    self.lowLabel = [[UILabel alloc] init];
+    self.lowLabel.textAlignment = NSTextAlignmentRight;
+    self.lowLabel.font = [UIFont systemFontOfSize:9];
+    self.lowLabel.textColor = [UIColor whiteColor];
+    [self addSubview:self.lowLabel];
+    [self.lowLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.mas_top).with.offset(CGRectGetMaxY(frame));
+        make.right.equalTo(self.mas_left).with.offset(CGRectGetMinX(frame) + -2);
+    }];
+
+    frame = self.volumeChartFrame;
+    self.volumeLabel = [[UILabel alloc] init];
+    self.volumeLabel.textAlignment = NSTextAlignmentRight;
+    self.volumeLabel.font = [UIFont systemFontOfSize:9];
+    self.volumeLabel.textColor = [UIColor whiteColor];
+    [self addSubview:self.volumeLabel];
+    [self.volumeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).with.offset(CGRectGetMinY(frame));
+        make.right.equalTo(self.mas_left).with.offset(CGRectGetMinX(frame) + -2);
+    }];
     
+    self.beginDateLabel = [[UILabel alloc] init];
+    self.beginDateLabel.textAlignment = NSTextAlignmentRight;
+    self.beginDateLabel.font = [UIFont systemFontOfSize:9];
+    self.beginDateLabel.textColor = [UIColor whiteColor];
+    [self addSubview:self.beginDateLabel];
+    [self.beginDateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).with.offset(CGRectGetMaxY(frame) + 2);
+        make.left.equalTo(self).with.offset(CGRectGetMinX(frame));
+    }];
+    
+    self.endDateLabel = [[UILabel alloc] init];
+    self.endDateLabel.textAlignment = NSTextAlignmentRight;
+    self.endDateLabel.font = [UIFont systemFontOfSize:9];
+    self.endDateLabel.textColor = [UIColor whiteColor];
+    [self addSubview:self.endDateLabel];
+    [self.endDateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).with.offset(CGRectGetMaxY(frame) + 2);
+        make.right.equalTo(self.mas_left).with.offset(CGRectGetMaxX(frame));
+    }];
 }
 
 - (void)strokeCandleChart {
-    Stopwatch *watch = [Stopwatch startNew];
+//    Stopwatch *watch = [Stopwatch startNew];
     PriceRange priceRange = _vm.priceRange;
     unsigned long maxVolume = _vm.maxVolume;
     NSRange range = _vm.lines.count > _number ? NSMakeRange(_vm.lines.count - _number, _number) : NSMakeRange(0, _vm.lines.count);
@@ -203,12 +261,25 @@
         CGContextStrokePath(context);
     }
     
-    [watch stop];
-    NSLog(@"绘制K线 Timeout:%.3fs", watch.elapsed);
+    self.highLabel.text = [NSString stringWithFormat:@"%.2f", priceRange.high];
+    self.lowLabel.text = [NSString stringWithFormat:@"%.2f", priceRange.low];
+    double volume = maxVolume / 1000000.0;
+    self.volumeLabel.text = [NSString stringWithFormat:@"%lu", maxVolume];
+    if (volume >= 10000) {
+        self.volumeLabel.text = [NSString stringWithFormat:@"%.2f亿", volume / 10000];
+    }
+    else {
+        self.volumeLabel.text = [NSString stringWithFormat:@"%.0f万", volume];
+    }
+    self.beginDateLabel.text = [NSString stringWithFormat:@"%d", ((BDKLine *)[lines firstObject]).date];
+    self.endDateLabel.text = [NSString stringWithFormat:@"%d", ((BDKLine *)[lines lastObject]).date];
+    
+//    [watch stop];
+//    NSLog(@"绘制K线 Timeout:%.3fs", watch.elapsed);
 }
 
 - (void)strokeAvgLineChart {
-    Stopwatch *watch = [Stopwatch startNew];
+//    Stopwatch *watch = [Stopwatch startNew];
     // 绘制MA5
     CGPathRef ma5LinePath = [self getAvgPricePathInFrame:self.lineChartFrame withMA:5];
     CAShapeLayer *ma5LineLayer = [CAShapeLayer layer];
@@ -245,8 +316,8 @@
     [self.layer addSublayer:ma20LineLayer];
     [self.layers addObject:ma20LineLayer];
     
-    [watch stop];
-    NSLog(@"绘制均线 Timeout:%.3fs", watch.elapsed);
+//    [watch stop];
+//    NSLog(@"绘制均线 Timeout:%.3fs", watch.elapsed);
 }
 
 - (CGPathRef)getAvgPricePathInFrame:(CGRect)frame withMA:(NSUInteger)value {

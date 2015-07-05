@@ -7,6 +7,9 @@
 //
 
 #import "StockTrendView.h"
+#import "TrendLineChart.h"
+#import "FiveBetsView.h"
+#import "SubDealView.h"
 #import "PPiFlatSegmentedControl.h"
 
 @interface StockTrendView()
@@ -19,12 +22,11 @@
 @property(nonatomic, strong) FiveBetsView *fiveBets;
 @property(nonatomic, strong) SubDealView *subDeal;
 
+@property(nonatomic, assign) NSUInteger selectedTabIndex;
+
 @end
 
 @implementation StockTrendView
-{
-    NSUInteger _selectedTabIndex;
-}
 
 - (id)initWithFrame:(CGRect)frame andCode:(NSString *)code {
     self = [super initWithFrame:frame];
@@ -37,9 +39,10 @@
         self.sideView = [[UIView alloc] initWithFrame:CGRectMake(222, 18, 98, CGRectGetHeight(frame) - 18)];
         [self addSubview:self.sideView];
         
+        __weak StockTrendView *weakSelf = self;    // 解决block循环引用的问题
         PPiFlatSegmentedControl *segmented = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(222, 0, 98, 18) items:@[@{@"text":@"五档"}, @{@"text":@"明细"}] iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex) {
-            _selectedTabIndex = segmentIndex;
-            [self loadSideView];
+            weakSelf.selectedTabIndex = segmentIndex;
+            [weakSelf loadSideView];
         }];
         segmented.color = RGB(7, 9, 8, 1);
         segmented.borderWidth = 1;

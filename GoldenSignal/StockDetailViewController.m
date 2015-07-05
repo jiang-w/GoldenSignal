@@ -14,18 +14,31 @@
 #import "BDQuotationService.h"
 #import "StockNewsViewModel.h"
 #import "F10ViewController.h"
+#import "KLineChart.h"
 
 #import "Masonry.h"
 
 @interface StockDetailViewController ()
-{
-    NSString *_code;
-    StockNewsViewModel *_quoteNewsViewModel;
-    NSInteger _chartTab, _infoTab;
-}
+
+@property(nonatomic, strong) UIView *containerView;
+@property(nonatomic, strong) UIView *chartContainerView;
+@property(nonatomic, strong) UIView *infoContainerView;
+
+// K线图
+@property(nonatomic, strong) KLineChart *dailyKLine;
+@property(nonatomic, strong) KLineChart *weeklyKLine;
+@property(nonatomic, strong) KLineChart *monthlyKLine;
+
+@property(nonatomic, assign) NSUInteger chartTabIndex;
+@property(nonatomic, assign) NSUInteger infoTabIndex;
+
 @end
 
 @implementation StockDetailViewController
+{
+    NSString *_code;
+    StockNewsViewModel *_quoteNewsViewModel;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -55,21 +68,22 @@
 
 // 加载子视图
 - (void)loadSubview {
-    containerView = [UIView new];
-    [self.scrollView addSubview:containerView];
-    [containerView mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.containerView = [UIView new];
+    [self.scrollView addSubview:self.containerView];
+    [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.scrollView);
         make.width.equalTo(self.scrollView);
     }];
 
     /* 行情指标 */
     indicatorsView = [[[NSBundle mainBundle] loadNibNamed:@"IndicatorsView" owner:self options:nil] objectAtIndex:0];
-    [containerView addSubview:indicatorsView];
+    [self.containerView addSubview:indicatorsView];
     
+    __weak StockDetailViewController *weakSelf = self;    // 解决block循环引用的问题
     /* 行情走势图Tab */
     chartTabView = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 320, 30) items:@[@{@"text":@"分时"}, @{@"text":@"五日"}, @{@"text":@"日K"}, @{@"text":@"周K"}, @{@"text":@"月K"}] iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex) {
-        _chartTab = segmentIndex;
-        [self loadChartView];
+        weakSelf.chartTabIndex = segmentIndex;
+        [weakSelf loadChartView];
     }];
     chartTabView.color = RGB(7, 9, 8, 1);
     chartTabView.borderWidth = 1;
@@ -77,22 +91,22 @@
     chartTabView.selectedColor = RGB(30, 30, 30, 1);
     chartTabView.textAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(214, 214, 214, 1)};
     chartTabView.selectedTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(216, 1, 1, 1)};
-    [containerView addSubview:chartTabView];
+    [self.containerView addSubview:chartTabView];
     
     /* 分时、K线容器视图 */
-    chartContainerView = [UIView new];
-    chartContainerView.backgroundColor = RGB(30, 30, 30, 1);
-    [containerView addSubview:chartContainerView];
+    self.chartContainerView = [UIView new];
+    self.chartContainerView.backgroundColor = RGB(30, 30, 30, 1);
+    [self.containerView addSubview:self.chartContainerView];
 
     /* 资讯Tab */
     infoTabView = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 320, 30) items:@[@{@"text":@"金信号"}, @{@"text":@"研报"}, @{@"text":@"公告"}, @{@"text":@"F10"}] iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex) {
         
         if (segmentIndex == 3) {
-            [self performSegueWithIdentifier:@"F10ViewSegue" sender:_code];
+            [weakSelf performSegueWithIdentifier:@"F10ViewSegue" sender:_code];
         }
         else {
-            _infoTab = segmentIndex;
-            [self loadQuoteNewsTableView];
+            weakSelf.infoTabIndex = segmentIndex;
+            [weakSelf loadQuoteNewsTableView];
 
             CGFloat scrollHeight = self.scrollView.frame.size.height;
             CGFloat contentHeight = self.scrollView.contentSize.height;
@@ -107,12 +121,12 @@
     infoTabView.selectedColor = RGB(30, 30, 30, 1);
     infoTabView.textAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(214, 214, 214, 1)};
     infoTabView.selectedTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(216, 1, 1, 1)};
-    [containerView addSubview:infoTabView];
+    [self.containerView addSubview:infoTabView];
     
     /* 新闻视图容器 */
-    infoContainerView = [UIView new];
-    infoContainerView.backgroundColor = [UIColor clearColor];
-    [containerView addSubview:infoContainerView];
+    self.infoContainerView = [UIView new];
+    self.infoContainerView.backgroundColor = [UIColor clearColor];
+    [self.containerView addSubview:self.infoContainerView];
 }
 
 // 设置子视图布局
@@ -120,12 +134,12 @@
     UIView *lastView = nil;
     if (indicatorsView) {
         [indicatorsView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.and.right.equalTo(containerView);
+            make.left.and.right.equalTo(self.containerView);
             if (lastView) {
                 make.top.equalTo(lastView.mas_bottom).with.offset(6);
             }
             else {
-                make.top.mas_equalTo(containerView.mas_top);
+                make.top.mas_equalTo(self.containerView.mas_top);
             }
             make.height.mas_equalTo(110);
         }];
@@ -134,61 +148,61 @@
     
     if (chartTabView) {
         [chartTabView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.and.right.equalTo(containerView);
+            make.left.and.right.equalTo(self.containerView);
             if (lastView) {
                 make.top.equalTo(lastView.mas_bottom).with.offset(6);
             }
             else {
-                make.top.mas_equalTo(containerView.mas_top);
+                make.top.mas_equalTo(self.containerView.mas_top);
             }
             make.height.mas_equalTo(30);
         }];
         lastView = chartTabView;
     }
     
-    if (chartContainerView) {
-        [chartContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.and.right.equalTo(containerView);
+    if (self.chartContainerView) {
+        [self.chartContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.and.right.equalTo(self.containerView);
             if (lastView) {
                 make.top.equalTo(lastView.mas_bottom).with.offset(6);
             }
             else {
-                make.top.mas_equalTo(containerView.mas_top);
+                make.top.mas_equalTo(self.containerView.mas_top);
             }
             make.height.mas_equalTo(180);
         }];
-        lastView = chartContainerView;
+        lastView = self.chartContainerView;
     }
 
     if (infoTabView) {
         [infoTabView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.and.right.equalTo(containerView);
+            make.left.and.right.equalTo(self.containerView);
             if (lastView) {
                 make.top.equalTo(lastView.mas_bottom).with.offset(6);
             }
             else {
-                make.top.mas_equalTo(containerView.mas_top);
+                make.top.mas_equalTo(self.containerView.mas_top);
             }
             make.height.mas_equalTo(30);
         }];
         lastView = infoTabView;
     }
     
-    if (infoContainerView) {
-        [infoContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.and.right.equalTo(containerView);
+    if (self.infoContainerView) {
+        [self.infoContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.and.right.equalTo(self.containerView);
             if (lastView) {
                 make.top.mas_equalTo(lastView.mas_bottom);
             }
             else {
-                make.top.mas_equalTo(containerView.mas_top);
+                make.top.mas_equalTo(self.containerView.mas_top);
             }
         }];
-        lastView = infoContainerView;
+        lastView = self.infoContainerView;
     }
     
     if (lastView) {
-        [containerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(lastView.mas_bottom);
         }];
     }
@@ -236,16 +250,16 @@
 
 // 加载分时、K线视图
 - (void)loadChartView {
-    for (UIView *sub in chartContainerView.subviews) {
+    for (UIView *sub in self.chartContainerView.subviews) {
         [sub removeFromSuperview];
     }
     
-    switch (_chartTab) {
+    switch (_chartTabIndex) {
         case 0: {
             if (trendQuoteView == nil || ![trendQuoteView.code isEqualToString:_code]) {
                 trendQuoteView = [[StockTrendView alloc] initWithFrame:CGRectMake(0, 0, 320, 180) andCode:_code];
             }
-            [chartContainerView addSubview:trendQuoteView];
+            [self.chartContainerView addSubview:trendQuoteView];
             [trendQuoteView subscribeTrendLineAndQuoteWithType:TRENDLINE_1];
             break;
         }
@@ -253,29 +267,34 @@
             if (trendQuoteView == nil || ![trendQuoteView.code isEqualToString:_code]) {
                 trendQuoteView = [[StockTrendView alloc] initWithFrame:CGRectMake(0, 0, 320, 180) andCode:_code];
             }
-            [chartContainerView addSubview:trendQuoteView];
+            [self.chartContainerView addSubview:trendQuoteView];
             [trendQuoteView subscribeTrendLineAndQuoteWithType:TRENDLINE_5];
             break;
         case 2:
-            if (dailyKLineView == nil || ![dailyKLineView.code isEqualToString:_code]) {
-                dailyKLineView = [[KLineView alloc] initWithFrame:CGRectMake(0, 0, 320, 180) andCode:_code];
-                [dailyKLineView loadKLineDataWithType:KLINE_DAY andNumber:(int)36];
+            if (self.dailyKLine == nil) {
+                self.dailyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
+                self.dailyKLine.number = 60;
+                [self.dailyKLine loadDataWithSecuCode:_code];
             }
-            [chartContainerView addSubview:dailyKLineView];
+            [self.chartContainerView addSubview:self.dailyKLine];
             break;
         case 3:
-            if (weeklyKLineView == nil || ![weeklyKLineView.code isEqualToString:_code]) {
-                weeklyKLineView = [[KLineView alloc] initWithFrame:CGRectMake(0, 0, 320, 180) andCode:_code];
-                [weeklyKLineView loadKLineDataWithType:KLINE_WEEK andNumber:36];
+            if (self.weeklyKLine == nil) {
+                self.weeklyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
+                self.weeklyKLine.type = KLINE_WEEK;
+                self.weeklyKLine.number = 60;
+                [self.weeklyKLine loadDataWithSecuCode:_code];
             }
-            [chartContainerView addSubview:weeklyKLineView];
+            [self.chartContainerView addSubview:self.weeklyKLine];
             break;
         case 4:
-            if (monthlyKLineView == nil || ![monthlyKLineView.code isEqualToString:_code]) {
-                monthlyKLineView = [[KLineView alloc] initWithFrame:CGRectMake(0, 0, 320, 180) andCode:_code];
-                [monthlyKLineView loadKLineDataWithType:KLINE_MONTH andNumber:36];
+            if (self.monthlyKLine == nil) {
+                self.monthlyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
+                self.monthlyKLine.type = KLINE_MONTH;
+                self.monthlyKLine.number = 60;
+                [self.monthlyKLine loadDataWithSecuCode:_code];
             }
-            [chartContainerView addSubview:monthlyKLineView];
+            [self.chartContainerView addSubview:self.monthlyKLine];
             break;
         default:
             break;
@@ -292,15 +311,15 @@
         infoListView.delegate = self;
         infoListView.dataSource = self;
         infoListView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [infoContainerView addSubview:infoListView];
+        [self.infoContainerView addSubview:infoListView];
         
         [infoListView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(infoContainerView);
+            make.edges.equalTo(self.infoContainerView);
             make.height.mas_equalTo(300);
         }];
     }
     
-    switch (_infoTab) {
+    switch (_infoTabIndex) {
         case 0: {
             if (_quoteNewsViewModel.newsList.count > 0) {
                 [infoListView reloadData];
@@ -354,7 +373,7 @@
 #pragma mark - Table delegate and dataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    switch (_infoTab) {
+    switch (_infoTabIndex) {
         case 0:
             return _quoteNewsViewModel.newsList.count;
         case 1:
@@ -367,7 +386,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    switch (_infoTab) {
+    switch (_infoTabIndex) {
         case 0: {
             NewsListViewCell *cell = (NewsListViewCell *)[tableView dequeueReusableCellWithIdentifier:@"NewsListCell"];
             if (cell == nil) {

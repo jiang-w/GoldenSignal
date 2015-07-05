@@ -10,25 +10,17 @@
 #import "IndicatorsView.h"
 #import "FiveBetsView.h"
 #import "SubDealView.h"
-#import "KLineView.h"
 #import "StockTrendView.h"
 
 #import <PPiFlatSegmentedControl.h>
 
 @interface StockDetailViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
 {
-    UIView *containerView;
-    UIView *chartContainerView;
-    UIView *infoContainerView;
-    
     PPiFlatSegmentedControl *chartTabView;
     PPiFlatSegmentedControl *infoTabView;
     
     IndicatorsView *indicatorsView;
     StockTrendView *trendQuoteView;
-    KLineView *dailyKLineView;
-    KLineView *weeklyKLineView;
-    KLineView *monthlyKLineView;
     
     UITableView *infoListView;
 }
