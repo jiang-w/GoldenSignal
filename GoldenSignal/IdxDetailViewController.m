@@ -115,6 +115,16 @@
     }
 }
 
+
+#pragma mark Load Data
+
+- (void)loadData {
+    if (self.idxCode) {
+        [self.scalarView loadDataWithIdxCode:self.idxCode];
+        [self loadChartView];
+    }
+}
+
 // 加载分时、K线视图
 - (void)loadChartView {
     for (UIView *sub in self.chartContainerView.subviews) {
@@ -173,12 +183,8 @@
     }
 }
 
-- (void)loadData {
-    if (self.idxCode) {
-        [self.scalarView loadDataWithIdxCode:self.idxCode];
-        [self loadChartView];
-    }
-}
+
+#pragma mark Dealloc
 
 - (void)dealloc {
     NSLog(@"IdxDetailViewController dealloc (%@)", self.idxCode);

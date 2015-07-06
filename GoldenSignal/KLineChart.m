@@ -337,7 +337,7 @@
         BDKLine *line = lines[i];
         double price = [_vm calcAvgPriceForDate:line.date andMA:value];
         if (price > 0) {
-            CGFloat xOffset = CGRectGetMinX(frame) + (i + 0.5) * CGRectGetWidth(frame) / lines.count;
+            CGFloat xOffset = CGRectGetMinX(frame) + (i + 0.5) * CGRectGetWidth(frame) / _number;
             CGFloat yOffset = CGRectGetMaxY(frame) - (price - priceRange.low) / scale;
             if (CGPointEqualToPoint(beginPoint, CGPointZero)) {
                 beginPoint = CGPointMake(xOffset, yOffset);
@@ -346,6 +346,7 @@
             else {
                 [path addLineToPoint:CGPointMake(xOffset, yOffset)];
             }
+//            NSLog(@"MA:%lu price:%.2f (x:%f,y:%f)", value, price, xOffset, yOffset);
         }
     }
     return path.CGPath;
