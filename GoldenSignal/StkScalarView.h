@@ -1,5 +1,5 @@
 //
-//  IndicatorsView.h
+//  StkScalarView.h
 //  CBNAPP
 //
 //  Created by Frank on 14/12/1.

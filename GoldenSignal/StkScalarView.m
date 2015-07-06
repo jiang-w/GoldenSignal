@@ -1,5 +1,5 @@
 //
-//  IndicatorsView.m
+//  StkScalarView.m
 //  CBNAPP
 //
 //  Created by Frank on 14/12/1.

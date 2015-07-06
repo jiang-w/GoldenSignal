@@ -76,8 +76,8 @@
     }];
 
     /* 行情指标 */
-    indicatorsView = [[[NSBundle mainBundle] loadNibNamed:@"IndicatorsView" owner:self options:nil] objectAtIndex:0];
-    [self.containerView addSubview:indicatorsView];
+    scalarView = [[[NSBundle mainBundle] loadNibNamed:@"StkScalarView" owner:self options:nil] objectAtIndex:0];
+    [self.containerView addSubview:scalarView];
     
     __weak StkDetailViewController *weakSelf = self;    // 解决block循环引用的问题
     /* 行情走势图Tab */
@@ -132,8 +132,8 @@
 // 设置子视图布局
 -(void)layoutSubView {
     UIView *lastView = nil;
-    if (indicatorsView) {
-        [indicatorsView mas_makeConstraints:^(MASConstraintMaker *make) {
+    if (scalarView) {
+        [scalarView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.and.right.equalTo(self.containerView);
             if (lastView) {
                 make.top.equalTo(lastView.mas_bottom).with.offset(6);
@@ -143,7 +143,7 @@
             }
             make.height.mas_equalTo(110);
         }];
-        lastView = indicatorsView;
+        lastView = scalarView;
     }
     
     if (chartTabView) {
@@ -229,7 +229,7 @@
             // 显示股票代码及名称
             self.name.text = [NSString stringWithFormat:@"%@(%@)", secuCode.name, secuCode.trdCode];
             // 载入行情指标
-            [self loadIndicatorsView];
+            [self loadScalarView];
             // 载入分时、K线视图
             [self loadChartView];
             // 载入新闻列表视图
@@ -239,12 +239,12 @@
 }
 
 // 加载行情指标
-- (void)loadIndicatorsView {
-    if (indicatorsView == nil) {
-        indicatorsView = [[[NSBundle mainBundle] loadNibNamed:@"IndicatorsView" owner:self options:nil] objectAtIndex:0];
+- (void)loadScalarView {
+    if (scalarView == nil) {
+        scalarView = [[[NSBundle mainBundle] loadNibNamed:@"StkScalarView" owner:self options:nil] objectAtIndex:0];
     }
-    if (![indicatorsView.code isEqualToString:_code]) {
-        [indicatorsView loadDataWithCode:_code];
+    if (![scalarView.code isEqualToString:_code]) {
+        [scalarView loadDataWithCode:_code];
     }
 }
 

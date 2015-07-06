@@ -19,7 +19,7 @@
     PPiFlatSegmentedControl *chartTabView;
     PPiFlatSegmentedControl *infoTabView;
     
-    StkScalarView *indicatorsView;
+    StkScalarView *scalarView;
     StockTrendView *trendQuoteView;
     
     UITableView *infoListView;
