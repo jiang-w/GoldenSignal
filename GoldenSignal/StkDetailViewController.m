@@ -244,7 +244,7 @@
         indicatorsView = [[[NSBundle mainBundle] loadNibNamed:@"IndicatorsView" owner:self options:nil] objectAtIndex:0];
     }
     if (![indicatorsView.code isEqualToString:_code]) {
-        [indicatorsView subscribeIndicatorsWithCode:_code];
+        [indicatorsView loadDataWithCode:_code];
     }
 }
 

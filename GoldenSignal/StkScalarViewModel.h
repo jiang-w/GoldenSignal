@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface IndicatorsViewModel : NSObject
+@interface StkScalarViewModel : NSObject
 
 /**
  *  代码

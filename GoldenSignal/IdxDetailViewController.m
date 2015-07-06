@@ -7,7 +7,7 @@
 //
 
 #import "IdxDetailViewController.h"
-#import "IdxQuoteView.h"
+#import "IdxScalarView.h"
 #import "TrendLineChart.h"
 #import "KLineChart.h"
 #import <Masonry.h>
@@ -19,7 +19,7 @@
 @property(nonatomic, strong) UIView *containerView;
 @property(nonatomic, strong) UIView *chartContainerView;
 
-@property(nonatomic, strong) IdxQuoteView *idxQuoteView;
+@property(nonatomic, strong) IdxScalarView *idxQuoteView;
 @property(nonatomic, strong) PPiFlatSegmentedControl *chartTabView;
 // 分时图
 @property(nonatomic, strong) TrendLineChart *oneDayTrendLine;
@@ -68,7 +68,7 @@
     }];
 
     /* 添加指数标价 */
-    self.idxQuoteView = [IdxQuoteView createView];
+    self.idxQuoteView = [IdxScalarView createView];
     [self addSubView:self.idxQuoteView withHeight:110 andSpace:0];
     
     __weak IdxDetailViewController *weakSelf = self;    // 解决block循环引用的问题

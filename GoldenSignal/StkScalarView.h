@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface IndicatorsView : UIView
+@interface StkScalarView : UIView
 
 @property(nonatomic, strong, readonly)NSString *code;
 @property(nonatomic, weak) IBOutlet UILabel *prevClose;
@@ -29,8 +29,8 @@
 @property(nonatomic, weak) IBOutlet UILabel *PEttm;
 @property(nonatomic, weak) IBOutlet UILabel *Eps;
 
-+ (IndicatorsView *)createView;
++ (StkScalarView *)createView;
 
-- (void)subscribeIndicatorsWithCode:(NSString *)code;
+- (void)loadDataWithCode:(NSString *)code;
 
 @end

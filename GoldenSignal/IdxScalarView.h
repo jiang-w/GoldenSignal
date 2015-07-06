@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface IdxQuoteView : UIView
+@interface IdxScalarView : UIView
 
 @property (weak, nonatomic) IBOutlet UILabel *now;
 @property (weak, nonatomic) IBOutlet UILabel *change;
@@ -25,7 +25,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *downCount;
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 
-+ (IdxQuoteView *)createView;
++ (IdxScalarView *)createView;
+
 - (void)loadDataWithIdxCode:(NSString *)code;
 
 @end

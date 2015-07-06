@@ -1,15 +1,15 @@
 //
-//  IdxQuoteViewModel.m
-//  GoldenSignal
+//  BDQuotation.m
+//  CBNAPP
 //
-//  Created by Frank on 15/6/23.
-//  Copyright (c) 2015年 bigdata. All rights reserved.
+//  Created by Frank on 14/10/27.
+//  Copyright (c) 2014年 bigdata. All rights reserved.
 //
 
-#import "IdxQuoteViewModel.h"
+#import "StkScalarViewModel.h"
 #import "BDQuotationService.h"
 
-@implementation IdxQuoteViewModel
+@implementation StkScalarViewModel
 {
     dispatch_queue_t _propertyUpdateQueue;
     BDQuotationService *_service;
@@ -22,7 +22,7 @@ static NSArray *indicaters;
     if (self) {
         _propertyUpdateQueue = dispatch_queue_create("IndicatorUpdate", nil);
         _service = [BDQuotationService sharedInstance];
-        indicaters = @[@"PrevClose", @"Open", @"Now", @"High", @"Low", @"Amount", @"Volume", @"Amplitude", @"VolumeSpread", @"UpCount", @"DownCount"];
+        indicaters = @[@"PrevClose", @"Open", @"Now", @"High", @"Low", @"Amount", @"Volume", @"Change", @"ChangeRange", @"ChangeHandsRate", @"VolRatio", @"TtlShr", @"TtlShrNtlc", @"VolumeSpread", @"PEttm", @"Eps"];
         
         [[NSNotificationCenter defaultCenter]
          addObserver:self selector:@selector(subscribeScalarChanged:) name:QUOTE_SCALAR_NOTIFICATION object:nil];
@@ -30,14 +30,15 @@ static NSArray *indicaters;
     return self;
 }
 
+
 #pragma mark Property kvo
 
-- (double)ChangeRange {
-    return (self.Now - self.PrevClose) / self.PrevClose;
+- (double)TtlAmount {
+    return self.Now * self.TtlShr / 100000000.0;
 }
 
-- (double)Change {
-    return (self.Now - self.PrevClose);
+- (double)TtlAmountNtlc {
+    return self.Now * self.TtlShrNtlc / 100000000.0;
 }
 
 // 设置依赖键(kvo)
@@ -46,8 +47,12 @@ static NSArray *indicaters;
     NSSet * keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
     NSArray * moreKeyPaths = nil;
     
-    if ([key isEqualToString:@"ChangeRange"] || [key isEqualToString:@"Change"]) {
-        moreKeyPaths = [NSArray arrayWithObjects:@"self.Now", @"self.PrevClose", nil];
+    if ([key isEqualToString:@"TtlAmount"]) {
+        moreKeyPaths = [NSArray arrayWithObjects:@"self.Now", @"self.TtlShr", nil];
+    }
+    
+    if ([key isEqualToString:@"TtlAmountNtlc"]) {
+        moreKeyPaths = [NSArray arrayWithObjects:@"self.Now", @"self.TtlShrNtlc", nil];
     }
     
     if (moreKeyPaths) {
@@ -56,9 +61,10 @@ static NSArray *indicaters;
     return keyPaths;
 }
 
+
 #pragma mark Subscribe
 
-- (void)subscribeQuotationScalarWithCode:(NSString *)code {
+- (void)subscribeQuotationScalarWithCode:(NSString *)code {    
     if (code != nil && ![code isEqualToString:self.Code]) {
         if (self.Code != nil) {
             [_service unsubscribeScalarWithCode:self.Code indicaters:indicaters];
@@ -97,14 +103,24 @@ static NSArray *indicaters;
     [self setValue:[NSNumber numberWithDouble:amount] forKey:@"Amount"];
     unsigned long volume = [[_service getCurrentIndicateWithCode:code andName:@"Volume"] unsignedLongValue];
     [self setValue:[NSNumber numberWithUnsignedLong:volume] forKey:@"Volume"];
-    double amplitude = [[_service getCurrentIndicateWithCode:code andName:@"Amplitude"] doubleValue];
-    [self setValue:[NSNumber numberWithDouble:amplitude] forKey:@"Amplitude"];
+    double change = [[_service getCurrentIndicateWithCode:code andName:@"Change"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:change] forKey:@"Change"];
+    double changeRange = [[_service getCurrentIndicateWithCode:code andName:@"ChangeRange"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:changeRange] forKey:@"ChangeRange"];
+    double changeHandsRate = [[_service getCurrentIndicateWithCode:code andName:@"ChangeHandsRate"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:changeHandsRate] forKey:@"ChangeHandsRate"];
+    double volRatio = [[_service getCurrentIndicateWithCode:code andName:@"VolRatio"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:volRatio] forKey:@"VolRatio"];
+    double ttlShr = [[_service getCurrentIndicateWithCode:code andName:@"TtlShr"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:ttlShr] forKey:@"TtlShr"];
+    double ttlShrNtlc = [[_service getCurrentIndicateWithCode:code andName:@"TtlShrNtlc"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:ttlShrNtlc] forKey:@"TtlShrNtlc"];
     unsigned long volumeSpread = [[_service getCurrentIndicateWithCode:code andName:@"VolumeSpread"] unsignedLongValue];
     [self setValue:[NSNumber numberWithUnsignedLong:volumeSpread] forKey:@"VolumeSpread"];
-    unsigned int upCount = [[_service getCurrentIndicateWithCode:code andName:@"UpCount"] unsignedIntValue];
-    [self setValue:[NSNumber numberWithUnsignedInt:upCount] forKey:@"UpCount"];
-    unsigned int downCount = [[_service getCurrentIndicateWithCode:code andName:@"DownCount"] unsignedIntValue];
-    [self setValue:[NSNumber numberWithUnsignedInt:downCount] forKey:@"DownCount"];
+    double peTtm = [[_service getCurrentIndicateWithCode:code andName:@"PEttm"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:peTtm] forKey:@"PEttm"];
+    double eps = [[_service getCurrentIndicateWithCode:code andName:@"EpsTtm"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:eps] forKey:@"Eps"];
 }
 
 
@@ -113,7 +129,7 @@ static NSArray *indicaters;
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:QUOTE_SCALAR_NOTIFICATION object:nil];
     [_service unsubscribeScalarWithCode:self.Code indicaters:indicaters];
-//    NSLog(@"IdxQuoteViewModel dealloc (%@)", self.Code);
+    NSLog(@"%@ Indicators dealloc", self.Code);
 }
 
 @end

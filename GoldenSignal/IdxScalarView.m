@@ -6,19 +6,18 @@
 //  Copyright (c) 2015年 bigdata. All rights reserved.
 //
 
-#import "IdxQuoteView.h"
-#import "IdxQuoteViewModel.h"
+#import "IdxScalarView.h"
+#import "IdxScalarViewModel.h"
 #import <FBKVOController.h>
 
-@implementation IdxQuoteView
+@implementation IdxScalarView
 {
-    IdxQuoteViewModel *_viewModel;
+    IdxScalarViewModel *_vm;
     FBKVOController *_kvo;
 }
 
-+ (IdxQuoteView *)createView
-{
-    return [[[NSBundle mainBundle] loadNibNamed:@"IdxQuoteView" owner:nil options:nil] objectAtIndex:0];
++ (IdxScalarView *)createView {
+    return [[[NSBundle mainBundle] loadNibNamed:@"IdxScalarView" owner:nil options:nil] objectAtIndex:0];
 }
 
 - (void)awakeFromNib {
@@ -29,11 +28,11 @@
 }
 
 - (void)loadDataWithIdxCode:(NSString *)code {
-    if (_viewModel == nil) {
-        _viewModel = [[IdxQuoteViewModel alloc] init];
+    if (_vm == nil) {
+        _vm = [[IdxScalarViewModel alloc] init];
         [self kvoController];
     }
-    [_viewModel subscribeQuotationScalarWithCode:code];
+    [_vm loadDataWithCode:code];
     
     if ([[BDStockPool sharedInstance] containStockWithCode:code]) {
         [self.favoriteButton setSelected:YES];
@@ -60,35 +59,35 @@
 }
 
 - (void)kvoController {
-    if (_viewModel) {
-        [_kvo observe:_viewModel keyPath:@"Open" options:NSKeyValueObservingOptionNew block:^(IdxQuoteView *view, IdxQuoteViewModel *model, NSDictionary *change) {
+    if (_vm) {
+        [_kvo observe:_vm keyPath:@"Open" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 view.open.text = [NSString stringWithFormat:@"%.2f",model.Open];
                 view.open.textColor = [view textColorValue:model.Open otherValue:model.PrevClose];
             });
         }];
         
-        [_kvo observe:_viewModel keyPath:@"PrevClose" options:NSKeyValueObservingOptionNew block:^(IdxQuoteView *view, IdxQuoteViewModel *model, NSDictionary *change) {
+        [_kvo observe:_vm keyPath:@"PrevClose" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 view.prevClose.text = [NSString stringWithFormat:@"%.2f",model.PrevClose];
             });
         }];
 
-        [_kvo observe:_viewModel keyPath:@"Now" options:NSKeyValueObservingOptionNew block:^(IdxQuoteView *view, IdxQuoteViewModel *model, NSDictionary *change) {
+        [_kvo observe:_vm keyPath:@"Now" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 view.now.text = [NSString stringWithFormat:@"%.2f", model.Now];
                 view.now.textColor = [view textColorValue:model.Now otherValue:model.PrevClose];
             });
         }];
         
-        [_kvo observe:_viewModel keyPath:@"Change" options:NSKeyValueObservingOptionNew block:^(IdxQuoteView *view, IdxQuoteViewModel *model, NSDictionary *change) {
+        [_kvo observe:_vm keyPath:@"Change" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 view.change.text = [NSString stringWithFormat:@"%.2f", model.Change];
                 view.change.textColor = [view textColorValue:model.Change otherValue:0];
             });
         }];
         
-        [_kvo observe:_viewModel keyPath:@"ChangeRange" options:NSKeyValueObservingOptionNew block:^(IdxQuoteView *view, IdxQuoteViewModel *model, NSDictionary *change) {
+        [_kvo observe:_vm keyPath:@"ChangeRange" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 double changeRange = model.ChangeRange * 100.0;
                 view.changeRange.text = isnan(changeRange) ? @"0.00%" : [NSString stringWithFormat:@"%.2f%%", changeRange];
@@ -96,28 +95,28 @@
             });
         }];
         
-        [_kvo observe:_viewModel keyPath:@"Amplitude" options:NSKeyValueObservingOptionNew block:^(IdxQuoteView *view, IdxQuoteViewModel *model, NSDictionary *change) {
+        [_kvo observe:_vm keyPath:@"Amplitude" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 double amplitude = model.Amplitude * 100.0;
                 view.amplitude.text = [NSString stringWithFormat:@"%.2f%%", amplitude];
             });
         }];
         
-        [_kvo observe:_viewModel keyPath:@"High" options:NSKeyValueObservingOptionNew block:^(IdxQuoteView *view, IdxQuoteViewModel *model, NSDictionary *change) {
+        [_kvo observe:_vm keyPath:@"High" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 view.high.text = [NSString stringWithFormat:@"%.2f",model.High];
                 view.high.textColor = [view textColorValue:model.High otherValue:model.PrevClose];
             });
         }];
         
-        [_kvo observe:_viewModel keyPath:@"Low" options:NSKeyValueObservingOptionNew block:^(IdxQuoteView *view, IdxQuoteViewModel *model, NSDictionary *change) {
+        [_kvo observe:_vm keyPath:@"Low" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 view.low.text = [NSString stringWithFormat:@"%.2f",model.Low];
                 view.low.textColor = [view textColorValue:model.Low otherValue:model.PrevClose];
             });
         }];
         
-        [_kvo observe:_viewModel keyPath:@"Amount" options:NSKeyValueObservingOptionNew block:^(IdxQuoteView *view, IdxQuoteViewModel *model, NSDictionary *change) {
+        [_kvo observe:_vm keyPath:@"Amount" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 double amount = model.Amount / 10000;
                 if (model.Amount > 10000) {
@@ -129,7 +128,7 @@
             });
         }];
         
-        [_kvo observe:_viewModel keyPath:@"Volume" options:NSKeyValueObservingOptionNew block:^(IdxQuoteView *view, IdxQuoteViewModel *model, NSDictionary *change) {
+        [_kvo observe:_vm keyPath:@"Volume" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 double volume = model.Volume / 1000000.0;
                 if (volume >= 10000) {
@@ -141,7 +140,7 @@
             });
         }];
         
-        [_kvo observe:_viewModel keyPath:@"VolumeSpread" options:NSKeyValueObservingOptionNew block:^(IdxQuoteView *view, IdxQuoteViewModel *model, NSDictionary *change) {
+        [_kvo observe:_vm keyPath:@"VolumeSpread" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 unsigned long volume = model.VolumeSpread / 100;
                 if (volume > 10000) {
@@ -153,13 +152,13 @@
             });
         }];
         
-        [_kvo observe:_viewModel keyPath:@"UpCount" options:NSKeyValueObservingOptionNew block:^(IdxQuoteView *view, IdxQuoteViewModel *model, NSDictionary *change) {
+        [_kvo observe:_vm keyPath:@"UpCount" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 view.upCount.text = [NSString stringWithFormat:@"%d", model.UpCount];
             });
         }];
         
-        [_kvo observe:_viewModel keyPath:@"DownCount" options:NSKeyValueObservingOptionNew block:^(IdxQuoteView *view, IdxQuoteViewModel *model, NSDictionary *change) {
+        [_kvo observe:_vm keyPath:@"DownCount" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 view.downCount.text = [NSString stringWithFormat:@"%d", model.DownCount];
             });
@@ -184,10 +183,10 @@
     favoriteBtn.selected = !favoriteBtn.selected;
     BDStockPool *pool = [BDStockPool sharedInstance];
     if (favoriteBtn.selected) {
-        [pool addStockWithCode:_viewModel.Code];
+        [pool addStockWithCode:_vm.Code];
     }
     else {
-        [pool removeStockWithCode:_viewModel.Code];
+        [pool removeStockWithCode:_vm.Code];
     }
 }
 

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface IdxQuoteViewModel : NSObject
+@interface IdxScalarViewModel : NSObject
 
 /**
  *  代码
@@ -81,6 +81,6 @@
 @property(nonatomic, readonly) unsigned int DownCount;
 
 
-- (void)subscribeQuotationScalarWithCode:(NSString *)code;
+- (void)loadDataWithCode:(NSString *)code;
 
 @end

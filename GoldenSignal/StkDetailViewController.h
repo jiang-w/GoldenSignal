@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "IndicatorsView.h"
+#import "StkScalarView.h"
 #import "FiveBetsView.h"
 #import "SubDealView.h"
 #import "StockTrendView.h"
@@ -19,7 +19,7 @@
     PPiFlatSegmentedControl *chartTabView;
     PPiFlatSegmentedControl *infoTabView;
     
-    IndicatorsView *indicatorsView;
+    StkScalarView *indicatorsView;
     StockTrendView *trendQuoteView;
     
     UITableView *infoListView;
