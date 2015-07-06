@@ -9,11 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface LiteKLineView : UIView
-{
-    CGRect lineFrame;
-}
-
-@property(nonatomic, strong, readonly)NSString *code;
 
 - (id)initWithFrame:(CGRect)frame andCode:(NSString *)code;
 

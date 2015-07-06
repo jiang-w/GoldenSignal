@@ -52,7 +52,7 @@
 		011B84E01B0DBD4F003005BC /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84CB1B0DBD4F003005BC /* LoginViewModel.m */; };
 		011B84E11B0DBD4F003005BC /* NewsDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84CD1B0DBD4F003005BC /* NewsDetailViewModel.m */; };
 		011B84E21B0DBD4F003005BC /* NewsListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84CF1B0DBD4F003005BC /* NewsListViewModel.m */; };
-		011B84E31B0DBD4F003005BC /* QuoteCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84D11B0DBD4F003005BC /* QuoteCellViewModel.m */; };
+		011B84E31B0DBD4F003005BC /* StkQuoteCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84D11B0DBD4F003005BC /* StkQuoteCellViewModel.m */; };
 		011B84E41B0DBD4F003005BC /* RegisterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84D31B0DBD4F003005BC /* RegisterViewModel.m */; };
 		011B84E51B0DBD4F003005BC /* SectCollectionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84D51B0DBD4F003005BC /* SectCollectionViewModel.m */; };
 		011B84E61B0DBD4F003005BC /* StockNewsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84D71B0DBD4F003005BC /* StockNewsViewModel.m */; };
@@ -89,12 +89,12 @@
 		011B85551B0DBEFE003005BC /* LiteKLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85391B0DBEFE003005BC /* LiteKLineView.m */; };
 		011B85561B0DBEFE003005BC /* LiteTrendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B853B1B0DBEFE003005BC /* LiteTrendView.m */; };
 		011B85571B0DBEFE003005BC /* QuoteMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B853D1B0DBEFE003005BC /* QuoteMainViewController.m */; };
-		011B85581B0DBEFE003005BC /* QuoteViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B853F1B0DBEFE003005BC /* QuoteViewCell.m */; };
-		011B85591B0DBEFE003005BC /* QuoteViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011B85401B0DBEFE003005BC /* QuoteViewCell.xib */; };
+		011B85581B0DBEFE003005BC /* StkQuoteViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B853F1B0DBEFE003005BC /* StkQuoteViewCell.m */; };
+		011B85591B0DBEFE003005BC /* StkQuoteViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011B85401B0DBEFE003005BC /* StkQuoteViewCell.xib */; };
 		011B855A1B0DBEFE003005BC /* SectCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85421B0DBEFE003005BC /* SectCollectionViewController.m */; };
 		011B855B1B0DBEFE003005BC /* SectCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011B85431B0DBEFE003005BC /* SectCollectionViewController.xib */; };
 		011B855C1B0DBEFE003005BC /* SectQuoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85451B0DBEFE003005BC /* SectQuoteViewController.m */; };
-		011B855D1B0DBEFE003005BC /* StockDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85471B0DBEFE003005BC /* StockDetailViewController.m */; };
+		011B855D1B0DBEFE003005BC /* StkDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85471B0DBEFE003005BC /* StkDetailViewController.m */; };
 		011B855E1B0DBEFE003005BC /* SubDealView.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85491B0DBEFE003005BC /* SubDealView.m */; };
 		011B85601B0DBEFE003005BC /* StockTrendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B854D1B0DBEFE003005BC /* StockTrendView.m */; };
 		011B85671B0DC981003005BC /* libboost_date_time.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 011B85611B0DC981003005BC /* libboost_date_time.a */; };
@@ -235,8 +235,8 @@
 		011B84CD1B0DBD4F003005BC /* NewsDetailViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsDetailViewModel.m; sourceTree = "<group>"; };
 		011B84CE1B0DBD4F003005BC /* NewsListViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsListViewModel.h; sourceTree = "<group>"; };
 		011B84CF1B0DBD4F003005BC /* NewsListViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsListViewModel.m; sourceTree = "<group>"; };
-		011B84D01B0DBD4F003005BC /* QuoteCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteCellViewModel.h; sourceTree = "<group>"; };
-		011B84D11B0DBD4F003005BC /* QuoteCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuoteCellViewModel.m; sourceTree = "<group>"; };
+		011B84D01B0DBD4F003005BC /* StkQuoteCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StkQuoteCellViewModel.h; sourceTree = "<group>"; };
+		011B84D11B0DBD4F003005BC /* StkQuoteCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StkQuoteCellViewModel.m; sourceTree = "<group>"; };
 		011B84D21B0DBD4F003005BC /* RegisterViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewModel.h; sourceTree = "<group>"; };
 		011B84D31B0DBD4F003005BC /* RegisterViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewModel.m; sourceTree = "<group>"; };
 		011B84D41B0DBD4F003005BC /* SectCollectionViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectCollectionViewModel.h; sourceTree = "<group>"; };
@@ -304,16 +304,16 @@
 		011B853B1B0DBEFE003005BC /* LiteTrendView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiteTrendView.m; sourceTree = "<group>"; };
 		011B853C1B0DBEFE003005BC /* QuoteMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteMainViewController.h; sourceTree = "<group>"; };
 		011B853D1B0DBEFE003005BC /* QuoteMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuoteMainViewController.m; sourceTree = "<group>"; };
-		011B853E1B0DBEFE003005BC /* QuoteViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteViewCell.h; sourceTree = "<group>"; };
-		011B853F1B0DBEFE003005BC /* QuoteViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuoteViewCell.m; sourceTree = "<group>"; };
-		011B85401B0DBEFE003005BC /* QuoteViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuoteViewCell.xib; sourceTree = "<group>"; };
+		011B853E1B0DBEFE003005BC /* StkQuoteViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StkQuoteViewCell.h; sourceTree = "<group>"; };
+		011B853F1B0DBEFE003005BC /* StkQuoteViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StkQuoteViewCell.m; sourceTree = "<group>"; };
+		011B85401B0DBEFE003005BC /* StkQuoteViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StkQuoteViewCell.xib; sourceTree = "<group>"; };
 		011B85411B0DBEFE003005BC /* SectCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectCollectionViewController.h; sourceTree = "<group>"; };
 		011B85421B0DBEFE003005BC /* SectCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectCollectionViewController.m; sourceTree = "<group>"; };
 		011B85431B0DBEFE003005BC /* SectCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectCollectionViewController.xib; sourceTree = "<group>"; };
 		011B85441B0DBEFE003005BC /* SectQuoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectQuoteViewController.h; sourceTree = "<group>"; };
 		011B85451B0DBEFE003005BC /* SectQuoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectQuoteViewController.m; sourceTree = "<group>"; };
-		011B85461B0DBEFE003005BC /* StockDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockDetailViewController.h; sourceTree = "<group>"; };
-		011B85471B0DBEFE003005BC /* StockDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockDetailViewController.m; sourceTree = "<group>"; };
+		011B85461B0DBEFE003005BC /* StkDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StkDetailViewController.h; sourceTree = "<group>"; };
+		011B85471B0DBEFE003005BC /* StkDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StkDetailViewController.m; sourceTree = "<group>"; };
 		011B85481B0DBEFE003005BC /* SubDealView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubDealView.h; sourceTree = "<group>"; };
 		011B85491B0DBEFE003005BC /* SubDealView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubDealView.m; sourceTree = "<group>"; };
 		011B854C1B0DBEFE003005BC /* StockTrendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockTrendView.h; sourceTree = "<group>"; };
@@ -576,8 +576,8 @@
 				011B84CD1B0DBD4F003005BC /* NewsDetailViewModel.m */,
 				011B84CE1B0DBD4F003005BC /* NewsListViewModel.h */,
 				011B84CF1B0DBD4F003005BC /* NewsListViewModel.m */,
-				011B84D01B0DBD4F003005BC /* QuoteCellViewModel.h */,
-				011B84D11B0DBD4F003005BC /* QuoteCellViewModel.m */,
+				011B84D01B0DBD4F003005BC /* StkQuoteCellViewModel.h */,
+				011B84D11B0DBD4F003005BC /* StkQuoteCellViewModel.m */,
 				01D8DA381B253E4F0033956E /* IdxQuoteCellViewModel.h */,
 				01D8DA391B253E4F0033956E /* IdxQuoteCellViewModel.m */,
 				011B84D21B0DBD4F003005BC /* RegisterViewModel.h */,
@@ -671,8 +671,6 @@
 			children = (
 				011B852D1B0DBEFE003005BC /* F10ViewController.h */,
 				011B852E1B0DBEFE003005BC /* F10ViewController.m */,
-				011B852F1B0DBEFE003005BC /* FiveBetsView.h */,
-				011B85301B0DBEFE003005BC /* FiveBetsView.m */,
 				011B85311B0DBEFE003005BC /* IndicatorsView.h */,
 				011B85321B0DBEFE003005BC /* IndicatorsView.m */,
 				011B85331B0DBEFE003005BC /* IndicatorsView.xib */,
@@ -680,23 +678,11 @@
 				011B85351B0DBEFE003005BC /* KeyboardWizardViewController.m */,
 				011B85361B0DBEFE003005BC /* KLineView.h */,
 				011B85371B0DBEFE003005BC /* KLineView.m */,
-				011B85381B0DBEFE003005BC /* LiteKLineView.h */,
-				011B85391B0DBEFE003005BC /* LiteKLineView.m */,
-				011B853A1B0DBEFE003005BC /* LiteTrendView.h */,
-				011B853B1B0DBEFE003005BC /* LiteTrendView.m */,
 				011B85411B0DBEFE003005BC /* SectCollectionViewController.h */,
 				011B85421B0DBEFE003005BC /* SectCollectionViewController.m */,
 				011B85431B0DBEFE003005BC /* SectCollectionViewController.xib */,
 				011B852B1B0DBEFE003005BC /* CustomStockViewController.h */,
 				011B852C1B0DBEFE003005BC /* CustomStockViewController.m */,
-				011B853E1B0DBEFE003005BC /* QuoteViewCell.h */,
-				011B853F1B0DBEFE003005BC /* QuoteViewCell.m */,
-				011B85401B0DBEFE003005BC /* QuoteViewCell.xib */,
-				01D8DA3B1B253F9C0033956E /* IdxQuoteViewCell.h */,
-				01D8DA3C1B253F9C0033956E /* IdxQuoteViewCell.m */,
-				01D8DA3D1B253F9C0033956E /* IdxQuoteViewCell.xib */,
-				011B85481B0DBEFE003005BC /* SubDealView.h */,
-				011B85491B0DBEFE003005BC /* SubDealView.m */,
 				011B85441B0DBEFE003005BC /* SectQuoteViewController.h */,
 				011B85451B0DBEFE003005BC /* SectQuoteViewController.m */,
 				011B853C1B0DBEFE003005BC /* QuoteMainViewController.h */,
@@ -714,10 +700,24 @@
 				0129EF591B1FE73F00690920 /* QuoteHomeKLineView.xib */,
 				0129EF611B20100000690920 /* QuoteHomeKLineChart.h */,
 				0129EF621B20100000690920 /* QuoteHomeKLineChart.m */,
-				011B85461B0DBEFE003005BC /* StockDetailViewController.h */,
-				011B85471B0DBEFE003005BC /* StockDetailViewController.m */,
+				011B853E1B0DBEFE003005BC /* StkQuoteViewCell.h */,
+				011B853F1B0DBEFE003005BC /* StkQuoteViewCell.m */,
+				011B85401B0DBEFE003005BC /* StkQuoteViewCell.xib */,
+				01D8DA3B1B253F9C0033956E /* IdxQuoteViewCell.h */,
+				01D8DA3C1B253F9C0033956E /* IdxQuoteViewCell.m */,
+				01D8DA3D1B253F9C0033956E /* IdxQuoteViewCell.xib */,
+				011B85381B0DBEFE003005BC /* LiteKLineView.h */,
+				011B85391B0DBEFE003005BC /* LiteKLineView.m */,
+				011B853A1B0DBEFE003005BC /* LiteTrendView.h */,
+				011B853B1B0DBEFE003005BC /* LiteTrendView.m */,
+				011B85461B0DBEFE003005BC /* StkDetailViewController.h */,
+				011B85471B0DBEFE003005BC /* StkDetailViewController.m */,
 				011B854C1B0DBEFE003005BC /* StockTrendView.h */,
 				011B854D1B0DBEFE003005BC /* StockTrendView.m */,
+				011B852F1B0DBEFE003005BC /* FiveBetsView.h */,
+				011B85301B0DBEFE003005BC /* FiveBetsView.m */,
+				011B85481B0DBEFE003005BC /* SubDealView.h */,
+				011B85491B0DBEFE003005BC /* SubDealView.m */,
 				01B541901B3A5A4100AF5C05 /* IdxDetailViewController.h */,
 				01B541911B3A5A4100AF5C05 /* IdxDetailViewController.m */,
 				01AD748C1B3948CF006EC988 /* IdxQuoteView.h */,
@@ -851,7 +851,7 @@
 				0129EF5A1B1FE73F00690920 /* QuoteHomeKLineView.xib in Resources */,
 				01CA5C551B1EDF6C003B824F /* QuoteHomeTrendView.xib in Resources */,
 				01AD74901B3948E7006EC988 /* IdxQuoteView.xib in Resources */,
-				011B85591B0DBEFE003005BC /* QuoteViewCell.xib in Resources */,
+				011B85591B0DBEFE003005BC /* StkQuoteViewCell.xib in Resources */,
 				011B850A1B0DBE1F003005BC /* TitleTabViewController.xib in Resources */,
 				011B84411B0DB51F003005BC /* Images.xcassets in Resources */,
 				011B85291B0DBEA9003005BC /* ReportListViewCell.xib in Resources */,
@@ -907,7 +907,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				011B84BA1B0DBCBA003005BC /* BDKeyboardWizard.m in Sources */,
-				011B84E31B0DBD4F003005BC /* QuoteCellViewModel.m in Sources */,
+				011B84E31B0DBD4F003005BC /* StkQuoteCellViewModel.m in Sources */,
 				011B84DF1B0DBD4F003005BC /* KLineViewModel_old.m in Sources */,
 				011B85051B0DBE1F003005BC /* AdViewController.m in Sources */,
 				011B84A81B0DBC57003005BC /* BDSecuCode.m in Sources */,
@@ -923,7 +923,7 @@
 				011B84A11B0DBC57003005BC /* BDBulletin.m in Sources */,
 				011B85071B0DBE1F003005BC /* SideMenuViewController.m in Sources */,
 				011B85551B0DBEFE003005BC /* LiteKLineView.m in Sources */,
-				011B855D1B0DBEFE003005BC /* StockDetailViewController.m in Sources */,
+				011B855D1B0DBEFE003005BC /* StkDetailViewController.m in Sources */,
 				011B84861B0DBB83003005BC /* BDDatabaseAccess.m in Sources */,
 				011B85241B0DBEA9003005BC /* NewsListViewCell.m in Sources */,
 				011B850B1B0DBE1F003005BC /* UINavigationItem+CustomBackButton.m in Sources */,
@@ -965,7 +965,7 @@
 				011B84F31B0DBDBC003005BC /* CustomTagViewController.m in Sources */,
 				011B85201B0DBEA9003005BC /* AutoLayoutNewsListCell.m in Sources */,
 				011B848B1B0DBB83003005BC /* BDQuotationService.mm in Sources */,
-				011B85581B0DBEFE003005BC /* QuoteViewCell.m in Sources */,
+				011B85581B0DBEFE003005BC /* StkQuoteViewCell.m in Sources */,
 				011B846E1B0DBADB003005BC /* Stopwatch.m in Sources */,
 				011B84881B0DBB83003005BC /* BDNetworkService.m in Sources */,
 				011B855E1B0DBEFE003005BC /* SubDealView.m in Sources */,

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface QuoteViewCell : UITableViewCell
+@interface StkQuoteViewCell : UITableViewCell
 
 @property(nonatomic, strong)IBOutlet UILabel *name;
 @property(nonatomic, strong)IBOutlet UILabel *trdCode;

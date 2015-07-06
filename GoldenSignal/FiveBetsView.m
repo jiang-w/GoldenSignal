@@ -13,8 +13,9 @@
 
 @implementation FiveBetsView
 {
-    FiveBetsViewModel *_viewModel;
+    FiveBetsViewModel *_vm;
     FBKVOController *_kvo;
+    __weak FiveBetsView *weakSelf;
 }
 
 - (id)initWithFrame:(CGRect)frame andCode:(NSString *)code {
@@ -22,15 +23,16 @@
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         _kvo = [FBKVOController controllerWithObserver:self];
+        weakSelf = self;
         
         if (code) {
             _code = [code copy];
-            _viewModel = [[FiveBetsViewModel alloc] initWithCode:code];
+            _vm = [[FiveBetsViewModel alloc] initWithCode:code];
             NSArray *keyPaths = @[@"bidPrice1", @"bidPrice2", @"bidPrice3", @"bidPrice4", @"bidPrice5",
                                   @"bidVolume1", @"bidVolume2", @"bidVolume3", @"bidVolume4", @"bidVolume5",
                                   @"askPrice1", @"askPrice2", @"askPrice3", @"askPrice4", @"askPrice5",
                                   @"askVolume1", @"askVolume2", @"askVolume3", @"askVolume4", @"askVolume5"];
-            [_kvo observe:_viewModel keyPaths:keyPaths options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew action:@selector(updateViewWithDataChange)];
+            [_kvo observe:_vm keyPaths:keyPaths options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew action:@selector(updateViewWithDataChange)];
         }
     }
     return self;
@@ -38,7 +40,7 @@
 
 -(void)updateViewWithDataChange {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self setNeedsDisplay];
+        [weakSelf setNeedsDisplay];
     });
 }
 
@@ -75,14 +77,14 @@
 
     point = CGPointMake(28, 0);
     for (int i = 5; i >= 1; i--) {
-        float price = [[_viewModel valueForKey:[NSString stringWithFormat:@"askPrice%d", i]] floatValue];
+        float price = [[_vm valueForKey:[NSString stringWithFormat:@"askPrice%d", i]] floatValue];
         UIColor *color = [UIColor whiteColor];
         if (price == 0) {
             label = [NSString stringWithFormat:@"—"];
         }
         else {
             label = [NSString stringWithFormat:@"%.2f", price];
-            color = [self textColorValue:price otherValue:_viewModel.prevClose];
+            color = [self textColorValue:price otherValue:_vm.prevClose];
         }
         [fontAttributes setObject:color forKey:NSForegroundColorAttributeName];
         [label drawAtPoint:point withAttributes:fontAttributes];
@@ -90,14 +92,14 @@
     }
     point.y += 2;
     for (int i = 1; i <= 5; i++) {
-        float price = [[_viewModel valueForKey:[NSString stringWithFormat:@"bidPrice%d", i]] floatValue];
+        float price = [[_vm valueForKey:[NSString stringWithFormat:@"bidPrice%d", i]] floatValue];
         UIColor *color = [UIColor whiteColor];
         if (price == 0) {
             label = [NSString stringWithFormat:@"—"];
         }
         else {
             label = [NSString stringWithFormat:@"%.2f", price];
-            color = [self textColorValue:price otherValue:_viewModel.prevClose];
+            color = [self textColorValue:price otherValue:_vm.prevClose];
         }
         [fontAttributes setObject:color forKey:NSForegroundColorAttributeName];
         [label drawAtPoint:point withAttributes:fontAttributes];
@@ -106,7 +108,7 @@
     
     point = CGPointMake(68, 0);
     for (int i = 5; i >= 1; i--) {
-        float volume = [[_viewModel valueForKey:[NSString stringWithFormat:@"askVolume%d", i]] intValue]/100.0;
+        float volume = [[_vm valueForKey:[NSString stringWithFormat:@"askVolume%d", i]] intValue]/100.0;
         [fontAttributes setObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
         if (volume == 0) {
             label = [NSString stringWithFormat:@"—"];
@@ -121,7 +123,7 @@
     }
     point.y += 2;
     for (int i = 1; i <= 5; i++) {
-        float volume = [[_viewModel valueForKey:[NSString stringWithFormat:@"bidVolume%d", i]] intValue]/100.0;
+        float volume = [[_vm valueForKey:[NSString stringWithFormat:@"bidVolume%d", i]] intValue]/100.0;
         [fontAttributes setObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
         if (volume == 0) {
             label = [NSString stringWithFormat:@"—"];
@@ -146,6 +148,10 @@
     else {
         return [UIColor whiteColor];
     }
+}
+
+- (void)dealloc {
+    NSLog(@"FiveBetsView dealloc (%@)", _code);
 }
 
 @end

@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 bigdata. All rights reserved.
 //
 
-#import "StockDetailViewController.h"
+#import "StkDetailViewController.h"
 #import "NewsDetailViewController.h"
 #import "NewsListViewCell.h"
 #import "ReportListViewCell.h"
@@ -18,7 +18,7 @@
 
 #import "Masonry.h"
 
-@interface StockDetailViewController ()
+@interface StkDetailViewController ()
 
 @property(nonatomic, strong) UIView *containerView;
 @property(nonatomic, strong) UIView *chartContainerView;
@@ -34,7 +34,7 @@
 
 @end
 
-@implementation StockDetailViewController
+@implementation StkDetailViewController
 {
     NSString *_code;
     StockNewsViewModel *_quoteNewsViewModel;
@@ -79,7 +79,7 @@
     indicatorsView = [[[NSBundle mainBundle] loadNibNamed:@"IndicatorsView" owner:self options:nil] objectAtIndex:0];
     [self.containerView addSubview:indicatorsView];
     
-    __weak StockDetailViewController *weakSelf = self;    // 解决block循环引用的问题
+    __weak StkDetailViewController *weakSelf = self;    // 解决block循环引用的问题
     /* 行情走势图Tab */
     chartTabView = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 320, 30) items:@[@{@"text":@"分时"}, @{@"text":@"五日"}, @{@"text":@"日K"}, @{@"text":@"周K"}, @{@"text":@"月K"}] iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex) {
         weakSelf.chartTabIndex = segmentIndex;
@@ -502,7 +502,7 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:KEYBOARD_WIZARD_NOTIFICATION object:nil];
-    NSLog(@"StockDetailViewController dealloc");
+    NSLog(@"StkDetailViewController dealloc (%@)", _code);
 }
 
 @end

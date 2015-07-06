@@ -587,7 +587,7 @@
         <!--个股行情-->
         <scene sceneID="WAf-Y3-xYZ">
             <objects>
-                <viewController storyboardIdentifier="StockViewController" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="jM1-2G-8CV" userLabel="个股行情" customClass="StockDetailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StockViewController" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="jM1-2G-8CV" userLabel="个股行情" customClass="StkDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="asX-Ys-dxx"/>
                         <viewControllerLayoutGuide type="bottom" id="89n-5l-MTr"/>

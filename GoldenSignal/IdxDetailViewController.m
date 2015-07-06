@@ -181,7 +181,7 @@
 }
 
 - (void)dealloc {
-    NSLog(@"IdxDetailViewController dealloc");
+    NSLog(@"IdxDetailViewController dealloc (%@)", self.idxCode);
 }
 
 @end

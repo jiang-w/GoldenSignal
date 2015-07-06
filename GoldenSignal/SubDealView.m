@@ -12,8 +12,9 @@
 
 @implementation SubDealView
 {
-    SubDealViewModel *_viewModel;
+    SubDealViewModel *_vm;
     FBKVOController *_kvo;
+    __weak SubDealView *weakSelf;
 }
 
 - (id)initWithFrame:(CGRect)frame andCode:(NSString *)code {
@@ -21,11 +22,12 @@
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         _kvo = [FBKVOController controllerWithObserver:self];
+        weakSelf = self;
         
         if (code) {
             _code = [code copy];
-            _viewModel = [[SubDealViewModel alloc] initWithCode:code];
-            [_kvo observe:_viewModel keyPath:@"dealArray" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew action:@selector(updateViewWithDataChange)];
+            _vm = [[SubDealViewModel alloc] initWithCode:code];
+            [_kvo observe:_vm keyPath:@"dealArray" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew action:@selector(updateViewWithDataChange)];
         }
     }
     return self;
@@ -33,7 +35,7 @@
 
 -(void)updateViewWithDataChange {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self setNeedsDisplay];
+        [weakSelf setNeedsDisplay];
     });
 }
 
@@ -50,8 +52,8 @@
     NSString *label;
     
     CGPoint point = CGPointMake(0, 0);
-    for (int i = 0; i < _viewModel.dealArray.count; i++) {
-        BDSubDeal *deal = _viewModel.dealArray[i];
+    for (int i = 0; i < _vm.dealArray.count; i++) {
+        BDSubDeal *deal = _vm.dealArray[i];
         [fontAttributes setObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
         int hour = deal.time/10000;
         int minute = deal.time%10000/100;
@@ -61,17 +63,17 @@
     }
     
     point = CGPointMake(32, 0);
-    for (int i = 0; i < _viewModel.dealArray.count; i++) {
-        BDSubDeal *deal = _viewModel.dealArray[i];
-        [fontAttributes setObject:[self textColorValue:deal.price otherValue:_viewModel.prevClose] forKey:NSForegroundColorAttributeName];
+    for (int i = 0; i < _vm.dealArray.count; i++) {
+        BDSubDeal *deal = _vm.dealArray[i];
+        [fontAttributes setObject:[self textColorValue:deal.price otherValue:_vm.prevClose] forKey:NSForegroundColorAttributeName];
         label = [NSString stringWithFormat:@"%.2f", deal.price];
         [label drawAtPoint:point withAttributes:fontAttributes];
         point.y += spacing;
     }
     
     point = CGPointZero;
-    for (int i = 0; i < _viewModel.dealArray.count; i++) {
-        BDSubDeal *deal = _viewModel.dealArray[i];
+    for (int i = 0; i < _vm.dealArray.count; i++) {
+        BDSubDeal *deal = _vm.dealArray[i];
         switch (deal.tradeDirection) {
             case 1:
                 [fontAttributes setObject:[UIColor redColor] forKey:NSForegroundColorAttributeName];
@@ -102,6 +104,10 @@
     else {
         return [UIColor whiteColor];
     }
+}
+
+- (void)dealloc {
+    NSLog(@"SubDealView dealloc (%@)", _code);
 }
 
 @end

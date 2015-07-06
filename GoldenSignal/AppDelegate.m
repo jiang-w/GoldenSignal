@@ -10,7 +10,7 @@
 #import "BDQuotationService.h"
 #import "SideMenuViewController.h"
 #import "AdViewController.h"
-#import "StockDetailViewController.h"
+#import "StkDetailViewController.h"
 #import "IdxDetailViewController.h"
 #import "BDStockPoolInfoService.h"
 
@@ -85,7 +85,7 @@
     UINavigationController *navigation = (UINavigationController *)tab.viewControllers[tab.selectedIndex];
     UIViewController *top = [navigation.viewControllers lastObject];
     
-    if ([top isKindOfClass:[IdxDetailViewController class]] || [top isKindOfClass:[StockDetailViewController class]]) {
+    if ([top isKindOfClass:[IdxDetailViewController class]] || [top isKindOfClass:[StkDetailViewController class]]) {
         [navigation popViewControllerAnimated:NO];
     }
     switch (secu.typ) {
@@ -98,7 +98,7 @@
             break;
         case stock: {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            StockDetailViewController *stockVC = [storyboard instantiateViewControllerWithIdentifier:@"StockViewController"];
+            StkDetailViewController *stockVC = [storyboard instantiateViewControllerWithIdentifier:@"StockViewController"];
             stockVC.defaultCode = secu.bdCode;
             [navigation pushViewController:stockVC animated:YES];
         }

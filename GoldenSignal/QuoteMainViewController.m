@@ -7,7 +7,7 @@
 //
 
 #import "QuoteMainViewController.h"
-#import "StockDetailViewController.h"
+#import "StkDetailViewController.h"
 #import "SectCollectionViewController.h"
 #import "QuoteHomeViewController.h"
 #import "IdxDetailViewController.h"
@@ -114,7 +114,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"StockViewSegue"]) {
         NSString *code = (NSString *)sender;
-        StockDetailViewController *stockVC = (StockDetailViewController *)segue.destinationViewController;
+        StkDetailViewController *stockVC = (StkDetailViewController *)segue.destinationViewController;
         stockVC.defaultCode = code;
     }
 }

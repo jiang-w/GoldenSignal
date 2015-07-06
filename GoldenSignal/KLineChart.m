@@ -362,7 +362,7 @@
 
 - (void)dealloc {
     [_vm removeObserver:self forKeyPath:@"lines"];
-    NSLog(@"KLineChart dealloc (%@)", _secu.bdCode);
+//    NSLog(@"KLineChart dealloc (%@)", _secu.bdCode);
 }
 
 @end

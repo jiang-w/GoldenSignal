@@ -7,9 +7,9 @@
 //
 
 #import "CustomStockViewController.h"
-#import "QuoteViewCell.h"
+#import "StkQuoteViewCell.h"
 #import "IdxQuoteViewCell.h"
-#import "StockDetailViewController.h"
+#import "StkDetailViewController.h"
 #import "IdxDetailViewController.h"
 #import "BDSectService.h"
 #import "MBProgressHUD/MBProgressHUD.h"
@@ -117,12 +117,12 @@
     BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:bdCode];
     switch (secu.typ) {
         case stock: {
-            QuoteViewCell *stockCell = (QuoteViewCell *)[tableView dequeueReusableCellWithIdentifier:@"QuoteCell"];
+            StkQuoteViewCell *stockCell = (StkQuoteViewCell *)[tableView dequeueReusableCellWithIdentifier:@"StkQuoteCell"];
             if (stockCell == nil) {
-                NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"QuoteViewCell" owner:self options:nil];
+                NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"StkQuoteViewCell" owner:self options:nil];
                 for (id obj in nib) {
-                    if ([obj isKindOfClass:[QuoteViewCell class]]) {
-                        stockCell = (QuoteViewCell *)obj;
+                    if ([obj isKindOfClass:[StkQuoteViewCell class]]) {
+                        stockCell = (StkQuoteViewCell *)obj;
                         break;
                     }
                 }
@@ -160,7 +160,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    QuoteViewCell *cell = (QuoteViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    StkQuoteViewCell *cell = (StkQuoteViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:cell.code];
     if (secu.typ == idx) {
         IdxDetailViewController *idxVC = [[IdxDetailViewController alloc] initWithIdxCode:secu.bdCode];
@@ -182,7 +182,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        QuoteViewCell *cell = (QuoteViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+        StkQuoteViewCell *cell = (StkQuoteViewCell *)[tableView cellForRowAtIndexPath:indexPath];
         [[BDStockPool sharedInstance] removeStockWithCode:cell.code];
         _secuCodes = [NSArray arrayWithArray:[BDStockPool sharedInstance].codes];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
@@ -209,7 +209,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"StockViewSegue"]) {
         NSString *code = (NSString *)sender;
-        StockDetailViewController *stockVC = (StockDetailViewController *)segue.destinationViewController;
+        StkDetailViewController *stockVC = (StkDetailViewController *)segue.destinationViewController;
         stockVC.defaultCode = code;
     }
 }

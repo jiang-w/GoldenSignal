@@ -67,9 +67,6 @@
         case TRENDLINE_1:
             if (self.oneDayLine == nil) {
                 self.oneDayLine = [[TrendLineChart alloc] initWithFrame:self.mainView.bounds];
-                self.oneDayLine.days = 1;
-                self.oneDayLine.margin = 2;
-                self.oneDayLine.fillColor = RGB(225, 112, 35, 0.15);
                 [self.oneDayLine loadDataWithSecuCode:_code];
             }
             [self.mainView addSubview:self.oneDayLine];
@@ -78,9 +75,6 @@
             if (self.fiveDaysLine == nil) {
                 self.fiveDaysLine = [[TrendLineChart alloc] initWithFrame:self.mainView.bounds];
                 self.fiveDaysLine.days = 5;
-                self.fiveDaysLine.margin = 2;
-                self.fiveDaysLine.lineColor = [UIColor orangeColor];
-                self.fiveDaysLine.fillColor = [[UIColor orangeColor] colorWithAlphaComponent:0.15];
                 [self.fiveDaysLine loadDataWithSecuCode:_code];
             }
             [self.mainView addSubview:self.fiveDaysLine];
@@ -112,6 +106,10 @@
 - (void)subscribeTrendLineAndQuoteWithType:(TrendLineType)type {
     [self loadMainViewWithType:type];
     [self loadSideView];
+}
+
+- (void)dealloc {
+    NSLog(@"StockTrendView dealloc (%@)", _code);
 }
 
 @end

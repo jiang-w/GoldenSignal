@@ -14,7 +14,7 @@
 
 #import <PPiFlatSegmentedControl.h>
 
-@interface StockDetailViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface StkDetailViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
 {
     PPiFlatSegmentedControl *chartTabView;
     PPiFlatSegmentedControl *infoTabView;

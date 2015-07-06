@@ -32,7 +32,7 @@ static NSArray *indicaters;
 
 #pragma mark Property kvo
 
-- (float)ChangeRange {
+- (double)ChangeRange {
     return (self.Now - self.PrevClose) / self.PrevClose;
 }
 
@@ -84,10 +84,10 @@ static NSArray *indicaters;
     [self setValue:secu.trdCode forKey:@"TrdCode"];
     [self setValue:secu.name forKey:@"Name"];
 
-    float prevClose = [[_service getCurrentIndicateWithCode:code andName:@"PrevClose"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:prevClose] forKey:@"PrevClose"];
-    float now = [[_service getCurrentIndicateWithCode:code andName:@"Now"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:now] forKey:@"Now"];
+    double prevClose = [[_service getCurrentIndicateWithCode:code andName:@"PrevClose"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:prevClose] forKey:@"PrevClose"];
+    double now = [[_service getCurrentIndicateWithCode:code andName:@"Now"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:now] forKey:@"Now"];
 }
 
 

@@ -6,15 +6,15 @@
 //  Copyright (c) 2015年 bigdata. All rights reserved.
 //
 
-#import "QuoteViewCell.h"
-#import "QuoteCellViewModel.h"
+#import "StkQuoteViewCell.h"
+#import "StkQuoteCellViewModel.h"
 #import "LiteTrendView.h"
 #import "LiteKLineView.h"
 #import <FBKVOController.h>
 
-@implementation QuoteViewCell
+@implementation StkQuoteViewCell
 {
-    QuoteCellViewModel *_viewModel;
+    StkQuoteCellViewModel *_vm;
     FBKVOController *_kvo;
 }
 
@@ -31,12 +31,12 @@
 - (void)setCode:(NSString *)code {
     if (code != nil && ![code isEqualToString:_code]) {
         _code = [code copy];
-        if (_viewModel == nil) {
-            _viewModel = [[QuoteCellViewModel alloc] init];
+        if (_vm == nil) {
+            _vm = [[StkQuoteCellViewModel alloc] init];
             [self kvoController];
         }
         
-        [_viewModel subscribeQuotationScalarWithCode:_code];
+        [_vm subscribeQuotationScalarWithCode:_code];
         [self addTrendViewWithCode:_code];
         [self addKLineViewWithCode:_code];
     }
@@ -57,29 +57,29 @@
 }
 
 - (void)kvoController {
-    if (_viewModel) {
+    if (_vm) {
         //  股票名称
-        [_kvo observe:_viewModel keyPath:@"Name" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(QuoteViewCell *view, QuoteCellViewModel *model, NSDictionary *change) {
+        [_kvo observe:_vm keyPath:@"Name" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(StkQuoteViewCell *view, StkQuoteCellViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                view.name.text = model.Name != nil ? _viewModel.Name : @"—";
+                view.name.text = model.Name != nil ? model.Name : @"—";
             });
         }];
         //  交易代码
-        [_kvo observe:_viewModel keyPath:@"TrdCode" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(QuoteViewCell *view, QuoteCellViewModel *model, NSDictionary *change) {
+        [_kvo observe:_vm keyPath:@"TrdCode" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(StkQuoteViewCell *view, StkQuoteCellViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                view.trdCode.text = model.TrdCode != nil ? _viewModel.TrdCode : @"—";
+                view.trdCode.text = model.TrdCode != nil ? model.TrdCode : @"—";
             });
         }];
         //  当前价
-        [_kvo observe:_viewModel keyPath:@"Now" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(QuoteViewCell *view, QuoteCellViewModel *model, NSDictionary *change) {
+        [_kvo observe:_vm keyPath:@"Now" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(StkQuoteViewCell *view, StkQuoteCellViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                view.now.text = _viewModel.Now != 0 ? [NSString stringWithFormat:@"%.2f", model.Now] : @"—";
+                view.now.text = model.Now != 0 ? [NSString stringWithFormat:@"%.2f", model.Now] : @"—";
             });
         }];
         //  涨跌幅
-        [_kvo observe:_viewModel keyPath:@"ChangeRange" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(QuoteViewCell *view, QuoteCellViewModel *model, NSDictionary *change) {
+        [_kvo observe:_vm keyPath:@"ChangeRange" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(StkQuoteViewCell *view, StkQuoteCellViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                CGFloat changeRange = model.ChangeRange * 100.0;
+                double changeRange = model.ChangeRange * 100.0;
                 if ([[NSString stringWithFormat:@"%f", changeRange] isEqualToString:@"inf"]
                     || [[NSString stringWithFormat:@"%f", changeRange] isEqualToString:@"nan"]) {
                     view.changeRange.text = @"—";
@@ -103,25 +103,25 @@
             });
         }];
         //  现量
-        [_kvo observe:_viewModel keyPath:@"VolumeSpread" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(QuoteViewCell *view, QuoteCellViewModel *model, NSDictionary *change) {
+        [_kvo observe:_vm keyPath:@"VolumeSpread" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(StkQuoteViewCell *view, StkQuoteCellViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 view.volume.text = model.VolumeSpread != 0 ? [NSString stringWithFormat:@"%d", model.VolumeSpread / 100] : @"—";
             });
         }];
         //  总市值（亿）
-        [_kvo observe:_viewModel keyPath:@"TtlAmount" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(QuoteViewCell *view, QuoteCellViewModel *model, NSDictionary *change) {
+        [_kvo observe:_vm keyPath:@"TtlAmount" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(StkQuoteViewCell *view, StkQuoteCellViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 view.ttlAmount.text = model.TtlAmount != 0 ? [NSString stringWithFormat:@"%.0f亿", model.TtlAmount] : @"—";
             });
         }];
         //  市盈率
-        [_kvo observe:_viewModel keyPath:@"PEttm" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(QuoteViewCell *view, QuoteCellViewModel *model, NSDictionary *change) {
+        [_kvo observe:_vm keyPath:@"PEttm" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(StkQuoteViewCell *view, StkQuoteCellViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 view.pettm.text = [NSString stringWithFormat:@"%.2f", model.PEttm];
             });
         }];
         //  新闻事件评级
-        [_kvo observe:_viewModel keyPath:@"NewsRatingLevel" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(QuoteViewCell *view, QuoteCellViewModel *model, NSDictionary *change) {
+        [_kvo observe:_vm keyPath:@"NewsRatingLevel" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(StkQuoteViewCell *view, StkQuoteCellViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 int level = model.NewsRatingLevel;
                 switch (level) {
@@ -151,7 +151,7 @@
             });
         }];
         //  新闻事件分类
-        [_kvo observe:_viewModel keyPath:@"NewsRatingName" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(QuoteViewCell *view, QuoteCellViewModel *model, NSDictionary *change) {
+        [_kvo observe:_vm keyPath:@"NewsRatingName" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(StkQuoteViewCell *view, StkQuoteCellViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSString *label = @"";
                 NSRange range = [model.NewsRatingName rangeOfString:@" | "];
@@ -165,7 +165,7 @@
             });
         }];
         //  新闻事件日期
-        [_kvo observe:_viewModel keyPath:@"NewsRatingDate" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(QuoteViewCell *view, QuoteCellViewModel *model, NSDictionary *change) {
+        [_kvo observe:_vm keyPath:@"NewsRatingDate" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(StkQuoteViewCell *view, StkQuoteCellViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (model.NewsRatingDate != 0) {
                     NSMutableString *date =[NSMutableString stringWithFormat:@"%d", model.NewsRatingDate];
@@ -180,6 +180,10 @@
         }];
         
     }
+}
+
+- (void)dealloc {
+    NSLog(@"StkQuoteViewCell dealloc (%@)", _code);
 }
 
 @end

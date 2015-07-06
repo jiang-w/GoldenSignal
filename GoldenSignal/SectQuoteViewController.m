@@ -7,7 +7,7 @@
 //
 
 #import "SectQuoteViewController.h"
-#import "QuoteViewCell.h"
+#import "StkQuoteViewCell.h"
 #import "IdxQuoteViewCell.h"
 #import "BDSectService.h"
 #import "MBProgressHUD/MBProgressHUD.h"
@@ -138,12 +138,12 @@
         cell = idxCell;
     }
     else {
-        QuoteViewCell *stockCell = (QuoteViewCell *)[tableView dequeueReusableCellWithIdentifier:@"QuoteCell"];
+        StkQuoteViewCell *stockCell = (StkQuoteViewCell *)[tableView dequeueReusableCellWithIdentifier:@"StkQuoteCell"];
         if (stockCell == nil) {
-            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"QuoteViewCell" owner:self options:nil];
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"StkQuoteViewCell" owner:self options:nil];
             for (id obj in nib) {
-                if ([obj isKindOfClass:[QuoteViewCell class]]) {
-                    stockCell = (QuoteViewCell *)obj;
+                if ([obj isKindOfClass:[StkQuoteViewCell class]]) {
+                    stockCell = (StkQuoteViewCell *)obj;
                     break;
                 }
             }
@@ -166,7 +166,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    QuoteViewCell *cell = (QuoteViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    StkQuoteViewCell *cell = (StkQuoteViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectSecuCode:)]) {
         [self.delegate didSelectSecuCode:cell.code];
     }

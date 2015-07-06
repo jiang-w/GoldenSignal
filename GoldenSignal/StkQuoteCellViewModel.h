@@ -8,42 +8,42 @@
 
 #import <Foundation/Foundation.h>
 
-@interface QuoteCellViewModel : NSObject
+@interface StkQuoteCellViewModel : NSObject
 
 /**
  *  代码
  */
-@property(nonatomic, readonly)NSString *Code;
+@property(nonatomic, readonly) NSString *Code;
 
 /**
  *  代码
  */
-@property(nonatomic, readonly)NSString *TrdCode;
+@property(nonatomic, readonly) NSString *TrdCode;
 
 /**
  *  简称
  */
-@property(nonatomic, readonly)NSString *Name;
+@property(nonatomic, readonly) NSString *Name;
 
 /**
  *  前收价
  */
-@property(nonatomic, readonly) float PrevClose;
+@property(nonatomic, readonly) double PrevClose;
 
 /**
  *  最新报价
  */
-@property(nonatomic, readonly) float Now;
+@property(nonatomic, readonly) double Now;
 
 /**
  *  涨跌幅
  */
-@property(nonatomic, readonly) float ChangeRange;
+@property(nonatomic, readonly) double ChangeRange;
 
 /**
  *  现量
  */
-@property(nonatomic, readonly) int VolumeSpread;
+@property(nonatomic, readonly) unsigned int VolumeSpread;
 
 /**
  *  总股本（股）
@@ -58,7 +58,7 @@
 /**
  *  市盈率(PE)
  */
-@property(nonatomic, readonly) float PEttm;
+@property(nonatomic, readonly) double PEttm;
 
 /**
  *  新闻事件日期

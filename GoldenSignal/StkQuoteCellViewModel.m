@@ -6,10 +6,10 @@
 //  Copyright (c) 2015年 bigdata. All rights reserved.
 //
 
-#import "QuoteCellViewModel.h"
+#import "StkQuoteCellViewModel.h"
 #import "BDQuotationService.h"
 
-@implementation QuoteCellViewModel
+@implementation StkQuoteCellViewModel
 {
     dispatch_queue_t _propertyUpdateQueue;
     BDQuotationService *_service;
@@ -33,7 +33,7 @@ static NSArray *indicaters;
 
 #pragma mark Property kvo
 
-- (float)ChangeRange {
+- (double)ChangeRange {
     return (self.Now - self.PrevClose) / self.PrevClose;
 }
 
@@ -93,16 +93,16 @@ static NSArray *indicaters;
     [self setValue:secu.trdCode forKey:@"TrdCode"];
     [self setValue:secu.name forKey:@"Name"];
     
-    float prevClose = [[_service getCurrentIndicateWithCode:code andName:@"PrevClose"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:prevClose] forKey:@"PrevClose"];
-    float now = [[_service getCurrentIndicateWithCode:code andName:@"Now"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:now] forKey:@"Now"];
-    float ttlShr = [[_service getCurrentIndicateWithCode:code andName:@"TtlShr"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:ttlShr] forKey:@"TtlShr"];
-    int volumeSpread = [[_service getCurrentIndicateWithCode:code andName:@"VolumeSpread"] intValue];
-    [self setValue:[NSNumber numberWithInt:volumeSpread] forKey:@"VolumeSpread"];
-    float peTtm = [[_service getCurrentIndicateWithCode:code andName:@"PEttm"] floatValue];
-    [self setValue:[NSNumber numberWithFloat:peTtm] forKey:@"PEttm"];
+    double prevClose = [[_service getCurrentIndicateWithCode:code andName:@"PrevClose"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:prevClose] forKey:@"PrevClose"];
+    double now = [[_service getCurrentIndicateWithCode:code andName:@"Now"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:now] forKey:@"Now"];
+    double ttlShr = [[_service getCurrentIndicateWithCode:code andName:@"TtlShr"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:ttlShr] forKey:@"TtlShr"];
+    unsigned long volumeSpread = [[_service getCurrentIndicateWithCode:code andName:@"VolumeSpread"] unsignedLongValue];
+    [self setValue:[NSNumber numberWithUnsignedLong:volumeSpread] forKey:@"VolumeSpread"];
+    double peTtm = [[_service getCurrentIndicateWithCode:code andName:@"PEttm"] doubleValue];
+    [self setValue:[NSNumber numberWithDouble:peTtm] forKey:@"PEttm"];
     int date = [[_service getCurrentIndicateWithCode:code andName:@"NewsRatingDate"] intValue];
     [self setValue:[NSNumber numberWithInt:date] forKey:@"NewsRatingDate"];
     int level = [[_service getCurrentIndicateWithCode:code andName:@"NewsRatingLevel"] intValue];
