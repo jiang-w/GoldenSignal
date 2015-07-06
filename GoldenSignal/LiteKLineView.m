@@ -126,6 +126,7 @@
 
 - (void)dealloc {
     [_vm removeObserver:self forKeyPath:@"lines"];
+//    NSLog(@"LiteKLineView dealloc (%@)", _code);
 }
 
 @end

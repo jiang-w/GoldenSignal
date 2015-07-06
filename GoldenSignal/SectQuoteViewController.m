@@ -41,7 +41,7 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.opacity = 0;
     dispatch_async(loadDataQueue, ^{
-        NSTimer *time = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(loadSortedSecuCodes) userInfo:nil repeats:YES];
+        NSTimer *time = [NSTimer scheduledTimerWithTimeInterval:20 target:self selector:@selector(loadSortedSecuCodes) userInfo:nil repeats:YES];
         [time fire];
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     });

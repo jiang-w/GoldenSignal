@@ -124,6 +124,7 @@
 - (void)dealloc {
     [_vm removeObserver:self forKeyPath:@"lines"];
     [_vm removeObserver:self forKeyPath:@"prevClose"];
+//    NSLog(@"LiteTrendView dealloc (%@)", _code);
 }
 
 @end

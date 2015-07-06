@@ -12,7 +12,6 @@
 #import "LiteKLineView.h"
 #import <FBKVOController.h>
 
-
 @implementation IdxQuoteViewCell
 {
     IdxQuoteCellViewModel *_vm;
