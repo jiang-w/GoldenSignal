@@ -90,9 +90,9 @@
     }
     switch (secu.typ) {
         case idx: {
-            IdxDetailViewController *idxVc = [[IdxDetailViewController alloc] initWithIdxCode:secu.bdCode];
-            [navigation pushViewController:idxVc animated:YES];
-            
+            IdxDetailViewController *idxVC = [[IdxDetailViewController alloc] initWithIdxCode:secu.bdCode];
+            idxVC.hidesBottomBarWhenPushed = YES;
+            [navigation pushViewController:idxVC animated:NO];
 //            NSLog(@"Retain count is %ld", CFGetRetainCount((__bridge CFTypeRef)idxVc));
         }
             break;
@@ -105,6 +105,7 @@
         default:
             break;
     }
+    [navigation setNavigationBarHidden:NO animated:NO];
 }
 
 - (NSNumber *)createUserIdentity {

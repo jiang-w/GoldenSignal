@@ -29,7 +29,7 @@
 @property(nonatomic, strong) KLineChart *weeklyKLine;
 @property(nonatomic, strong) KLineChart *monthlyKLine;
 
-@property(nonatomic, assign) NSInteger chartTabIndex;
+@property(nonatomic, assign) NSInteger chartSelectIndex;
 @property(nonatomic, strong) NSString *idxCode;
 
 @end
@@ -74,7 +74,7 @@
     __weak IdxDetailViewController *weakSelf = self;    // 解决block循环引用的问题
     /* 行情走势图Tab */
     self.chartTabView = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 320, 30) items:@[@{@"text":@"分时"}, @{@"text":@"五日"}, @{@"text":@"日K"}, @{@"text":@"周K"}, @{@"text":@"月K"}] iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex) {
-        weakSelf.chartTabIndex = segmentIndex;
+        weakSelf.chartSelectIndex = segmentIndex;
         [weakSelf loadChartView];
     }];
     self.chartTabView.color = RGB(7, 9, 8, 1);
@@ -131,7 +131,7 @@
         [sub removeFromSuperview];
     }
     
-    switch (_chartTabIndex) {
+    switch (_chartSelectIndex) {
         case 0: {
             if (self.oneDayTrendLine == nil) {
                 self.oneDayTrendLine = [[TrendLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
