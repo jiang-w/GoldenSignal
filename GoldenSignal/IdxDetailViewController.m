@@ -19,7 +19,7 @@
 @property(nonatomic, strong) UIView *containerView;
 @property(nonatomic, strong) UIView *chartContainerView;
 
-@property(nonatomic, strong) IdxScalarView *idxQuoteView;
+@property(nonatomic, strong) IdxScalarView *scalarView;
 @property(nonatomic, strong) PPiFlatSegmentedControl *chartTabView;
 // 分时图
 @property(nonatomic, strong) TrendLineChart *oneDayTrendLine;
@@ -68,8 +68,8 @@
     }];
 
     /* 添加指数标价 */
-    self.idxQuoteView = [IdxScalarView createView];
-    [self addSubView:self.idxQuoteView withHeight:110 andSpace:0];
+    self.scalarView = [IdxScalarView createView];
+    [self addSubView:self.scalarView withHeight:110 andSpace:0];
     
     __weak IdxDetailViewController *weakSelf = self;    // 解决block循环引用的问题
     /* 行情走势图Tab */
@@ -175,7 +175,7 @@
 
 - (void)loadData {
     if (self.idxCode) {
-        [self.idxQuoteView loadDataWithIdxCode:self.idxCode];
+        [self.scalarView loadDataWithIdxCode:self.idxCode];
         [self loadChartView];
     }
 }

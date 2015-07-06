@@ -9,20 +9,19 @@
 #import "IdxScalarViewModel.h"
 #import "BDQuotationService.h"
 
+#define IndicaterNames @[@"PrevClose", @"Open", @"Now", @"High", @"Low", @"Amount", @"Volume", @"Amplitude", @"VolumeSpread", @"UpCount", @"DownCount"]
+
 @implementation IdxScalarViewModel
 {
     dispatch_queue_t _propertyUpdateQueue;
     BDQuotationService *_service;
 }
 
-static NSArray *indicaters;
-
 - (id)init {
     self = [super init];
     if (self) {
         _propertyUpdateQueue = dispatch_queue_create("IndicatorUpdate", nil);
         _service = [BDQuotationService sharedInstance];
-        indicaters = @[@"PrevClose", @"Open", @"Now", @"High", @"Low", @"Amount", @"Volume", @"Amplitude", @"VolumeSpread", @"UpCount", @"DownCount"];
         
         [[NSNotificationCenter defaultCenter]
          addObserver:self selector:@selector(subscribeScalarChanged:) name:QUOTE_SCALAR_NOTIFICATION object:nil];
@@ -59,12 +58,14 @@ static NSArray *indicaters;
 #pragma mark Subscribe
 
 - (void)loadDataWithCode:(NSString *)code {
-    if (code != nil && ![code isEqualToString:self.Code]) {
-        if (self.Code != nil) {
-            [_service unsubscribeScalarWithCode:self.Code indicaters:indicaters];
+    if (![code isEqualToString:self.Code]) {
+        if (self.Code) {
+            [_service unsubscribeScalarWithCode:self.Code indicaters:IndicaterNames];
         }
         [self initPropertyWithCode:code];
-        [_service subscribeScalarWithCode:code indicaters:indicaters];
+        if (code) {
+            [_service subscribeScalarWithCode:code indicaters:IndicaterNames];
+        }
     }
 }
 
@@ -74,7 +75,7 @@ static NSArray *indicaters;
     NSString *indicateName = dic[@"name"];
     id value = dic[@"value"];
     
-    if ([code isEqualToString: self.Code] && [indicaters containsObject:indicateName]) {
+    if ([code isEqualToString: self.Code] && [IndicaterNames containsObject:indicateName]) {
         dispatch_async(_propertyUpdateQueue, ^{
             [self setValue:value forKey:indicateName];
         });
@@ -112,7 +113,7 @@ static NSArray *indicaters;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:QUOTE_SCALAR_NOTIFICATION object:nil];
-    [_service unsubscribeScalarWithCode:self.Code indicaters:indicaters];
+    [_service unsubscribeScalarWithCode:self.Code indicaters:IndicaterNames];
 //    NSLog(@"IdxQuoteViewModel dealloc (%@)", self.Code);
 }
 

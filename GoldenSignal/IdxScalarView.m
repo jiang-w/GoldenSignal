@@ -24,14 +24,12 @@
     [self initData];
     [self.favoriteButton setImage:[UIImage imageNamed:@"favorite_1"] forState:UIControlStateSelected];
     [self.favoriteButton setImage:[UIImage imageNamed:@"favorite_0"] forState:UIControlStateNormal];
+    _vm = [[IdxScalarViewModel alloc] init];
     _kvo = [FBKVOController controllerWithObserver:self];
+    [self kvoController];
 }
 
 - (void)loadDataWithIdxCode:(NSString *)code {
-    if (_vm == nil) {
-        _vm = [[IdxScalarViewModel alloc] init];
-        [self kvoController];
-    }
     [_vm loadDataWithCode:code];
     
     if ([[BDStockPool sharedInstance] containStockWithCode:code]) {
@@ -191,7 +189,7 @@
 }
 
 - (void)dealloc {
-//    NSLog(@"IdxQuoteView dealloc (%@)", _viewModel.Code);
+//    NSLog(@"IdxQuoteView dealloc (%@)", _vm.Code);
 }
 
 @end
