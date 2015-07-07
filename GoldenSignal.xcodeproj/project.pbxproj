@@ -643,6 +643,10 @@
 		011B84F71B0DBDC6003005BC /* News */ = {
 			isa = PBXGroup;
 			children = (
+				011B85191B0DBEA9003005BC /* NewsMainViewController.h */,
+				011B851A1B0DBEA9003005BC /* NewsMainViewController.m */,
+				011B85171B0DBEA9003005BC /* NewsListViewController.h */,
+				011B85181B0DBEA9003005BC /* NewsListViewController.m */,
 				011B850D1B0DBEA9003005BC /* AutoLayoutNewsListCell.h */,
 				011B850E1B0DBEA9003005BC /* AutoLayoutNewsListCell.m */,
 				011B850F1B0DBEA9003005BC /* BulletinListViewCell.h */,
@@ -653,10 +657,6 @@
 				011B85141B0DBEA9003005BC /* NewsListViewCell.h */,
 				011B85151B0DBEA9003005BC /* NewsListViewCell.m */,
 				011B85161B0DBEA9003005BC /* NewsListViewCell.xib */,
-				011B85171B0DBEA9003005BC /* NewsListViewController.h */,
-				011B85181B0DBEA9003005BC /* NewsListViewController.m */,
-				011B85191B0DBEA9003005BC /* NewsMainViewController.h */,
-				011B851A1B0DBEA9003005BC /* NewsMainViewController.m */,
 				011B851B1B0DBEA9003005BC /* ReportListViewCell.h */,
 				011B851C1B0DBEA9003005BC /* ReportListViewCell.m */,
 				011B851D1B0DBEA9003005BC /* ReportListViewCell.xib */,

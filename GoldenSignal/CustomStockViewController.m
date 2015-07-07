@@ -12,8 +12,8 @@
 #import "StkDetailViewController.h"
 #import "IdxDetailViewController.h"
 #import "BDSectService.h"
-#import "MBProgressHUD/MBProgressHUD.h"
 
+#import <MBProgressHUD.h>
 
 @interface CustomStockViewController ()
 
@@ -28,17 +28,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.tableView.bounces = NO;
     _asc = NO;
+    loadDataQueue = dispatch_queue_create("loadData", nil);
     [self loadSortedSecuCodes];
     
     [[NSNotificationCenter defaultCenter]
      addObserver:self selector:@selector(customStockChanged:) name:CUSTOM_STOCK_CHANGED_NOTIFICATION object:nil];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)customStockChanged:(NSNotification *)notification {
@@ -52,12 +48,13 @@
     NSNumber *userId = [[NSUserDefaults standardUserDefaults] valueForKey:@"userIdentity"];
     _secuCodes = [NSArray arrayWithArray:[BDStockPool sharedInstance].codes];
     if (_secuCodes.count > 0) {
-        BDSectService *service = [[BDSectService alloc] init];
-        _secuCodes = [service getSecuCodesBySectId:[userId longValue] andCodes:_secuCodes sortByIndicateName:nil ascending:_asc];
-        // 返回主线程刷新视图
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        dispatch_async(loadDataQueue, ^{
+            BDSectService *service = [[BDSectService alloc] init];
+            _secuCodes = [service getSecuCodesBySectId:[userId longValue] andCodes:_secuCodes sortByIndicateName:nil ascending:_asc];
+            // 返回主线程刷新视图
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
         });
     }
 }
