@@ -168,7 +168,8 @@
         [self.navigationController pushViewController:idxVC animated:NO];
     }
     else {
-        [self performSegueWithIdentifier:@"StockViewSegue" sender:secu.bdCode];
+        StkDetailViewController *stkVC = [[StkDetailViewController alloc] initWithSecuCode:secu.bdCode];
+        [self.navigationController pushViewController:stkVC animated:NO];
     }
 }
 
@@ -186,31 +187,6 @@
         [[BDStockPool sharedInstance] removeStockWithCode:cell.code];
         _secuCodes = [NSArray arrayWithArray:[BDStockPool sharedInstance].codes];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-    }
-}
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-#pragma mark navigation
-
-// 设置跳转
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"StockViewSegue"]) {
-        NSString *code = (NSString *)sender;
-        StkDetailViewController *stockVC = (StkDetailViewController *)segue.destinationViewController;
-        stockVC.defaultCode = code;
     }
 }
 

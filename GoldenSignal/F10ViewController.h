@@ -10,8 +10,6 @@
 
 @interface F10ViewController : UIViewController<UIWebViewDelegate>
 
-@property(nonatomic, strong) IBOutlet UIWebView *webView;
-
-@property(nonatomic, strong) NSString *code;
+- (void)loadF10PageWithSecuCode:(NSString *)code;
 
 @end

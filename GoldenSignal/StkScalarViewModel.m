@@ -129,7 +129,7 @@ static NSArray *indicaters;
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:QUOTE_SCALAR_NOTIFICATION object:nil];
     [_service unsubscribeScalarWithCode:self.Code indicaters:indicaters];
-    NSLog(@"%@ Indicators dealloc", self.Code);
+//    NSLog(@"StkScalarViewModel dealloc (%@)", self.Code);
 }
 
 @end

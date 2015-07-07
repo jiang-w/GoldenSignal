@@ -151,7 +151,7 @@
 }
 
 - (void)dealloc {
-    NSLog(@"FiveBetsView dealloc (%@)", _code);
+//    NSLog(@"FiveBetsView dealloc (%@)", _code);
 }
 
 @end

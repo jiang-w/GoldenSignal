@@ -18,6 +18,7 @@
 @property(nonatomic, strong) UIScrollView *scrollView;
 @property(nonatomic, strong) UIView *containerView;
 @property(nonatomic, strong) UIView *chartContainerView;
+@property(nonatomic, strong) UILabel *titleLabel;
 
 @property(nonatomic, strong) IdxScalarView *scalarView;
 @property(nonatomic, strong) PPiFlatSegmentedControl *chartTabView;
@@ -30,16 +31,19 @@
 @property(nonatomic, strong) KLineChart *monthlyKLine;
 
 @property(nonatomic, assign) NSInteger chartSelectIndex;
-@property(nonatomic, strong) NSString *idxCode;
 
 @end
 
 @implementation IdxDetailViewController
+{
+    BDSecuCode *_secu;
+}
 
 - (instancetype)initWithIdxCode:(NSString *)idxCode {
     self = [super init];
     if (self) {
-        self.idxCode = idxCode;
+        self.hidesBottomBarWhenPushed = YES;
+        _secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:idxCode];
     }
     return self;
 }
@@ -66,6 +70,11 @@
         make.edges.equalTo(self.scrollView);
         make.width.equalTo(self.scrollView);
     }];
+    
+    self.titleLabel = [[UILabel alloc] init];
+    self.titleLabel.textColor = [UIColor whiteColor];
+    self.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+    self.navigationItem.titleView = self.titleLabel;
 
     /* 添加指数标价 */
     self.scalarView = [IdxScalarView createView];
@@ -119,8 +128,10 @@
 #pragma mark Load Data
 
 - (void)loadData {
-    if (self.idxCode) {
-        [self.scalarView loadDataWithIdxCode:self.idxCode];
+    if (_secu) {
+        self.titleLabel.text = [NSString stringWithFormat:@"%@(%@)", _secu.name, _secu.trdCode];
+        [self.titleLabel sizeToFit];
+        [self.scalarView loadDataWithIdxCode:_secu.bdCode];
         [self loadChartView];
     }
 }
@@ -135,7 +146,7 @@
         case 0: {
             if (self.oneDayTrendLine == nil) {
                 self.oneDayTrendLine = [[TrendLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
-                [self.oneDayTrendLine loadDataWithSecuCode:_idxCode];
+                [self.oneDayTrendLine loadDataWithSecuCode:_secu.bdCode];
             }
             [self.chartContainerView addSubview:self.oneDayTrendLine];
             break;
@@ -144,7 +155,7 @@
             if (self.fiveDayTrendLine == nil) {
                 self.fiveDayTrendLine = [[TrendLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
                 self.fiveDayTrendLine.days = 5;
-                [self.fiveDayTrendLine loadDataWithSecuCode:_idxCode];
+                [self.fiveDayTrendLine loadDataWithSecuCode:_secu.bdCode];
             }
             [self.chartContainerView addSubview:self.fiveDayTrendLine];
             break;
@@ -153,7 +164,7 @@
             if (self.dailyKLine == nil) {
                 self.dailyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
                 self.dailyKLine.number = 60;
-                [self.dailyKLine loadDataWithSecuCode:_idxCode];
+                [self.dailyKLine loadDataWithSecuCode:_secu.bdCode];
             }
             [self.chartContainerView addSubview:self.dailyKLine];
             break;
@@ -163,7 +174,7 @@
                 self.weeklyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
                 self.weeklyKLine.type = KLINE_WEEK;
                 self.weeklyKLine.number = 60;
-                [self.weeklyKLine loadDataWithSecuCode:_idxCode];
+                [self.weeklyKLine loadDataWithSecuCode:_secu.bdCode];
             }
             [self.chartContainerView addSubview:self.weeklyKLine];
             break;
@@ -173,7 +184,7 @@
                 self.monthlyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
                 self.monthlyKLine.type = KLINE_MONTH;
                 self.monthlyKLine.number = 60;
-                [self.monthlyKLine loadDataWithSecuCode:_idxCode];
+                [self.monthlyKLine loadDataWithSecuCode:_secu.bdCode];
             }
             [self.chartContainerView addSubview:self.monthlyKLine];
             break;
@@ -187,7 +198,7 @@
 #pragma mark Dealloc
 
 - (void)dealloc {
-    NSLog(@"IdxDetailViewController dealloc (%@)", self.idxCode);
+    NSLog(@"IdxDetailViewController dealloc (%@)", _secu.bdCode);
 }
 
 @end

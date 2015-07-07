@@ -124,7 +124,7 @@ static NSArray *indicaters;
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:QUOTE_SCALAR_NOTIFICATION object:nil];
     [_service unsubscribeScalarWithCode:_code indicaters:indicaters];
-    NSLog(@"%@ SubDeal dealloc", self.code);
+//    NSLog(@"SubDealViewModel dealloc (%@)", self.code);
 }
 
 @end

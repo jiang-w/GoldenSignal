@@ -107,15 +107,8 @@
         [self.navigationController pushViewController:idxVC animated:NO];
     }
     else {
-        [self performSegueWithIdentifier:@"StockViewSegue" sender:secu.bdCode];
-    }
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"StockViewSegue"]) {
-        NSString *code = (NSString *)sender;
-        StkDetailViewController *stockVC = (StkDetailViewController *)segue.destinationViewController;
-        stockVC.defaultCode = code;
+        StkDetailViewController *stkVC = [[StkDetailViewController alloc] initWithSecuCode:secu.bdCode];
+        [self.navigationController pushViewController:stkVC animated:NO];
     }
 }
 

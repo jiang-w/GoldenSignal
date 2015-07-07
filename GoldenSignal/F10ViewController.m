@@ -10,35 +10,27 @@
 
 @interface F10ViewController ()
 
+@property(nonatomic, strong) UIWebView *webView;
+
 @end
 
 @implementation F10ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationController setNavigationBarHidden:NO];
+}
+
+- (void)loadF10PageWithSecuCode:(NSString *)code {
+    if (self.webView == nil) {
+        self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+        [self.view addSubview:self.webView];
+    }
     
-    if (![self.code isNullOrEmpty]) {
-        NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://f10.chinabigdata.com/default.htm?c=%@&ql=1"
-                                                    , [self.code lowercaseString]]];
+    if (code) {
+        NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://f10.chinabigdata.com/default.htm?c=%@&ql=1", [code lowercaseString]]];
         NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
         [self.webView loadRequest:request];
     }
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

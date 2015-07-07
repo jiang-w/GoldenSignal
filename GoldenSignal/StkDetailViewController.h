@@ -7,28 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StkScalarView.h"
-#import "FiveBetsView.h"
-#import "SubDealView.h"
-#import "StockTrendView.h"
-
-#import <PPiFlatSegmentedControl.h>
 
 @interface StkDetailViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
-{
-    PPiFlatSegmentedControl *chartTabView;
-    PPiFlatSegmentedControl *infoTabView;
-    
-    StkScalarView *scalarView;
-    StockTrendView *trendQuoteView;
-    
-    UITableView *infoListView;
-}
 
-@property(nonatomic, strong)IBOutlet UILabel *name;
-@property(nonatomic, strong)IBOutlet UIScrollView *scrollView;
-@property(nonatomic, strong)NSString *defaultCode;
-
-- (void)subscribeQuotationWithCode:(NSString *)code;
+- (instancetype)initWithSecuCode:(NSString *)code;
 
 @end

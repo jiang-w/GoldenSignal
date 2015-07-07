@@ -55,7 +55,7 @@
         [_kvo observe:_vm keyPath:@"Open" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(StkScalarView *view, StkScalarViewModel *model, NSDictionary *change) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 view.open.text = [NSString stringWithFormat:@"%.2f",model.Open];
-                view.open.textColor = [self textColorValue:model.Open otherValue:model.PrevClose];
+                view.open.textColor = [view textColorValue:model.Open otherValue:model.PrevClose];
             });
         }];
         
@@ -189,6 +189,10 @@
         //NSLog(@"移除自选股:%@", self.code);
         [pool removeStockWithCode:self.code];
     }
+}
+
+- (void)dealloc {
+//    NSLog(@"StkScalarView dealloc (%@)", self.code);
 }
 
 @end

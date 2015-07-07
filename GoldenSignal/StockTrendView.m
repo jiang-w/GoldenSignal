@@ -109,7 +109,7 @@
 }
 
 - (void)dealloc {
-    NSLog(@"StockTrendView dealloc (%@)", _code);
+//    NSLog(@"StockTrendView dealloc (%@)", _code);
 }
 
 @end

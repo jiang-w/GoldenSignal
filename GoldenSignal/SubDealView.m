@@ -27,7 +27,7 @@
         if (code) {
             _code = [code copy];
             _vm = [[SubDealViewModel alloc] initWithCode:code];
-            [_kvo observe:_vm keyPath:@"dealArray" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew action:@selector(updateViewWithDataChange)];
+            [_kvo observe:_vm keyPath:@"dealArray" options:NSKeyValueObservingOptionNew action:@selector(updateViewWithDataChange)];
         }
     }
     return self;
@@ -107,7 +107,7 @@
 }
 
 - (void)dealloc {
-    NSLog(@"SubDealView dealloc (%@)", _code);
+//    NSLog(@"SubDealView dealloc (%@)", _code);
 }
 
 @end
