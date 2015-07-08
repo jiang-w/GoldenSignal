@@ -15,10 +15,15 @@
 
 @property(nonatomic, strong) NSMutableArray* layers;
 @property(nonatomic, strong) UILabel *highLabel, *lowLabel;
-@property(nonatomic, strong) UILabel *volumeLabel;
 @property(nonatomic, strong) UILabel *beginDateLabel, *endDateLabel;
 @property(nonatomic) CGRect lineChartFrame;
 @property(nonatomic) CGRect volumeChartFrame;
+@property(nonatomic) CGRect gestureRegion;
+
+@property(nonatomic, strong) UILabel *xLine;  //x线
+@property(nonatomic, strong) UILabel *yLine;  //y线
+//@property(nonatomic, strong) UILabel *xLabel; //x数值
+@property(nonatomic, strong) UILabel *yLabel; //y线位置所在的日期
 
 @end
 
@@ -34,6 +39,8 @@
         _layers = [NSMutableArray array];
         [self setDefaultParameters];
         [self addTextLabel];
+//        [self addXYLineAndGesture];
+        
         _vm = [[KLineViewModel alloc] init];
         [_vm addObserver:self forKeyPath:@"lines" options:NSKeyValueObservingOptionNew context:NULL];
     }
@@ -41,11 +48,8 @@
 }
 
 - (void)setDefaultParameters {
-    self.margin = 6.0;
-    self.margin_left = 42.0;
-    self.margin_top = 10.0;
-    self.margin_bottom = 16.0;
-    self.space = 10.0;
+    self.margin = 2.0;
+    self.space = 12.0;
     
     _boundColor = [UIColor colorWithWhite:0.5 alpha:1.0];
     _boundWidth = 0.5;
@@ -88,6 +92,13 @@
     return rect;
 }
 
+- (CGRect)gestureRegion {
+    CGPoint origin = CGPointMake(_margin_left, _margin_top);
+    CGFloat width = CGRectGetWidth(self.frame) - _margin_left - _margin_right;
+    CGFloat height = CGRectGetHeight(self.frame) - _margin_top - _margin_bottom;
+    CGRect rect = CGRectMake(origin.x, origin.y, width, height);
+    return rect;
+}
 
 #pragma mark - loading data
 
@@ -170,12 +181,6 @@
     self.lowLabel.textColor = [UIColor whiteColor];
     [self addSubview:self.lowLabel];
     
-    self.volumeLabel = [[UILabel alloc] init];
-    self.volumeLabel.textAlignment = NSTextAlignmentRight;
-    self.volumeLabel.font = [UIFont systemFontOfSize:9];
-    self.volumeLabel.textColor = [UIColor whiteColor];
-    [self addSubview:self.volumeLabel];
-    
     self.beginDateLabel = [[UILabel alloc] init];
     self.beginDateLabel.textAlignment = NSTextAlignmentRight;
     self.beginDateLabel.font = [UIFont systemFontOfSize:9];
@@ -192,25 +197,20 @@
 - (void)layoutTextLabel {
     CGRect frame = self.lineChartFrame;
     [self.highLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.mas_top).with.offset(CGRectGetMinY(frame));
-        make.right.equalTo(self.mas_left).with.offset(CGRectGetMinX(frame) + -2);
+        make.top.equalTo(self).with.offset(CGRectGetMinY(frame));
+        make.left.equalTo(self).with.offset(CGRectGetMinX(frame) + 1);
     }];
     [self.lowLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.mas_top).with.offset(CGRectGetMaxY(frame));
-        make.right.equalTo(self.mas_left).with.offset(CGRectGetMinX(frame) + -2);
+        make.bottom.equalTo(self.mas_top).with.offset(CGRectGetMaxY(frame));
+        make.left.equalTo(self).with.offset(CGRectGetMinX(frame) + 1);
     }];
     
-    frame = self.volumeChartFrame;
-    [self.volumeLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).with.offset(CGRectGetMinY(frame));
-        make.right.equalTo(self.mas_left).with.offset(CGRectGetMinX(frame) + -2);
-    }];
     [self.beginDateLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).with.offset(CGRectGetMaxY(frame) + 2);
+        make.centerY.equalTo(self.mas_top).with.offset(CGRectGetMaxY(frame) + _space / 2);
         make.left.equalTo(self).with.offset(CGRectGetMinX(frame));
     }];
     [self.endDateLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).with.offset(CGRectGetMaxY(frame) + 2);
+        make.centerY.equalTo(self.mas_top).with.offset(CGRectGetMaxY(frame) + _space / 2);
         make.right.equalTo(self.mas_left).with.offset(CGRectGetMaxX(frame));
     }];
 }
@@ -266,16 +266,9 @@
         CGContextStrokePath(context);
     }
     
+    // 最高价、最低价、起止日期
     self.highLabel.text = [NSString stringWithFormat:@"%.2f", priceRange.high];
     self.lowLabel.text = [NSString stringWithFormat:@"%.2f", priceRange.low];
-    double volume = maxVolume / 1000000.0;
-    self.volumeLabel.text = [NSString stringWithFormat:@"%lu", maxVolume];
-    if (volume >= 10000) {
-        self.volumeLabel.text = [NSString stringWithFormat:@"%.2f亿", volume / 10000];
-    }
-    else {
-        self.volumeLabel.text = [NSString stringWithFormat:@"%.0f万", volume];
-    }
     self.beginDateLabel.text = [NSString stringWithFormat:@"%d", ((BDKLine *)[lines firstObject]).date];
     self.endDateLabel.text = [NSString stringWithFormat:@"%d", ((BDKLine *)[lines lastObject]).date];
     
@@ -354,6 +347,125 @@
         [layer removeFromSuperlayer];
     }
     [self.layers removeAllObjects];
+}
+
+#pragma mark - Gesture
+
+- (void)addXYLineAndGesture {
+    CGRect region = self.gestureRegion;
+    self.xLine = [[UILabel alloc] initWithFrame:CGRectMake(region.origin.x, region.origin.y, CGRectGetWidth(region), 1)];
+    self.xLine.backgroundColor = [UIColor whiteColor];
+    self.xLine.hidden = YES;
+    [self addSubview:self.xLine];
+    
+    self.yLine = [[UILabel alloc] initWithFrame:CGRectMake(region.origin.x, region.origin.y, 1, CGRectGetHeight(region))];
+    self.yLine.backgroundColor = [UIColor whiteColor];
+    self.yLine.hidden = YES;
+    [self addSubview:self.yLine];
+    
+//    xLabel = [[UILabel alloc] initWithFrame:
+//              CGRectMake(CGRectGetMinX(lineFrame) - 29, CGRectGetMinY(lineFrame), 28, 12)];
+//    xLabel.font = [UIFont systemFontOfSize:9];
+//    xLabel.textAlignment = NSTextAlignmentCenter;
+//    xLabel.backgroundColor = [UIColor grayColor];
+//    xLabel.hidden = YES;
+//    [self addSubview:xLabel];
+    
+    self.yLabel = [[UILabel alloc] init];
+    self.yLabel.font = [UIFont systemFontOfSize:9];
+    self.yLabel.textColor = [UIColor whiteColor];
+    self.yLabel.textAlignment = NSTextAlignmentCenter;
+    self.yLabel.backgroundColor = [UIColor grayColor];
+    self.yLabel.hidden = YES;
+    [self addSubview:self.yLabel];
+    
+    // 添加长按手势识别器
+    UILongPressGestureRecognizer * longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(setCrossLineWithGesture:)];
+    longPressGr.minimumPressDuration = 0.3;
+    [self addGestureRecognizer:longPressGr];
+}
+
+- (void)setCrossLineWithGesture:(UIGestureRecognizer *)gesture {
+    if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
+        self.xLine.hidden = YES;
+        self.yLine.hidden = YES;
+//        xLabel.hidden = YES;
+        self.yLabel.hidden = YES;
+    }
+    
+    CGPoint touchPoint = [gesture locationInView:self];
+//    CGFloat touchXOffset = touchPoint.x - CGRectGetMinX(lineFrame);
+    if (CGRectContainsPoint(self.gestureRegion, touchPoint)) {
+        if (gesture.state == UIGestureRecognizerStateBegan) {
+            self.xLine.hidden = NO;
+            self.yLine.hidden = NO;
+//            xLabel.hidden = NO;
+            self.yLabel.hidden = NO;
+        }
+
+        CGRect xLineFrame = self.xLine.frame;
+        xLineFrame.origin.y = touchPoint.y;
+        [self.xLine setFrame:xLineFrame];
+        
+        CGRect yLineFrame = self.yLine.frame;
+        yLineFrame.origin.x = touchPoint.x;
+        [self.yLine setFrame:yLineFrame];
+        
+        self.yLabel.text = @"20150708";
+        CGRect yLabelFrame = self.yLabel.frame;
+        yLabelFrame.origin.x = touchPoint.x;
+        yLabelFrame.origin.y = CGRectGetMaxY(self.lineChartFrame);
+        self.yLabel.frame = yLabelFrame;
+
+//        float lineWidth = lineFrame.size.width / _number;
+//        int index = floor(touchXOffset / lineWidth);
+//        if (fetchLines.count > 0) {
+//            if (index >= fetchLines.count) {
+//                index = (int)fetchLines.count - 1;
+//            }
+//            if (index < 0) {
+//                index = 0;
+//            }
+//            
+//            BDKLine *kLine = fetchLines[index];
+//            xLabel.text = [NSString stringWithFormat:@"%.2f", kLine.close];
+//            yLabel.text = [NSString stringWithFormat:@"%d", kLine.date % 1000000];
+//            
+//            if (gesture.state == UIGestureRecognizerStateBegan) {
+//                xLine.hidden = NO;
+//                yLine.hidden = NO;
+//                xLabel.hidden = NO;
+//                yLabel.hidden = NO;
+//            }
+//            
+//            PriceRange priceRange = _vm.priceRange;
+//            CGPoint crossPoint = CGPointMake(CGRectGetMinX(lineFrame) + lineWidth * (index + 1) - lineWidth / 2,
+//                                             CGRectGetMinY(lineFrame) + (priceRange.high - kLine.close) / (priceRange.high - priceRange.low) * CGRectGetHeight(lineFrame));
+//            CGRect xLineFrame = xLine.frame;
+//            xLineFrame.origin.y = crossPoint.y - 0.5;
+//            [xLine setFrame:xLineFrame];
+//            
+//            CGRect yLineFrame = yLine.frame;
+//            yLineFrame.origin.x = crossPoint.x - 0.5;
+//            [yLine setFrame:yLineFrame];
+//            
+//            CGRect xLabelFrame = xLabel.frame;
+//            xLabelFrame.origin.y = crossPoint.y - xLabelFrame.size.height / 2;
+//            [xLabel setFrame:xLabelFrame];
+//            
+//            CGRect yLabelFrame = yLabel.frame;
+//            if (CGRectGetMaxX(lineFrame) - crossPoint.x < yLabelFrame.size.width / 2) {
+//                yLabelFrame.origin.x = CGRectGetMaxX(lineFrame) - yLabel.frame.size.width;
+//            }
+//            else if (crossPoint.x - CGRectGetMinX(lineFrame) < yLabelFrame.size.width / 2) {
+//                yLabelFrame.origin.x = CGRectGetMinX(lineFrame);
+//            }
+//            else {
+//                yLabelFrame.origin.x = crossPoint.x - yLabelFrame.size.width / 2;
+//            }
+//            [yLabel setFrame:yLabelFrame];
+//        }
+    }
 }
 
 #pragma mark - Dealloc
