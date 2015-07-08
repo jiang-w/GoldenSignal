@@ -111,6 +111,8 @@
 		014FF3891B1D5276007DB608 /* QuoteHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014FF3871B1D5276007DB608 /* QuoteHomeViewController.m */; };
 		014FF38A1B1D5276007DB608 /* QuoteHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 014FF3881B1D5276007DB608 /* QuoteHomeViewController.xib */; };
 		014FF3921B1DAE31007DB608 /* QuoteHomeTrendChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 014FF3911B1DAE31007DB608 /* QuoteHomeTrendChart.m */; };
+		01A46F291B4CFC7E000CD7A5 /* RankingListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A46F271B4CFC7E000CD7A5 /* RankingListCell.m */; };
+		01A46F2A1B4CFC7E000CD7A5 /* RankingListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A46F281B4CFC7E000CD7A5 /* RankingListCell.xib */; };
 		01A95D251B32BE6A008CF76B /* BDStockPoolInfoService.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A95D241B32BE6A008CF76B /* BDStockPoolInfoService.m */; };
 		01AD748E1B3948CF006EC988 /* IdxScalarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AD748D1B3948CF006EC988 /* IdxScalarView.m */; };
 		01AD74901B3948E7006EC988 /* IdxScalarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01AD748F1B3948E7006EC988 /* IdxScalarView.xib */; };
@@ -337,6 +339,9 @@
 		014FF3881B1D5276007DB608 /* QuoteHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuoteHomeViewController.xib; sourceTree = "<group>"; };
 		014FF3901B1DAE31007DB608 /* QuoteHomeTrendChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteHomeTrendChart.h; sourceTree = "<group>"; };
 		014FF3911B1DAE31007DB608 /* QuoteHomeTrendChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuoteHomeTrendChart.m; sourceTree = "<group>"; };
+		01A46F261B4CFC7E000CD7A5 /* RankingListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankingListCell.h; sourceTree = "<group>"; };
+		01A46F271B4CFC7E000CD7A5 /* RankingListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankingListCell.m; sourceTree = "<group>"; };
+		01A46F281B4CFC7E000CD7A5 /* RankingListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RankingListCell.xib; sourceTree = "<group>"; };
 		01A95D231B32BE6A008CF76B /* BDStockPoolInfoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDStockPoolInfoService.h; sourceTree = "<group>"; };
 		01A95D241B32BE6A008CF76B /* BDStockPoolInfoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDStockPoolInfoService.m; sourceTree = "<group>"; };
 		01AD748C1B3948CF006EC988 /* IdxScalarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxScalarView.h; sourceTree = "<group>"; };
@@ -682,6 +687,16 @@
 				011B852C1B0DBEFE003005BC /* CustomStockViewController.m */,
 				011B853C1B0DBEFE003005BC /* QuoteMainViewController.h */,
 				011B853D1B0DBEFE003005BC /* QuoteMainViewController.m */,
+				01A46F301B4D0681000CD7A5 /* Home */,
+				01A46F311B4D0765000CD7A5 /* Ranking */,
+				01A46F321B4D07C9000CD7A5 /* Detail */,
+			);
+			name = Markets;
+			sourceTree = "<group>";
+		};
+		01A46F301B4D0681000CD7A5 /* Home */ = {
+			isa = PBXGroup;
+			children = (
 				014FF3861B1D5276007DB608 /* QuoteHomeViewController.h */,
 				014FF3871B1D5276007DB608 /* QuoteHomeViewController.m */,
 				014FF3881B1D5276007DB608 /* QuoteHomeViewController.xib */,
@@ -695,6 +710,13 @@
 				0129EF591B1FE73F00690920 /* QuoteHomeKLineView.xib */,
 				0129EF611B20100000690920 /* QuoteHomeKLineChart.h */,
 				0129EF621B20100000690920 /* QuoteHomeKLineChart.m */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		01A46F311B4D0765000CD7A5 /* Ranking */ = {
+			isa = PBXGroup;
+			children = (
 				011B85441B0DBEFE003005BC /* SectQuoteViewController.h */,
 				011B85451B0DBEFE003005BC /* SectQuoteViewController.m */,
 				011B853E1B0DBEFE003005BC /* StkQuoteViewCell.h */,
@@ -707,6 +729,13 @@
 				011B85391B0DBEFE003005BC /* LiteKLineView.m */,
 				011B853A1B0DBEFE003005BC /* LiteTrendView.h */,
 				011B853B1B0DBEFE003005BC /* LiteTrendView.m */,
+			);
+			name = Ranking;
+			sourceTree = "<group>";
+		};
+		01A46F321B4D07C9000CD7A5 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
 				011B85461B0DBEFE003005BC /* StkDetailViewController.h */,
 				011B85471B0DBEFE003005BC /* StkDetailViewController.m */,
 				011B85311B0DBEFE003005BC /* StkScalarView.h */,
@@ -723,12 +752,15 @@
 				01AD748C1B3948CF006EC988 /* IdxScalarView.h */,
 				01AD748D1B3948CF006EC988 /* IdxScalarView.m */,
 				01AD748F1B3948E7006EC988 /* IdxScalarView.xib */,
+				01A46F261B4CFC7E000CD7A5 /* RankingListCell.h */,
+				01A46F271B4CFC7E000CD7A5 /* RankingListCell.m */,
+				01A46F281B4CFC7E000CD7A5 /* RankingListCell.xib */,
 				01B5418D1B3A572700AF5C05 /* TrendLineChart.h */,
 				01B5418E1B3A572700AF5C05 /* TrendLineChart.m */,
 				01D8A8151B4675F30047BA64 /* KLineChart.h */,
 				01D8A8161B4675F30047BA64 /* KLineChart.m */,
 			);
-			name = Markets;
+			name = Detail;
 			sourceTree = "<group>";
 		};
 		70AE5B8C3D5A028B1385AD05 /* Frameworks */ = {
@@ -849,6 +881,7 @@
 				011B85251B0DBEA9003005BC /* NewsListViewCell.xib in Resources */,
 				011B845D1B0DB9D8003005BC /* NewsDetail.html in Resources */,
 				0129EF5A1B1FE73F00690920 /* QuoteHomeKLineView.xib in Resources */,
+				01A46F2A1B4CFC7E000CD7A5 /* RankingListCell.xib in Resources */,
 				01CA5C551B1EDF6C003B824F /* QuoteHomeTrendView.xib in Resources */,
 				01AD74901B3948E7006EC988 /* IdxScalarView.xib in Resources */,
 				011B85591B0DBEFE003005BC /* StkQuoteViewCell.xib in Resources */,
@@ -944,6 +977,7 @@
 				011B84DD1B0DBD4F003005BC /* FiveBetsViewModel.m in Sources */,
 				011B85271B0DBEA9003005BC /* NewsMainViewController.m in Sources */,
 				014FF3921B1DAE31007DB608 /* QuoteHomeTrendChart.m in Sources */,
+				01A46F291B4CFC7E000CD7A5 /* RankingListCell.m in Sources */,
 				01AD748E1B3948CF006EC988 /* IdxScalarView.m in Sources */,
 				011B84C01B0DBCBA003005BC /* BDUserTicket.m in Sources */,
 				011B846D1B0DBADB003005BC /* SmartTime.m in Sources */,

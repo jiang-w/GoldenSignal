@@ -20,6 +20,7 @@
 @property(nonatomic, strong) UIScrollView *scrollView;
 @property(nonatomic, strong) UIView *containerView;
 @property(nonatomic, strong) UIView *chartContainerView;
+@property(nonatomic, strong) UIView *infoContainerView;
 @property(nonatomic, strong) UILabel *titleLabel;
 
 @property(nonatomic, strong) IdxScalarView *scalarView;
@@ -33,6 +34,7 @@
 @property(nonatomic, strong) KLineChart *monthlyKLine;
 
 @property(nonatomic, strong) PPiFlatSegmentedControl *infoTabView;
+@property(nonatomic, strong) UITableView *rankingListView;
 
 @property(nonatomic, assign) NSInteger chartSelectIndex;
 @property(nonatomic, assign) NSInteger infoSelectIndex;
@@ -115,6 +117,10 @@
     self.infoTabView.selectedTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(216, 1, 1, 1)};
     [self addSubView:self.infoTabView withHeight:30 andSpace:2];
     
+    self.infoContainerView = [[UIView alloc] init];
+    self.infoContainerView.backgroundColor = [UIColor clearColor];
+    [self addSubView:self.infoContainerView withHeight:0 andSpace:2];
+    
     UIView *lastView = self.containerView.subviews.lastObject;
     if (lastView) {
         [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -150,7 +156,7 @@
         [self.scalarView loadDataWithIdxCode:_secu.bdCode];
         [self loadChartView];
         
-        dispatch_async(dispatch_queue_create("loadData", nil), ^{
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
             BDSectService *service = [[BDSectService alloc] init];
             NSUInteger sectId = [service getSectIdByIndexCode:_secu.bdCode];
             NSLog(@"指数(%@)所属板块%lu", _secu.bdCode, sectId);
