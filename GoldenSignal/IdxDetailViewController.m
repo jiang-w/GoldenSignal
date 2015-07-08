@@ -10,6 +10,8 @@
 #import "IdxScalarView.h"
 #import "TrendLineChart.h"
 #import "KLineChart.h"
+#import "BDSectService.h"
+
 #import <Masonry.h>
 #import <PPiFlatSegmentedControl.h>
 
@@ -30,7 +32,10 @@
 @property(nonatomic, strong) KLineChart *weeklyKLine;
 @property(nonatomic, strong) KLineChart *monthlyKLine;
 
+@property(nonatomic, strong) PPiFlatSegmentedControl *infoTabView;
+
 @property(nonatomic, assign) NSInteger chartSelectIndex;
+@property(nonatomic, assign) NSInteger infoSelectIndex;
 
 @end
 
@@ -99,6 +104,17 @@
     self.chartContainerView.backgroundColor = RGB(30, 30, 30, 1);
     [self addSubView:self.chartContainerView withHeight:180 andSpace:4];
 
+    /* 资讯Tab */
+    self.infoTabView = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 320, 30) items:@[@{@"text":@"领涨股"}, @{@"text":@"领跌股"}, @{@"text":@"资金"}, @{@"text":@"新闻"}] iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex) {
+        }];
+    self.infoTabView.color = RGB(7, 9, 8, 1);
+    self.infoTabView.borderWidth = 1;
+    self.infoTabView.borderColor = RGB(80.0, 80.0, 80.0, 1.0);
+    self.infoTabView.selectedColor = RGB(30, 30, 30, 1);
+    self.infoTabView.textAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(214, 214, 214, 1)};
+    self.infoTabView.selectedTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(216, 1, 1, 1)};
+    [self addSubView:self.infoTabView withHeight:30 andSpace:2];
+    
     UIView *lastView = self.containerView.subviews.lastObject;
     if (lastView) {
         [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -133,6 +149,12 @@
         [self.titleLabel sizeToFit];
         [self.scalarView loadDataWithIdxCode:_secu.bdCode];
         [self loadChartView];
+        
+        dispatch_async(dispatch_queue_create("loadData", nil), ^{
+            BDSectService *service = [[BDSectService alloc] init];
+            NSUInteger sectId = [service getSectIdByIndexCode:_secu.bdCode];
+            NSLog(@"指数(%@)所属板块%lu", _secu.bdCode, sectId);
+        });
     }
 }
 

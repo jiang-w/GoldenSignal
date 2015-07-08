@@ -83,4 +83,14 @@
     }
 }
 
+- (NSUInteger)getSectIdByIndexCode:(NSString *)code {
+    BDCoreService *service = [BDCoreService new];
+    NSDictionary *paramDic = @{@"BD_CODE": [NSString stringWithFormat:@"'%@'", code]};
+    NSArray *data = [service syncRequestDatasourceService:1592 parameters:paramDic query:nil];
+    for (NSDictionary *item in data) {
+        return [item[@"SECT_ID"] longValue];
+    }
+    return 0;
+}
+
 @end

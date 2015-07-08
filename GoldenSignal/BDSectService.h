@@ -43,4 +43,13 @@
  */
 - (NSArray *)getSecuCodesBySectId:(long)sectId andCodes:(NSArray *)codeArray sortByIndicateName:(NSString *)name ascending:(BOOL)asc;
 
+/**
+ *  获取指数所属的板块ID
+ *
+ *  @param code          指数的BD_CODE
+ *
+ *  @return 板块ID
+ */
+- (NSUInteger)getSectIdByIndexCode:(NSString *)code;
+
 @end
