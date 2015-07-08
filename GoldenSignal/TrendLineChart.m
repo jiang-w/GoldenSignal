@@ -257,10 +257,9 @@
     for (int i = 0; i < dates.count; i++) {
         CGRect frame = CGRectMake(chartFrame.origin.x + xOffset * i, chartFrame.origin.y, xOffset, chartFrame.size.height);
         // 绘制日分时线
-        CGPathRef linePath = [self getPricePathInFrame:frame forTradingDay:dates[i] andIsClosed:NO];
         CAShapeLayer *pathLayer = [CAShapeLayer layer];
-        pathLayer.frame = self.bounds;
-        pathLayer.path = linePath;
+        pathLayer.frame = frame;
+        pathLayer.path = [self getPricePathInFrame:pathLayer.bounds forTradingDay:dates[i] andIsClosed:NO];
         pathLayer.strokeColor = [_lineColor CGColor];
         pathLayer.fillColor = nil;
         pathLayer.lineWidth = _lineWidth;
@@ -269,10 +268,9 @@
         [self.layers addObject:pathLayer];
         // 填充
         if(_fillColor && _fillColor != [UIColor clearColor]) {
-            CGPathRef fillPath = [self getPricePathInFrame:frame forTradingDay:dates[i] andIsClosed:YES];
             CAShapeLayer* fillLayer = [CAShapeLayer layer];
-            fillLayer.frame = self.bounds;
-            fillLayer.path = fillPath;
+            fillLayer.frame = frame;
+            fillLayer.path = [self getPricePathInFrame:fillLayer.bounds forTradingDay:dates[i] andIsClosed:YES];
             fillLayer.strokeColor = nil;
             fillLayer.fillColor = _fillColor.CGColor;
             fillLayer.lineWidth = 0;
@@ -282,10 +280,9 @@
         }
         if (_secu.typ == stock) {
             // 绘制个股均线
-            CGPathRef avgLinePath = [self getAvgPricePathInFrame:frame forTradingDay:dates[i]];
             CAShapeLayer *avgLineLayer = [CAShapeLayer layer];
-            avgLineLayer.frame = self.bounds;
-            avgLineLayer.path = avgLinePath;
+            avgLineLayer.frame = frame;
+            avgLineLayer.path = [self getAvgPricePathInFrame:avgLineLayer.bounds forTradingDay:dates[i]];
             avgLineLayer.strokeColor = [_avgLineColor CGColor];
             avgLineLayer.fillColor = nil;
             avgLineLayer.lineWidth = _lineWidth;
@@ -315,10 +312,9 @@
     
     for (int i = 0; i < dates.count; i++) {
         CGRect frame = CGRectMake(chartFrame.origin.x + xOffset * i, chartFrame.origin.y, xOffset, chartFrame.size.height);
-        CGMutablePathRef volumePath = [self getVolumePathInFrame:frame forTradingDay:dates[i]];
         CAShapeLayer *pathLayer = [CAShapeLayer layer];
-        pathLayer.frame = self.bounds;
-        pathLayer.path = volumePath;
+        pathLayer.frame = frame;
+        pathLayer.path = [self getVolumePathInFrame:pathLayer.bounds forTradingDay:dates[i]];
         pathLayer.strokeColor = [RGB(217, 166, 58, 1) CGColor];
         pathLayer.fillColor = nil;
         pathLayer.lineWidth = 1;

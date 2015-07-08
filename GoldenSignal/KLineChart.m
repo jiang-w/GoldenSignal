@@ -286,10 +286,9 @@
 - (void)strokeAvgLineChart {
 //    Stopwatch *watch = [Stopwatch startNew];
     // 绘制MA5
-    CGPathRef ma5LinePath = [self getAvgPricePathInFrame:self.lineChartFrame withMA:5];
     CAShapeLayer *ma5LineLayer = [CAShapeLayer layer];
-    ma5LineLayer.frame = self.bounds;
-    ma5LineLayer.path = ma5LinePath;
+    ma5LineLayer.frame = self.lineChartFrame;
+    ma5LineLayer.path = [self getAvgPricePathInFrame:ma5LineLayer.bounds withMA:5];
     ma5LineLayer.strokeColor = [[UIColor whiteColor] CGColor];
     ma5LineLayer.fillColor = nil;
     ma5LineLayer.lineWidth = 1;
@@ -298,10 +297,9 @@
     [self.layers addObject:ma5LineLayer];
     
     // 绘制MA10
-    CGPathRef ma10LinePath = [self getAvgPricePathInFrame:self.lineChartFrame withMA:10];
     CAShapeLayer *ma10LineLayer = [CAShapeLayer layer];
-    ma10LineLayer.frame = self.bounds;
-    ma10LineLayer.path = ma10LinePath;
+    ma10LineLayer.frame = self.lineChartFrame;
+    ma10LineLayer.path = [self getAvgPricePathInFrame:ma10LineLayer.bounds withMA:10];
     ma10LineLayer.strokeColor = [[UIColor yellowColor] CGColor];
     ma10LineLayer.fillColor = nil;
     ma10LineLayer.lineWidth = 1;
@@ -310,10 +308,9 @@
     [self.layers addObject:ma10LineLayer];
     
     // 绘制MA20
-    CGPathRef ma20LinePath = [self getAvgPricePathInFrame:self.lineChartFrame withMA:20];
     CAShapeLayer *ma20LineLayer = [CAShapeLayer layer];
-    ma20LineLayer.frame = self.bounds;
-    ma20LineLayer.path = ma20LinePath;
+    ma20LineLayer.frame = self.lineChartFrame;
+    ma20LineLayer.path = [self getAvgPricePathInFrame:ma20LineLayer.bounds withMA:20];
     ma20LineLayer.strokeColor = [RGB(46, 169, 223, 1) CGColor];
     ma20LineLayer.fillColor = nil;
     ma20LineLayer.lineWidth = 1;

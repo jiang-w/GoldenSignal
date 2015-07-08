@@ -29,7 +29,7 @@
     container = self.contentView;
     
     title = [UILabel new];
-    title.font = [UIFont boldSystemFontOfSize:13];
+    title.font = [UIFont boldSystemFontOfSize:14];
     [container addSubview:title];
     
     date = [UILabel new];
@@ -38,7 +38,7 @@
     [container addSubview:date];
     
     detail = [UILabel new];
-    detail.font = [UIFont systemFontOfSize:11];
+    detail.font = [UIFont systemFontOfSize:12];
     detail.numberOfLines = 2;
     [container addSubview:detail];
     
