@@ -114,6 +114,13 @@
     self.infoTabView = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 320, 30) items:@[@{@"text":@"领涨股"}, @{@"text":@"领跌股"}, @{@"text":@"资金"}, @{@"text":@"新闻"}] iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex) {
         weakSelf.infoSelectIndex = segmentIndex;
         [weakSelf loadRankingList];
+        
+        // 点击Tab后scrollView滚动到其位置
+        CGFloat scrollHeight = weakSelf.scrollView.frame.size.height;
+        CGFloat contentHeight = weakSelf.scrollView.contentSize.height;
+        CGFloat tabViewY = weakSelf.infoTabView.frame.origin.y;
+        CGFloat offsetY = tabViewY + scrollHeight > contentHeight ? contentHeight - scrollHeight : tabViewY;
+        [weakSelf.scrollView setContentOffset:CGPointMake(0, offsetY) animated:YES];
     }];
     self.infoTabView.color = RGB(7, 9, 8, 1);
     self.infoTabView.borderWidth = 1;
