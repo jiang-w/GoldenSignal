@@ -22,8 +22,6 @@
 
 @property(nonatomic, strong) UILabel *xLine;  //x线
 @property(nonatomic, strong) UILabel *yLine;  //y线
-//@property(nonatomic, strong) UILabel *xLabel; //x数值
-@property(nonatomic, strong) UILabel *yLabel; //y线位置所在的日期
 
 @end
 
@@ -57,6 +55,8 @@
     _innerGridColor = [UIColor colorWithWhite:0.5 alpha:1.0];
     _innerGridWidth = 0.5;
     _drawInnerGrid = YES;
+    
+    _labelFont = [UIFont systemFontOfSize:9];
     
      _type = KLINE_DAY;
     _number = 60;
@@ -171,25 +171,25 @@
 - (void)addTextLabel {
     self.highLabel = [[UILabel alloc] init];
     self.highLabel.textAlignment = NSTextAlignmentRight;
-    self.highLabel.font = [UIFont systemFontOfSize:9];
+    self.highLabel.font = _labelFont;
     self.highLabel.textColor = [UIColor whiteColor];
     [self addSubview:self.highLabel];
 
     self.lowLabel = [[UILabel alloc] init];
     self.lowLabel.textAlignment = NSTextAlignmentRight;
-    self.lowLabel.font = [UIFont systemFontOfSize:9];
+    self.lowLabel.font = _labelFont;
     self.lowLabel.textColor = [UIColor whiteColor];
     [self addSubview:self.lowLabel];
     
     self.beginDateLabel = [[UILabel alloc] init];
     self.beginDateLabel.textAlignment = NSTextAlignmentRight;
-    self.beginDateLabel.font = [UIFont systemFontOfSize:9];
+    self.beginDateLabel.font = _labelFont;
     self.beginDateLabel.textColor = [UIColor whiteColor];
     [self addSubview:self.beginDateLabel];
     
     self.endDateLabel = [[UILabel alloc] init];
     self.endDateLabel.textAlignment = NSTextAlignmentRight;
-    self.endDateLabel.font = [UIFont systemFontOfSize:9];
+    self.endDateLabel.font = _labelFont;
     self.endDateLabel.textColor = [UIColor whiteColor];
     [self addSubview:self.endDateLabel];
 }
@@ -363,22 +363,6 @@
     self.yLine.hidden = YES;
     [self addSubview:self.yLine];
     
-//    xLabel = [[UILabel alloc] initWithFrame:
-//              CGRectMake(CGRectGetMinX(lineFrame) - 29, CGRectGetMinY(lineFrame), 28, 12)];
-//    xLabel.font = [UIFont systemFontOfSize:9];
-//    xLabel.textAlignment = NSTextAlignmentCenter;
-//    xLabel.backgroundColor = [UIColor grayColor];
-//    xLabel.hidden = YES;
-//    [self addSubview:xLabel];
-    
-    self.yLabel = [[UILabel alloc] init];
-    self.yLabel.font = [UIFont systemFontOfSize:9];
-    self.yLabel.textColor = [UIColor whiteColor];
-    self.yLabel.textAlignment = NSTextAlignmentCenter;
-    self.yLabel.backgroundColor = [UIColor grayColor];
-    self.yLabel.hidden = YES;
-    [self addSubview:self.yLabel];
-    
     // 添加长按手势识别器
     UILongPressGestureRecognizer * longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(setCrossLineWithGesture:)];
     longPressGr.minimumPressDuration = 0.3;
@@ -389,82 +373,29 @@
     if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
         self.xLine.hidden = YES;
         self.yLine.hidden = YES;
-//        xLabel.hidden = YES;
-        self.yLabel.hidden = YES;
     }
     
     CGPoint touchPoint = [gesture locationInView:self];
-//    CGFloat touchXOffset = touchPoint.x - CGRectGetMinX(lineFrame);
     if (CGRectContainsPoint(self.gestureRegion, touchPoint)) {
         if (gesture.state == UIGestureRecognizerStateBegan) {
             self.xLine.hidden = NO;
             self.yLine.hidden = NO;
-//            xLabel.hidden = NO;
-            self.yLabel.hidden = NO;
         }
+        
+        CGFloat candleWidth = CGRectGetWidth(self.lineChartFrame) / _number;
+        CGFloat touchXoffset = touchPoint.x - CGRectGetMinX(self.lineChartFrame);
+        NSUInteger candleSN = floor(touchXoffset / candleWidth); //是从0开始的第几根K线
+        NSUInteger indexOfLines = _vm.lines.count > _number ? _vm.lines.count - _number + candleSN : candleSN;
+        BDKLine *line = [_vm.lines objectAtIndex:indexOfLines];
+        NSLog(@"日期: %d, 价格: %.2f", line.date, line.close);
 
         CGRect xLineFrame = self.xLine.frame;
         xLineFrame.origin.y = touchPoint.y;
         [self.xLine setFrame:xLineFrame];
         
         CGRect yLineFrame = self.yLine.frame;
-        yLineFrame.origin.x = touchPoint.x;
+        yLineFrame.origin.x = CGRectGetMinX(self.lineChartFrame) + candleWidth * (candleSN + 0.5) - self.yLine.frame.size.width / 2;
         [self.yLine setFrame:yLineFrame];
-        
-        self.yLabel.text = @"20150708";
-        CGRect yLabelFrame = self.yLabel.frame;
-        yLabelFrame.origin.x = touchPoint.x;
-        yLabelFrame.origin.y = CGRectGetMaxY(self.lineChartFrame);
-        self.yLabel.frame = yLabelFrame;
-
-//        float lineWidth = lineFrame.size.width / _number;
-//        int index = floor(touchXOffset / lineWidth);
-//        if (fetchLines.count > 0) {
-//            if (index >= fetchLines.count) {
-//                index = (int)fetchLines.count - 1;
-//            }
-//            if (index < 0) {
-//                index = 0;
-//            }
-//            
-//            BDKLine *kLine = fetchLines[index];
-//            xLabel.text = [NSString stringWithFormat:@"%.2f", kLine.close];
-//            yLabel.text = [NSString stringWithFormat:@"%d", kLine.date % 1000000];
-//            
-//            if (gesture.state == UIGestureRecognizerStateBegan) {
-//                xLine.hidden = NO;
-//                yLine.hidden = NO;
-//                xLabel.hidden = NO;
-//                yLabel.hidden = NO;
-//            }
-//            
-//            PriceRange priceRange = _vm.priceRange;
-//            CGPoint crossPoint = CGPointMake(CGRectGetMinX(lineFrame) + lineWidth * (index + 1) - lineWidth / 2,
-//                                             CGRectGetMinY(lineFrame) + (priceRange.high - kLine.close) / (priceRange.high - priceRange.low) * CGRectGetHeight(lineFrame));
-//            CGRect xLineFrame = xLine.frame;
-//            xLineFrame.origin.y = crossPoint.y - 0.5;
-//            [xLine setFrame:xLineFrame];
-//            
-//            CGRect yLineFrame = yLine.frame;
-//            yLineFrame.origin.x = crossPoint.x - 0.5;
-//            [yLine setFrame:yLineFrame];
-//            
-//            CGRect xLabelFrame = xLabel.frame;
-//            xLabelFrame.origin.y = crossPoint.y - xLabelFrame.size.height / 2;
-//            [xLabel setFrame:xLabelFrame];
-//            
-//            CGRect yLabelFrame = yLabel.frame;
-//            if (CGRectGetMaxX(lineFrame) - crossPoint.x < yLabelFrame.size.width / 2) {
-//                yLabelFrame.origin.x = CGRectGetMaxX(lineFrame) - yLabel.frame.size.width;
-//            }
-//            else if (crossPoint.x - CGRectGetMinX(lineFrame) < yLabelFrame.size.width / 2) {
-//                yLabelFrame.origin.x = CGRectGetMinX(lineFrame);
-//            }
-//            else {
-//                yLabelFrame.origin.x = crossPoint.x - yLabelFrame.size.width / 2;
-//            }
-//            [yLabel setFrame:yLabelFrame];
-//        }
     }
 }
 

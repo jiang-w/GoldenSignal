@@ -26,6 +26,8 @@
 @property(nonatomic) BOOL drawInnerGrid;
 @property(nonatomic, strong) UIColor *innerGridColor;
 @property(nonatomic) CGFloat innerGridWidth;
+// UILabel Font
+@property(nonatomic, strong) UIFont *labelFont;
 
 @property(nonatomic, assign) KLineType type;
 @property(nonatomic, assign) NSUInteger number;
