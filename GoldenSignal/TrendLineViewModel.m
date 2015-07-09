@@ -258,8 +258,10 @@
     double scale = self.maxVolume / CGRectGetHeight(frame);
     for (int i = 0; i < volumeArr.count; i++) {
         unsigned long volume = [volumeArr[i] unsignedLongValue];
-        CGPoint point = [self getPointInFrame:frame withScale:scale andValue:volume serialNumber:i];
-        [points addObject:NSStringFromCGPoint(point)];
+        if (volume != 0) {
+            CGPoint point = [self getPointInFrame:frame withScale:scale andValue:volume serialNumber:i];
+            [points addObject:NSStringFromCGPoint(point)];
+        }
     }
     return points;
 }
