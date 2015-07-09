@@ -11,6 +11,7 @@
 #import "TrendLineChart.h"
 #import "KLineChart.h"
 #import "BDSectService.h"
+#import "RankingListViewController.h"
 
 #import <Masonry.h>
 #import <PPiFlatSegmentedControl.h>
@@ -35,6 +36,8 @@
 
 @property(nonatomic, strong) PPiFlatSegmentedControl *infoTabView;
 @property(nonatomic, strong) UITableView *rankingListView;
+
+@property(nonatomic, strong) RankingListViewController *listController;
 
 @property(nonatomic, assign) NSInteger chartSelectIndex;
 @property(nonatomic, assign) NSInteger infoSelectIndex;
@@ -66,6 +69,7 @@
     self.scrollView = [[UIScrollView alloc] init];
     self.scrollView.delegate = self;
     self.scrollView.backgroundColor = [UIColor clearColor];
+    self.scrollView.bounces = NO;
     [self.view addSubview:self.scrollView];
     [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.and.right.equalTo(self.view);
@@ -108,7 +112,9 @@
 
     /* 资讯Tab */
     self.infoTabView = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 320, 30) items:@[@{@"text":@"领涨股"}, @{@"text":@"领跌股"}, @{@"text":@"资金"}, @{@"text":@"新闻"}] iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex) {
-        }];
+        weakSelf.infoSelectIndex = segmentIndex;
+        [weakSelf loadRankingList];
+    }];
     self.infoTabView.color = RGB(7, 9, 8, 1);
     self.infoTabView.borderWidth = 1;
     self.infoTabView.borderColor = RGB(80.0, 80.0, 80.0, 1.0);
@@ -155,12 +161,7 @@
         [self.titleLabel sizeToFit];
         [self.scalarView loadDataWithIdxCode:_secu.bdCode];
         [self loadChartView];
-        
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            BDSectService *service = [[BDSectService alloc] init];
-            NSUInteger sectId = [service getSectIdByIndexCode:_secu.bdCode];
-            NSLog(@"指数(%@)所属板块%lu", _secu.bdCode, sectId);
-        });
+        [self loadRankingList];
     }
 }
 
@@ -222,6 +223,55 @@
     }
 }
 
+- (void)loadRankingList {
+    switch (_infoSelectIndex) {
+        case 0: {
+            if (self.listController == nil) {
+                self.listController = [[RankingListViewController alloc] init];
+                [self.infoContainerView addSubview:self.listController.tableView];
+                [self.listController.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.infoContainerView);
+                }];
+            }
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                BDSectService *service = [[BDSectService alloc] init];
+                NSUInteger sectId = [service getSectIdByIndexCode:_secu.bdCode];
+                NSUInteger number = 10;
+                [self.listController loadDataWithSectId:sectId andNumber:number orderByDesc:YES];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.listController.tableView reloadData];
+                    [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
+                        make.height.mas_equalTo(self.listController.tableView.rowHeight * number);
+                    }];
+                });
+            });
+            break;
+        }
+        case 1: {
+            if (self.listController == nil) {
+                self.listController = [[RankingListViewController alloc] init];
+                [self.infoContainerView addSubview:self.listController.tableView];
+                [self.listController.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.infoContainerView);
+                }];
+            }
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                BDSectService *service = [[BDSectService alloc] init];
+                NSUInteger sectId = [service getSectIdByIndexCode:_secu.bdCode];
+                NSUInteger number = 10;
+                [self.listController loadDataWithSectId:sectId andNumber:number orderByDesc:NO];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.listController.tableView reloadData];
+                    [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
+                        make.height.mas_equalTo(self.listController.tableView.rowHeight * number);
+                    }];
+                });
+            });
+            break;
+        }
+
+    }
+}
 
 #pragma mark Dealloc
 

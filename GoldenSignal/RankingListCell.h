@@ -10,4 +10,12 @@
 
 @interface RankingListCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *name;
+@property (weak, nonatomic) IBOutlet UILabel *trdCode;
+@property (weak, nonatomic) IBOutlet UILabel *changeRange;
+@property (weak, nonatomic) IBOutlet UILabel *now;
+@property (weak, nonatomic) IBOutlet UILabel *change;
+
+@property(nonatomic, setter = setCode:) NSString *code;
+
 @end

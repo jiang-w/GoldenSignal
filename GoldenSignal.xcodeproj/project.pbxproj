@@ -117,6 +117,8 @@
 		01AD748E1B3948CF006EC988 /* IdxScalarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AD748D1B3948CF006EC988 /* IdxScalarView.m */; };
 		01AD74901B3948E7006EC988 /* IdxScalarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01AD748F1B3948E7006EC988 /* IdxScalarView.xib */; };
 		01AD74931B395789006EC988 /* IdxScalarViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AD74921B395789006EC988 /* IdxScalarViewModel.m */; };
+		01AE17BD1B4E23080064CB66 /* RankingListCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AE17BC1B4E23080064CB66 /* RankingListCellViewModel.m */; };
+		01AE17C01B4E3CA40064CB66 /* RankingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AE17BF1B4E3CA40064CB66 /* RankingListViewController.m */; };
 		01B4C70E1B3B9A0E002B1118 /* BDTradingDayService.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B4C70D1B3B9A0E002B1118 /* BDTradingDayService.m */; };
 		01B4C7101B3BCAC6002B1118 /* base.db in Resources */ = {isa = PBXBuildFile; fileRef = 01B4C70F1B3BCAB0002B1118 /* base.db */; };
 		01B5418F1B3A572700AF5C05 /* TrendLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B5418E1B3A572700AF5C05 /* TrendLineChart.m */; };
@@ -349,6 +351,10 @@
 		01AD748F1B3948E7006EC988 /* IdxScalarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IdxScalarView.xib; sourceTree = "<group>"; };
 		01AD74911B395789006EC988 /* IdxScalarViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxScalarViewModel.h; sourceTree = "<group>"; };
 		01AD74921B395789006EC988 /* IdxScalarViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdxScalarViewModel.m; sourceTree = "<group>"; };
+		01AE17BB1B4E23080064CB66 /* RankingListCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankingListCellViewModel.h; sourceTree = "<group>"; };
+		01AE17BC1B4E23080064CB66 /* RankingListCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankingListCellViewModel.m; sourceTree = "<group>"; };
+		01AE17BE1B4E3CA40064CB66 /* RankingListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankingListViewController.h; sourceTree = "<group>"; };
+		01AE17BF1B4E3CA40064CB66 /* RankingListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankingListViewController.m; sourceTree = "<group>"; };
 		01B4C70C1B3B9A0E002B1118 /* BDTradingDayService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDTradingDayService.h; sourceTree = "<group>"; };
 		01B4C70D1B3B9A0E002B1118 /* BDTradingDayService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDTradingDayService.m; sourceTree = "<group>"; };
 		01B4C70F1B3BCAB0002B1118 /* base.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = base.db; sourceTree = "<group>"; };
@@ -603,6 +609,8 @@
 				01B541941B3A918200AF5C05 /* TrendLineViewModel.m */,
 				01D8A8181B46849B0047BA64 /* KLineViewModel.h */,
 				01D8A8191B46849B0047BA64 /* KLineViewModel.m */,
+				01AE17BB1B4E23080064CB66 /* RankingListCellViewModel.h */,
+				01AE17BC1B4E23080064CB66 /* RankingListCellViewModel.m */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -752,6 +760,8 @@
 				01AD748C1B3948CF006EC988 /* IdxScalarView.h */,
 				01AD748D1B3948CF006EC988 /* IdxScalarView.m */,
 				01AD748F1B3948E7006EC988 /* IdxScalarView.xib */,
+				01AE17BE1B4E3CA40064CB66 /* RankingListViewController.h */,
+				01AE17BF1B4E3CA40064CB66 /* RankingListViewController.m */,
 				01A46F261B4CFC7E000CD7A5 /* RankingListCell.h */,
 				01A46F271B4CFC7E000CD7A5 /* RankingListCell.m */,
 				01A46F281B4CFC7E000CD7A5 /* RankingListCell.xib */,
@@ -940,6 +950,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				011B84BA1B0DBCBA003005BC /* BDKeyboardWizard.m in Sources */,
+				01AE17C01B4E3CA40064CB66 /* RankingListViewController.m in Sources */,
 				011B84E31B0DBD4F003005BC /* StkQuoteCellViewModel.m in Sources */,
 				011B84DF1B0DBD4F003005BC /* KLineViewModel_old.m in Sources */,
 				011B85051B0DBE1F003005BC /* AdViewController.m in Sources */,
@@ -974,6 +985,7 @@
 				011B85061B0DBE1F003005BC /* RootTabBarController.m in Sources */,
 				01D8A81A1B46849B0047BA64 /* KLineViewModel.m in Sources */,
 				011B84A31B0DBC57003005BC /* BDKLine.m in Sources */,
+				01AE17BD1B4E23080064CB66 /* RankingListCellViewModel.m in Sources */,
 				011B84DD1B0DBD4F003005BC /* FiveBetsViewModel.m in Sources */,
 				011B85271B0DBEA9003005BC /* NewsMainViewController.m in Sources */,
 				014FF3921B1DAE31007DB608 /* QuoteHomeTrendChart.m in Sources */,
