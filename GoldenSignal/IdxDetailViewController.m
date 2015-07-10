@@ -13,6 +13,8 @@
 #import "BDSectService.h"
 #import "RankingListViewController.h"
 
+#import "FundFlowCircleChart.h"
+
 #import <Masonry.h>
 #import <PPiFlatSegmentedControl.h>
 
@@ -274,6 +276,12 @@
                     }];
                 });
             });
+            break;
+        }
+        case 2: {
+            [self.listController.tableView removeFromSuperview];
+            FundFlowCircleChart *chart = [[FundFlowCircleChart alloc] initWithFrame:CGRectMake(0, 0, 320, 300)];
+            [self.infoContainerView addSubview:chart];
             break;
         }
 

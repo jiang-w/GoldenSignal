@@ -85,7 +85,6 @@
 		011B85511B0DBEFE003005BC /* StkScalarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85321B0DBEFE003005BC /* StkScalarView.m */; };
 		011B85521B0DBEFE003005BC /* StkScalarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011B85331B0DBEFE003005BC /* StkScalarView.xib */; };
 		011B85531B0DBEFE003005BC /* KeyboardWizardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85351B0DBEFE003005BC /* KeyboardWizardViewController.m */; };
-		011B85541B0DBEFE003005BC /* KLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85371B0DBEFE003005BC /* KLineView.m */; };
 		011B85551B0DBEFE003005BC /* LiteKLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85391B0DBEFE003005BC /* LiteKLineView.m */; };
 		011B85561B0DBEFE003005BC /* LiteTrendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B853B1B0DBEFE003005BC /* LiteTrendView.m */; };
 		011B85571B0DBEFE003005BC /* QuoteMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B853D1B0DBEFE003005BC /* QuoteMainViewController.m */; };
@@ -114,6 +113,8 @@
 		01A46F291B4CFC7E000CD7A5 /* RankingListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A46F271B4CFC7E000CD7A5 /* RankingListCell.m */; };
 		01A46F2A1B4CFC7E000CD7A5 /* RankingListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A46F281B4CFC7E000CD7A5 /* RankingListCell.xib */; };
 		01A95D251B32BE6A008CF76B /* BDStockPoolInfoService.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A95D241B32BE6A008CF76B /* BDStockPoolInfoService.m */; };
+		01A961471B4F9CE400B705AD /* FundFlowBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A961461B4F9CE400B705AD /* FundFlowBarChart.m */; };
+		01A9614A1B4FC0FA00B705AD /* FundFlowCircleChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A961491B4FC0FA00B705AD /* FundFlowCircleChart.m */; };
 		01AD748E1B3948CF006EC988 /* IdxScalarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AD748D1B3948CF006EC988 /* IdxScalarView.m */; };
 		01AD74901B3948E7006EC988 /* IdxScalarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01AD748F1B3948E7006EC988 /* IdxScalarView.xib */; };
 		01AD74931B395789006EC988 /* IdxScalarViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AD74921B395789006EC988 /* IdxScalarViewModel.m */; };
@@ -300,8 +301,6 @@
 		011B85331B0DBEFE003005BC /* StkScalarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StkScalarView.xib; sourceTree = "<group>"; };
 		011B85341B0DBEFE003005BC /* KeyboardWizardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardWizardViewController.h; sourceTree = "<group>"; };
 		011B85351B0DBEFE003005BC /* KeyboardWizardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardWizardViewController.m; sourceTree = "<group>"; };
-		011B85361B0DBEFE003005BC /* KLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLineView.h; sourceTree = "<group>"; };
-		011B85371B0DBEFE003005BC /* KLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLineView.m; sourceTree = "<group>"; };
 		011B85381B0DBEFE003005BC /* LiteKLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiteKLineView.h; sourceTree = "<group>"; };
 		011B85391B0DBEFE003005BC /* LiteKLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiteKLineView.m; sourceTree = "<group>"; };
 		011B853A1B0DBEFE003005BC /* LiteTrendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiteTrendView.h; sourceTree = "<group>"; };
@@ -346,6 +345,10 @@
 		01A46F281B4CFC7E000CD7A5 /* RankingListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RankingListCell.xib; sourceTree = "<group>"; };
 		01A95D231B32BE6A008CF76B /* BDStockPoolInfoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDStockPoolInfoService.h; sourceTree = "<group>"; };
 		01A95D241B32BE6A008CF76B /* BDStockPoolInfoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDStockPoolInfoService.m; sourceTree = "<group>"; };
+		01A961451B4F9CE400B705AD /* FundFlowBarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FundFlowBarChart.h; sourceTree = "<group>"; };
+		01A961461B4F9CE400B705AD /* FundFlowBarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FundFlowBarChart.m; sourceTree = "<group>"; };
+		01A961481B4FC0FA00B705AD /* FundFlowCircleChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FundFlowCircleChart.h; sourceTree = "<group>"; };
+		01A961491B4FC0FA00B705AD /* FundFlowCircleChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FundFlowCircleChart.m; sourceTree = "<group>"; };
 		01AD748C1B3948CF006EC988 /* IdxScalarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxScalarView.h; sourceTree = "<group>"; };
 		01AD748D1B3948CF006EC988 /* IdxScalarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdxScalarView.m; sourceTree = "<group>"; };
 		01AD748F1B3948E7006EC988 /* IdxScalarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IdxScalarView.xib; sourceTree = "<group>"; };
@@ -682,12 +685,11 @@
 		011B850C1B0DBE56003005BC /* Markets */ = {
 			isa = PBXGroup;
 			children = (
+				01A961441B4F71D000B705AD /* Chart */,
 				011B852D1B0DBEFE003005BC /* F10ViewController.h */,
 				011B852E1B0DBEFE003005BC /* F10ViewController.m */,
 				011B85341B0DBEFE003005BC /* KeyboardWizardViewController.h */,
 				011B85351B0DBEFE003005BC /* KeyboardWizardViewController.m */,
-				011B85361B0DBEFE003005BC /* KLineView.h */,
-				011B85371B0DBEFE003005BC /* KLineView.m */,
 				011B85411B0DBEFE003005BC /* SectCollectionViewController.h */,
 				011B85421B0DBEFE003005BC /* SectCollectionViewController.m */,
 				011B85431B0DBEFE003005BC /* SectCollectionViewController.xib */,
@@ -733,10 +735,6 @@
 				01D8DA3B1B253F9C0033956E /* IdxQuoteViewCell.h */,
 				01D8DA3C1B253F9C0033956E /* IdxQuoteViewCell.m */,
 				01D8DA3D1B253F9C0033956E /* IdxQuoteViewCell.xib */,
-				011B85381B0DBEFE003005BC /* LiteKLineView.h */,
-				011B85391B0DBEFE003005BC /* LiteKLineView.m */,
-				011B853A1B0DBEFE003005BC /* LiteTrendView.h */,
-				011B853B1B0DBEFE003005BC /* LiteTrendView.m */,
 			);
 			name = Ranking;
 			sourceTree = "<group>";
@@ -765,12 +763,27 @@
 				01A46F261B4CFC7E000CD7A5 /* RankingListCell.h */,
 				01A46F271B4CFC7E000CD7A5 /* RankingListCell.m */,
 				01A46F281B4CFC7E000CD7A5 /* RankingListCell.xib */,
+			);
+			name = Detail;
+			sourceTree = "<group>";
+		};
+		01A961441B4F71D000B705AD /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				011B85381B0DBEFE003005BC /* LiteKLineView.h */,
+				011B85391B0DBEFE003005BC /* LiteKLineView.m */,
+				011B853A1B0DBEFE003005BC /* LiteTrendView.h */,
+				011B853B1B0DBEFE003005BC /* LiteTrendView.m */,
 				01B5418D1B3A572700AF5C05 /* TrendLineChart.h */,
 				01B5418E1B3A572700AF5C05 /* TrendLineChart.m */,
 				01D8A8151B4675F30047BA64 /* KLineChart.h */,
 				01D8A8161B4675F30047BA64 /* KLineChart.m */,
+				01A961451B4F9CE400B705AD /* FundFlowBarChart.h */,
+				01A961461B4F9CE400B705AD /* FundFlowBarChart.m */,
+				01A961481B4FC0FA00B705AD /* FundFlowCircleChart.h */,
+				01A961491B4FC0FA00B705AD /* FundFlowCircleChart.m */,
 			);
-			name = Detail;
+			name = Chart;
 			sourceTree = "<group>";
 		};
 		70AE5B8C3D5A028B1385AD05 /* Frameworks */ = {
@@ -966,6 +979,7 @@
 				011B84F41B0DBDBC003005BC /* LoginViewController.m in Sources */,
 				011B84A11B0DBC57003005BC /* BDBulletin.m in Sources */,
 				011B85071B0DBE1F003005BC /* SideMenuViewController.m in Sources */,
+				01A961471B4F9CE400B705AD /* FundFlowBarChart.m in Sources */,
 				011B85551B0DBEFE003005BC /* LiteKLineView.m in Sources */,
 				011B855D1B0DBEFE003005BC /* StkDetailViewController.m in Sources */,
 				011B84861B0DBB83003005BC /* BDDatabaseAccess.m in Sources */,
@@ -989,6 +1003,7 @@
 				011B84DD1B0DBD4F003005BC /* FiveBetsViewModel.m in Sources */,
 				011B85271B0DBEA9003005BC /* NewsMainViewController.m in Sources */,
 				014FF3921B1DAE31007DB608 /* QuoteHomeTrendChart.m in Sources */,
+				01A9614A1B4FC0FA00B705AD /* FundFlowCircleChart.m in Sources */,
 				01A46F291B4CFC7E000CD7A5 /* RankingListCell.m in Sources */,
 				01AD748E1B3948CF006EC988 /* IdxScalarView.m in Sources */,
 				011B84C01B0DBCBA003005BC /* BDUserTicket.m in Sources */,
@@ -1025,7 +1040,6 @@
 				011B84361B0DB51F003005BC /* main.m in Sources */,
 				011B84BD1B0DBCBA003005BC /* BDSubDeal.m in Sources */,
 				01B541921B3A5A4100AF5C05 /* IdxDetailViewController.m in Sources */,
-				011B85541B0DBEFE003005BC /* KLineView.m in Sources */,
 				011B84BF1B0DBCBA003005BC /* BDUserInfo.m in Sources */,
 				011B85281B0DBEA9003005BC /* ReportListViewCell.m in Sources */,
 				011B84DC1B0DBD4F003005BC /* CustomTagsViewModel.m in Sources */,
