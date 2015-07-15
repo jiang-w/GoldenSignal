@@ -50,11 +50,14 @@
     if (_secuCodes.count > 0) {
         dispatch_async(loadDataQueue, ^{
             BDSectService *service = [[BDSectService alloc] init];
-            _secuCodes = [service getSecuCodesBySectId:[userId longValue] andCodes:_secuCodes sortByIndicateName:nil ascending:_asc];
-            // 返回主线程刷新视图
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-            });
+            NSArray *sortCodes = [service getSecuCodesBySectId:[userId longValue] andCodes:_secuCodes sortByIndicateName:nil ascending:_asc];
+            if (sortCodes > 0) {
+                _secuCodes = sortCodes;
+                // 返回主线程刷新视图
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tableView reloadData];
+                });
+            }
         });
     }
 }
