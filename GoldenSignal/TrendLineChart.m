@@ -44,7 +44,7 @@
 }
 
 - (void)setDefaultParameters {
-    self.margin = 2;
+    self.margin = CGMarginMake(2, 2, 2, 2);
     self.space = 10;
     
     _lineColor = [UIColor orangeColor];
@@ -68,18 +68,10 @@
 
 #pragma mark - property
 
-- (void)setMargin:(CGFloat)value {
-    _margin = value;
-    _margin_top = value;
-    _margin_left = value;
-    _margin_right = value;
-    _margin_bottom = value;
-}
-
 - (CGRect)lineChartFrame {
-    CGPoint origin = CGPointMake(_margin_left, _margin_top);
-    CGFloat width = CGRectGetWidth(self.frame) - _margin_left - _margin_right;
-    CGFloat height = (CGRectGetHeight(self.frame) - _margin_top - _margin_bottom - _space) / 3.0 * 2;
+    CGPoint origin = CGPointMake(self.margin.left, self.margin.top);
+    CGFloat width = CGRectGetWidth(self.frame) - self.margin.left - self.margin.right;
+    CGFloat height = (CGRectGetHeight(self.frame) - self.margin.top - self.margin.bottom - _space) / 3.0 * 2;
     CGRect rect = CGRectMake(origin.x, origin.y, width, height);
     return rect;
 }
@@ -88,7 +80,7 @@
     CGRect lineChartRect = self.lineChartFrame;
     CGPoint origin = CGPointMake(CGRectGetMinX(lineChartRect), CGRectGetMaxY(lineChartRect) + _space);
     CGFloat width = CGRectGetWidth(lineChartRect);
-    CGFloat height = CGRectGetHeight(self.frame) - _margin_bottom - origin.y;
+    CGFloat height = CGRectGetHeight(self.frame) - self.margin.bottom - origin.y;
     CGRect rect = CGRectMake(origin.x, origin.y, width, height);
     return rect;
 }

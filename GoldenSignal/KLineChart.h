@@ -11,14 +11,9 @@
 @interface KLineChart : UIView
 
 // margin with bound
-@property(nonatomic) CGFloat margin;
-@property(nonatomic) CGFloat margin_top;
-@property(nonatomic) CGFloat margin_left;
-@property(nonatomic) CGFloat margin_bottom;
-@property(nonatomic) CGFloat margin_right;
-
+@property(nonatomic) CGMargin margin;
 // space between line chart and volume chart
-@property (nonatomic) CGFloat space;
+@property(nonatomic) CGFloat space;
 
 @property(nonatomic, strong) UIColor *boundColor;
 @property(nonatomic) CGFloat boundWidth;
