@@ -43,6 +43,25 @@
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 #define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
 
+typedef struct {
+    CGFloat top;
+    CGFloat right;
+    CGFloat bottom;
+    CGFloat left;
+} CGMargin;
+CG_INLINE CGMargin CGMarginMake(CGFloat top, CGFloat right, CGFloat bottom, CGFloat left);
+
+CG_INLINE CGMargin CGMarginMake(CGFloat top, CGFloat right, CGFloat bottom, CGFloat left) {
+    CGMargin margin;
+    margin.top = top;
+    margin.right = right;
+    margin.bottom = bottom;
+    margin.left = left;
+    return margin;
+}
+
+static const CGMargin CGMarginZero = {0, 0, 0, 0};
+
 typedef enum {
     unknown = -1,
     disconnection = 0,
