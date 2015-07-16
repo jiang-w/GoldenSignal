@@ -10,6 +10,6 @@
 
 @interface FundFlowBarView : UIViewController
 
-- (void)loadDataWithSecuCode:(NSString *)code;
+@property(nonatomic, copy) NSString *code;
 
 @end

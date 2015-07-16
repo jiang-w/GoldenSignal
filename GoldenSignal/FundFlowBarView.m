@@ -8,18 +8,15 @@
 
 #import "FundFlowBarView.h"
 #import "BarView.h"
-#import "FundFlowBarChart.h"
+#import "BDCoreService.h"
+
 #import <Masonry.h>
+#import <MBProgressHUD.h>
 
 @interface FundFlowBarView ()
 
 @property (weak, nonatomic) IBOutlet UIView *chart;
 @property (weak, nonatomic) IBOutlet UILabel *date1;
-@property (weak, nonatomic) IBOutlet UILabel *date2;
-@property (weak, nonatomic) IBOutlet UILabel *date3;
-@property (weak, nonatomic) IBOutlet UILabel *date4;
-@property (weak, nonatomic) IBOutlet UILabel *date5;
-
 
 @end
 
@@ -31,8 +28,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self layoutDateLabel];
     
     NSComparator cmptr = ^(id obj1, id obj2){
         if (fabs([obj1 doubleValue]) > fabs([obj2 doubleValue])) {
@@ -46,45 +41,30 @@
     
     NSArray *array = [_dataArray sortedArrayUsingComparator:cmptr];
     double max = fabs([[array lastObject] doubleValue]);
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+    if (self.code) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.chart animated:YES];
+        hud.opacity = 0;
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            [self loadDataWithSecuCode:self.code];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self addBarViews];
+                [MBProgressHUD hideHUDForView:self.chart animated:YES];
+            });
+        });
+    }
 }
 
 - (void)loadDataWithSecuCode:(NSString *)code {
+//    NSDictionary *paramDic = @{@"BD_CODE": [NSString stringWithFormat:@"\'%@\'",code]};
+//    NSArray *data = [[BDCoreService new] syncRequestDatasourceService:1587 parameters:paramDic query:nil];
 //    NSArray *data = @[[NSNumber numberWithFloat:6259.6], [NSNumber numberWithFloat:44116.6], [NSNumber numberWithFloat:29173.6], [NSNumber numberWithFloat: -9026.2], [NSNumber numberWithFloat: -13170.5]];
-    NSArray *data = @[[NSNumber numberWithFloat:0.14], [NSNumber numberWithFloat:0.25], [NSNumber numberWithFloat:0.75], [NSNumber numberWithFloat: -0.34], [NSNumber numberWithFloat: -0.1]];
+    NSArray *data = @[[NSNumber numberWithFloat:0.14], [NSNumber numberWithFloat:0.25 ], [NSNumber numberWithFloat:0.75], [NSNumber numberWithFloat: -0.34], [NSNumber numberWithFloat: -0.1]];
     if (_dataArray == nil) {
         _dataArray = [NSMutableArray array];
     }
     [_dataArray removeAllObjects];
     [_dataArray addObjectsFromArray:data];
-    
-    [self addBarViews];
-}
-
-- (void)layoutDateLabel {
-//    NSMutableArray *labelArray = [NSMutableArray array];
-//    [labelArray addObject:self.date1];
-//    [labelArray addObject:self.date2];
-//    [labelArray addObject:self.date3];
-//    [labelArray addObject:self.date4];
-//    [labelArray addObject:self.date5];
-//    
-//    CGFloat barWidth = CGRectGetWidth(self.chart.frame) / 10;
-//    for (int i = 0; i < 5; i++) {
-//        CGFloat xCenterOffset = CGRectGetMinX(self.chart.frame) + barWidth * (i * 2 +1);
-//        UILabel *dateLabel = labelArray[i];
-//        if (dateLabel) {
-//            [dateLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-//                make.left.equalTo(self.view.mas_left).with.offset(xCenterOffset);
-//                make.top.equalTo(self.chart.mas_bottom).with.offset(8);
-//            }];
-//        }
-//    }
 }
 
 - (void)addBarViews {
@@ -102,7 +82,7 @@
         [barArray addObject:bar];
     }
     
-    [self makeEqualWidthViews:barArray inView:self.chart withMargin:CGMarginZero andSpacing:20];
+    [self makeEqualWidthViews:barArray inView:self.chart withMargin:CGMarginMake(0, 10, 0, 10) andSpacing:20];
 }
 
 /**

@@ -110,10 +110,12 @@
 		014FF3891B1D5276007DB608 /* QuoteHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014FF3871B1D5276007DB608 /* QuoteHomeViewController.m */; };
 		014FF38A1B1D5276007DB608 /* QuoteHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 014FF3881B1D5276007DB608 /* QuoteHomeViewController.xib */; };
 		014FF3921B1DAE31007DB608 /* QuoteHomeTrendChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 014FF3911B1DAE31007DB608 /* QuoteHomeTrendChart.m */; };
+		019F2A3A1B5659C5005602B7 /* BarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 019F2A351B5659C5005602B7 /* BarView.m */; };
+		019F2A3C1B5659C5005602B7 /* FundFlowBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 019F2A381B5659C5005602B7 /* FundFlowBarView.m */; };
+		019F2A3D1B5659C5005602B7 /* FundFlowBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 019F2A391B5659C5005602B7 /* FundFlowBarView.xib */; };
 		01A46F291B4CFC7E000CD7A5 /* RankingListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A46F271B4CFC7E000CD7A5 /* RankingListCell.m */; };
 		01A46F2A1B4CFC7E000CD7A5 /* RankingListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A46F281B4CFC7E000CD7A5 /* RankingListCell.xib */; };
 		01A95D251B32BE6A008CF76B /* BDStockPoolInfoService.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A95D241B32BE6A008CF76B /* BDStockPoolInfoService.m */; };
-		01A961471B4F9CE400B705AD /* FundFlowBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A961461B4F9CE400B705AD /* FundFlowBarChart.m */; };
 		01A9614A1B4FC0FA00B705AD /* FundFlowCircleChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A961491B4FC0FA00B705AD /* FundFlowCircleChart.m */; };
 		01AD748E1B3948CF006EC988 /* IdxScalarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AD748D1B3948CF006EC988 /* IdxScalarView.m */; };
 		01AD74901B3948E7006EC988 /* IdxScalarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01AD748F1B3948E7006EC988 /* IdxScalarView.xib */; };
@@ -340,13 +342,16 @@
 		014FF3881B1D5276007DB608 /* QuoteHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuoteHomeViewController.xib; sourceTree = "<group>"; };
 		014FF3901B1DAE31007DB608 /* QuoteHomeTrendChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteHomeTrendChart.h; sourceTree = "<group>"; };
 		014FF3911B1DAE31007DB608 /* QuoteHomeTrendChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuoteHomeTrendChart.m; sourceTree = "<group>"; };
+		019F2A341B5659C5005602B7 /* BarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarView.h; sourceTree = "<group>"; };
+		019F2A351B5659C5005602B7 /* BarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarView.m; sourceTree = "<group>"; };
+		019F2A371B5659C5005602B7 /* FundFlowBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FundFlowBarView.h; sourceTree = "<group>"; };
+		019F2A381B5659C5005602B7 /* FundFlowBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FundFlowBarView.m; sourceTree = "<group>"; };
+		019F2A391B5659C5005602B7 /* FundFlowBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FundFlowBarView.xib; sourceTree = "<group>"; };
 		01A46F261B4CFC7E000CD7A5 /* RankingListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankingListCell.h; sourceTree = "<group>"; };
 		01A46F271B4CFC7E000CD7A5 /* RankingListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankingListCell.m; sourceTree = "<group>"; };
 		01A46F281B4CFC7E000CD7A5 /* RankingListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RankingListCell.xib; sourceTree = "<group>"; };
 		01A95D231B32BE6A008CF76B /* BDStockPoolInfoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDStockPoolInfoService.h; sourceTree = "<group>"; };
 		01A95D241B32BE6A008CF76B /* BDStockPoolInfoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDStockPoolInfoService.m; sourceTree = "<group>"; };
-		01A961451B4F9CE400B705AD /* FundFlowBarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FundFlowBarChart.h; sourceTree = "<group>"; };
-		01A961461B4F9CE400B705AD /* FundFlowBarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FundFlowBarChart.m; sourceTree = "<group>"; };
 		01A961481B4FC0FA00B705AD /* FundFlowCircleChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FundFlowCircleChart.h; sourceTree = "<group>"; };
 		01A961491B4FC0FA00B705AD /* FundFlowCircleChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FundFlowCircleChart.m; sourceTree = "<group>"; };
 		01AD748C1B3948CF006EC988 /* IdxScalarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxScalarView.h; sourceTree = "<group>"; };
@@ -685,7 +690,6 @@
 		011B850C1B0DBE56003005BC /* Markets */ = {
 			isa = PBXGroup;
 			children = (
-				01A961441B4F71D000B705AD /* Chart */,
 				011B852D1B0DBEFE003005BC /* F10ViewController.h */,
 				011B852E1B0DBEFE003005BC /* F10ViewController.m */,
 				011B85341B0DBEFE003005BC /* KeyboardWizardViewController.h */,
@@ -700,6 +704,7 @@
 				01A46F301B4D0681000CD7A5 /* Home */,
 				01A46F311B4D0765000CD7A5 /* Ranking */,
 				01A46F321B4D07C9000CD7A5 /* Detail */,
+				01A961441B4F71D000B705AD /* Chart */,
 			);
 			name = Markets;
 			sourceTree = "<group>";
@@ -778,8 +783,11 @@
 				01B5418E1B3A572700AF5C05 /* TrendLineChart.m */,
 				01D8A8151B4675F30047BA64 /* KLineChart.h */,
 				01D8A8161B4675F30047BA64 /* KLineChart.m */,
-				01A961451B4F9CE400B705AD /* FundFlowBarChart.h */,
-				01A961461B4F9CE400B705AD /* FundFlowBarChart.m */,
+				019F2A341B5659C5005602B7 /* BarView.h */,
+				019F2A351B5659C5005602B7 /* BarView.m */,
+				019F2A371B5659C5005602B7 /* FundFlowBarView.h */,
+				019F2A381B5659C5005602B7 /* FundFlowBarView.m */,
+				019F2A391B5659C5005602B7 /* FundFlowBarView.xib */,
 				01A961481B4FC0FA00B705AD /* FundFlowCircleChart.h */,
 				01A961491B4FC0FA00B705AD /* FundFlowCircleChart.m */,
 			);
@@ -905,6 +913,7 @@
 				011B845D1B0DB9D8003005BC /* NewsDetail.html in Resources */,
 				0129EF5A1B1FE73F00690920 /* QuoteHomeKLineView.xib in Resources */,
 				01A46F2A1B4CFC7E000CD7A5 /* RankingListCell.xib in Resources */,
+				019F2A3D1B5659C5005602B7 /* FundFlowBarView.xib in Resources */,
 				01CA5C551B1EDF6C003B824F /* QuoteHomeTrendView.xib in Resources */,
 				01AD74901B3948E7006EC988 /* IdxScalarView.xib in Resources */,
 				011B85591B0DBEFE003005BC /* StkQuoteViewCell.xib in Resources */,
@@ -979,7 +988,6 @@
 				011B84F41B0DBDBC003005BC /* LoginViewController.m in Sources */,
 				011B84A11B0DBC57003005BC /* BDBulletin.m in Sources */,
 				011B85071B0DBE1F003005BC /* SideMenuViewController.m in Sources */,
-				01A961471B4F9CE400B705AD /* FundFlowBarChart.m in Sources */,
 				011B85551B0DBEFE003005BC /* LiteKLineView.m in Sources */,
 				011B855D1B0DBEFE003005BC /* StkDetailViewController.m in Sources */,
 				011B84861B0DBB83003005BC /* BDDatabaseAccess.m in Sources */,
@@ -994,6 +1002,7 @@
 				011B84B91B0DBCBA003005BC /* BDCustomTagCollection.m in Sources */,
 				011B852A1B0DBEA9003005BC /* SlideImageViewController.m in Sources */,
 				011B84F61B0DBDBC003005BC /* RegisterViewController.m in Sources */,
+				019F2A3A1B5659C5005602B7 /* BarView.m in Sources */,
 				011B855C1B0DBEFE003005BC /* SectQuoteViewController.m in Sources */,
 				014FF3891B1D5276007DB608 /* QuoteHomeViewController.m in Sources */,
 				011B85061B0DBE1F003005BC /* RootTabBarController.m in Sources */,
@@ -1020,6 +1029,7 @@
 				011B855A1B0DBEFE003005BC /* SectCollectionViewController.m in Sources */,
 				011B84E71B0DBD4F003005BC /* SubDealViewModel.m in Sources */,
 				01BDBCA21B33B8400038A825 /* BDPrompt.m in Sources */,
+				019F2A3C1B5659C5005602B7 /* FundFlowBarView.m in Sources */,
 				011B84BE1B0DBCBA003005BC /* BDTrendLine.m in Sources */,
 				011B84E61B0DBD4F003005BC /* StockNewsViewModel.m in Sources */,
 				011B85531B0DBEFE003005BC /* KeyboardWizardViewController.m in Sources */,

@@ -14,6 +14,7 @@
 #import "RankingListViewController.h"
 
 #import "FundFlowCircleChart.h"
+#import "FundFlowBarView.h"
 
 #import <Masonry.h>
 #import <PPiFlatSegmentedControl.h>
@@ -39,7 +40,8 @@
 @property(nonatomic, strong) PPiFlatSegmentedControl *infoTabView;
 @property(nonatomic, strong) UITableView *rankingListView;
 
-@property(nonatomic, strong) RankingListViewController *listController;
+@property(nonatomic, strong) RankingListViewController *rankingList;
+@property(nonatomic, strong) FundFlowBarView *fundFlowBarView;
 
 @property(nonatomic, assign) NSInteger chartSelectIndex;
 @property(nonatomic, assign) NSInteger infoSelectIndex;
@@ -233,55 +235,69 @@
 }
 
 - (void)loadRankingList {
+    for (UIView *sub in self.infoContainerView.subviews) {
+        [sub removeFromSuperview];
+    }
+    
     switch (_infoSelectIndex) {
         case 0: {
-            if (self.listController == nil) {
-                self.listController = [[RankingListViewController alloc] init];
-                [self.infoContainerView addSubview:self.listController.tableView];
-                [self.listController.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.edges.equalTo(self.infoContainerView);
-                }];
+            if (self.rankingList == nil) {
+                self.rankingList = [[RankingListViewController alloc] init];
             }
+            [self.infoContainerView addSubview:self.rankingList.tableView];
+            [self.rankingList.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(self.infoContainerView);
+            }];
+            
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 BDSectService *service = [[BDSectService alloc] init];
                 NSUInteger sectId = [service getSectIdByIndexCode:_secu.bdCode];
                 NSUInteger number = 10;
-                [self.listController loadDataWithSectId:sectId andNumber:number orderByDesc:YES];
+                [self.rankingList loadDataWithSectId:sectId andNumber:number orderByDesc:YES];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.listController.tableView reloadData];
+                    [self.rankingList.tableView reloadData];
                     [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
-                        make.height.mas_equalTo(self.listController.tableView.rowHeight * number);
+                        make.height.mas_equalTo(self.rankingList.tableView.rowHeight * number);
                     }];
                 });
             });
             break;
         }
         case 1: {
-            if (self.listController == nil) {
-                self.listController = [[RankingListViewController alloc] init];
-                [self.infoContainerView addSubview:self.listController.tableView];
-                [self.listController.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.edges.equalTo(self.infoContainerView);
-                }];
-            }
-            dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                BDSectService *service = [[BDSectService alloc] init];
-                NSUInteger sectId = [service getSectIdByIndexCode:_secu.bdCode];
-                NSUInteger number = 10;
-                [self.listController loadDataWithSectId:sectId andNumber:number orderByDesc:NO];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.listController.tableView reloadData];
-                    [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
-                        make.height.mas_equalTo(self.listController.tableView.rowHeight * number);
-                    }];
-                });
-            });
-            break;
+//            if (self.rankingList == nil) {
+//                self.rankingList = [[RankingListViewController alloc] init];
+//                [self.rankingList.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+//                    make.edges.equalTo(self.infoContainerView);
+//                }];
+//            }
+//            [self.infoContainerView addSubview:self.rankingList.tableView];
+//            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//                BDSectService *service = [[BDSectService alloc] init];
+//                NSUInteger sectId = [service getSectIdByIndexCode:_secu.bdCode];
+//                NSUInteger number = 10;
+//                [self.rankingList loadDataWithSectId:sectId andNumber:number orderByDesc:NO];
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [self.rankingList.tableView reloadData];
+//                    [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
+//                        make.height.mas_equalTo(self.rankingList.tableView.rowHeight * number);
+//                    }];
+//                });
+//            });
+//            break;
         }
         case 2: {
-            [self.listController.tableView removeFromSuperview];
-            FundFlowCircleChart *chart = [[FundFlowCircleChart alloc] initWithFrame:CGRectMake(0, 0, 320, 300)];
-            [self.infoContainerView addSubview:chart];
+//            FundFlowCircleChart *chart = [[FundFlowCircleChart alloc] initWithFrame:CGRectMake(0, 0, 320, 300)];
+//            [self.infoContainerView addSubview:chart];
+            
+            if (self.fundFlowBarView == nil) {
+                self.fundFlowBarView = [[FundFlowBarView alloc] initWithNibName:@"FundFlowBarView" bundle:nil];
+                self.fundFlowBarView.code = _secu.bdCode;
+            }
+            [self.infoContainerView addSubview:self.fundFlowBarView.view];
+            [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.equalTo(self.fundFlowBarView.view);
+            }];
+            
             break;
         }
 

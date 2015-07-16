@@ -7,12 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FundFlowBarView">
             <connections>
-                <outlet property="chart" destination="3si-NR-NSN" id="dA4-cc-Q84"/>
-                <outlet property="date1" destination="Pks-B9-9Sh" id="5xG-WC-qhZ"/>
-                <outlet property="date2" destination="0aI-Nd-Voz" id="xap-sS-MId"/>
-                <outlet property="date3" destination="19y-YP-5EH" id="TPb-3o-yR8"/>
-                <outlet property="date4" destination="6Kn-4F-jrD" id="HDI-Mu-IsH"/>
-                <outlet property="date5" destination="ETR-96-4AQ" id="zF1-Jg-exU"/>
+                <outlet property="chart" destination="3si-NR-NSN" id="XNe-De-1Vb"/>
+                <outlet property="date1" destination="Pks-B9-9Sh" id="qzp-We-kEx"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -38,25 +34,25 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="07-09" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0aI-Nd-Voz" userLabel="date2">
-                    <rect key="frame" x="94" y="119" width="28" height="12"/>
+                    <rect key="frame" x="96" y="119" width="28" height="12"/>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="07-10" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19y-YP-5EH" userLabel="date3">
-                    <rect key="frame" x="146" y="119" width="28" height="12"/>
+                    <rect key="frame" x="148" y="119" width="28" height="12"/>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="07-13" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Kn-4F-jrD" userLabel="date4">
-                    <rect key="frame" x="198" y="119" width="28" height="12"/>
+                    <rect key="frame" x="200" y="119" width="28" height="12"/>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="07-14" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ETR-96-4AQ" userLabel="date5">
-                    <rect key="frame" x="251" y="119" width="28" height="12"/>
+                    <rect key="frame" x="252" y="119" width="28" height="12"/>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
