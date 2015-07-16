@@ -141,6 +141,19 @@
                     KLineType type = (KLineType)[dic[@"numberType"] intValue];
                     if (self.type == type && self.number + ExtraLines == number) {
                         NSArray *lineArray = [self paraseTrendLines:[value objectForKey:@"KLine"]];
+                        
+                        unsigned int date = [[_service getCurrentIndicateWithCode:self.code andName:@"Date"] unsignedIntValue];
+                        BDKLine *lastLine = [lineArray lastObject];
+                        if (lastLine && lastLine.date < date) {     // 判断历史K线是否包含当日K线。如果没有则从缓存中取当日K线，加入数组末尾
+                            BDKLine *newLine = [[BDKLine alloc] init];
+                            newLine.date = date;
+                            newLine.high = [[_service getCurrentIndicateWithCode:self.code andName:@"High"] doubleValue];
+                            newLine.open = [[_service getCurrentIndicateWithCode:self.code andName:@"Open"] doubleValue];
+                            newLine.low = [[_service getCurrentIndicateWithCode:self.code andName:@"Low"] doubleValue];
+                            newLine.close = [[_service getCurrentIndicateWithCode:self.code andName:@"Now"] doubleValue];
+                            newLine.volume = [[_service getCurrentIndicateWithCode:self.code andName:@"Volume"] unsignedLongValue];
+                            lineArray = [lineArray arrayByAddingObject:newLine];
+                        }
                         [self setValue:lineArray forKey:@"lines"];  // kvo
                         self.initialized = YES;
                     }
@@ -151,15 +164,15 @@
             }
             
             if (self.initialized) {
-                @try {
-                    if ([indicateName isEqualToString:@"Time"]) {
+                if ([indicateName isEqualToString:@"Time"]) {
+                    @try {
                         unsigned int date = [[_service getCurrentIndicateWithCode:self.code andName:@"Date"] unsignedIntValue];
                         double price = [[_service getCurrentIndicateWithCode:self.code andName:@"Now"] doubleValue];
                         double open = [[_service getCurrentIndicateWithCode:self.code andName:@"Open"] doubleValue];
                         double high = [[_service getCurrentIndicateWithCode:self.code andName:@"High"] doubleValue];
                         double low = [[_service getCurrentIndicateWithCode:self.code andName:@"Low"] doubleValue];
                         unsigned long volume = [[_service getCurrentIndicateWithCode:self.code andName:@"Volume"] unsignedLongValue];
-
+                        
                         BDKLine *lastLine = [self.lines lastObject];
                         if (lastLine && lastLine.date == date) {
                             lastLine.high = high;
@@ -181,9 +194,9 @@
                         
                         [self setValue:self.lines forKey:@"lines"];  // kvo
                     }
-                }
-                @catch (NSException *exception) {
-                    NSLog(@"KLineViewModel 订阅指标数据异常：%@", [exception reason]);
+                    @catch (NSException *exception) {
+                        NSLog(@"KLineViewModel 订阅指标数据异常：%@", [exception reason]);
+                    }
                 }
             }
         });

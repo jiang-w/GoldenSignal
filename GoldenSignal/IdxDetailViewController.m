@@ -93,7 +93,7 @@
 
     /* 添加指数标价 */
     self.scalarView = [IdxScalarView createView];
-    [self addSubView:self.scalarView withHeight:110 andSpace:0];
+    [self addSubView:self.scalarView inView:self.containerView withHeight:110 andSpace:0];
     
     __weak IdxDetailViewController *weakSelf = self;    // 解决block循环引用的问题
     /* 行情走势图Tab */
@@ -107,12 +107,12 @@
     self.chartTabView.selectedColor = RGB(30, 30, 30, 1);
     self.chartTabView.textAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(214, 214, 214, 1)};
     self.chartTabView.selectedTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(216, 1, 1, 1)};
-    [self addSubView:self.chartTabView withHeight:30 andSpace:2];
+    [self addSubView:self.chartTabView inView:self.containerView withHeight:30 andSpace:2];
     
     /* 分时、K线容器视图 */
     self.chartContainerView = [[UIView alloc] init];
     self.chartContainerView.backgroundColor = RGB(30, 30, 30, 1);
-    [self addSubView:self.chartContainerView withHeight:180 andSpace:4];
+    [self addSubView:self.chartContainerView inView:self.containerView withHeight:180 andSpace:2];
 
     /* 资讯Tab */
     self.infoTabView = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 320, 30) items:@[@{@"text":@"领涨股"}, @{@"text":@"领跌股"}, @{@"text":@"资金"}, @{@"text":@"新闻"}] iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex) {
@@ -120,11 +120,12 @@
         [weakSelf loadRankingList];
         
         // 点击Tab后scrollView滚动到其位置
-        CGFloat scrollHeight = weakSelf.scrollView.frame.size.height;
-        CGFloat contentHeight = weakSelf.scrollView.contentSize.height;
-        CGFloat tabViewY = weakSelf.infoTabView.frame.origin.y;
-        CGFloat offsetY = tabViewY + scrollHeight > contentHeight ? contentHeight - scrollHeight : tabViewY;
-        [weakSelf.scrollView setContentOffset:CGPointMake(0, offsetY) animated:YES];
+//        CGFloat scrollHeight = weakSelf.scrollView.frame.size.height;
+//        CGFloat contentHeight = weakSelf.scrollView.contentSize.height;
+//        NSLog(@"contentHeight: %f", contentHeight);
+//        CGFloat tabViewY = weakSelf.infoTabView.frame.origin.y;
+//        CGFloat offsetY = tabViewY > (contentHeight - scrollHeight) ? contentHeight - scrollHeight : tabViewY;
+//        [weakSelf.scrollView setContentOffset:CGPointMake(0, offsetY) animated:YES];
     }];
     self.infoTabView.color = RGB(7, 9, 8, 1);
     self.infoTabView.borderWidth = 1;
@@ -132,32 +133,32 @@
     self.infoTabView.selectedColor = RGB(30, 30, 30, 1);
     self.infoTabView.textAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(214, 214, 214, 1)};
     self.infoTabView.selectedTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(216, 1, 1, 1)};
-    [self addSubView:self.infoTabView withHeight:30 andSpace:2];
+    [self addSubView:self.infoTabView inView:self.containerView withHeight:30 andSpace:2];
     
     self.infoContainerView = [[UIView alloc] init];
     self.infoContainerView.backgroundColor = [UIColor clearColor];
-    [self addSubView:self.infoContainerView withHeight:0 andSpace:2];
+    [self addSubView:self.infoContainerView inView:self.containerView withHeight:0 andSpace:2];
     
     UIView *lastView = self.containerView.subviews.lastObject;
     if (lastView) {
         [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(lastView.mas_bottom);
+            make.bottom.equalTo(lastView);
         }];
     }
 }
 
-- (void)addSubView:(UIView *) subView withHeight:(CGFloat)height andSpace:(CGFloat)space {
-    UIView *lastView = self.containerView.subviews.lastObject;
+- (void)addSubView:(UIView *)subView inView:(UIView *)superView withHeight:(CGFloat)height andSpace:(CGFloat)space {
+    UIView *lastView = superView.subviews.lastObject;
     if (subView) {
-        [self.containerView addSubview:subView];
+        [superView addSubview:subView];
         [subView mas_makeConstraints:^(MASConstraintMaker *make) {
             if (lastView) {
-                make.top.equalTo(lastView.mas_bottom).with.offset(space);
+                make.top.equalTo(lastView.mas_bottom).offset(space);
             }
             else {
-                make.top.equalTo(self.containerView).with.offset(space);
+                make.top.equalTo(superView);
             }
-            make.left.and.right.equalTo(self.containerView);
+            make.left.and.right.equalTo(superView);
             make.height.mas_equalTo(height);
         }];
     }
@@ -264,43 +265,43 @@
             break;
         }
         case 1: {
-//            if (self.rankingList == nil) {
-//                self.rankingList = [[RankingListViewController alloc] init];
-//                [self.rankingList.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-//                    make.edges.equalTo(self.infoContainerView);
-//                }];
-//            }
-//            [self.infoContainerView addSubview:self.rankingList.tableView];
-//            dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//                BDSectService *service = [[BDSectService alloc] init];
-//                NSUInteger sectId = [service getSectIdByIndexCode:_secu.bdCode];
-//                NSUInteger number = 10;
-//                [self.rankingList loadDataWithSectId:sectId andNumber:number orderByDesc:NO];
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [self.rankingList.tableView reloadData];
-//                    [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
-//                        make.height.mas_equalTo(self.rankingList.tableView.rowHeight * number);
-//                    }];
-//                });
-//            });
-//            break;
+            if (self.rankingList == nil) {
+                self.rankingList = [[RankingListViewController alloc] init];
+            }
+            [self.infoContainerView addSubview:self.rankingList.tableView];
+            [self.rankingList.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(self.infoContainerView);
+            }];
+            
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                BDSectService *service = [[BDSectService alloc] init];
+                NSUInteger sectId = [service getSectIdByIndexCode:_secu.bdCode];
+                NSUInteger number = 10;
+                [self.rankingList loadDataWithSectId:sectId andNumber:number orderByDesc:NO];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.rankingList.tableView reloadData];
+                    [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
+                        make.height.mas_equalTo(self.rankingList.tableView.rowHeight * number);
+                    }];
+                });
+            });
+            break;
         }
         case 2: {
-//            FundFlowCircleChart *chart = [[FundFlowCircleChart alloc] initWithFrame:CGRectMake(0, 0, 320, 300)];
-//            [self.infoContainerView addSubview:chart];
-            
             if (self.fundFlowBarView == nil) {
                 self.fundFlowBarView = [[FundFlowBarView alloc] initWithNibName:@"FundFlowBarView" bundle:nil];
                 self.fundFlowBarView.code = _secu.bdCode;
             }
             [self.infoContainerView addSubview:self.fundFlowBarView.view];
             [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.height.equalTo(self.fundFlowBarView.view);
+                make.height.mas_equalTo(self.fundFlowBarView.view.frame.size.height);
+            }];
+            [self.fundFlowBarView.view mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(self.infoContainerView);
             }];
             
             break;
         }
-
     }
 }
 
