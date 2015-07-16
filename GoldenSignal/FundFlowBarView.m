@@ -29,19 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSComparator cmptr = ^(id obj1, id obj2){
-        if (fabs([obj1 doubleValue]) > fabs([obj2 doubleValue])) {
-            return (NSComparisonResult)NSOrderedDescending;
-        }
-        if (fabs([obj1 doubleValue]) < fabs([obj2 doubleValue])) {
-            return (NSComparisonResult)NSOrderedAscending;
-        }
-        return (NSComparisonResult)NSOrderedSame;
-    };
-    
-    NSArray *array = [_dataArray sortedArrayUsingComparator:cmptr];
-    double max = fabs([[array lastObject] doubleValue]);
-    
+    _barArray = [NSMutableArray array];
     if (self.code) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.chart animated:YES];
         hud.opacity = 0;
@@ -49,6 +37,7 @@
             [self loadDataWithSecuCode:self.code];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self addBarViews];
+                [self addLabels];
                 [MBProgressHUD hideHUDForView:self.chart animated:YES];
             });
         });
@@ -68,21 +57,44 @@
 }
 
 - (void)addBarViews {
-    NSMutableArray *barArray = [NSMutableArray array];
     for (int i = 0; i < _dataArray.count; i++) {
         float val = [_dataArray[i] floatValue];
         BarView *bar = [[BarView alloc] init];
         bar.grade = val;
         if (val > 0) {
-            bar.barColor = [UIColor redColor];
+            bar.color = [UIColor redColor];
         }
         else {
-            bar.barColor = [UIColor greenColor];
+            bar.color = [UIColor greenColor];
         }
-        [barArray addObject:bar];
+        [_barArray addObject:bar];
     }
     
-    [self makeEqualWidthViews:barArray inView:self.chart withMargin:CGMarginMake(0, 10, 0, 10) andSpacing:20];
+    [self makeEqualWidthViews:_barArray inView:self.chart withMargin:CGMarginMake(0, 10, 0, 10) andSpacing:20];
+}
+
+- (void)addLabels {
+    for (BarView *bar in _barArray) {
+        UILabel *label = [[UILabel alloc] init];
+        [bar.superview addSubview:label];
+        label.text = [NSString stringWithFormat:@"%.2f", bar.grade];
+        label.font = [UIFont systemFontOfSize:8];
+        if (bar.grade > 0) {
+            label.textColor = [UIColor redColor];
+            [label mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(bar.mas_bottom).offset(4);
+                make.centerX.equalTo(bar);
+            }];
+        }
+        else {
+            label.textColor = [UIColor greenColor];
+            [label mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(bar.mas_top).offset(-4);
+                make.centerX.equalTo(bar);
+            }];
+        }
+
+    }
 }
 
 /**

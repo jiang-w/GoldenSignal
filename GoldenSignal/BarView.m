@@ -20,23 +20,24 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
+        self.clipsToBounds = YES;
+        
+        _barLayer = [CAShapeLayer layer];
+        _barLayer.backgroundColor = nil;
+        [self.layer addSublayer:_barLayer];
     }
     return self;
 }
 
 - (void)drawRect:(CGRect)rect {
-    _barLayer = [CAShapeLayer layer];
-    _barLayer.backgroundColor = nil;
-    _barLayer.lineWidth = CGRectGetWidth(self.frame);
-    [self.layer addSublayer:_barLayer];
-    
     if (self.grade != 0) {
-        if (self.barColor) {
-            _barLayer.strokeColor = [self.barColor CGColor];
+        if (self.color) {
+            _barLayer.strokeColor = [self.color CGColor];
         }
         else {
             _barLayer.strokeColor = [[UIColor redColor] CGColor];
         }
+        _barLayer.lineWidth = CGRectGetWidth(rect);
         
         UIBezierPath *progressline = [UIBezierPath bezierPath];
         if (self.grade > 0) {

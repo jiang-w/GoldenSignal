@@ -11,6 +11,6 @@
 @interface BarView : UIView
 
 @property (nonatomic) float grade;
-@property (nonatomic, strong) UIColor *barColor;
+@property (nonatomic, strong) UIColor *color;
 
 @end
