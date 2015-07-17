@@ -76,7 +76,7 @@
 }
 
 
-#pragma mark Loading date
+#pragma mark Method
 
 - (void)loadDataWithSecuCode:(NSString *)code forType:(KLineType)type andNumber:(NSUInteger)number {
     if (code) {
@@ -103,106 +103,6 @@
     }
 }
 
-
-#pragma mark Subscribe
-
-- (void)reconnection {
-    self.initialized = NO;
-    [self loadDataWithSecuCode:self.code forType:self.type andNumber:self.number + ExtraLines];
-}
-
-- (NSArray *)paraseTrendLines:(NSArray *)data {
-    NSMutableArray *arr = [NSMutableArray array];
-    for (NSDictionary *item in data) {
-        BDKLine *kLine = [[BDKLine alloc] init];
-        kLine.date = [[item objectForKey:@"Date"] unsignedIntValue];
-        kLine.high = [[item objectForKey:@"High"] doubleValue];
-        kLine.low = [[item objectForKey:@"Low"] doubleValue];
-        kLine.open = [[item objectForKey:@"Open"] doubleValue];
-        kLine.close = [[item objectForKey:@"Now"] doubleValue];
-        kLine.volume = [[item objectForKey:@"Volume"] unsignedLongValue];
-        [arr addObject:kLine];
-    }
-    [arr sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]]];
-    return arr;
-}
-
-- (void)subscribeScalarChanged:(NSNotification *)notification {
-    NSDictionary *dic = notification.userInfo;
-    NSString *code = dic[@"code"];
-    NSString *indicateName = dic[@"name"];
-    id value = dic[@"value"];
-    
-    if (self.code && [self.code isEqualToString:code]) {
-        dispatch_async(_propertyUpdateQueue, ^{
-            if ([indicateName isEqualToString:@"KLine"] && !self.initialized) {
-                @try {
-                    NSUInteger number = [dic[@"numberFromBegin"] intValue];
-                    KLineType type = (KLineType)[dic[@"numberType"] intValue];
-                    if (self.type == type && self.number + ExtraLines == number) {
-                        NSArray *lineArray = [self paraseTrendLines:[value objectForKey:@"KLine"]];
-                        
-                        unsigned int date = [[_service getCurrentIndicateWithCode:self.code andName:@"Date"] unsignedIntValue];
-                        BDKLine *lastLine = [lineArray lastObject];
-                        if (lastLine && lastLine.date < date) {     // 判断历史K线是否包含当日K线。如果没有则从缓存中取当日K线，加入数组末尾
-                            BDKLine *newLine = [[BDKLine alloc] init];
-                            newLine.date = date;
-                            newLine.high = [[_service getCurrentIndicateWithCode:self.code andName:@"High"] doubleValue];
-                            newLine.open = [[_service getCurrentIndicateWithCode:self.code andName:@"Open"] doubleValue];
-                            newLine.low = [[_service getCurrentIndicateWithCode:self.code andName:@"Low"] doubleValue];
-                            newLine.close = [[_service getCurrentIndicateWithCode:self.code andName:@"Now"] doubleValue];
-                            newLine.volume = [[_service getCurrentIndicateWithCode:self.code andName:@"Volume"] unsignedLongValue];
-                            lineArray = [lineArray arrayByAddingObject:newLine];
-                        }
-                        [self setValue:lineArray forKey:@"lines"];  // kvo
-                        self.initialized = YES;
-                    }
-                }
-                @catch (NSException *exception) {
-                    NSLog(@"KLineViewModel 初始化K线异常：%@", [exception reason]);
-                }
-            }
-            
-            if (self.initialized) {
-                if ([indicateName isEqualToString:@"Time"]) {
-                    @try {
-                        unsigned int date = [[_service getCurrentIndicateWithCode:self.code andName:@"Date"] unsignedIntValue];
-                        double price = [[_service getCurrentIndicateWithCode:self.code andName:@"Now"] doubleValue];
-                        double open = [[_service getCurrentIndicateWithCode:self.code andName:@"Open"] doubleValue];
-                        double high = [[_service getCurrentIndicateWithCode:self.code andName:@"High"] doubleValue];
-                        double low = [[_service getCurrentIndicateWithCode:self.code andName:@"Low"] doubleValue];
-                        unsigned long volume = [[_service getCurrentIndicateWithCode:self.code andName:@"Volume"] unsignedLongValue];
-                        
-                        BDKLine *lastLine = [self.lines lastObject];
-                        if (lastLine && lastLine.date == date) {
-                            lastLine.high = high;
-                            lastLine.open = open;
-                            lastLine.low = low;
-                            lastLine.close = price;
-                            lastLine.volume = volume;
-                        }
-                        else {
-                            BDKLine *newLine = [[BDKLine alloc] init];
-                            newLine.date = date;
-                            newLine.high = high;
-                            newLine.open = open;
-                            newLine.low = low;
-                            newLine.close = price;
-                            newLine.volume = volume;
-                            [self.lines addObject:newLine];
-                        }
-                        
-                        [self setValue:self.lines forKey:@"lines"];  // kvo
-                    }
-                    @catch (NSException *exception) {
-                        NSLog(@"KLineViewModel 订阅指标数据异常：%@", [exception reason]);
-                    }
-                }
-            }
-        });
-    }
-}
-
 // 计算均价
 - (double)calcAvgPriceForDate:(NSUInteger)date andMA:(NSUInteger)value {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"date <= %lu", date]];
@@ -219,6 +119,107 @@
     }
     else {
         return 0;
+    }
+}
+
+
+#pragma mark Subscribe
+
+- (void)reconnection {
+    self.initialized = NO;
+    [self loadDataWithSecuCode:self.code forType:self.type andNumber:self.number + ExtraLines];
+}
+
+- (NSMutableArray *)paraseTrendLines:(NSArray *)data {
+    NSMutableArray *arr = [NSMutableArray array];
+    @try {
+        for (NSDictionary *item in data) {
+            BDKLine *kLine = [[BDKLine alloc] init];
+            kLine.date = [[item objectForKey:@"Date"] unsignedIntValue];
+            kLine.high = [[item objectForKey:@"High"] doubleValue];
+            kLine.low = [[item objectForKey:@"Low"] doubleValue];
+            kLine.open = [[item objectForKey:@"Open"] doubleValue];
+            kLine.close = [[item objectForKey:@"Now"] doubleValue];
+            kLine.volume = [[item objectForKey:@"Volume"] unsignedLongValue];
+            [arr addObject:kLine];
+        }
+        [arr sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]]];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"ERROR: 初始化K线数据异常 %@", [exception reason]);
+    }
+    return arr;
+}
+
+- (void)subscribeScalarChanged:(NSNotification *)notification {
+    NSDictionary *dic = notification.userInfo;
+    NSString *code = dic[@"code"];
+    NSString *indicateName = dic[@"name"];
+    id value = dic[@"value"];
+    
+    if (self.code && [self.code isEqualToString:code]) {
+        dispatch_async(_propertyUpdateQueue, ^{
+            if ([indicateName isEqualToString:@"KLine"] && !self.initialized) {
+                int number = [dic[@"numberFromBegin"] intValue];
+                KLineType type = (KLineType)[dic[@"numberType"] intValue];
+                
+                if (self.type == type && self.number + ExtraLines == number) {
+                    _lines = [self paraseTrendLines:[value objectForKey:@"KLine"]];
+                    [self updateKLine];
+                    self.initialized = YES;
+                }
+            }
+            
+            if (self.initialized) {
+                if ([indicateName isEqualToString:@"Time"]) {
+                    [self updateKLine];
+                }
+            }
+        });
+    }
+}
+
+// 更新K线数据
+- (void)updateKLine {
+    @try {
+        unsigned int date = [[_service getCurrentIndicateWithCode:self.code andName:@"Date"] unsignedIntValue];
+        double high = [[_service getCurrentIndicateWithCode:self.code andName:@"High"] doubleValue];
+        double open = [[_service getCurrentIndicateWithCode:self.code andName:@"Open"] doubleValue];
+        double low = [[_service getCurrentIndicateWithCode:self.code andName:@"Low"] doubleValue];
+        double close = [[_service getCurrentIndicateWithCode:self.code andName:@"Now"] doubleValue];
+        unsigned long volume = [[_service getCurrentIndicateWithCode:self.code andName:@"Volume"] unsignedLongValue];
+        
+        BDKLine *lastLine = [self.lines lastObject];
+        switch (self.type) {
+            case KLINE_DAY:
+                if (lastLine && lastLine.date == date) {
+                    lastLine.high = high;
+                    lastLine.open = open;
+                    lastLine.low = low;
+                    lastLine.close = close;
+                    lastLine.volume = volume;
+                }
+                else {
+                    BDKLine *newLine = [[BDKLine alloc] init];
+                    newLine.date = date;
+                    newLine.high = high;
+                    newLine.open = open;
+                    newLine.low = low;
+                    newLine.close = close;
+                    newLine.volume = volume;
+                    [self.lines addObject:newLine];
+                }
+                break;
+                
+            default:
+                break;
+        }
+    }
+    @catch (NSException *exception) {
+        NSLog(@"ERROR: 更新K线数据异常 %@", [exception reason]);
+    }
+    @finally {
+        [self setValue:self.lines forKey:@"lines"];  // kvo
     }
 }
 

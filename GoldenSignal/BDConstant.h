@@ -84,8 +84,8 @@ typedef enum {
     KLINE_DAY = 16,       //日线
     KLINE_WEEK = 17,      //周线
     KLINE_MONTH = 18,     //月线
-    KLINE_SEASON = 19,   //季线
-    KLINE_YEAR = 20       //年线
+//    KLINE_SEASON = 19,   //季线
+//    KLINE_YEAR = 20       //年线
 } KLineType;
 
 typedef enum {
