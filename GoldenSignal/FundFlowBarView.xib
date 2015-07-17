@@ -9,6 +9,10 @@
             <connections>
                 <outlet property="chart" destination="3si-NR-NSN" id="XNe-De-1Vb"/>
                 <outlet property="date1" destination="Pks-B9-9Sh" id="qzp-We-kEx"/>
+                <outlet property="date2" destination="0aI-Nd-Voz" id="RLJ-od-GyQ"/>
+                <outlet property="date3" destination="19y-YP-5EH" id="dUX-CJ-sTs"/>
+                <outlet property="date4" destination="6Kn-4F-jrD" id="xNb-wK-CNc"/>
+                <outlet property="date5" destination="ETR-96-4AQ" id="nMH-YH-34I"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -17,8 +21,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="最近5日主力增减仓" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EPU-qp-WY0" userLabel="title">
-                    <rect key="frame" x="109" y="8" width="103" height="15"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="沪深A股近期大单资金流向" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EPU-qp-WY0" userLabel="title">
+                    <rect key="frame" x="90" y="8" width="141" height="15"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -77,7 +81,7 @@
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="单位(万元)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nue-H2-QDO">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="单位(亿元)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nue-H2-QDO">
                     <rect key="frame" x="233" y="140" width="46" height="12"/>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -87,6 +91,8 @@
             <color key="backgroundColor" red="0.1137254902" green="0.1333333333" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="3si-NR-NSN" secondAttribute="trailing" constant="30" id="0eA-wX-Zea"/>
+                <constraint firstItem="EPU-qp-WY0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="8" id="1U6-ph-Qz9"/>
+                <constraint firstAttribute="centerX" secondItem="EPU-qp-WY0" secondAttribute="centerX" id="KWN-TU-aCo"/>
                 <constraint firstItem="3si-NR-NSN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="bLH-z3-Suk"/>
                 <constraint firstAttribute="bottom" secondItem="3si-NR-NSN" secondAttribute="bottom" constant="49" id="jfc-qj-P3q"/>
                 <constraint firstItem="3si-NR-NSN" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="31" id="tio-zi-aAG"/>

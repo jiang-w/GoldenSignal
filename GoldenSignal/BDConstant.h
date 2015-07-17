@@ -39,10 +39,11 @@
 #define IOS_7 [[[UIDevice currentDevice] systemVersion] floatValue] > 6.1
 
 #define RGB(R,G,B,A) [UIColor colorWithRed:(R)/255.0 green:(G)/255.0 blue:(B)/255.0 alpha:(A)]
-//获取屏幕 宽度、高度
+// 获取屏幕 宽度、高度
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 #define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
 
+// CGMargin
 typedef struct {
     CGFloat top;
     CGFloat right;
@@ -50,7 +51,6 @@ typedef struct {
     CGFloat left;
 } CGMargin;
 CG_INLINE CGMargin CGMarginMake(CGFloat top, CGFloat right, CGFloat bottom, CGFloat left);
-
 CG_INLINE CGMargin CGMarginMake(CGFloat top, CGFloat right, CGFloat bottom, CGFloat left) {
     CGMargin margin;
     margin.top = top;
@@ -59,7 +59,6 @@ CG_INLINE CGMargin CGMarginMake(CGFloat top, CGFloat right, CGFloat bottom, CGFl
     margin.left = left;
     return margin;
 }
-
 static const CGMargin CGMarginZero = {0, 0, 0, 0};
 
 typedef enum {

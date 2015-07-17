@@ -17,19 +17,27 @@
 
 @property (weak, nonatomic) IBOutlet UIView *chart;
 @property (weak, nonatomic) IBOutlet UILabel *date1;
+@property (weak, nonatomic) IBOutlet UILabel *date2;
+@property (weak, nonatomic) IBOutlet UILabel *date3;
+@property (weak, nonatomic) IBOutlet UILabel *date4;
+@property (weak, nonatomic) IBOutlet UILabel *date5;
 
 @end
 
 @implementation FundFlowBarView
 {
-    NSMutableArray *_dataArray;
+    NSMutableArray *_valueArray;
+    NSMutableArray *_dateArray;
     NSMutableArray *_barArray;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _valueArray = [NSMutableArray array];
+    _dateArray = [NSMutableArray array];
     _barArray = [NSMutableArray array];
+
     if (self.code) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.chart animated:YES];
         hud.opacity = 0;
@@ -45,22 +53,45 @@
 }
 
 - (void)loadDataWithSecuCode:(NSString *)code {
-//    NSDictionary *paramDic = @{@"BD_CODE": [NSString stringWithFormat:@"\'%@\'",code]};
-//    NSArray *data = [[BDCoreService new] syncRequestDatasourceService:1587 parameters:paramDic query:nil];
-//    NSArray *data = @[[NSNumber numberWithFloat:6259.6], [NSNumber numberWithFloat:44116.6], [NSNumber numberWithFloat:29173.6], [NSNumber numberWithFloat: -9026.2], [NSNumber numberWithFloat: -13170.5]];
-    NSArray *data = @[[NSNumber numberWithFloat:0.14], [NSNumber numberWithFloat:0.25 ], [NSNumber numberWithFloat:0.75], [NSNumber numberWithFloat: -0.34], [NSNumber numberWithFloat: -0.1]];
-    if (_dataArray == nil) {
-        _dataArray = [NSMutableArray array];
+    NSDictionary *paramDic = @{@"BD_CODE": [NSString stringWithFormat:@"\'%@\'",code],
+                               @"days": [NSNumber numberWithUnsignedInteger:5]};
+    NSArray *data = [[BDCoreService new] syncRequestDatasourceService:1593 parameters:paramDic query:nil];
+    [_valueArray removeAllObjects];
+    [_dateArray removeAllObjects];
+    for (NSDictionary *item in data) {
+        NSString *date = item[@"TRD_DT"];
+        float value = [item[@"MNY_NET"] floatValue];
+        [_valueArray addObject:[NSNumber numberWithFloat:value]];
+        [_dateArray addObject:date];
     }
-    [_dataArray removeAllObjects];
-    [_dataArray addObjectsFromArray:data];
+}
+
+- (float)maxRange {
+    NSComparator cmptr = ^(id obj1, id obj2){
+        if (fabs([obj1 floatValue]) > fabs([obj2 floatValue])) {
+            return (NSComparisonResult)NSOrderedDescending;
+        }
+        if (fabs([obj1 floatValue]) < fabs([obj2 floatValue])) {
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        return (NSComparisonResult)NSOrderedSame;
+    };
+    
+    NSArray *array = [_valueArray sortedArrayUsingComparator:cmptr];
+    return fabs([[array lastObject] floatValue]);
+}
+
+- (CGMargin)margin {
+    return CGMarginMake(0, 10, 0, 10);
 }
 
 - (void)addBarViews {
-    for (int i = 0; i < _dataArray.count; i++) {
-        float val = [_dataArray[i] floatValue];
+    float maxRange = [self maxRange];
+    CGMargin margin = [self margin];
+    for (int i = 0; i < _valueArray.count; i++) {
+        float val = [_valueArray[i] floatValue];
         BarView *bar = [[BarView alloc] init];
-        bar.grade = val;
+        bar.grade = val / maxRange;
         if (val > 0) {
             bar.color = [UIColor redColor];
         }
@@ -69,15 +100,16 @@
         }
         [_barArray addObject:bar];
     }
-    
-    [self makeEqualWidthViews:_barArray inView:self.chart withMargin:CGMarginMake(0, 10, 0, 10) andSpacing:20];
+    [self makeEqualWidthViews:_barArray inView:self.chart withMargin:margin andSpacing:20];
 }
 
 - (void)addLabels {
-    for (BarView *bar in _barArray) {
+    NSArray *dateLabelArray = @[_date1, _date2, _date3, _date4, _date5];
+    for (int i = 0; i < _barArray.count; i++) {
+        BarView *bar = _barArray[i];
         UILabel *label = [[UILabel alloc] init];
         [bar.superview addSubview:label];
-        label.text = [NSString stringWithFormat:@"%.2f", bar.grade];
+        label.text = [NSString stringWithFormat:@"%.2f", [_valueArray[i] floatValue]];
         label.font = [UIFont systemFontOfSize:8];
         if (bar.grade > 0) {
             label.textColor = [UIColor redColor];
@@ -94,6 +126,8 @@
             }];
         }
 
+        UILabel *dateLabel = dateLabelArray[i];
+        dateLabel.text = _dateArray[i];
     }
 }
 
