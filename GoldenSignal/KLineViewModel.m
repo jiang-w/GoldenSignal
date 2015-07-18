@@ -210,9 +210,48 @@
                     [self.lines addObject:newLine];
                 }
                 break;
-                
-            default:
-                break;
+            case KLINE_WEEK:
+                if (lastLine && [self inSameWeekWithDate:lastLine.date andDate:date]) {
+                    if (high > lastLine.high) {
+                        lastLine.high = high;
+                    }
+                    if (low < lastLine.low) {
+                        lastLine.low = low;
+                    }
+                    lastLine.close = close;
+                    lastLine.date = date;
+                }
+                else {
+                    BDKLine *newLine = [[BDKLine alloc] init];
+                    newLine.date = date;
+                    newLine.high = high;
+                    newLine.open = open;
+                    newLine.low = low;
+                    newLine.close = close;
+                    newLine.volume = volume;
+                    [self.lines addObject:newLine];
+                }
+            case KLINE_MONTH:
+                if (lastLine && [self inSameMonthWithDate:lastLine.date andDate:date]) {
+                    if (high > lastLine.high) {
+                        lastLine.high = high;
+                    }
+                    if (low < lastLine.low) {
+                        lastLine.low = low;
+                    }
+                    lastLine.close = close;
+                    lastLine.date = date;
+                }
+                else {
+                    BDKLine *newLine = [[BDKLine alloc] init];
+                    newLine.date = date;
+                    newLine.high = high;
+                    newLine.open = open;
+                    newLine.low = low;
+                    newLine.close = close;
+                    newLine.volume = volume;
+                    [self.lines addObject:newLine];
+                }
         }
     }
     @catch (NSException *exception) {
@@ -221,6 +260,36 @@
     @finally {
         [self setValue:self.lines forKey:@"lines"];  // kvo
     }
+}
+
+- (BOOL)inSameWeekWithDate:(unsigned int)one andDate:(unsigned int)another {
+    BOOL result = NO;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyyMMdd"];
+    NSDate *oneDate = [dateFormatter dateFromString:[NSString stringWithFormat:@"%u", one]];
+    NSDate *anotherDate = [dateFormatter dateFromString:[NSString stringWithFormat:@"%u", another]];
+ 
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    calendar.firstWeekday = 2;
+    int weekday1 = (int)[calendar ordinalityOfUnit:NSWeekdayCalendarUnit inUnit:NSWeekCalendarUnit forDate:oneDate];
+    int weekday2 = (int)[calendar ordinalityOfUnit:NSWeekdayCalendarUnit inUnit:NSWeekCalendarUnit forDate:anotherDate];
+    result = [[oneDate addDays:-(weekday1 - 1)] isEqualToDate:[anotherDate addDays:-(weekday2 - 1)]];
+    return result;
+}
+
+- (BOOL)inSameMonthWithDate:(unsigned int)one andDate:(unsigned int)another {
+    BOOL result = NO;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyyMMdd"];
+    NSDate *oneDate = [dateFormatter dateFromString:[NSString stringWithFormat:@"%u", one]];
+    NSDate *anotherDate = [dateFormatter dateFromString:[NSString stringWithFormat:@"%u", another]];
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    calendar.firstWeekday = 2;
+    int day1 = (int)[calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSMonthCalendarUnit forDate:oneDate];
+    int day2 = (int)[calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSMonthCalendarUnit forDate:anotherDate];
+    result = [[oneDate addDays:-(day1 - 1)] isEqualToDate:[anotherDate addDays:-(day2 - 1)]];
+    return result;
 }
 
 
