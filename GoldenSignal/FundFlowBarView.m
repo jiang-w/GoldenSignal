@@ -9,6 +9,7 @@
 #import "FundFlowBarView.h"
 #import "BarView.h"
 #import "BDCoreService.h"
+#import "BDKeyboardWizard.h"
 
 #import <Masonry.h>
 #import <MBProgressHUD.h>
@@ -53,9 +54,18 @@
 }
 
 - (void)loadDataWithSecuCode:(NSString *)code {
-    NSDictionary *paramDic = @{@"BD_CODE": [NSString stringWithFormat:@"\'%@\'",code],
-                               @"days": [NSNumber numberWithUnsignedInteger:5]};
-    NSArray *data = [[BDCoreService new] syncRequestDatasourceService:1593 parameters:paramDic query:nil];
+    BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:code];
+    NSArray *idxList = @[@"000001", @"000002", @"000003", @"000010", @"000016", @"000043", @"000300", @"000903", @"000905", @"399001", @"399004", @"399005", @"399006", @"399100", @"399101", @"399102", @"399106", @"399107", @"399108"];
+    NSArray *data;
+    if ([idxList containsObject:secu.trdCode]) {
+        NSDictionary *paramDic = @{@"days": [NSNumber numberWithUnsignedInteger:5]};
+        data = [[BDCoreService new] syncRequestDatasourceService:1593 parameters:paramDic query:nil];
+    }
+    else {
+        NSDictionary *paramDic = @{@"BD_CODE": [NSString stringWithFormat:@"'%@'",code],
+                                   @"days": [NSNumber numberWithUnsignedInteger:5]};
+        data = [[BDCoreService new] syncRequestDatasourceService:1587 parameters:paramDic query:nil];
+    }
     [_valueArray removeAllObjects];
     [_dateArray removeAllObjects];
     for (NSDictionary *item in data) {

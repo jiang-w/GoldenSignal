@@ -15,10 +15,8 @@
 #define POSTURL BASEURL@"/PostService.aspx?"
 
 /* 行情服务器 */
-#define QUOTE_SERVER_HOST "123.57.144.48"   //q1.chinabigdata.com
+#define QUOTE_SERVER_HOST "q1.chinabigdata.com"
 #define QUOTE_SERVER_PORT "443"
-//#define QUOTE_SERVER_HOST "10.10.141.172"
-//#define QUOTE_SERVER_PORT "5011"
 /* 行情服务器(http) */
 #define QUOTE_HTTP_URL @"http://q1.chinabigdata.com/quote"
 
