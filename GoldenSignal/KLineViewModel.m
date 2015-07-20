@@ -127,7 +127,7 @@
 
 - (void)reconnection {
     self.initialized = NO;
-    [self loadDataWithSecuCode:self.code forType:self.type andNumber:self.number + ExtraLines];
+    [self loadDataWithSecuCode:self.code forType:self.type andNumber:self.number];
 }
 
 - (NSMutableArray *)paraseTrendLines:(NSArray *)data {
