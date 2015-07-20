@@ -16,6 +16,7 @@
 
 @interface FundFlowBarView ()
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *chart;
 @property (weak, nonatomic) IBOutlet UILabel *date1;
 @property (weak, nonatomic) IBOutlet UILabel *date2;
@@ -57,11 +58,13 @@
     BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:code];
     NSArray *idxList = @[@"000001", @"000002", @"000003", @"000010", @"000016", @"000043", @"000300", @"000903", @"000905", @"399001", @"399004", @"399005", @"399006", @"399100", @"399101", @"399102", @"399106", @"399107", @"399108"];
     NSArray *data;
-    if ([idxList containsObject:secu.trdCode]) {
+    if ([idxList containsObject:secu.trdCode]) {    // 是否为市场指数
+        self.titleLabel.text = @"沪深A股近期大单资金流向";
         NSDictionary *paramDic = @{@"days": [NSNumber numberWithUnsignedInteger:5]};
         data = [[BDCoreService new] syncRequestDatasourceService:1593 parameters:paramDic query:nil];
     }
     else {
+        self.titleLabel.text = @"行业近期大单资金流向";
         NSDictionary *paramDic = @{@"BD_CODE": [NSString stringWithFormat:@"'%@'",code],
                                    @"days": [NSNumber numberWithUnsignedInteger:5]};
         data = [[BDCoreService new] syncRequestDatasourceService:1587 parameters:paramDic query:nil];

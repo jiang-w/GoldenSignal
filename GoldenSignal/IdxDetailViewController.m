@@ -12,6 +12,7 @@
 #import "KLineChart.h"
 #import "BDSectService.h"
 #import "RankingListViewController.h"
+#import "SecuNewsListView.h"
 
 #import "FundFlowCircleChart.h"
 #import "FundFlowBarView.h"
@@ -38,9 +39,9 @@
 @property(nonatomic, strong) KLineChart *monthlyKLine;
 
 @property(nonatomic, strong) PPiFlatSegmentedControl *infoTabView;
-@property(nonatomic, strong) UITableView *rankingListView;
 
 @property(nonatomic, strong) RankingListViewController *rankingList;
+@property(nonatomic, strong) SecuNewsListView *newsListView;
 @property(nonatomic, strong) FundFlowBarView *fundFlowBarView;
 
 @property(nonatomic, assign) NSInteger chartSelectIndex;
@@ -300,6 +301,20 @@
                 make.edges.equalTo(self.infoContainerView);
             }];
             
+            break;
+        }
+        case 3: {
+            if (self.newsListView == nil) {
+                self.newsListView = [[SecuNewsListView alloc] init];
+                self.newsListView.secuCode = _secu.bdCode;
+            }
+            [self.infoContainerView addSubview:self.newsListView.view];
+            [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(self.newsListView.tableView.rowHeight * 5);
+            }];
+            [self.newsListView.view mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(self.infoContainerView);
+            }];
             break;
         }
     }

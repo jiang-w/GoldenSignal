@@ -13,6 +13,7 @@
                 <outlet property="date3" destination="19y-YP-5EH" id="dUX-CJ-sTs"/>
                 <outlet property="date4" destination="6Kn-4F-jrD" id="xNb-wK-CNc"/>
                 <outlet property="date5" destination="ETR-96-4AQ" id="nMH-YH-34I"/>
+                <outlet property="titleLabel" destination="EPU-qp-WY0" id="eEU-LJ-wgw"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
