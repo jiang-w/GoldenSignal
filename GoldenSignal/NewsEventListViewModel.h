@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NewsListViewModel : NSObject
+@interface NewsEventListViewModel : NSObject
 
 /**
  *  新闻列表
@@ -21,6 +21,11 @@
 @property(nonatomic, assign) long tagId;
 
 /**
+ *  证券编码数组
+ */
+@property(nonatomic, strong) NSArray *codes;
+
+/**
  *  每次请求新闻的条数（默认10）
  */
 @property(nonatomic,assign) int pageSize;
@@ -31,18 +36,25 @@
  *
  *  @param label 新闻标签Id
  */
-- (void)loadNewsWithTagId:(long)tagId;
+- (void)loadNewsEventWithTagId:(long)tagId;
 
+/**
+ *  根据标签加载新闻数据
+ *
+ *  @param label 新闻标签Id
+ *  @param codes 证券编码数组
+ */
+- (void)loadNewsEventWithTagId:(long)tagId andSecuCodes:(NSArray *)codes;
 
 /**
  *  加载更多的新闻
  */
-- (void)loadMoreNews;
+- (void)loadMoreNewsEvent;
 
 
 /**
  *  重新加载新闻(刷新)
  */
-- (void)reloadNews;
+- (void)reloadNewsEvent;
 
 @end

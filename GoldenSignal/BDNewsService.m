@@ -12,9 +12,9 @@
 
 @implementation BDNewsService
 
-- (BDNews *)getNewsById:(long)newsId {
+- (BDNewsEvent *)getNewsEventById:(long)newsId {
     Stopwatch *watch = [Stopwatch startNew];
-    BDNews *news = nil;
+    BDNewsEvent *news = nil;
     
     NSHTTPURLResponse *response;
     NSError *error;
@@ -26,7 +26,7 @@
 
     @try {
         NSData *data = [[BDNetworkService sharedInstance] syncPostRequest:POSTURL parameters:parameters returnResponse:&response error:&error];
-        NSArray *newsArray = [self paraseNews:data];
+        NSArray *newsArray = [self paraseNewsEvent:data];
         news = [newsArray firstObject];
         
         [watch stop];
@@ -56,7 +56,7 @@
     
     @try {
         NSData *data = [[BDNetworkService sharedInstance] syncPostRequest:POSTURL parameters:parameters returnResponse:&response error:&error];
-        newsArray = [self paraseNews:data];
+        newsArray = [self paraseNewsEvent:data];
         
         [watch stop];
         NSLog(@"Success: 加载新闻列表 Timeout:%.3fs", watch.elapsed);
@@ -89,7 +89,40 @@
     
     @try {
         NSData *data = [[BDNetworkService sharedInstance] syncPostRequest:POSTURL parameters:parameters returnResponse:&response error:&error];
-        newsArray = [self paraseNews:data];
+        newsArray = [self paraseNewsEvent:data];
+        
+        [watch stop];
+        NSLog(@"Success: 加载新闻列表 Timeout:%.3fs", watch.elapsed);
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Failure: 加载新闻列表 %@",exception.reason);
+    }
+    @finally {
+        return  newsArray;
+    }
+}
+
+- (NSArray *)getNewsEventBySecuCodes:(NSArray *)codes tagId:(long)tagId lastId:(long)lastId quantity:(int)quantity {
+    Stopwatch *watch = [Stopwatch startNew];
+    NSArray *newsArray = nil;
+    
+    NSHTTPURLResponse *response;
+    NSError *error;
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setValue:@"NewsEventService.Gets" forKey:@"Service"];
+    [parameters setValue:@"GetsService" forKey:@"Function"];
+    [parameters setValue:[NSNumber numberWithLong:tagId] forKey:@"label"];
+    [parameters setObject:[NSNumber numberWithLong:lastId] forKey:@"lastId"];
+    [parameters setObject:[NSNumber numberWithInt:quantity] forKey:@"count"];
+    if (codes.count > 0) {
+        NSString *codeString = [codes componentsJoinedByString:@","];
+        [parameters setObject:codeString forKey:@"secuCode"];
+    }
+    [parameters setValue:@"JSON" forKey:@"ATYPE"];
+    
+    @try {
+        NSData *data = [[BDNetworkService sharedInstance] syncPostRequest:POSTURL parameters:parameters returnResponse:&response error:&error];
+        newsArray = [self paraseNewsEvent:data];
         
         [watch stop];
         NSLog(@"Success: 加载新闻列表 Timeout:%.3fs", watch.elapsed);
@@ -106,7 +139,7 @@
 #pragma mark - parsing
 
 // 解析新闻数据
-- (NSArray *)paraseNews:(NSData *)data {
+- (NSArray *)paraseNewsEvent:(NSData *)data {
     NSMutableArray *newsArray = [NSMutableArray array];
     if (data == nil) {
         return newsArray;
@@ -116,7 +149,7 @@
     NSArray *allData = [service dataConvertToNSArray:data];
     NSArray *newsData = [[allData objectAtIndex:0] objectForKey:@"DATA"];
     for (NSDictionary *item in newsData) {
-        BDNews *news = [[BDNews alloc] init];
+        BDNewsEvent *news = [[BDNewsEvent alloc] init];
         news.innerId = [item[@"ID"] longValue];
         news.title = item[@"TIT"];
         news.date = [service deserializeJsonDateString:item[@"PUB_DT"]];

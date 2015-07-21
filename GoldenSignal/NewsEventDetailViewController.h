@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BDNews.h"
 
-@interface NewsDetailViewController : UIViewController<UIWebViewDelegate>
+@interface NewsEventDetailViewController : UIViewController<UIWebViewDelegate>
 
 @property(nonatomic, strong) IBOutlet UIWebView *webView;
 

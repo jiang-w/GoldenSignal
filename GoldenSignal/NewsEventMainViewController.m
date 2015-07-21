@@ -7,7 +7,7 @@
 //
 
 #import "NewsEventMainViewController.h"
-#import "NewsDetailViewController.h"
+#import "NewsEventDetailViewController.h"
 #import <Masonry.h>
 
 @interface NewsEventMainViewController ()
@@ -19,14 +19,6 @@
 @end
 
 @implementation NewsEventMainViewController
-
-- (id)init {
-    self = [super init];
-    if (self) {
-        
-    }
-    return self;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -126,14 +118,14 @@
     if ([segue.identifier isEqualToString:@"ShowNewsDetail"])
     {
         BDNews *news = (BDNews *)sender;
-        NewsDetailViewController *detailVC = (NewsDetailViewController *)segue.destinationViewController;
+        NewsEventDetailViewController *detailVC = (NewsEventDetailViewController *)segue.destinationViewController;
         detailVC.newsId = news.innerId;
     }
 }
 
 #pragma mark - NewsListView Delegate
 
-- (void)didSelectNews:(BDNews *)news {
+- (void)didSelectNewsEvent:(BDNews *)news {
     [self performSegueWithIdentifier:@"ShowNewsDetail" sender:news];
 }
 

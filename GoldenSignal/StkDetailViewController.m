@@ -7,7 +7,7 @@
 //
 
 #import "StkDetailViewController.h"
-#import "NewsDetailViewController.h"
+#import "NewsEventDetailViewController.h"
 #import "NewsListViewCell.h"
 #import "ReportListViewCell.h"
 #import "BulletinListViewCell.h"
@@ -409,7 +409,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     BDNews *news = _quoteNewsViewModel.newsList[indexPath.row];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    NewsDetailViewController *newsDetail = [storyboard instantiateViewControllerWithIdentifier:@"NewsDetailViewController"];
+    NewsEventDetailViewController *newsDetail = [storyboard instantiateViewControllerWithIdentifier:@"NewsDetailViewController"];
     newsDetail.newsId = news.innerId;
     [self.navigationController pushViewController:newsDetail animated:YES];
 }

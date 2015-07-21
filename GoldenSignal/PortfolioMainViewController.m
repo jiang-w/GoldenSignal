@@ -10,7 +10,7 @@
 #import "InformationsTabViewController.h"
 #import "ReportTableViewController.h"
 #import "StkDetailViewController.h"
-#import "NewsDetailViewController.h"
+#import "NewsEventDetailViewController.h"
 #import "IdxDetailViewController.h"
 #import <Masonry.h>
 
@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _tabArray = @[@{@"optional": @"行情"}, @{@"goldenSignal": @"金信号"}, @{@"tiShi": @"提示"}, @{@"gongGao": @"公告"}, @{@"report": @"研报"}, @{@"news": @"新闻"},@{@"yeJi": @"业绩"}];
+    _tabArray = @[@{@"quote": @"行情"}, @{@"goldenSignal": @"金信号"}, @{@"tiShi": @"提示"}, @{@"gongGao": @"公告"}, @{@"report": @"研报"}, @{@"news": @"新闻"},@{@"yeJi": @"业绩"}];
     _controllerDic = [NSMutableDictionary dictionary];
     
     self.titleTabVC = [[TitleTabViewController alloc] initWithNibName:@"TitleTabViewController" bundle:nil];
@@ -79,7 +79,7 @@
     UIViewController *controller;
     NSString *code = [[[self.titleTabVC.tabArray objectAtIndex:index] allKeys] firstObject];
     
-    if ([code isEqualToString:@"optional"]) {
+    if ([code isEqualToString:@"quote"]) {
         StockPoolViewController *optionalVC = [[StockPoolViewController alloc] init];
         optionalVC.delegate = self;
         controller = optionalVC;
@@ -156,7 +156,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showIndexNews"]) {
         BDNews *news = (BDNews *)sender;
-        NewsDetailViewController *detailVC = (NewsDetailViewController *)segue.destinationViewController;//继续 连接到 目标视图
+        NewsEventDetailViewController *detailVC = (NewsEventDetailViewController *)segue.destinationViewController;//继续 连接到 目标视图
         NSLog(@"news.innerId=%ld",news.innerId);
         detailVC.newsId = news.innerId;//新闻标题 (传的)//1130667788
     }

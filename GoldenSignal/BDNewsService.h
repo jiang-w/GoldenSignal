@@ -15,7 +15,7 @@
  *
  *  @param newsId       新闻ID
  */
-- (BDNews *)getNewsById:(long)newsId;
+- (BDNewsEvent *)getNewsEventById:(long)newsId;
 
 /**
  *  根据标签加载新闻列表
@@ -34,5 +34,15 @@
  *  @param quantity     返回新闻的数量
  */
 - (NSArray *)getNewsEventBySecuCodes:(NSArray *)codes lastId:(long)lastNewsId quantity:(int)quantity;
+
+/**
+ *  根据证券编码加载新闻列表
+ *
+ *  @param codes        证券编码列表
+ *  @param tagId        新闻标签ID
+ *  @param lastId       最新一条新闻ID
+ *  @param quantity     返回新闻的数量
+ */
+- (NSArray *)getNewsEventBySecuCodes:(NSArray *)codes tagId:(long)tagId lastId:(long)lastId quantity:(int)quantity;
 
 @end

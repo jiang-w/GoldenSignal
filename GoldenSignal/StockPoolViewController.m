@@ -28,6 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.tableView.bounces = NO;
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

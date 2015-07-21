@@ -6,19 +6,19 @@
 //  Copyright (c) 2014年 bigdata. All rights reserved.
 //
 
-#import "NewsDetailViewController.h"
+#import "NewsEventDetailViewController.h"
 #import "RegexKitLite.h"
 #import "NewsDetailViewModel.h"
 #import "MBProgressHUD/MBProgressHUD.h"
 
-@interface NewsDetailViewController ()
+@interface NewsEventDetailViewController ()
 {
     BDNews *_news;
     dispatch_queue_t loadDataQueue;
 }
 @end
 
-@implementation NewsDetailViewController
+@implementation NewsEventDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

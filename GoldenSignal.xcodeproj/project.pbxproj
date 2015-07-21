@@ -51,7 +51,7 @@
 		011B84DF1B0DBD4F003005BC /* KLineViewModel_old.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84C91B0DBD4F003005BC /* KLineViewModel_old.m */; };
 		011B84E01B0DBD4F003005BC /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84CB1B0DBD4F003005BC /* LoginViewModel.m */; };
 		011B84E11B0DBD4F003005BC /* NewsDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84CD1B0DBD4F003005BC /* NewsDetailViewModel.m */; };
-		011B84E21B0DBD4F003005BC /* NewsListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84CF1B0DBD4F003005BC /* NewsListViewModel.m */; };
+		011B84E21B0DBD4F003005BC /* NewsEventListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84CF1B0DBD4F003005BC /* NewsEventListViewModel.m */; };
 		011B84E31B0DBD4F003005BC /* StkQuoteCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84D11B0DBD4F003005BC /* StkQuoteCellViewModel.m */; };
 		011B84E41B0DBD4F003005BC /* RegisterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84D31B0DBD4F003005BC /* RegisterViewModel.m */; };
 		011B84E51B0DBD4F003005BC /* SectCollectionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84D51B0DBD4F003005BC /* SectCollectionViewModel.m */; };
@@ -71,7 +71,7 @@
 		011B85201B0DBEA9003005BC /* AutoLayoutNewsEventListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B850E1B0DBEA9003005BC /* AutoLayoutNewsEventListCell.m */; };
 		011B85211B0DBEA9003005BC /* BulletinListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85101B0DBEA9003005BC /* BulletinListViewCell.m */; };
 		011B85221B0DBEA9003005BC /* BulletinListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011B85111B0DBEA9003005BC /* BulletinListViewCell.xib */; };
-		011B85231B0DBEA9003005BC /* NewsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85131B0DBEA9003005BC /* NewsDetailViewController.m */; };
+		011B85231B0DBEA9003005BC /* NewsEventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85131B0DBEA9003005BC /* NewsEventDetailViewController.m */; };
 		011B85241B0DBEA9003005BC /* NewsListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85151B0DBEA9003005BC /* NewsListViewCell.m */; };
 		011B85251B0DBEA9003005BC /* NewsListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011B85161B0DBEA9003005BC /* NewsListViewCell.xib */; };
 		011B85261B0DBEA9003005BC /* NewsEventListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85181B0DBEA9003005BC /* NewsEventListViewController.m */; };
@@ -110,6 +110,7 @@
 		014FF3891B1D5276007DB608 /* QuoteHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014FF3871B1D5276007DB608 /* QuoteHomeViewController.m */; };
 		014FF38A1B1D5276007DB608 /* QuoteHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 014FF3881B1D5276007DB608 /* QuoteHomeViewController.xib */; };
 		014FF3921B1DAE31007DB608 /* QuoteHomeTrendChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 014FF3911B1DAE31007DB608 /* QuoteHomeTrendChart.m */; };
+		015B72161B5E71DA006DA827 /* BDNewsEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 015B72151B5E71DA006DA827 /* BDNewsEvent.m */; };
 		01642F941B5DEDE700438BDA /* InformationMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01642F931B5DEDE700438BDA /* InformationMainViewController.m */; };
 		019F2A3A1B5659C5005602B7 /* BarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 019F2A351B5659C5005602B7 /* BarView.m */; };
 		019F2A3C1B5659C5005602B7 /* FundFlowBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 019F2A381B5659C5005602B7 /* FundFlowBarView.m */; };
@@ -270,8 +271,8 @@
 		011B84CB1B0DBD4F003005BC /* LoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewModel.m; sourceTree = "<group>"; };
 		011B84CC1B0DBD4F003005BC /* NewsDetailViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsDetailViewModel.h; sourceTree = "<group>"; };
 		011B84CD1B0DBD4F003005BC /* NewsDetailViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsDetailViewModel.m; sourceTree = "<group>"; };
-		011B84CE1B0DBD4F003005BC /* NewsListViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsListViewModel.h; sourceTree = "<group>"; };
-		011B84CF1B0DBD4F003005BC /* NewsListViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsListViewModel.m; sourceTree = "<group>"; };
+		011B84CE1B0DBD4F003005BC /* NewsEventListViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsEventListViewModel.h; sourceTree = "<group>"; };
+		011B84CF1B0DBD4F003005BC /* NewsEventListViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsEventListViewModel.m; sourceTree = "<group>"; };
 		011B84D01B0DBD4F003005BC /* StkQuoteCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StkQuoteCellViewModel.h; sourceTree = "<group>"; };
 		011B84D11B0DBD4F003005BC /* StkQuoteCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StkQuoteCellViewModel.m; sourceTree = "<group>"; };
 		011B84D21B0DBD4F003005BC /* RegisterViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewModel.h; sourceTree = "<group>"; };
@@ -308,8 +309,8 @@
 		011B850F1B0DBEA9003005BC /* BulletinListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulletinListViewCell.h; sourceTree = "<group>"; };
 		011B85101B0DBEA9003005BC /* BulletinListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulletinListViewCell.m; sourceTree = "<group>"; };
 		011B85111B0DBEA9003005BC /* BulletinListViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BulletinListViewCell.xib; sourceTree = "<group>"; };
-		011B85121B0DBEA9003005BC /* NewsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsDetailViewController.h; sourceTree = "<group>"; };
-		011B85131B0DBEA9003005BC /* NewsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsDetailViewController.m; sourceTree = "<group>"; };
+		011B85121B0DBEA9003005BC /* NewsEventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsEventDetailViewController.h; sourceTree = "<group>"; };
+		011B85131B0DBEA9003005BC /* NewsEventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsEventDetailViewController.m; sourceTree = "<group>"; };
 		011B85141B0DBEA9003005BC /* NewsListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsListViewCell.h; sourceTree = "<group>"; };
 		011B85151B0DBEA9003005BC /* NewsListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsListViewCell.m; sourceTree = "<group>"; };
 		011B85161B0DBEA9003005BC /* NewsListViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsListViewCell.xib; sourceTree = "<group>"; };
@@ -372,6 +373,8 @@
 		014FF3881B1D5276007DB608 /* QuoteHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuoteHomeViewController.xib; sourceTree = "<group>"; };
 		014FF3901B1DAE31007DB608 /* QuoteHomeTrendChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteHomeTrendChart.h; sourceTree = "<group>"; };
 		014FF3911B1DAE31007DB608 /* QuoteHomeTrendChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuoteHomeTrendChart.m; sourceTree = "<group>"; };
+		015B72141B5E71DA006DA827 /* BDNewsEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDNewsEvent.h; sourceTree = "<group>"; };
+		015B72151B5E71DA006DA827 /* BDNewsEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDNewsEvent.m; sourceTree = "<group>"; };
 		01642F921B5DEDE700438BDA /* InformationMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationMainViewController.h; sourceTree = "<group>"; };
 		01642F931B5DEDE700438BDA /* InformationMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationMainViewController.m; sourceTree = "<group>"; };
 		019F2A341B5659C5005602B7 /* BarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarView.h; sourceTree = "<group>"; };
@@ -663,6 +666,8 @@
 				01A55BB01B5E3CB400224F7B /* BDNewStockModel.m */,
 				01A55BD21B5E481800224F7B /* OptionalGSModel.h */,
 				01A55BD31B5E481800224F7B /* OptionalGSModel.m */,
+				015B72141B5E71DA006DA827 /* BDNewsEvent.h */,
+				015B72151B5E71DA006DA827 /* BDNewsEvent.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -682,8 +687,8 @@
 				011B84CB1B0DBD4F003005BC /* LoginViewModel.m */,
 				011B84CC1B0DBD4F003005BC /* NewsDetailViewModel.h */,
 				011B84CD1B0DBD4F003005BC /* NewsDetailViewModel.m */,
-				011B84CE1B0DBD4F003005BC /* NewsListViewModel.h */,
-				011B84CF1B0DBD4F003005BC /* NewsListViewModel.m */,
+				011B84CE1B0DBD4F003005BC /* NewsEventListViewModel.h */,
+				011B84CF1B0DBD4F003005BC /* NewsEventListViewModel.m */,
 				011B84D01B0DBD4F003005BC /* StkQuoteCellViewModel.h */,
 				011B84D11B0DBD4F003005BC /* StkQuoteCellViewModel.m */,
 				01D8DA381B253E4F0033956E /* IdxQuoteCellViewModel.h */,
@@ -715,10 +720,12 @@
 		011B84E91B0DBD7C003005BC /* View */ = {
 			isa = PBXGroup;
 			children = (
-				01A55BC91B5E41D000224F7B /* Portfolio */,
-				011B84EA1B0DBD8B003005BC /* Settings */,
-				011B850C1B0DBE56003005BC /* Markets */,
+				01642F951B5DF0FE00438BDA /* NewsEvent */,
 				011B84F71B0DBDC6003005BC /* News */,
+				011B850C1B0DBE56003005BC /* Markets */,
+				01A55BC91B5E41D000224F7B /* Portfolio */,
+				01642F961B5DF12900438BDA /* Information */,
+				011B84EA1B0DBD8B003005BC /* Settings */,
 				011B84F81B0DBE1F003005BC /* AdViewController.h */,
 				011B84F91B0DBE1F003005BC /* AdViewController.m */,
 				011B84FA1B0DBE1F003005BC /* IRevealControllerProperty.h */,
@@ -754,13 +761,9 @@
 		011B84F71B0DBDC6003005BC /* News */ = {
 			isa = PBXGroup;
 			children = (
-				01642F961B5DF12900438BDA /* Information */,
-				01642F951B5DF0FE00438BDA /* NewsEvent */,
 				011B850F1B0DBEA9003005BC /* BulletinListViewCell.h */,
 				011B85101B0DBEA9003005BC /* BulletinListViewCell.m */,
 				011B85111B0DBEA9003005BC /* BulletinListViewCell.xib */,
-				011B85121B0DBEA9003005BC /* NewsDetailViewController.h */,
-				011B85131B0DBEA9003005BC /* NewsDetailViewController.m */,
 				011B85141B0DBEA9003005BC /* NewsListViewCell.h */,
 				011B85151B0DBEA9003005BC /* NewsListViewCell.m */,
 				011B85161B0DBEA9003005BC /* NewsListViewCell.xib */,
@@ -802,6 +805,8 @@
 				011B85181B0DBEA9003005BC /* NewsEventListViewController.m */,
 				011B850D1B0DBEA9003005BC /* AutoLayoutNewsEventListCell.h */,
 				011B850E1B0DBEA9003005BC /* AutoLayoutNewsEventListCell.m */,
+				011B85121B0DBEA9003005BC /* NewsEventDetailViewController.h */,
+				011B85131B0DBEA9003005BC /* NewsEventDetailViewController.m */,
 			);
 			name = NewsEvent;
 			sourceTree = "<group>";
@@ -1190,6 +1195,7 @@
 				01A9614A1B4FC0FA00B705AD /* FundFlowCircleChart.m in Sources */,
 				01A46F291B4CFC7E000CD7A5 /* RankingListCell.m in Sources */,
 				01AD748E1B3948CF006EC988 /* IdxScalarView.m in Sources */,
+				015B72161B5E71DA006DA827 /* BDNewsEvent.m in Sources */,
 				011B84C01B0DBCBA003005BC /* BDUserTicket.m in Sources */,
 				011B846D1B0DBADB003005BC /* SmartTime.m in Sources */,
 				011B85561B0DBEFE003005BC /* LiteTrendView.m in Sources */,
@@ -1227,7 +1233,7 @@
 				01A55BE01B5E490200224F7B /* InfomationsTableViewCell.m in Sources */,
 				01A55BB11B5E3CB400224F7B /* BDNewStockModel.m in Sources */,
 				01A95D251B32BE6A008CF76B /* BDStockPoolInfoService.m in Sources */,
-				011B84E21B0DBD4F003005BC /* NewsListViewModel.m in Sources */,
+				011B84E21B0DBD4F003005BC /* NewsEventListViewModel.m in Sources */,
 				011B85511B0DBEFE003005BC /* StkScalarView.m in Sources */,
 				011B84361B0DB51F003005BC /* main.m in Sources */,
 				01B531031B5CDF1B00F9B891 /* SecuNewsListView.m in Sources */,
@@ -1241,7 +1247,7 @@
 				011B85601B0DBEFE003005BC /* StockTrendView.m in Sources */,
 				011B854E1B0DBEFE003005BC /* StockPoolViewController.m in Sources */,
 				01AD74931B395789006EC988 /* IdxScalarViewModel.m in Sources */,
-				011B85231B0DBEA9003005BC /* NewsDetailViewController.m in Sources */,
+				011B85231B0DBEA9003005BC /* NewsEventDetailViewController.m in Sources */,
 				011B848E1B0DBB83003005BC /* BDStockNewsService.m in Sources */,
 				011B84891B0DBB83003005BC /* BDNewsService.m in Sources */,
 				011B85571B0DBEFE003005BC /* QuoteMainViewController.m in Sources */,

@@ -17,7 +17,7 @@
 #import "BDNewsService.h"
 #import "OptionalGSModel.h"
 #import "NewsEventMainViewController.h"
-#import "NewsDetailViewController.h"
+#import "NewsEventDetailViewController.h"
 
 #import "BDNews.h"
 
@@ -152,7 +152,7 @@
     if (newsCell == nil) {
         newsCell = [[AutoLayoutNewsEventListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NewsListCell"];
     }
-    newsCell.news = _optionalGSModel.newsList[indexPath.row];
+    newsCell.newsEvent = _optionalGSModel.newsList[indexPath.row];
     
     return newsCell;
 }
@@ -166,7 +166,7 @@
         tabCell  = [[AutoLayoutNewsEventListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NewsListCell"];
     }
     AutoLayoutNewsEventListCell *cell = (AutoLayoutNewsEventListCell *)tabCell;
-    cell.news = _optionalGSModel.newsList[indexPath.row];
+    cell.newsEvent = _optionalGSModel.newsList[indexPath.row];
     CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     //    NSLog(@"(%ld,%ld) w=%f, h=%f", indexPath.section, indexPath.row, size.width, size.height + 1);
     return 1  + size.height;
@@ -182,7 +182,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     AutoLayoutNewsEventListCell *cell = (AutoLayoutNewsEventListCell *)[tableView cellForRowAtIndexPath:indexPath];
     if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectRowNews:)]) {
-        [self.delegate didSelectRowNews:cell.news];
+        [self.delegate didSelectRowNews:cell.newsEvent];
     }
 }
 

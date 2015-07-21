@@ -72,7 +72,7 @@
     }];
 }
 
-- (NSString *)getTagLabelText:(BDNews *)news forEventEffect:(EventEffect)effect {
+- (NSString *)getTagLabelText:(BDNewsEvent *)news forEventEffect:(EventEffect)effect {
     NSString *text = @"";
     NSArray *labels = [news getLabelsWithEventEffect:effect];
     if (labels.count > 0) {
@@ -93,9 +93,9 @@
     return text;
 }
 
-- (void)setNews:(BDNews *)news
+- (void)setNewsEvent:(BDNewsEvent *)news
 {
-    _news = news;
+    _newsEvent = news;
     title.text = news.title;
     date.text= [news.date toString:@"yyyy-MM-dd hh:mm"];
     detail.text = news.abstract;

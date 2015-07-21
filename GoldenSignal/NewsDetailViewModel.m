@@ -23,7 +23,7 @@
 }
 
 - (BDNews *)getNewsById:(long)newsId {
-    return [_servive getNewsById:newsId];
+    return [_servive getNewsEventById:newsId];
 }
 
 @end
