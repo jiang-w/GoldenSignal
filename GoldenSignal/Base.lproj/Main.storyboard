@@ -510,12 +510,49 @@
                         </textAttributes>
                     </navigationBar>
                     <connections>
-                        <segue destination="BlP-eh-333" kind="relationship" relationship="rootViewController" id="f9A-tQ-GJD"/>
+                        <segue destination="72p-d0-GXB" kind="relationship" relationship="rootViewController" id="xKc-RS-Aot"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bVN-Gf-Pd8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-381" y="-1618"/>
+        </scene>
+        <!--自选股首页-->
+        <scene sceneID="LvC-t1-R2x">
+            <objects>
+                <viewController id="72p-d0-GXB" userLabel="自选股首页" customClass="PortfolioMainViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kHW-pF-Ono"/>
+                        <viewControllerLayoutGuide type="bottom" id="9Ii-9h-GX7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dQc-dC-3VI">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="biL-gx-77N">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="1rR-Gu-oof" userLabel="Item">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="LDZ-Cf-qr9" userLabel="search">
+                                <rect key="frame" x="282" y="0.0" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="search">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="302-QQ-lJl" kind="modal" id="ahk-vK-bMI"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="mbB-rJ-4Id" kind="push" identifier="showIndexNews" id="2lB-42-crM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SVQ-CK-gcI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="65" y="-1614"/>
         </scene>
         <!--行情首页-->
         <scene sceneID="cs3-eI-FP0">
@@ -581,46 +618,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uce-rn-fgB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-381" y="-803"/>
-        </scene>
-        <!--自选股首页-->
-        <scene sceneID="qAZ-Qt-QYt">
-            <objects>
-                <tableViewController id="BlP-eh-333" userLabel="自选股首页" customClass="CustomStockViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelectionDuringEditing="YES" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ZYn-JZ-ret">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.11372549019607843" green="0.13333333333333333" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="WrL-4d-G7j">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WrL-4d-G7j" id="R0T-dH-6bh">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="BlP-eh-333" id="toV-Zo-kP0"/>
-                            <outlet property="delegate" destination="BlP-eh-333" id="ZVc-Sc-Gow"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="D3h-xm-xjI">
-                        <barButtonItem key="rightBarButtonItem" title="Item" style="plain" id="sBm-0b-SDh">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="tOC-E3-IGI" userLabel="search">
-                                <rect key="frame" x="260" y="0.0" width="22" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="search">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="302-QQ-lJl" kind="modal" id="ZXE-dl-35L"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6Sd-6w-R89" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="72" y="-1618"/>
         </scene>
         <!--键盘精灵-->
         <scene sceneID="zby-cz-i4J">
@@ -756,6 +753,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ZXE-dl-35L"/>
+        <segue reference="ahk-vK-bMI"/>
+        <segue reference="2lB-42-crM"/>
     </inferredMetricsTieBreakers>
 </document>

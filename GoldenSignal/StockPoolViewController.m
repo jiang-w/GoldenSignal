@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 bigdata. All rights reserved.
 //
 
-#import "CustomStockViewController.h"
+#import "StockPoolViewController.h"
 #import "StkQuoteViewCell.h"
 #import "IdxQuoteViewCell.h"
 #import "StkDetailViewController.h"
@@ -15,11 +15,11 @@
 
 #import <MBProgressHUD.h>
 
-@interface CustomStockViewController ()
+@interface StockPoolViewController ()
 
 @end
 
-@implementation CustomStockViewController
+@implementation StockPoolViewController
 {
     NSArray *_secuCodes;
     BOOL _asc;
@@ -29,6 +29,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.bounces = NO;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     _asc = NO;
     loadDataQueue = dispatch_queue_create("loadData", nil);
     [self loadSortedSecuCodes];
@@ -161,15 +164,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     StkQuoteViewCell *cell = (StkQuoteViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-    BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:cell.code];
-    if (secu.typ == idx) {
-        IdxDetailViewController *idxVC = [[IdxDetailViewController alloc] initWithIdxCode:secu.bdCode];
-        idxVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:idxVC animated:NO];
-    }
-    else {
-        StkDetailViewController *stkVC = [[StkDetailViewController alloc] initWithSecuCode:secu.bdCode];
-        [self.navigationController pushViewController:stkVC animated:NO];
+//    BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:cell.code];
+//    if (secu.typ == idx) {
+//        IdxDetailViewController *idxVC = [[IdxDetailViewController alloc] initWithIdxCode:secu.bdCode];
+//        idxVC.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:idxVC animated:NO];
+//    }
+//    else {
+//        StkDetailViewController *stkVC = [[StkDetailViewController alloc] initWithSecuCode:secu.bdCode];
+//        [self.navigationController pushViewController:stkVC animated:NO];
+//    }
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectRowSecu:)]) {
+        [self.delegate didSelectRowSecu:cell.code];
     }
 }
 

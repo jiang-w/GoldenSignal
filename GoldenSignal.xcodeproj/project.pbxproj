@@ -79,7 +79,7 @@
 		011B85281B0DBEA9003005BC /* ReportListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B851C1B0DBEA9003005BC /* ReportListViewCell.m */; };
 		011B85291B0DBEA9003005BC /* ReportListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011B851D1B0DBEA9003005BC /* ReportListViewCell.xib */; };
 		011B852A1B0DBEA9003005BC /* SlideImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B851F1B0DBEA9003005BC /* SlideImageViewController.m */; };
-		011B854E1B0DBEFE003005BC /* CustomStockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B852C1B0DBEFE003005BC /* CustomStockViewController.m */; };
+		011B854E1B0DBEFE003005BC /* StockPoolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B852C1B0DBEFE003005BC /* StockPoolViewController.m */; };
 		011B854F1B0DBEFE003005BC /* F10ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B852E1B0DBEFE003005BC /* F10ViewController.m */; };
 		011B85501B0DBEFE003005BC /* FiveBetsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85301B0DBEFE003005BC /* FiveBetsView.m */; };
 		011B85511B0DBEFE003005BC /* StkScalarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85321B0DBEFE003005BC /* StkScalarView.m */; };
@@ -128,6 +128,21 @@
 		01A55BC61B5E3F7900224F7B /* NewStockTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A55BC01B5E3F7900224F7B /* NewStockTableViewCell.m */; };
 		01A55BC71B5E3F7900224F7B /* NewStockTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A55BC11B5E3F7900224F7B /* NewStockTableViewCell.xib */; };
 		01A55BC81B5E3F7900224F7B /* NewStockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A55BC31B5E3F7900224F7B /* NewStockViewController.m */; };
+		01A55BCC1B5E426800224F7B /* PortfolioMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A55BCB1B5E426800224F7B /* PortfolioMainViewController.m */; };
+		01A55BCF1B5E46C700224F7B /* OptionalGSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A55BCE1B5E46C700224F7B /* OptionalGSViewController.m */; };
+		01A55BD51B5E481800224F7B /* OptionalGSModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A55BD31B5E481800224F7B /* OptionalGSModel.m */; };
+		01A55BE01B5E490200224F7B /* InfomationsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A55BD71B5E490200224F7B /* InfomationsTableViewCell.m */; };
+		01A55BE11B5E490200224F7B /* InfomationsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A55BD81B5E490200224F7B /* InfomationsTableViewCell.xib */; };
+		01A55BE21B5E490200224F7B /* InformationsTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A55BDA1B5E490200224F7B /* InformationsTabViewController.m */; };
+		01A55BE31B5E490200224F7B /* ReportTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A55BDC1B5E490200224F7B /* ReportTableViewCell.m */; };
+		01A55BE41B5E490200224F7B /* ReportTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A55BDD1B5E490200224F7B /* ReportTableViewCell.xib */; };
+		01A55BE51B5E490200224F7B /* ReportTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A55BDF1B5E490200224F7B /* ReportTableViewController.m */; };
+		01A55BE91B5E494800224F7B /* newsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A55BE71B5E494800224F7B /* newsTableViewCell.m */; };
+		01A55BEA1B5E494800224F7B /* newsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A55BE81B5E494800224F7B /* newsTableViewCell.xib */; };
+		01A55BEE1B5E4A0A00224F7B /* BulletinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A55BEC1B5E4A0A00224F7B /* BulletinViewController.m */; };
+		01A55BEF1B5E4A0A00224F7B /* BulletinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A55BED1B5E4A0A00224F7B /* BulletinViewController.xib */; };
+		01A55BF31B5E4A2400224F7B /* ReportDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A55BF11B5E4A2400224F7B /* ReportDetailViewController.m */; };
+		01A55BF41B5E4A2400224F7B /* ReportDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A55BF21B5E4A2400224F7B /* ReportDetailViewController.xib */; };
 		01A95D251B32BE6A008CF76B /* BDStockPoolInfoService.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A95D241B32BE6A008CF76B /* BDStockPoolInfoService.m */; };
 		01A9614A1B4FC0FA00B705AD /* FundFlowCircleChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A961491B4FC0FA00B705AD /* FundFlowCircleChart.m */; };
 		01AD748E1B3948CF006EC988 /* IdxScalarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AD748D1B3948CF006EC988 /* IdxScalarView.m */; };
@@ -307,8 +322,8 @@
 		011B851D1B0DBEA9003005BC /* ReportListViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportListViewCell.xib; sourceTree = "<group>"; };
 		011B851E1B0DBEA9003005BC /* SlideImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideImageViewController.h; sourceTree = "<group>"; };
 		011B851F1B0DBEA9003005BC /* SlideImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideImageViewController.m; sourceTree = "<group>"; };
-		011B852B1B0DBEFE003005BC /* CustomStockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomStockViewController.h; sourceTree = "<group>"; };
-		011B852C1B0DBEFE003005BC /* CustomStockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomStockViewController.m; sourceTree = "<group>"; };
+		011B852B1B0DBEFE003005BC /* StockPoolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolViewController.h; sourceTree = "<group>"; };
+		011B852C1B0DBEFE003005BC /* StockPoolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolViewController.m; sourceTree = "<group>"; };
 		011B852D1B0DBEFE003005BC /* F10ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = F10ViewController.h; sourceTree = "<group>"; };
 		011B852E1B0DBEFE003005BC /* F10ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = F10ViewController.m; sourceTree = "<group>"; };
 		011B852F1B0DBEFE003005BC /* FiveBetsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FiveBetsView.h; sourceTree = "<group>"; };
@@ -387,6 +402,31 @@
 		01A55BC11B5E3F7900224F7B /* NewStockTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewStockTableViewCell.xib; sourceTree = "<group>"; };
 		01A55BC21B5E3F7900224F7B /* NewStockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewStockViewController.h; sourceTree = "<group>"; };
 		01A55BC31B5E3F7900224F7B /* NewStockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewStockViewController.m; sourceTree = "<group>"; };
+		01A55BCA1B5E426800224F7B /* PortfolioMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PortfolioMainViewController.h; sourceTree = "<group>"; };
+		01A55BCB1B5E426800224F7B /* PortfolioMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PortfolioMainViewController.m; sourceTree = "<group>"; };
+		01A55BCD1B5E46C700224F7B /* OptionalGSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionalGSViewController.h; sourceTree = "<group>"; };
+		01A55BCE1B5E46C700224F7B /* OptionalGSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionalGSViewController.m; sourceTree = "<group>"; };
+		01A55BD21B5E481800224F7B /* OptionalGSModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionalGSModel.h; sourceTree = "<group>"; };
+		01A55BD31B5E481800224F7B /* OptionalGSModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionalGSModel.m; sourceTree = "<group>"; };
+		01A55BD61B5E490200224F7B /* InfomationsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfomationsTableViewCell.h; sourceTree = "<group>"; };
+		01A55BD71B5E490200224F7B /* InfomationsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfomationsTableViewCell.m; sourceTree = "<group>"; };
+		01A55BD81B5E490200224F7B /* InfomationsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfomationsTableViewCell.xib; sourceTree = "<group>"; };
+		01A55BD91B5E490200224F7B /* InformationsTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationsTabViewController.h; sourceTree = "<group>"; };
+		01A55BDA1B5E490200224F7B /* InformationsTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationsTabViewController.m; sourceTree = "<group>"; };
+		01A55BDB1B5E490200224F7B /* ReportTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportTableViewCell.h; sourceTree = "<group>"; };
+		01A55BDC1B5E490200224F7B /* ReportTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportTableViewCell.m; sourceTree = "<group>"; };
+		01A55BDD1B5E490200224F7B /* ReportTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportTableViewCell.xib; sourceTree = "<group>"; };
+		01A55BDE1B5E490200224F7B /* ReportTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportTableViewController.h; sourceTree = "<group>"; };
+		01A55BDF1B5E490200224F7B /* ReportTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportTableViewController.m; sourceTree = "<group>"; };
+		01A55BE61B5E494800224F7B /* newsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = newsTableViewCell.h; sourceTree = "<group>"; };
+		01A55BE71B5E494800224F7B /* newsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = newsTableViewCell.m; sourceTree = "<group>"; };
+		01A55BE81B5E494800224F7B /* newsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = newsTableViewCell.xib; sourceTree = "<group>"; };
+		01A55BEB1B5E4A0A00224F7B /* BulletinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulletinViewController.h; sourceTree = "<group>"; };
+		01A55BEC1B5E4A0A00224F7B /* BulletinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulletinViewController.m; sourceTree = "<group>"; };
+		01A55BED1B5E4A0A00224F7B /* BulletinViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BulletinViewController.xib; sourceTree = "<group>"; };
+		01A55BF01B5E4A2400224F7B /* ReportDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportDetailViewController.h; sourceTree = "<group>"; };
+		01A55BF11B5E4A2400224F7B /* ReportDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportDetailViewController.m; sourceTree = "<group>"; };
+		01A55BF21B5E4A2400224F7B /* ReportDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportDetailViewController.xib; sourceTree = "<group>"; };
 		01A95D231B32BE6A008CF76B /* BDStockPoolInfoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDStockPoolInfoService.h; sourceTree = "<group>"; };
 		01A95D241B32BE6A008CF76B /* BDStockPoolInfoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDStockPoolInfoService.m; sourceTree = "<group>"; };
 		01A961481B4FC0FA00B705AD /* FundFlowCircleChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FundFlowCircleChart.h; sourceTree = "<group>"; };
@@ -621,6 +661,8 @@
 				01B531051B5CE42700F9B891 /* BDSecuNews.m */,
 				01A55BAF1B5E3CB400224F7B /* BDNewStockModel.h */,
 				01A55BB01B5E3CB400224F7B /* BDNewStockModel.m */,
+				01A55BD21B5E481800224F7B /* OptionalGSModel.h */,
+				01A55BD31B5E481800224F7B /* OptionalGSModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -673,6 +715,7 @@
 		011B84E91B0DBD7C003005BC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				01A55BC91B5E41D000224F7B /* Portfolio */,
 				011B84EA1B0DBD8B003005BC /* Settings */,
 				011B850C1B0DBE56003005BC /* Markets */,
 				011B84F71B0DBDC6003005BC /* News */,
@@ -740,8 +783,6 @@
 				011B85411B0DBEFE003005BC /* SectCollectionViewController.h */,
 				011B85421B0DBEFE003005BC /* SectCollectionViewController.m */,
 				011B85431B0DBEFE003005BC /* SectCollectionViewController.xib */,
-				011B852B1B0DBEFE003005BC /* CustomStockViewController.h */,
-				011B852C1B0DBEFE003005BC /* CustomStockViewController.m */,
 				011B853C1B0DBEFE003005BC /* QuoteMainViewController.h */,
 				011B853D1B0DBEFE003005BC /* QuoteMainViewController.m */,
 				01A46F301B4D0681000CD7A5 /* Home */,
@@ -853,6 +894,38 @@
 				01B531021B5CDF1B00F9B891 /* SecuNewsListView.m */,
 			);
 			name = Detail;
+			sourceTree = "<group>";
+		};
+		01A55BC91B5E41D000224F7B /* Portfolio */ = {
+			isa = PBXGroup;
+			children = (
+				01A55BCA1B5E426800224F7B /* PortfolioMainViewController.h */,
+				01A55BCB1B5E426800224F7B /* PortfolioMainViewController.m */,
+				011B852B1B0DBEFE003005BC /* StockPoolViewController.h */,
+				011B852C1B0DBEFE003005BC /* StockPoolViewController.m */,
+				01A55BCD1B5E46C700224F7B /* OptionalGSViewController.h */,
+				01A55BCE1B5E46C700224F7B /* OptionalGSViewController.m */,
+				01A55BD61B5E490200224F7B /* InfomationsTableViewCell.h */,
+				01A55BD71B5E490200224F7B /* InfomationsTableViewCell.m */,
+				01A55BD81B5E490200224F7B /* InfomationsTableViewCell.xib */,
+				01A55BD91B5E490200224F7B /* InformationsTabViewController.h */,
+				01A55BDA1B5E490200224F7B /* InformationsTabViewController.m */,
+				01A55BDB1B5E490200224F7B /* ReportTableViewCell.h */,
+				01A55BDC1B5E490200224F7B /* ReportTableViewCell.m */,
+				01A55BDD1B5E490200224F7B /* ReportTableViewCell.xib */,
+				01A55BDE1B5E490200224F7B /* ReportTableViewController.h */,
+				01A55BDF1B5E490200224F7B /* ReportTableViewController.m */,
+				01A55BE61B5E494800224F7B /* newsTableViewCell.h */,
+				01A55BE71B5E494800224F7B /* newsTableViewCell.m */,
+				01A55BE81B5E494800224F7B /* newsTableViewCell.xib */,
+				01A55BEB1B5E4A0A00224F7B /* BulletinViewController.h */,
+				01A55BEC1B5E4A0A00224F7B /* BulletinViewController.m */,
+				01A55BED1B5E4A0A00224F7B /* BulletinViewController.xib */,
+				01A55BF01B5E4A2400224F7B /* ReportDetailViewController.h */,
+				01A55BF11B5E4A2400224F7B /* ReportDetailViewController.m */,
+				01A55BF21B5E4A2400224F7B /* ReportDetailViewController.xib */,
+			);
+			name = Portfolio;
 			sourceTree = "<group>";
 		};
 		01A961441B4F71D000B705AD /* Chart */ = {
@@ -991,6 +1064,7 @@
 				01D8DA3F1B253F9C0033956E /* IdxQuoteViewCell.xib in Resources */,
 				011B85521B0DBEFE003005BC /* StkScalarView.xib in Resources */,
 				011B855B1B0DBEFE003005BC /* SectCollectionViewController.xib in Resources */,
+				01A55BE11B5E490200224F7B /* InfomationsTableViewCell.xib in Resources */,
 				01A55BBB1B5E3D3A00224F7B /* NewsContentViewController.xib in Resources */,
 				01A55BB61B5E3CE800224F7B /* ImportsTableViewCell.xib in Resources */,
 				014FF38A1B1D5276007DB608 /* QuoteHomeViewController.xib in Resources */,
@@ -998,14 +1072,18 @@
 				01A55BC71B5E3F7900224F7B /* NewStockTableViewCell.xib in Resources */,
 				01A55BC51B5E3F7900224F7B /* newStockDetailViewController.xib in Resources */,
 				011B845D1B0DB9D8003005BC /* NewsDetail.html in Resources */,
+				01A55BEA1B5E494800224F7B /* newsTableViewCell.xib in Resources */,
+				01A55BE41B5E490200224F7B /* ReportTableViewCell.xib in Resources */,
 				0129EF5A1B1FE73F00690920 /* QuoteHomeKLineView.xib in Resources */,
 				01A46F2A1B4CFC7E000CD7A5 /* RankingListCell.xib in Resources */,
 				019F2A3D1B5659C5005602B7 /* FundFlowBarView.xib in Resources */,
 				01CA5C551B1EDF6C003B824F /* QuoteHomeTrendView.xib in Resources */,
 				01AD74901B3948E7006EC988 /* IdxScalarView.xib in Resources */,
+				01A55BF41B5E4A2400224F7B /* ReportDetailViewController.xib in Resources */,
 				011B85591B0DBEFE003005BC /* StkQuoteViewCell.xib in Resources */,
 				011B850A1B0DBE1F003005BC /* TitleTabViewController.xib in Resources */,
 				011B84411B0DB51F003005BC /* Images.xcassets in Resources */,
+				01A55BEF1B5E4A0A00224F7B /* BulletinViewController.xib in Resources */,
 				011B85291B0DBEA9003005BC /* ReportListViewCell.xib in Resources */,
 				011B85221B0DBEA9003005BC /* BulletinListViewCell.xib in Resources */,
 			);
@@ -1058,9 +1136,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01A55BCF1B5E46C700224F7B /* OptionalGSViewController.m in Sources */,
+				01A55BE31B5E490200224F7B /* ReportTableViewCell.m in Sources */,
 				011B84BA1B0DBCBA003005BC /* BDKeyboardWizard.m in Sources */,
 				01AE17C01B4E3CA40064CB66 /* RankingListViewController.m in Sources */,
 				01642F941B5DEDE700438BDA /* InformationMainViewController.m in Sources */,
+				01A55BE51B5E490200224F7B /* ReportTableViewController.m in Sources */,
+				01A55BE91B5E494800224F7B /* newsTableViewCell.m in Sources */,
 				01A55BC61B5E3F7900224F7B /* NewStockTableViewCell.m in Sources */,
 				011B84E31B0DBD4F003005BC /* StkQuoteCellViewModel.m in Sources */,
 				011B84DF1B0DBD4F003005BC /* KLineViewModel_old.m in Sources */,
@@ -1068,6 +1150,7 @@
 				011B84A81B0DBC57003005BC /* BDSecuCode.m in Sources */,
 				011B84BB1B0DBCBA003005BC /* BDRegisterInfo.m in Sources */,
 				01D8A8171B4675F30047BA64 /* KLineChart.m in Sources */,
+				01A55BE21B5E490200224F7B /* InformationsTabViewController.m in Sources */,
 				011B848D1B0DBB83003005BC /* BDSectService.m in Sources */,
 				011B84DE1B0DBD4F003005BC /* StkScalarViewModel.m in Sources */,
 				011B846C1B0DBADB003005BC /* NSString+Utility.m in Sources */,
@@ -1088,6 +1171,7 @@
 				011B84A21B0DBC57003005BC /* BDChannel.m in Sources */,
 				0129EF5D1B1FED4B00690920 /* QuoteHomeKLineView.m in Sources */,
 				011B84E11B0DBD4F003005BC /* NewsDetailViewModel.m in Sources */,
+				01A55BF31B5E4A2400224F7B /* ReportDetailViewController.m in Sources */,
 				011B84A51B0DBC57003005BC /* BDNewsTag.m in Sources */,
 				01B531061B5CE42700F9B891 /* BDSecuNews.m in Sources */,
 				011B84B91B0DBCBA003005BC /* BDCustomTagCollection.m in Sources */,
@@ -1109,9 +1193,11 @@
 				011B84C01B0DBCBA003005BC /* BDUserTicket.m in Sources */,
 				011B846D1B0DBADB003005BC /* SmartTime.m in Sources */,
 				011B85561B0DBEFE003005BC /* LiteTrendView.m in Sources */,
+				01A55BD51B5E481800224F7B /* OptionalGSModel.m in Sources */,
 				0129EF601B1FF42700690920 /* QuoteHomeKLineViewModel.m in Sources */,
 				011B84A71B0DBC57003005BC /* BDSectInfo.m in Sources */,
 				011B84851B0DBB83003005BC /* BDCoreService.m in Sources */,
+				01A55BCC1B5E426800224F7B /* PortfolioMainViewController.m in Sources */,
 				01D8DA3E1B253F9C0033956E /* IdxQuoteViewCell.m in Sources */,
 				011B84A61B0DBC57003005BC /* BDReport.m in Sources */,
 				011B84391B0DB51F003005BC /* AppDelegate.m in Sources */,
@@ -1138,6 +1224,7 @@
 				011B84E41B0DBD4F003005BC /* RegisterViewModel.m in Sources */,
 				01A55BC81B5E3F7900224F7B /* NewStockViewController.m in Sources */,
 				011B846B1B0DBADB003005BC /* NSDate+Utility.m in Sources */,
+				01A55BE01B5E490200224F7B /* InfomationsTableViewCell.m in Sources */,
 				01A55BB11B5E3CB400224F7B /* BDNewStockModel.m in Sources */,
 				01A95D251B32BE6A008CF76B /* BDStockPoolInfoService.m in Sources */,
 				011B84E21B0DBD4F003005BC /* NewsListViewModel.m in Sources */,
@@ -1152,7 +1239,7 @@
 				011B846F1B0DBADB003005BC /* UIImageView+ImageLoading.m in Sources */,
 				01B4C70E1B3B9A0E002B1118 /* BDTradingDayService.m in Sources */,
 				011B85601B0DBEFE003005BC /* StockTrendView.m in Sources */,
-				011B854E1B0DBEFE003005BC /* CustomStockViewController.m in Sources */,
+				011B854E1B0DBEFE003005BC /* StockPoolViewController.m in Sources */,
 				01AD74931B395789006EC988 /* IdxScalarViewModel.m in Sources */,
 				011B85231B0DBEA9003005BC /* NewsDetailViewController.m in Sources */,
 				011B848E1B0DBB83003005BC /* BDStockNewsService.m in Sources */,
@@ -1165,6 +1252,7 @@
 				011B84F51B0DBDBC003005BC /* ManageTagsViewController.m in Sources */,
 				011B84871B0DBB83003005BC /* BDFieldQuery.m in Sources */,
 				01A55BC41B5E3F7900224F7B /* newStockDetailViewController.m in Sources */,
+				01A55BEE1B5E4A0A00224F7B /* BulletinViewController.m in Sources */,
 				011B84E01B0DBD4F003005BC /* LoginViewModel.m in Sources */,
 				011B84BC1B0DBCBA003005BC /* BDStockPool.m in Sources */,
 				01CA5C4B1B1ECC03003B824F /* QuoteHomeTrendViewModel.m in Sources */,
