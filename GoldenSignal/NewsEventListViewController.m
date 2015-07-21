@@ -6,14 +6,14 @@
 //  Copyright (c) 2015年 bigdata. All rights reserved.
 //
 
-#import "NewsListViewController.h"
+#import "NewsEventListViewController.h"
 #import "NewsListViewModel.h"
 #import "SlideImageViewController.h"
 #import <MJRefresh.h>
 #import <MBProgressHUD.h>
-#import "AutoLayoutNewsListCell.h"
+#import "AutoLayoutNewsEventListCell.h"
 
-@interface NewsListViewController ()
+@interface NewsEventListViewController ()
 {
     long _tagId;
     NewsListViewModel *_vm;
@@ -25,7 +25,7 @@
 
 static NSString *tableCellIdentifier = @"NewsListCell";
 
-@implementation NewsListViewController
+@implementation NewsEventListViewController
 
 - (id)initWithTagId:(long)tagId {
     self = [super init];
@@ -40,7 +40,7 @@ static NSString *tableCellIdentifier = @"NewsListCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.tableView registerClass:[AutoLayoutNewsListCell class] forCellReuseIdentifier:tableCellIdentifier];
+    [self.tableView registerClass:[AutoLayoutNewsEventListCell class] forCellReuseIdentifier:tableCellIdentifier];
     self.tableView.rowHeight = 100;
     
     /* 设置表视图刷新 */
@@ -87,9 +87,9 @@ static NSString *tableCellIdentifier = @"NewsListCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    AutoLayoutNewsListCell *cell = (AutoLayoutNewsListCell *)[tableView dequeueReusableCellWithIdentifier:tableCellIdentifier];
+    AutoLayoutNewsEventListCell *cell = (AutoLayoutNewsEventListCell *)[tableView dequeueReusableCellWithIdentifier:tableCellIdentifier];
     if (cell == nil) {
-        cell = [[AutoLayoutNewsListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableCellIdentifier];
+        cell = [[AutoLayoutNewsEventListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableCellIdentifier];
     }
     cell.news = _vm.newsList[indexPath.row];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -100,9 +100,9 @@ static NSString *tableCellIdentifier = @"NewsListCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (!sampleCell) {
-        sampleCell  = [[AutoLayoutNewsListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableCellIdentifier];
+        sampleCell  = [[AutoLayoutNewsEventListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableCellIdentifier];
     }
-    AutoLayoutNewsListCell *cell = (AutoLayoutNewsListCell *)sampleCell;
+    AutoLayoutNewsEventListCell *cell = (AutoLayoutNewsEventListCell *)sampleCell;
     cell.news = _vm.newsList[indexPath.row];
     CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
 //    NSLog(@"(%ld,%ld) w=%f, h=%f", indexPath.section, indexPath.row, size.width, size.height + 1);
@@ -117,7 +117,7 @@ static NSString *tableCellIdentifier = @"NewsListCell";
 
 // 选中单元格后执行
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    AutoLayoutNewsListCell *cell = (AutoLayoutNewsListCell *)[tableView cellForRowAtIndexPath:indexPath];
+    AutoLayoutNewsEventListCell *cell = (AutoLayoutNewsEventListCell *)[tableView cellForRowAtIndexPath:indexPath];
     if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectNews:)]) {
         [self.delegate didSelectNews:cell.news];
     }

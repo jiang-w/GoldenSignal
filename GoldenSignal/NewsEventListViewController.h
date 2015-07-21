@@ -8,15 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol NewsListViewDelegate <NSObject>
+@protocol NewsEventListViewDelegate <NSObject>
 
 -(void)didSelectNews:(BDNews *)news;
 
 @end
 
-@interface NewsListViewController : UITableViewController
+@interface NewsEventListViewController : UITableViewController
 
-@property(nonatomic, assign) id <NewsListViewDelegate> delegate;
+@property(nonatomic, assign) id <NewsEventListViewDelegate> delegate;
 
 - (id)initWithTagId:(long)tagId;
 

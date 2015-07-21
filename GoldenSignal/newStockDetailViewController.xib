@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="13F1077" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="newStockDetailViewController">
+            <connections>
+                <outlet property="codeIdLabel" destination="Meg-Yg-0CX" id="F9R-aZ-Ou4"/>
+                <outlet property="contenView" destination="i5M-Pr-FkT" id="qzB-2d-LpE"/>
+                <outlet property="diluteLabel" destination="eaU-4u-HvF" id="X3M-8I-dvO"/>
+                <outlet property="grossLabel" destination="jID-ss-wZA" id="DoX-Y8-4sE"/>
+                <outlet property="marketTimeLabel" destination="cDT-n9-Omw" id="OV4-he-zVo"/>
+                <outlet property="mediaLabel" destination="eNO-7M-cpG" id="rlC-u9-aIS"/>
+                <outlet property="priceLabel" destination="2Ws-2a-S1B" id="c95-z8-cdW"/>
+                <outlet property="resultDateLabel" destination="iYm-ru-1CA" id="9yZ-fN-aZg"/>
+                <outlet property="scrollView" destination="E0b-dx-zoG" id="WPT-Bc-Lre"/>
+                <outlet property="secondView" destination="IF5-K8-7Im" id="tr6-UW-vom"/>
+                <outlet property="signNumbLabel" destination="Vfp-wA-aQI" id="jib-pQ-1HD"/>
+                <outlet property="signRateLabel" destination="pUF-Xd-BK6" id="6gR-zw-588"/>
+                <outlet property="starDateLabel" destination="FUJ-ho-Ga8" id="xzx-yk-xWl"/>
+                <outlet property="stockIdLabel" destination="iC5-ad-nFj" id="zM6-1c-RAM"/>
+                <outlet property="upperLabel" destination="rv0-qI-etF" id="AQL-hG-ds5"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT" userLabel="contentView">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E0b-dx-zoG">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IF5-K8-7Im" userLabel="SecondView">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xsv-8h-dui">
+                                    <rect key="frame" x="10" y="10" width="580" height="30"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <attributedString key="attributedText">
+                                        <fragment content="新股申购中签信息">
+                                            <attributes>
+                                                <color key="NSColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="17" name="STHeitiSC-Medium"/>
+                                                <font key="NSOriginalFont" size="17" name="STHeitiSC-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Otg-pC-Adi">
+                                    <rect key="frame" x="10" y="48" width="96" height="21"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <attributedString key="attributedText">
+                                        <fragment content="股票简称：">
+                                            <attributes>
+                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <font key="NSFont" size="16" name="STHeitiSC-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afZ-Hu-Bqk">
+                                    <rect key="frame" x="10" y="77" width="96" height="21"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <attributedString key="attributedText">
+                                        <fragment content="申购代码：">
+                                            <attributes>
+                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <font key="NSFont" size="16" name="STHeitiSC-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dgD-dW-FhG">
+                                    <rect key="frame" x="10" y="106" width="96" height="21"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <attributedString key="attributedText">
+                                        <fragment content="股票代码：">
+                                            <attributes>
+                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <font key="NSFont" size="16" name="STHeitiSC-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GPn-c4-giP">
+                                    <rect key="frame" x="10" y="135" width="96" height="21"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <attributedString key="attributedText">
+                                        <fragment content="申购日期：">
+                                            <attributes>
+                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <font key="NSFont" size="16" name="STHeitiSC-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uoY-3X-1oA">
+                                    <rect key="frame" x="10" y="164" width="96" height="21"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <attributedString key="attributedText">
+                                        <fragment content="发行价格：">
+                                            <attributes>
+                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <font key="NSFont" size="16" name="STHeitiSC-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q3F-hx-A1S">
+                                    <rect key="frame" x="10" y="193" width="96" height="21"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <attributedString key="attributedText">
+                                        <fragment content="发行市盈率：">
+                                            <attributes>
+                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <font key="NSFont" size="16" name="STHeitiSC-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vFb-oZ-8j8">
+                                    <rect key="frame" x="10" y="222" width="96" height="21"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <attributedString key="attributedText">
+                                        <fragment content="发行总数：">
+                                            <attributes>
+                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <font key="NSFont" size="16" name="STHeitiSC-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZQM-Yb-8cm">
+                                    <rect key="frame" x="10" y="251" width="96" height="21"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <attributedString key="attributedText">
+                                        <fragment content="申购上限：">
+                                            <attributes>
+                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <font key="NSFont" size="16" name="STHeitiSC-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vtP-Od-k8n">
+                                    <rect key="frame" x="10" y="280" width="96" height="21"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <attributedString key="attributedText">
+                                        <fragment content="中签公布日：">
+                                            <attributes>
+                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <font key="NSFont" size="16" name="STHeitiSC-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BTC-8L-cNn">
+                                    <rect key="frame" x="10" y="309" width="96" height="21"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <attributedString key="attributedText">
+                                        <fragment content="上市日期：">
+                                            <attributes>
+                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <font key="NSFont" size="16" name="STHeitiSC-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ufl-fa-U9D">
+                                    <rect key="frame" x="10" y="338" width="96" height="21"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <attributedString key="attributedText">
+                                        <fragment content="网上中签率：">
+                                            <attributes>
+                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <font key="NSFont" size="16" name="STHeitiSC-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Io5-jY-1gU">
+                                    <rect key="frame" x="10" y="407" width="96" height="21"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <attributedString key="attributedText">
+                                        <fragment content="网上中签号：">
+                                            <attributes>
+                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <font key="NSFont" size="16" name="STHeitiSC-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="夏普股份" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eNO-7M-cpG">
+                                    <rect key="frame" x="114" y="48" width="96" height="21"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="16"/>
+                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="300471" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Meg-Yg-0CX">
+                                    <rect key="frame" x="114" y="77" width="96" height="21"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="16"/>
+                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="300471" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iC5-ad-nFj">
+                                    <rect key="frame" x="114" y="106" width="96" height="21"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="16"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="2015-06-23" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUJ-ho-Ga8">
+                                    <rect key="frame" x="114" y="135" width="96" height="21"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="16"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="54.01元" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Ws-2a-S1B">
+                                    <rect key="frame" x="114" y="164" width="96" height="21"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="16"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="24.85倍" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaU-4u-HvF">
+                                    <rect key="frame" x="114" y="193" width="96" height="21"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="16"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="1000万股" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jID-ss-wZA">
+                                    <rect key="frame" x="114" y="222" width="96" height="21"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="16"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0.7万股" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rv0-qI-etF">
+                                    <rect key="frame" x="114" y="251" width="96" height="21"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="16"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="2015-06-27" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iYm-ru-1CA">
+                                    <rect key="frame" x="114" y="280" width="96" height="21"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="16"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="2015-06-30" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cDT-n9-Omw">
+                                    <rect key="frame" x="114" y="309" width="96" height="21"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="16"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0.2121%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pUF-Xd-BK6">
+                                    <rect key="frame" x="114" y="338" width="96" height="21"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="16"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="网上中签号...：" lineBreakMode="tailTruncation" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vfp-wA-aQI">
+                                    <rect key="frame" x="114" y="373" width="476" height="217"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="16"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="centerX" secondItem="Otg-pC-Adi" secondAttribute="centerX" constant="242" id="0du-ts-Teq"/>
+                                <constraint firstAttribute="centerY" secondItem="vtP-Od-k8n" secondAttribute="centerY" constant="9.5" id="1cv-TF-OTw"/>
+                                <constraint firstAttribute="centerY" secondItem="FUJ-ho-Ga8" secondAttribute="centerY" constant="154.5" id="5wg-Tn-0da"/>
+                                <constraint firstItem="Io5-jY-1gU" firstAttribute="top" secondItem="ufl-fa-U9D" secondAttribute="bottom" constant="48" id="8aR-qC-Xjq"/>
+                                <constraint firstAttribute="centerX" secondItem="FUJ-ho-Ga8" secondAttribute="centerX" constant="138" id="9Vr-WF-3Nr"/>
+                                <constraint firstAttribute="centerY" secondItem="Meg-Yg-0CX" secondAttribute="centerY" constant="212.5" id="DJS-y2-EP7"/>
+                                <constraint firstAttribute="centerX" secondItem="pUF-Xd-BK6" secondAttribute="centerX" constant="138" id="DZQ-UA-3Lq"/>
+                                <constraint firstAttribute="centerY" secondItem="jID-ss-wZA" secondAttribute="centerY" constant="67.5" id="EOh-fU-0x3"/>
+                                <constraint firstAttribute="centerY" secondItem="rv0-qI-etF" secondAttribute="centerY" constant="38.5" id="ESr-S1-LtW"/>
+                                <constraint firstAttribute="centerY" secondItem="2Ws-2a-S1B" secondAttribute="centerY" constant="125.5" id="EXV-SJ-uHa"/>
+                                <constraint firstAttribute="bottom" secondItem="Vfp-wA-aQI" secondAttribute="bottom" constant="10" id="F6v-m5-4Lf"/>
+                                <constraint firstAttribute="centerY" secondItem="ufl-fa-U9D" secondAttribute="centerY" constant="-48.5" id="Hgf-db-Pr2"/>
+                                <constraint firstAttribute="centerY" secondItem="iYm-ru-1CA" secondAttribute="centerY" constant="9.5" id="HiR-Ks-ZOS"/>
+                                <constraint firstAttribute="centerY" secondItem="Q3F-hx-A1S" secondAttribute="centerY" constant="96.5" id="HpI-gW-iGP"/>
+                                <constraint firstAttribute="centerX" secondItem="cDT-n9-Omw" secondAttribute="centerX" constant="138" id="Ifq-Zv-aVN"/>
+                                <constraint firstAttribute="centerY" secondItem="BTC-8L-cNn" secondAttribute="centerY" constant="-19.5" id="Ig9-gM-UEs"/>
+                                <constraint firstAttribute="centerY" secondItem="vFb-oZ-8j8" secondAttribute="centerY" constant="67.5" id="LAd-uD-C6l"/>
+                                <constraint firstAttribute="trailing" secondItem="Vfp-wA-aQI" secondAttribute="trailing" constant="10" id="M4H-8y-N8j"/>
+                                <constraint firstAttribute="centerX" secondItem="uoY-3X-1oA" secondAttribute="centerX" constant="242" id="NZp-Ds-fav"/>
+                                <constraint firstAttribute="centerY" secondItem="cDT-n9-Omw" secondAttribute="centerY" constant="-19.5" id="UhH-tc-yNI"/>
+                                <constraint firstAttribute="centerX" secondItem="afZ-Hu-Bqk" secondAttribute="centerX" constant="242" id="V9E-dD-jRI"/>
+                                <constraint firstAttribute="centerX" secondItem="Q3F-hx-A1S" secondAttribute="centerX" constant="242" id="ZGr-RV-MSP"/>
+                                <constraint firstAttribute="centerX" secondItem="rv0-qI-etF" secondAttribute="centerX" constant="138" id="ZVa-J9-Gs1"/>
+                                <constraint firstItem="Io5-jY-1gU" firstAttribute="leading" secondItem="IF5-K8-7Im" secondAttribute="leading" constant="10" id="aHA-rL-ybd"/>
+                                <constraint firstAttribute="centerY" secondItem="pUF-Xd-BK6" secondAttribute="centerY" constant="-48.5" id="cdM-u1-x1g"/>
+                                <constraint firstAttribute="centerX" secondItem="ufl-fa-U9D" secondAttribute="centerX" constant="242" id="ctS-JB-s5v"/>
+                                <constraint firstAttribute="centerX" secondItem="iC5-ad-nFj" secondAttribute="centerX" constant="138" id="eZh-kl-fg6"/>
+                                <constraint firstAttribute="centerX" secondItem="ZQM-Yb-8cm" secondAttribute="centerX" constant="242" id="fav-pq-RTs"/>
+                                <constraint firstAttribute="centerX" secondItem="vFb-oZ-8j8" secondAttribute="centerX" constant="242" id="g69-V8-sPy"/>
+                                <constraint firstItem="Vfp-wA-aQI" firstAttribute="top" secondItem="pUF-Xd-BK6" secondAttribute="bottom" constant="14" id="gOu-N5-gze"/>
+                                <constraint firstAttribute="centerX" secondItem="Xsv-8h-dui" secondAttribute="centerX" id="gZp-mu-ZrT"/>
+                                <constraint firstAttribute="centerX" secondItem="vtP-Od-k8n" secondAttribute="centerX" constant="242" id="gbc-O6-Ib0"/>
+                                <constraint firstAttribute="centerX" secondItem="2Ws-2a-S1B" secondAttribute="centerX" constant="138" id="iRT-v4-DHw"/>
+                                <constraint firstAttribute="centerX" secondItem="GPn-c4-giP" secondAttribute="centerX" constant="242" id="iYD-eA-tJO"/>
+                                <constraint firstAttribute="centerX" secondItem="jID-ss-wZA" secondAttribute="centerX" constant="138" id="j7t-PM-B1h"/>
+                                <constraint firstAttribute="centerY" secondItem="eaU-4u-HvF" secondAttribute="centerY" constant="96.5" id="k0l-gg-aCw"/>
+                                <constraint firstAttribute="centerY" secondItem="GPn-c4-giP" secondAttribute="centerY" constant="154.5" id="kgp-jq-clr"/>
+                                <constraint firstAttribute="centerY" secondItem="Otg-pC-Adi" secondAttribute="centerY" constant="241.5" id="kp1-I2-8Si"/>
+                                <constraint firstAttribute="centerX" secondItem="eNO-7M-cpG" secondAttribute="centerX" constant="138" id="mdq-O6-if5"/>
+                                <constraint firstAttribute="centerY" secondItem="Xsv-8h-dui" secondAttribute="centerY" constant="275" id="oJk-xZ-CRh"/>
+                                <constraint firstItem="Vfp-wA-aQI" firstAttribute="leading" secondItem="Io5-jY-1gU" secondAttribute="trailing" constant="8" id="obX-a0-Uzj"/>
+                                <constraint firstAttribute="centerY" secondItem="eNO-7M-cpG" secondAttribute="centerY" constant="241.5" id="odS-sY-Kgh"/>
+                                <constraint firstAttribute="centerX" secondItem="iYm-ru-1CA" secondAttribute="centerX" constant="138" id="pRX-mK-D3v"/>
+                                <constraint firstAttribute="centerY" secondItem="iC5-ad-nFj" secondAttribute="centerY" constant="183.5" id="rKR-RN-xwh"/>
+                                <constraint firstAttribute="centerY" secondItem="ZQM-Yb-8cm" secondAttribute="centerY" constant="38.5" id="rqn-W6-In0"/>
+                                <constraint firstAttribute="centerY" secondItem="uoY-3X-1oA" secondAttribute="centerY" constant="125.5" id="tin-gK-efi"/>
+                                <constraint firstAttribute="centerX" secondItem="Meg-Yg-0CX" secondAttribute="centerX" constant="138" id="txV-9G-L6O"/>
+                                <constraint firstAttribute="centerY" secondItem="afZ-Hu-Bqk" secondAttribute="centerY" constant="212.5" id="uh1-ya-xQn"/>
+                                <constraint firstAttribute="centerX" secondItem="BTC-8L-cNn" secondAttribute="centerX" constant="242" id="uop-4m-gZJ"/>
+                                <constraint firstAttribute="centerX" secondItem="dgD-dW-FhG" secondAttribute="centerX" constant="242" id="vCk-fG-bLU"/>
+                                <constraint firstAttribute="centerX" secondItem="eaU-4u-HvF" secondAttribute="centerX" constant="138" id="vwW-vU-KVL"/>
+                                <constraint firstAttribute="centerY" secondItem="dgD-dW-FhG" secondAttribute="centerY" constant="183.5" id="xXZ-sf-Gpu"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="IF5-K8-7Im" secondAttribute="trailing" id="SRu-vz-i0a"/>
+                        <constraint firstItem="IF5-K8-7Im" firstAttribute="leading" secondItem="E0b-dx-zoG" secondAttribute="leading" id="Sxl-HQ-Bkz"/>
+                        <constraint firstItem="IF5-K8-7Im" firstAttribute="top" secondItem="E0b-dx-zoG" secondAttribute="top" id="Zst-2y-8vy"/>
+                        <constraint firstAttribute="bottom" secondItem="IF5-K8-7Im" secondAttribute="bottom" id="wjm-MC-djZ"/>
+                        <constraint firstAttribute="width" secondItem="IF5-K8-7Im" secondAttribute="width" id="yoP-2m-Oe8"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="E0b-dx-zoG" secondAttribute="trailing" id="Q4R-kp-Ynb"/>
+                <constraint firstItem="E0b-dx-zoG" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="QHI-gL-8N0"/>
+                <constraint firstAttribute="bottom" secondItem="E0b-dx-zoG" secondAttribute="bottom" id="bOY-uQ-fHt"/>
+                <constraint firstItem="E0b-dx-zoG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="i6k-mG-Ndv"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

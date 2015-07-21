@@ -30,9 +30,15 @@
  */
 @property(nonatomic, assign) long sn;
 
+
 /**
- *  内容
+ *  每条新闻对应的连接ID 有可能为空
  */
-@property(nonatomic, strong) NSString *content;
+@property (nonatomic,assign) long connectId;
+
+/**
+ *  详情页面的内容
+ */
+@property (nonatomic, copy) NSString *content;
 
 @end

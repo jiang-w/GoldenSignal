@@ -35,8 +35,8 @@
     UIView *customTabBarView = [[UIView alloc] init];
     customTabBarView.frame = CGRectMake(0, 0, self.tabBar.frame.size.width, self.tabBar.frame.size.height);
     
-    NSArray *imgs = @[@"金信号_0",@"行情_0",@"自选股_0",@"设置_0"];
-    NSArray *selImgs = @[@"金信号_1",@"行情_1",@"自选股_1",@"设置_1"];
+    NSArray *imgs = @[@"金信号_0",@"行情_0",@"自选股_0",@"要闻_0",@"设置_0"];
+    NSArray *selImgs = @[@"金信号_1",@"行情_1",@"自选股_1",@"要闻_1",@"设置_1"];
     CGFloat imgWidth = self.view.frame.size.width / imgs.count;
     CGFloat imgHeight = customTabBarView.frame.size.height;
     

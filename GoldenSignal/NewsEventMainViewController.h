@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "TitleTabViewController.h"
-#import "NewsListViewController.h"
+#import "NewsEventListViewController.h"
 
-@interface NewsMainViewController : UIViewController<UIScrollViewDelegate, TitleTabViewDelegate, NewsListViewDelegate>
+@interface NewsEventMainViewController : UIViewController<UIScrollViewDelegate, TitleTabViewDelegate, NewsEventListViewDelegate>
 {
     TitleTabViewController *titleTabVC;
     UIScrollView *scrollView;

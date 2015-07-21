@@ -18,3 +18,10 @@
     #import "Common.h"
     #import <GHRevealViewController.h>
 #endif
+
+
+#ifdef DEBUG
+#define DEBUGLog(...) NSLog(__VA_ARGS__)
+#else
+#define DEBUGLog(...)
+#endif

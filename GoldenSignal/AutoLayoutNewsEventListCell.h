@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AutoLayoutNewsListCell : UITableViewCell
+@interface AutoLayoutNewsEventListCell : UITableViewCell
 {
     UIView *container;
     UILabel *title;

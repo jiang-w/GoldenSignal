@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="GO6-hW-7pN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="GO6-hW-7pN">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -33,6 +33,27 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7sB-tP-qdp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-1239" y="597"/>
+        </scene>
+        <!--要闻-->
+        <scene sceneID="DfN-Wb-d1D">
+            <objects>
+                <navigationController id="BbK-PR-oDT" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="要闻" id="j1a-rp-ngz"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="545-lv-yt1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.80784313725490198" green="0.0" blue="0.066666666666666666" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="F4y-ac-Xtj" kind="relationship" relationship="rootViewController" id="czD-aI-zJM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e0H-92-lAq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
             <point key="canvasLocation" x="-815" y="597"/>
         </scene>
         <!--设置-->
@@ -56,6 +77,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gyj-UR-0IG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-381" y="597"/>
+        </scene>
+        <!--要闻首页-->
+        <scene sceneID="5jx-vU-8Ml">
+            <objects>
+                <viewController id="F4y-ac-Xtj" userLabel="要闻首页" customClass="InformationMainViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tSQ-mc-ey3"/>
+                        <viewControllerLayoutGuide type="bottom" id="jfn-xJ-uWt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="U0T-AJ-EcK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="SeA-hU-gJ8"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Xe-SZ-R5z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-815" y="1263"/>
         </scene>
         <!--标签管理-->
         <scene sceneID="ge6-Jz-RQj">
@@ -280,6 +320,7 @@
                         <segue destination="ehy-k2-nuH" kind="relationship" relationship="viewControllers" id="X8m-b9-fSw"/>
                         <segue destination="EZU-yy-EZj" kind="relationship" relationship="viewControllers" id="2dT-Lw-hRx"/>
                         <segue destination="Ga8-EH-LU1" kind="relationship" relationship="viewControllers" id="sYL-wg-pgw"/>
+                        <segue destination="BbK-PR-oDT" kind="relationship" relationship="viewControllers" id="ws9-yS-cno"/>
                         <segue destination="abm-yf-KC4" kind="relationship" relationship="viewControllers" id="j6d-OV-aYd"/>
                     </connections>
                 </tabBarController>
@@ -680,7 +721,7 @@
         <!--新闻首页-->
         <scene sceneID="Xq9-aK-s3A">
             <objects>
-                <viewController id="Giq-Oi-WZ3" userLabel="新闻首页" customClass="NewsMainViewController" sceneMemberID="viewController">
+                <viewController id="Giq-Oi-WZ3" userLabel="新闻首页" customClass="NewsEventMainViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="92K-4Y-WbT"/>
                         <viewControllerLayoutGuide type="bottom" id="aww-1q-MHT"/>

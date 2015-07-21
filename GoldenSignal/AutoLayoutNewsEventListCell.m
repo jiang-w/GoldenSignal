@@ -6,10 +6,10 @@
 //  Copyright (c) 2015年 bigdata. All rights reserved.
 //
 
-#import "AutoLayoutNewsListCell.h"
+#import "AutoLayoutNewsEventListCell.h"
 #import "Masonry.h"
 
-@implementation AutoLayoutNewsListCell
+@implementation AutoLayoutNewsEventListCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

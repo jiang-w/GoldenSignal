@@ -32,9 +32,19 @@
 @property(nonatomic, strong) NSString *abstract;
 
 /**
+ *  摘要全文
+ */
+@property(nonatomic, strong) NSString *ABST_SHT;
+
+/**
  *  内容
  */
 @property(nonatomic, strong) NSString *content;
+
+/**
+ *  公司名字
+ */
+@property(nonatomic, strong) NSString *companyName;
 
 /**
  *  作者
@@ -55,6 +65,11 @@
  *  新闻标签
  */
 @property(nonatomic, strong) NSMutableArray *labels;
+
+/**
+ *  每条新闻对应的连接ID 有可能为空
+ */
+@property (nonatomic,assign) long connectId;
 
 /**
  *  获取某类型的新闻标签

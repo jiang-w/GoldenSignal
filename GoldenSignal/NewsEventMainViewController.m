@@ -6,11 +6,11 @@
 //  Copyright (c) 2015年 bigdata. All rights reserved.
 //
 
-#import "NewsMainViewController.h"
+#import "NewsEventMainViewController.h"
 #import "NewsDetailViewController.h"
 #import <Masonry.h>
 
-@interface NewsMainViewController ()
+@interface NewsEventMainViewController ()
 {
     NSArray *_tabArray;
     NSMutableDictionary *_controllerDic;
@@ -18,7 +18,7 @@
 
 @end
 
-@implementation NewsMainViewController
+@implementation NewsEventMainViewController
 
 - (id)init {
     self = [super init];
@@ -68,7 +68,7 @@
 - (void)addControllerWithIndex:(NSInteger)index {
     UIViewController *controller;
     NSString *code = [[[titleTabVC.tabArray objectAtIndex:index] allKeys] firstObject];
-    NewsListViewController *newsList = [[NewsListViewController alloc] initWithTagId:[code intValue]];
+    NewsEventListViewController *newsList = [[NewsEventListViewController alloc] initWithTagId:[code intValue]];
     newsList.delegate = self;
     controller = newsList;
     
@@ -150,7 +150,7 @@
     if (index < titleTabVC.tabArray.count) {
         NSString *code = [[[titleTabVC.tabArray objectAtIndex:index] allKeys] firstObject];
         NSString *key = [NSString stringWithFormat:@"%d_%@", (int)index, code];
-        NewsListViewController *controller = [_controllerDic objectForKey:key];
+        NewsEventListViewController *controller = [_controllerDic objectForKey:key];
         if (controller == nil) {
             [self addControllerWithIndex:index];
         }

@@ -26,9 +26,14 @@
 @property(nonatomic, strong) NSDate *date;
 
 /**
- *  评级
+ *  当前评级
  */
 @property(nonatomic, strong) NSString *rating;
+/**
+ *  评级对应的Code
+ */
+@property(nonatomic, assign) long RAT_CODE;
+
 
 /**
  *  机构
@@ -51,8 +56,15 @@
 @property(nonatomic, strong) NSString *abst;
 
 /**
+ *  摘要全文
+ */
+@property(nonatomic, copy) NSString *abstsht;
+
+/**
  *  序号
  */
 @property(nonatomic, assign) long sn;
+
+
 
 @end
