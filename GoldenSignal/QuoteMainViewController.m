@@ -7,9 +7,9 @@
 //
 
 #import "QuoteMainViewController.h"
-#import "StkDetailViewController.h"
-#import "SectCollectionViewController.h"
 #import "QuoteHomeViewController.h"
+#import "SectCollectionViewController.h"
+#import "StkDetailViewController.h"
 #import "IdxDetailViewController.h"
 #import <Masonry.h>
 
@@ -26,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _controllerDic = [NSMutableDictionary dictionary];
-    _sectArray = [NSMutableArray arrayWithArray:@[@{@"home": @"首页"}, @{@"100924": @"A股"}, @{@"100851": @"指数"}, @{@"100929": @"创业板"},  @{@"100943": @"沪深300"}, @{@"more": @"更多"}]];
+    _sectArray = [NSMutableArray arrayWithArray:@[@{@"home": @"首页"}, @{@"100924": @"A股"}, @{@"index": @"指数"}, @{@"100929": @"创业板"},  @{@"100943": @"沪深300"}, @{@"more": @"更多"}]];
     
 //    if (IOS_7) {
 //        [self setEdgesForExtendedLayout:UIRectEdgeNone];
@@ -74,6 +74,11 @@
         sect.delegate = self;
         controller = sect;
     }
+    else if ([code isEqualToString:@"index"]) {
+        IndexQuoteViewController *quote = [[IndexQuoteViewController alloc] initWithIndexId:[code integerValue]];
+        quote.delegate = self;
+        controller = quote;
+    }
     else {
         SectQuoteViewController *quote = [[SectQuoteViewController alloc] initWithSectId:[code integerValue]];
         quote.delegate = self;
@@ -110,6 +115,12 @@
         StkDetailViewController *stkVC = [[StkDetailViewController alloc] initWithSecuCode:secu.bdCode];
         [self.navigationController pushViewController:stkVC animated:NO];
     }
+}
+
+- (void)didSelectIndexCode:(NSString *)code {
+    IdxDetailViewController *idxVC = [[IdxDetailViewController alloc] initWithIdxCode:code];
+    idxVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:idxVC animated:NO];
 }
 
 - (void)didSelectSectInfo:(BDSectInfo *)info {

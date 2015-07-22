@@ -43,7 +43,7 @@
 
 - (void)customStockChanged:(NSNotification *)notification {
     NSString *op = notification.userInfo[@"op"];
-    if ([op isEqualToString:@"add"]) {
+    if ([op isEqualToString:@"add"] || [op isEqualToString:@"remove"]) {
         [self loadSortedSecuCodes];
     }
 }
@@ -63,6 +63,9 @@
                 });
             }
         });
+    }
+    else {
+        [self.tableView reloadData];
     }
 }
 

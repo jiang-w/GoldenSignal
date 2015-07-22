@@ -144,6 +144,7 @@
 		01A55BF41B5E4A2400224F7B /* ReportDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A55BF21B5E4A2400224F7B /* ReportDetailViewController.xib */; };
 		01A95D251B32BE6A008CF76B /* BDStockPoolInfoService.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A95D241B32BE6A008CF76B /* BDStockPoolInfoService.m */; };
 		01A9614A1B4FC0FA00B705AD /* FundFlowCircleChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A961491B4FC0FA00B705AD /* FundFlowCircleChart.m */; };
+		01AAD7EE1B5F6E1C0051556A /* IndexQuoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AAD7ED1B5F6E1C0051556A /* IndexQuoteViewController.m */; };
 		01AD748E1B3948CF006EC988 /* IdxScalarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AD748D1B3948CF006EC988 /* IdxScalarView.m */; };
 		01AD74901B3948E7006EC988 /* IdxScalarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01AD748F1B3948E7006EC988 /* IdxScalarView.xib */; };
 		01AD74931B395789006EC988 /* IdxScalarViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AD74921B395789006EC988 /* IdxScalarViewModel.m */; };
@@ -428,6 +429,8 @@
 		01A95D241B32BE6A008CF76B /* BDStockPoolInfoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDStockPoolInfoService.m; sourceTree = "<group>"; };
 		01A961481B4FC0FA00B705AD /* FundFlowCircleChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FundFlowCircleChart.h; sourceTree = "<group>"; };
 		01A961491B4FC0FA00B705AD /* FundFlowCircleChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FundFlowCircleChart.m; sourceTree = "<group>"; };
+		01AAD7EC1B5F6E1C0051556A /* IndexQuoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexQuoteViewController.h; sourceTree = "<group>"; };
+		01AAD7ED1B5F6E1C0051556A /* IndexQuoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexQuoteViewController.m; sourceTree = "<group>"; };
 		01AD748C1B3948CF006EC988 /* IdxScalarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxScalarView.h; sourceTree = "<group>"; };
 		01AD748D1B3948CF006EC988 /* IdxScalarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdxScalarView.m; sourceTree = "<group>"; };
 		01AD748F1B3948E7006EC988 /* IdxScalarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IdxScalarView.xib; sourceTree = "<group>"; };
@@ -778,8 +781,6 @@
 				011B85411B0DBEFE003005BC /* SectCollectionViewController.h */,
 				011B85421B0DBEFE003005BC /* SectCollectionViewController.m */,
 				011B85431B0DBEFE003005BC /* SectCollectionViewController.xib */,
-				011B853C1B0DBEFE003005BC /* QuoteMainViewController.h */,
-				011B853D1B0DBEFE003005BC /* QuoteMainViewController.m */,
 				01A46F301B4D0681000CD7A5 /* Home */,
 				01A46F311B4D0765000CD7A5 /* Ranking */,
 				01A46F321B4D07C9000CD7A5 /* Detail */,
@@ -851,8 +852,12 @@
 		01A46F311B4D0765000CD7A5 /* Ranking */ = {
 			isa = PBXGroup;
 			children = (
+				011B853C1B0DBEFE003005BC /* QuoteMainViewController.h */,
+				011B853D1B0DBEFE003005BC /* QuoteMainViewController.m */,
 				011B85441B0DBEFE003005BC /* SectQuoteViewController.h */,
 				011B85451B0DBEFE003005BC /* SectQuoteViewController.m */,
+				01AAD7EC1B5F6E1C0051556A /* IndexQuoteViewController.h */,
+				01AAD7ED1B5F6E1C0051556A /* IndexQuoteViewController.m */,
 				011B853E1B0DBEFE003005BC /* StkQuoteViewCell.h */,
 				011B853F1B0DBEFE003005BC /* StkQuoteViewCell.m */,
 				011B85401B0DBEFE003005BC /* StkQuoteViewCell.xib */,
@@ -1157,6 +1162,7 @@
 				011B85071B0DBE1F003005BC /* SideMenuViewController.m in Sources */,
 				011B85551B0DBEFE003005BC /* LiteKLineView.m in Sources */,
 				011B855D1B0DBEFE003005BC /* StkDetailViewController.m in Sources */,
+				01AAD7EE1B5F6E1C0051556A /* IndexQuoteViewController.m in Sources */,
 				011B84861B0DBB83003005BC /* BDDatabaseAccess.m in Sources */,
 				011B85241B0DBEA9003005BC /* NewsListViewCell.m in Sources */,
 				011B850B1B0DBE1F003005BC /* UINavigationItem+CustomBackButton.m in Sources */,

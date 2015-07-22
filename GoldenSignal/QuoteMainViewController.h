@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "SectQuoteViewController.h"
+#import "IndexQuoteViewController.h"
 #import "SectCollectionViewController.h"
 #import "TitleTabViewController.h"
 
-@interface QuoteMainViewController : UIViewController<UIScrollViewDelegate, SectQuoteViewDelegate, TitleTabViewDelegate, SectCollectionViewDelegate>
+@interface QuoteMainViewController : UIViewController<UIScrollViewDelegate, SectQuoteViewDelegate, IndexQuoteViewDelegate, TitleTabViewDelegate, SectCollectionViewDelegate>
 {
     UIScrollView *scrollView;
     TitleTabViewController *titleTabVC;
