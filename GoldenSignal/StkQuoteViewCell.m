@@ -43,17 +43,29 @@
 }
 
 - (void)addTrendViewWithCode:(NSString *)code {
-    [self.trendView removeFromSuperview];
-    CGRect frame = self.trendView.frame;
-    self.trendView = [[LiteTrendView alloc] initWithFrame:frame andCode:code];
-    [self addSubview:self.trendView];
+//    [self.trendView removeFromSuperview];
+//    CGRect frame = self.trendView.frame;
+//    self.trendView = [[LiteTrendView alloc] initWithFrame:frame andCode:code];
+//    [self addSubview:self.trendView];
+    
+    for (UIView *subView in self.trendView.subviews) {
+        [subView removeFromSuperview];
+    }
+    LiteTrendView *trend = [[LiteTrendView alloc] initWithFrame:self.trendView.bounds andCode:code];
+    [self.trendView addSubview:trend];
 }
 
 - (void)addKLineViewWithCode:(NSString *)code {
-    [self.kLineView removeFromSuperview];
-    CGRect frame = self.kLineView.frame;
-    self.kLineView = [[LiteKLineView alloc] initWithFrame:frame andCode:code];
-    [self addSubview:self.kLineView];
+//    [self.kLineView removeFromSuperview];
+//    CGRect frame = self.kLineView.frame;
+//    self.kLineView = [[LiteKLineView alloc] initWithFrame:frame andCode:code];
+//    [self addSubview:self.kLineView];
+    
+    for (UIView *subView in self.kLineView.subviews) {
+        [subView removeFromSuperview];
+    }
+    LiteKLineView *kLine = [[LiteKLineView alloc] initWithFrame:self.kLineView.bounds andCode:code];
+    [self.kLineView addSubview:kLine];
 }
 
 - (void)kvoController {

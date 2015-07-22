@@ -10,18 +10,18 @@
 
 @interface StkQuoteViewCell : UITableViewCell
 
-@property(nonatomic, strong)IBOutlet UILabel *name;
-@property(nonatomic, strong)IBOutlet UILabel *trdCode;
-@property(nonatomic, strong)IBOutlet UILabel *now;
-@property(nonatomic, strong)IBOutlet UILabel *changeRange;
-@property(nonatomic, strong)IBOutlet UILabel *volume;
-@property(nonatomic, strong)IBOutlet UILabel *ttlAmount;
-@property(nonatomic, strong)IBOutlet UILabel *pettm;
-@property(nonatomic, strong)IBOutlet UIView *trendView;
-@property(nonatomic, strong)IBOutlet UIView *kLineView;
-@property(nonatomic, strong)IBOutlet UILabel *level;
-@property(nonatomic, strong)IBOutlet UILabel *label;
-@property(nonatomic, strong)IBOutlet UILabel *date;
+@property(nonatomic, weak)IBOutlet UILabel *name;
+@property(nonatomic, weak)IBOutlet UILabel *trdCode;
+@property(nonatomic, weak)IBOutlet UILabel *now;
+@property(nonatomic, weak)IBOutlet UILabel *changeRange;
+@property(nonatomic, weak)IBOutlet UILabel *volume;
+@property(nonatomic, weak)IBOutlet UILabel *ttlAmount;
+@property(nonatomic, weak)IBOutlet UILabel *pettm;
+@property(nonatomic, weak)IBOutlet UIView *trendView;
+@property(nonatomic, weak)IBOutlet UIView *kLineView;
+@property(nonatomic, weak)IBOutlet UILabel *level;
+@property(nonatomic, weak)IBOutlet UILabel *label;
+@property(nonatomic, weak)IBOutlet UILabel *date;
 
 @property(nonatomic, setter = setCode:) NSString *code;
 
