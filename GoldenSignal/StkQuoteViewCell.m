@@ -35,7 +35,7 @@
             _vm = [[StkQuoteCellViewModel alloc] init];
             [self kvoController];
         }
-        
+
         [_vm subscribeQuotationScalarWithCode:_code];
         [self addTrendViewWithCode:_code];
         [self addKLineViewWithCode:_code];
@@ -195,7 +195,7 @@
 }
 
 - (void)dealloc {
-    NSLog(@"StkQuoteViewCell dealloc (%@)", _code);
+//    NSLog(@"StkQuoteViewCell dealloc (%@)", _code);
 }
 
 @end

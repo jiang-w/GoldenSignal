@@ -782,7 +782,7 @@
 				011B85421B0DBEFE003005BC /* SectCollectionViewController.m */,
 				011B85431B0DBEFE003005BC /* SectCollectionViewController.xib */,
 				01A46F301B4D0681000CD7A5 /* Home */,
-				01A46F311B4D0765000CD7A5 /* Ranking */,
+				01A46F311B4D0765000CD7A5 /* Quote */,
 				01A46F321B4D07C9000CD7A5 /* Detail */,
 				01A961441B4F71D000B705AD /* Chart */,
 			);
@@ -849,7 +849,7 @@
 			name = Home;
 			sourceTree = "<group>";
 		};
-		01A46F311B4D0765000CD7A5 /* Ranking */ = {
+		01A46F311B4D0765000CD7A5 /* Quote */ = {
 			isa = PBXGroup;
 			children = (
 				011B853C1B0DBEFE003005BC /* QuoteMainViewController.h */,
@@ -865,7 +865,7 @@
 				01D8DA3C1B253F9C0033956E /* IdxQuoteViewCell.m */,
 				01D8DA3D1B253F9C0033956E /* IdxQuoteViewCell.xib */,
 			);
-			name = Ranking;
+			name = Quote;
 			sourceTree = "<group>";
 		};
 		01A46F321B4D07C9000CD7A5 /* Detail */ = {
