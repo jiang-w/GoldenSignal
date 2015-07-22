@@ -12,7 +12,7 @@
 		011B843F1B0DB51F003005BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 011B843D1B0DB51F003005BC /* Main.storyboard */; };
 		011B84411B0DB51F003005BC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 011B84401B0DB51F003005BC /* Images.xcassets */; };
 		011B84501B0DB520003005BC /* GoldenSignalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B844F1B0DB520003005BC /* GoldenSignalTests.m */; };
-		011B845D1B0DB9D8003005BC /* NewsDetail.html in Resources */ = {isa = PBXBuildFile; fileRef = 011B845B1B0DB9D8003005BC /* NewsDetail.html */; };
+		011B845D1B0DB9D8003005BC /* NewsEventDetail.html in Resources */ = {isa = PBXBuildFile; fileRef = 011B845B1B0DB9D8003005BC /* NewsEventDetail.html */; };
 		011B845E1B0DB9D8003005BC /* SubscribeTemplate.xml in Resources */ = {isa = PBXBuildFile; fileRef = 011B845C1B0DB9D8003005BC /* SubscribeTemplate.xml */; };
 		011B846B1B0DBADB003005BC /* NSDate+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84621B0DBADB003005BC /* NSDate+Utility.m */; };
 		011B846C1B0DBADB003005BC /* NSString+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84641B0DBADB003005BC /* NSString+Utility.m */; };
@@ -192,7 +192,7 @@
 		011B844F1B0DB520003005BC /* GoldenSignalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoldenSignalTests.m; sourceTree = "<group>"; };
 		011B84591B0DB9D8003005BC /* BDConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDConstant.h; sourceTree = "<group>"; };
 		011B845A1B0DB9D8003005BC /* GoldenSignal-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GoldenSignal-Prefix.pch"; sourceTree = "<group>"; };
-		011B845B1B0DB9D8003005BC /* NewsDetail.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = NewsDetail.html; sourceTree = "<group>"; };
+		011B845B1B0DB9D8003005BC /* NewsEventDetail.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = NewsEventDetail.html; sourceTree = "<group>"; };
 		011B845C1B0DB9D8003005BC /* SubscribeTemplate.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = SubscribeTemplate.xml; sourceTree = "<group>"; };
 		011B84601B0DBADB003005BC /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		011B84611B0DBADB003005BC /* NSDate+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utility.h"; sourceTree = "<group>"; };
@@ -542,7 +542,7 @@
 			children = (
 				011B84591B0DB9D8003005BC /* BDConstant.h */,
 				011B845A1B0DB9D8003005BC /* GoldenSignal-Prefix.pch */,
-				011B845B1B0DB9D8003005BC /* NewsDetail.html */,
+				011B845B1B0DB9D8003005BC /* NewsEventDetail.html */,
 				011B845C1B0DB9D8003005BC /* SubscribeTemplate.xml */,
 				011B84341B0DB51F003005BC /* Info.plist */,
 				011B84351B0DB51F003005BC /* main.m */,
@@ -1071,7 +1071,7 @@
 				011B85251B0DBEA9003005BC /* NewsListViewCell.xib in Resources */,
 				01A55BC71B5E3F7900224F7B /* NewStockTableViewCell.xib in Resources */,
 				01A55BC51B5E3F7900224F7B /* newStockDetailViewController.xib in Resources */,
-				011B845D1B0DB9D8003005BC /* NewsDetail.html in Resources */,
+				011B845D1B0DB9D8003005BC /* NewsEventDetail.html in Resources */,
 				01A55BEA1B5E494800224F7B /* newsTableViewCell.xib in Resources */,
 				01A55BE41B5E490200224F7B /* ReportTableViewCell.xib in Resources */,
 				0129EF5A1B1FE73F00690920 /* QuoteHomeKLineView.xib in Resources */,

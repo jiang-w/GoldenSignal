@@ -40,7 +40,7 @@
 }
 
 - (void)loadNewsDetailPage {
-    NSString* htmlPath = [[NSBundle mainBundle] pathForResource:@"NewsDetail" ofType:@"html"];
+    NSString* htmlPath = [[NSBundle mainBundle] pathForResource:@"NewsEventDetail" ofType:@"html"];
     NSString* htmlText = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
     if (_news) {
         htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${title}" withString:_news.title];
