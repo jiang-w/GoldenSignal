@@ -18,6 +18,6 @@
 
 @property(nonatomic, assign) id <NewsEventListViewDelegate> delegate;
 
-- (id)initWithTagId:(long)tagId;
+- (id)initWithTagId:(NSNumber *)tagId andSecuCodes:(NSArray *)codes;
 
 @end

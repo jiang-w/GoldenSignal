@@ -16,16 +16,6 @@
 @property(nonatomic, strong) NSMutableArray *newsList;
 
 /**
- *  当前浏览的标签
- */
-@property(nonatomic, assign) long tagId;
-
-/**
- *  证券编码数组
- */
-@property(nonatomic, strong) NSArray *codes;
-
-/**
  *  每次请求新闻的条数（默认10）
  */
 @property(nonatomic,assign) int pageSize;
@@ -35,16 +25,10 @@
  *  根据标签加载新闻数据
  *
  *  @param label 新闻标签Id
- */
-- (void)loadNewsEventWithTagId:(long)tagId;
-
-/**
- *  根据标签加载新闻数据
- *
- *  @param label 新闻标签Id
  *  @param codes 证券编码数组
  */
-- (void)loadNewsEventWithTagId:(long)tagId andSecuCodes:(NSArray *)codes;
+- (void)loadNewsEventWithTagId:(NSNumber *)tagId andSecuCodes:(NSArray *)codes;
+
 
 /**
  *  加载更多的新闻

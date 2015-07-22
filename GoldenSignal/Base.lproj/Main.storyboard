@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="GO6-hW-7pN">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
@@ -527,7 +528,7 @@
                     <view key="view" contentMode="scaleToFill" id="dQc-dC-3VI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="biL-gx-77N">
@@ -545,9 +546,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <segue destination="mbB-rJ-4Id" kind="push" identifier="showIndexNews" id="2lB-42-crM"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SVQ-CK-gcI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -683,7 +681,7 @@
         <!--新闻内容-->
         <scene sceneID="d6f-f5-m9G">
             <objects>
-                <viewController storyboardIdentifier="NewsDetailViewController" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="mbB-rJ-4Id" customClass="NewsEventDetailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewsEventDetail" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="mbB-rJ-4Id" customClass="NewsEventDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AcS-Il-OWh"/>
                         <viewControllerLayoutGuide type="bottom" id="Zn9-Tn-90l"/>
@@ -753,6 +751,5 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="ahk-vK-bMI"/>
-        <segue reference="2lB-42-crM"/>
     </inferredMetricsTieBreakers>
 </document>

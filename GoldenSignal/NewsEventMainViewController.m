@@ -60,7 +60,8 @@
 - (void)addControllerWithIndex:(NSInteger)index {
     UIViewController *controller;
     NSString *code = [[[titleTabVC.tabArray objectAtIndex:index] allKeys] firstObject];
-    NewsEventListViewController *newsList = [[NewsEventListViewController alloc] initWithTagId:[code intValue]];
+    NSNumber *tagId = [NSNumber numberWithInt:[code intValue]];
+    NewsEventListViewController *newsList = [[NewsEventListViewController alloc] initWithTagId:tagId andSecuCodes:nil];
     newsList.delegate = self;
     controller = newsList;
     

@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "TitleTabViewController.h"
-#import "OptionalGSViewController.h"
+#import "NewsEventListViewController.h"
 #import "StockPoolViewController.h"
 
-@interface PortfolioMainViewController : UIViewController<UIScrollViewDelegate, TitleTabViewDelegate ,OptionalGSDelegate, StockPoolViewDelegate>
+@interface PortfolioMainViewController : UIViewController<UIScrollViewDelegate, TitleTabViewDelegate, StockPoolViewDelegate, NewsEventListViewDelegate>
 
 @end

@@ -130,8 +130,6 @@
 		01A55BC71B5E3F7900224F7B /* NewStockTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A55BC11B5E3F7900224F7B /* NewStockTableViewCell.xib */; };
 		01A55BC81B5E3F7900224F7B /* NewStockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A55BC31B5E3F7900224F7B /* NewStockViewController.m */; };
 		01A55BCC1B5E426800224F7B /* PortfolioMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A55BCB1B5E426800224F7B /* PortfolioMainViewController.m */; };
-		01A55BCF1B5E46C700224F7B /* OptionalGSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A55BCE1B5E46C700224F7B /* OptionalGSViewController.m */; };
-		01A55BD51B5E481800224F7B /* OptionalGSModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A55BD31B5E481800224F7B /* OptionalGSModel.m */; };
 		01A55BE01B5E490200224F7B /* InfomationsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A55BD71B5E490200224F7B /* InfomationsTableViewCell.m */; };
 		01A55BE11B5E490200224F7B /* InfomationsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A55BD81B5E490200224F7B /* InfomationsTableViewCell.xib */; };
 		01A55BE21B5E490200224F7B /* InformationsTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A55BDA1B5E490200224F7B /* InformationsTabViewController.m */; };
@@ -407,10 +405,6 @@
 		01A55BC31B5E3F7900224F7B /* NewStockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewStockViewController.m; sourceTree = "<group>"; };
 		01A55BCA1B5E426800224F7B /* PortfolioMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PortfolioMainViewController.h; sourceTree = "<group>"; };
 		01A55BCB1B5E426800224F7B /* PortfolioMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PortfolioMainViewController.m; sourceTree = "<group>"; };
-		01A55BCD1B5E46C700224F7B /* OptionalGSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionalGSViewController.h; sourceTree = "<group>"; };
-		01A55BCE1B5E46C700224F7B /* OptionalGSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionalGSViewController.m; sourceTree = "<group>"; };
-		01A55BD21B5E481800224F7B /* OptionalGSModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionalGSModel.h; sourceTree = "<group>"; };
-		01A55BD31B5E481800224F7B /* OptionalGSModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionalGSModel.m; sourceTree = "<group>"; };
 		01A55BD61B5E490200224F7B /* InfomationsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfomationsTableViewCell.h; sourceTree = "<group>"; };
 		01A55BD71B5E490200224F7B /* InfomationsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfomationsTableViewCell.m; sourceTree = "<group>"; };
 		01A55BD81B5E490200224F7B /* InfomationsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfomationsTableViewCell.xib; sourceTree = "<group>"; };
@@ -664,8 +658,6 @@
 				01B531051B5CE42700F9B891 /* BDSecuNews.m */,
 				01A55BAF1B5E3CB400224F7B /* BDNewStockModel.h */,
 				01A55BB01B5E3CB400224F7B /* BDNewStockModel.m */,
-				01A55BD21B5E481800224F7B /* OptionalGSModel.h */,
-				01A55BD31B5E481800224F7B /* OptionalGSModel.m */,
 				015B72141B5E71DA006DA827 /* BDNewsEvent.h */,
 				015B72151B5E71DA006DA827 /* BDNewsEvent.m */,
 			);
@@ -908,8 +900,6 @@
 				01A55BCB1B5E426800224F7B /* PortfolioMainViewController.m */,
 				011B852B1B0DBEFE003005BC /* StockPoolViewController.h */,
 				011B852C1B0DBEFE003005BC /* StockPoolViewController.m */,
-				01A55BCD1B5E46C700224F7B /* OptionalGSViewController.h */,
-				01A55BCE1B5E46C700224F7B /* OptionalGSViewController.m */,
 				01A55BD61B5E490200224F7B /* InfomationsTableViewCell.h */,
 				01A55BD71B5E490200224F7B /* InfomationsTableViewCell.m */,
 				01A55BD81B5E490200224F7B /* InfomationsTableViewCell.xib */,
@@ -1141,7 +1131,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01A55BCF1B5E46C700224F7B /* OptionalGSViewController.m in Sources */,
 				01A55BE31B5E490200224F7B /* ReportTableViewCell.m in Sources */,
 				011B84BA1B0DBCBA003005BC /* BDKeyboardWizard.m in Sources */,
 				01AE17C01B4E3CA40064CB66 /* RankingListViewController.m in Sources */,
@@ -1199,7 +1188,6 @@
 				011B84C01B0DBCBA003005BC /* BDUserTicket.m in Sources */,
 				011B846D1B0DBADB003005BC /* SmartTime.m in Sources */,
 				011B85561B0DBEFE003005BC /* LiteTrendView.m in Sources */,
-				01A55BD51B5E481800224F7B /* OptionalGSModel.m in Sources */,
 				0129EF601B1FF42700690920 /* QuoteHomeKLineViewModel.m in Sources */,
 				011B84A71B0DBC57003005BC /* BDSectInfo.m in Sources */,
 				011B84851B0DBB83003005BC /* BDCoreService.m in Sources */,

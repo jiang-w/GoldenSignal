@@ -23,15 +23,17 @@ static NSString *tableCellIdentifier = @"NewsListCell";
 
 @implementation NewsEventListViewController
 {
-    long _tagId;
+    NSNumber *_tagId;
+    NSArray *_codes;
     NewsEventListViewModel *_vm;
     dispatch_queue_t loadDataQueue;
 }
 
-- (id)initWithTagId:(long)tagId {
+- (id)initWithTagId:(NSNumber *)tagId andSecuCodes:(NSArray *)codes {
     self = [super init];
     if (self) {
         _tagId = tagId;
+        _codes = codes;
         _vm = [[NewsEventListViewModel alloc] init];
         loadDataQueue = dispatch_queue_create("loadData", nil);
     }
@@ -62,7 +64,7 @@ static NSString *tableCellIdentifier = @"NewsListCell";
     hud.opacity = 0;
     hud.activityIndicatorColor = [UIColor blackColor];
     dispatch_async(loadDataQueue, ^{
-        [_vm loadNewsEventWithTagId:_tagId];
+        [_vm loadNewsEventWithTagId:_tagId andSecuCodes:_codes];
         // 返回主线程刷新视图
         dispatch_sync(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];

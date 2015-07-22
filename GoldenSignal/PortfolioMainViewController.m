@@ -85,7 +85,7 @@
         controller = optionalVC;
     }
     else if ([code isEqualToString:@"goldenSignal"]) {
-        OptionalGSViewController *newsVC = [[OptionalGSViewController alloc] initWithOpGoldSignId:[code integerValue]];
+        NewsEventListViewController *newsVC = [[NewsEventListViewController alloc] initWithTagId:nil andSecuCodes:[BDStockPool sharedInstance].codes];
         newsVC.delegate = self;
         controller = newsVC;
     }
@@ -117,21 +117,7 @@
     [_titleTabVC changeSelectedIndex:index];
 }
 
-#pragma mark -- OptionalViewDelegata
-- (void)didSelectOptionalCode:(NSString *)code{
-//    [self performSegueWithIdentifier:@"StockViewSegue" sender:code];
-    
-    BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:code];
-    if (secu.typ == stock) {
-        StkDetailViewController *stk = [[StkDetailViewController alloc] initWithSecuCode:secu.bdCode];
-    }
-    else {
-        
-    }
-
-}
-
-#pragma mark -- StockPoolViewDelegate
+#pragma mark - StockPoolViewDelegate
 
 - (void)didSelectRowSecu:(NSString *)secuCode {
     BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:secuCode];
@@ -144,23 +130,14 @@
         StkDetailViewController *stkVC = [[StkDetailViewController alloc] initWithSecuCode:secu.bdCode];
         [self.navigationController pushViewController:stkVC animated:NO];
     }
-
 }
 
-#pragma mark -- OptionalGSDelegate
-- (void)didSelectRowNews:(BDNews *)news{
-    [self performSegueWithIdentifier:@"showIndexNews" sender:news];
+#pragma mark - NewsEventListViewDelegate
+- (void)didSelectNewsEvent:(BDNewsEvent *)news{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    NewsEventDetailViewController *detailVC = [storyboard instantiateViewControllerWithIdentifier:@"NewsEventDetail"];
+    detailVC.newsId = news.innerId;
+    [self.navigationController pushViewController:detailVC animated:YES];
 }
-
-// 设置跳转 //s. 设置跳转 系统方法，sb连线
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"showIndexNews"]) {
-        BDNews *news = (BDNews *)sender;
-        NewsEventDetailViewController *detailVC = (NewsEventDetailViewController *)segue.destinationViewController;//继续 连接到 目标视图
-        NSLog(@"news.innerId=%ld",news.innerId);
-        detailVC.newsId = news.innerId;//新闻标题 (传的)//1130667788
-    }
-}
-
 
 @end
