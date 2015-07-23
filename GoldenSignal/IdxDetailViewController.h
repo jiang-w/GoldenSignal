@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SecuNewsListView.h"
 
-@interface IdxDetailViewController : UIViewController <UIScrollViewDelegate, SecuNewsListViewDelegate>
+@interface IdxDetailViewController : UIViewController <UIScrollViewDelegate>
 
 - (instancetype)initWithIdxCode:(NSString *)idxCode;
 

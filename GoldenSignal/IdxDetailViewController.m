@@ -12,7 +12,6 @@
 #import "KLineChart.h"
 #import "BDSectService.h"
 #import "RankingListViewController.h"
-#import "NewsDetailViewController.h"
 
 #import "FundFlowCircleChart.h"
 #import "FundFlowBarView.h"
@@ -307,7 +306,6 @@
             if (self.newsListView == nil) {
                 self.newsListView = [[SecuNewsListView alloc] init];
                 self.newsListView.secuCode = _secu.bdCode;
-                self.newsListView.delegate = self;
             }
             [self.infoContainerView addSubview:self.newsListView.view];
             [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -321,11 +319,6 @@
     }
 }
 
--(void)didSelectNews:(BDSecuNews *)news {
-    NewsDetailViewController *detail = [[NewsDetailViewController alloc] init];
-    detail.contentId = news.contentId;
-    [self.navigationController pushViewController:detail animated:YES];
-}
 
 #pragma mark Dealloc
 
