@@ -136,7 +136,7 @@
 - (void)didSelectNewsEvent:(BDNewsEvent *)news{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     NewsEventDetailViewController *detailVC = [storyboard instantiateViewControllerWithIdentifier:@"NewsEventDetail"];
-    detailVC.newsId = news.innerId;
+    detailVC.contentId = news.innerId;
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 

@@ -13,6 +13,6 @@
 
 @property(nonatomic, strong) IBOutlet UIWebView *webView;
 
-@property(nonatomic, assign)long newsId;
+@property(nonatomic, assign) long contentId;
 
 @end

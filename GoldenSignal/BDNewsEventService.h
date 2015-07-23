@@ -8,14 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BDNewsService : NSObject
+@interface BDNewsEventService : NSObject
 
 /**
  *  根据ID获取新闻
  *
  *  @param newsId       新闻ID
  */
-- (BDNewsEvent *)getNewsEventById:(long)newsId;
+- (BDNewsEvent *)getNewsEventById:(long)innerId;
 
 /**
  *  根据证券编码加载新闻列表

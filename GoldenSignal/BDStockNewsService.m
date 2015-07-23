@@ -252,4 +252,38 @@
     return newsArray;
 }
 
+
+- (BDNews *)getNewsDetailById:(long)newsId {
+    Stopwatch *watch = [Stopwatch startNew];
+    BDNews *news = nil;
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:[NSNumber numberWithLong:newsId] forKey:@"CONT_ID"];
+    
+    @try {
+        BDCoreService *service = [BDCoreService new];
+        NSArray *data = [service syncRequestDatasourceService:1588 parameters:parameters query:nil];
+        for (NSDictionary *item in data) {
+            news = [[BDNews alloc] init];
+            news.innerId = newsId;
+            news.title = item[@"TIT"];
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            formatter.dateFormat = @"yyyy-MM-dd HH:mm";
+            news.date = [formatter dateFromString:item[@"PUB_DT"]];
+            news.media = item[@"MED_NAME"];
+            news.author = item[@"AUT"];
+            news.content = item[@"CONT"];
+            break;
+        }
+
+        [watch stop];
+        NSLog(@"Success: 加载新闻内容 Timeout:%.3fs", watch.elapsed);
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Failure: 加载新闻内容 %@",exception.reason);
+    }
+    @finally {
+        return news;
+    }
+}
+
 @end

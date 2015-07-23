@@ -120,7 +120,7 @@
     {
         BDNews *news = (BDNews *)sender;
         NewsEventDetailViewController *detailVC = (NewsEventDetailViewController *)segue.destinationViewController;
-        detailVC.newsId = news.innerId;
+        detailVC.contentId = news.innerId;
     }
 }
 

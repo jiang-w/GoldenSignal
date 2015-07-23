@@ -97,7 +97,7 @@
     BDSecuNews *news = _newsList[indexPath.row];
     NSLog(@"内容ID:%ld", news.contentId);
 //    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    NewsDetailViewController *newsDetail = [storyboard instantiateViewControllerWithIdentifier:@"NewsDetailViewController"];
+//    NewsDetailViewController *newsDetail = [storyboard instantiateViewControllerWithIdentifier:@"NewsEventDetail"];
 //    newsDetail.newsId = news.innerId;
 //    [self.navigationController pushViewController:newsDetail animated:YES];
 }
@@ -108,8 +108,8 @@
     NSArray *idxList = @[@"000001", @"000002", @"000003", @"000010", @"000016", @"000043", @"000300", @"000903", @"000905", @"399001", @"399004", @"399005", @"399006", @"399100", @"399101", @"399102", @"399106", @"399107", @"399108"];
     NSArray *data;
     if ([idxList containsObject:secu.trdCode]) {    // 是否为市场指数
-        NSDictionary *paramDic = @{@"PSIZE": [NSNumber numberWithUnsignedInteger:5],
-                                   @"PINDEX": [NSNumber numberWithUnsignedInteger:1]};
+        NSDictionary *paramDic = @{@"ID": [NSNumber numberWithInt:0],
+                                   @"COUNT": [NSNumber numberWithInt:5]};
         data = [[BDCoreService new] syncRequestDatasourceService:1580 parameters:paramDic query:nil];
     }
     else {

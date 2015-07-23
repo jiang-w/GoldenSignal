@@ -6,13 +6,13 @@
 //  Copyright (c) 2014年 bigdata. All rights reserved.
 //
 
-#import "BDNewsService.h"
+#import "BDNewsEventService.h"
 #import "BDNetworkService.h"
 #import "BDCoreService.h"
 
-@implementation BDNewsService
+@implementation BDNewsEventService
 
-- (BDNewsEvent *)getNewsEventById:(long)newsId {
+- (BDNewsEvent *)getNewsEventById:(long)innerId {
     Stopwatch *watch = [Stopwatch startNew];
     BDNewsEvent *news = nil;
     
@@ -21,7 +21,7 @@
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setValue:@"NewsEventDetailService.Gets" forKey:@"Service"];
     [parameters setValue:@"GetsService" forKey:@"Function"];
-    [parameters setValue:[NSNumber numberWithLong:newsId] forKey:@"id"];
+    [parameters setValue:[NSNumber numberWithLong:innerId] forKey:@"id"];
     [parameters setValue:@"JSON" forKey:@"ATYPE"];
 
     @try {

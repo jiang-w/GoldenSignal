@@ -409,8 +409,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     BDNews *news = _quoteNewsViewModel.newsList[indexPath.row];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    NewsEventDetailViewController *newsDetail = [storyboard instantiateViewControllerWithIdentifier:@"NewsDetailViewController"];
-    newsDetail.newsId = news.innerId;
+    NewsEventDetailViewController *newsDetail = [storyboard instantiateViewControllerWithIdentifier:@"NewsEventDetail"];
+    newsDetail.contentId = news.innerId;
     [self.navigationController pushViewController:newsDetail animated:YES];
 }
 

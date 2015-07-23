@@ -61,4 +61,7 @@
  */
 - (NSArray *)getReportListBySecuCode:(NSString *)code andQuantity:(int)quantity;
 
+
+- (BDNews *)getNewsDetailById:(long)newsId;
+
 @end

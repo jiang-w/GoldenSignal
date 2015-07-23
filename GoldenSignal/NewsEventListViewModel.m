@@ -7,13 +7,13 @@
 //
 
 #import "NewsEventListViewModel.h"
-#import "BDNewsService.h"
+#import "BDNewsEventService.h"
 
 @implementation NewsEventListViewModel
 {
     NSNumber *_tagId;
     NSArray *_codes;
-    BDNewsService *_service;
+    BDNewsEventService *_service;
 }
 
 - (id)init
@@ -21,7 +21,7 @@
     if (self = [super init]) {
         _newsList = [NSMutableArray arrayWithCapacity:0];
         _pageSize = 10;
-        _service = [BDNewsService new];
+        _service = [BDNewsEventService new];
     }
     return self;
 }
