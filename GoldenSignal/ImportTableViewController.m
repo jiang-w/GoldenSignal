@@ -18,6 +18,7 @@
 
 //详情页面 调用自选股的新闻详情页面
 #import "NewsContentViewController.h"
+#import "NewsDetailViewController.h"
 
 @interface ImportTableViewController ()
 {
@@ -49,7 +50,7 @@
     [super viewDidLoad];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ImportsTableViewCell" bundle:nil] forCellReuseIdentifier:@"ImportCell"];
-   
+    
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.opacity = 0;//透明度0 表示完全透明
     hud.activityIndicatorColor = [UIColor blackColor];
@@ -201,7 +202,8 @@
     }
     else {
         BDNews *newsModel = _allArray[indexPath.row];
-        NewsContentViewController *NCVC = [[NewsContentViewController alloc]initWithModel:newsModel andId:newsModel.connectId andPageId:1588];
+        NewsDetailViewController *detail = [[NewsDetailViewController alloc] init];
+        detail.contentId = newsModel.connectId;
         
         //获取UIView的父层UIViewController
         id object = [self nextResponder];
@@ -211,7 +213,7 @@
         }
         UIViewController *uc=(UIViewController*)object;
         
-        [uc.navigationController pushViewController:NCVC animated:YES];
+        [uc.navigationController pushViewController:detail animated:YES];
     }
 }
 

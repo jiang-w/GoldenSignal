@@ -37,7 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+
     // Do any additional setup after loading the view from its nib.
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.opacity = 0;//透明度0 表示完全透明
