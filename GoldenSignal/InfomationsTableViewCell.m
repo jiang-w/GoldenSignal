@@ -9,31 +9,35 @@
 #import "InfomationsTableViewCell.h"
 
 
-
 @implementation InfomationsTableViewCell
 
 - (void)awakeFromNib {
     // Initialization code
 }
 
+//计算文本label的高度
+- (CGFloat)calcHightWithString:(UILabel *)lbl{
+    return  [lbl.text boundingRectWithSize:CGSizeMake(lbl.bounds.size.width, CGFLOAT_MAX) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:lbl.font} context:nil].size.height;
+}
+
 
 //提示的Cell
 - (void)showTiShiCellAndModel:(NSObject *)model{
     BDPrompt *pModel = (BDPrompt *)model;
-    NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"【%@】",pModel.secuName]];
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"【%@】%@",pModel.secuName , pModel.title]];
     [str addAttribute:NSForegroundColorAttributeName
                 value:RGB(61, 177, 241, 1)
-                range:NSMakeRange(1, str.length - 2)];
+                range:NSMakeRange(1, pModel.secuName.length)];
     self.title1.attributedText = str;
+    _titleLabelHeight = [self calcHightWithString:self.title1];
     
-    [self setContentLabels:self.contentLabel andText:[NSString stringWithFormat:@"\t%@",pModel.title]];
     NSString *dateStr = [NSString stringWithFormat:@"%@",pModel.date];
     self.dateLabel.text = [dateStr substringToIndex:10];
 }
 
 
 
-
+#if 0
 //赋值 and 自动换行,计算出cell的高度
 - (void)setContentLabels:(UILabel *)label andText:(NSString *)text{
     //获得当前cell高度
@@ -53,16 +57,13 @@
     
     self.frame = frame;
 }
-
+#endif
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
 }
-
-
-
 
 
 @end

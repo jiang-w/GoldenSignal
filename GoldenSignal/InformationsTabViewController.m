@@ -232,7 +232,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([self.InformationId isEqual:@"tiShi"]) {
         InfomationsTableViewCell *cell = (InfomationsTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
-        CGFloat cellH = cell.title1.frame.size.height + cell.contentLabel.frame.size.height + cell.dateLabel.frame.size.height +40;
+        CGFloat cellH = cell.titleLabelHeight + cell.dateLabel.frame.size.height +40;
         return cellH;
     } else {
         PerformanceTableViewCell *cell = (PerformanceTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];

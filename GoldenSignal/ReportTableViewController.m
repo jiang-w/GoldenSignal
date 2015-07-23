@@ -15,7 +15,7 @@
 #import <MJRefreshFooter.h>
 
 #import "ReportDetailViewController.h"//研报详情页面
-#import "NewsContentViewController.h"//新闻详情页面
+#import "NewsDetailViewController.h"//新闻详情页面
 
 
 
@@ -248,7 +248,8 @@
     }
     else if ([self.codeId isEqual:@"news"]) {
         BDNews *newsModel = _allArray[indexPath.row];
-        NewsContentViewController *ONDVC = [[NewsContentViewController alloc]initWithModel:newsModel andId:newsModel.connectId andPageId:1588];
+        NewsDetailViewController *ONDVC = [[NewsDetailViewController alloc] init];
+        ONDVC.contentId = newsModel.connectId;
         
         //获取UIView的父层UIViewController
         id object = [self nextResponder];

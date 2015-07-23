@@ -16,17 +16,11 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *title1;
 
-@property (weak, nonatomic) IBOutlet UILabel *contentLabel;
-
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+
+@property (nonatomic,assign) CGFloat titleLabelHeight;
 
 
 - (void)showTiShiCellAndModel:(NSObject *)model;
-
-//赋值 and 自动换行,计算出cell的高度
--(void)setContentLabels:(UILabel *)label andText:(NSString *)text;
-
-
-- (void)showGongGaoCellAndModel2:(NSObject *)model;
 
 @end

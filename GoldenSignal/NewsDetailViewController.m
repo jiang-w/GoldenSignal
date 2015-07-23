@@ -25,6 +25,7 @@
     [super viewDidLoad];
     [self.navigationController setNavigationBarHidden:NO];
     self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    self.webView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.webView];
     
     if (self.contentId > 0) {
