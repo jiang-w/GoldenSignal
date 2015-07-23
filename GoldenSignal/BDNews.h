@@ -57,16 +57,6 @@
 @property(nonatomic, strong) NSString *media;
 
 /**
- *  新闻图片URL
- */
-@property(nonatomic, strong) NSString *imageUrl;
-
-/**
- *  新闻标签
- */
-@property(nonatomic, strong) NSMutableArray *labels;
-
-/**
  *  每条新闻对应的连接ID 有可能为空
  */
 @property (nonatomic,assign) long connectId;

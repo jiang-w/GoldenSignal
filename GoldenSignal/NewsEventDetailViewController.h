@@ -1,5 +1,5 @@
 //
-//  NewsDetailViewController.h
+//  NewsEventDetailViewController.h
 //  CBNAPP
 //
 //  Created by Frank on 14-10-14.

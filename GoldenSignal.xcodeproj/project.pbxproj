@@ -165,6 +165,7 @@
 		01D262FE1B60B58C00A93F58 /* BDNewsEventDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D262FD1B60B58C00A93F58 /* BDNewsEventDetail.m */; };
 		01D263021B60B7B900A93F58 /* PerformanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D263001B60B7B900A93F58 /* PerformanceTableViewCell.m */; };
 		01D263031B60B7B900A93F58 /* PerformanceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D263011B60B7B900A93F58 /* PerformanceTableViewCell.xib */; };
+		01D263061B60CB1000A93F58 /* BDNewsDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D263051B60CB1000A93F58 /* BDNewsDetail.m */; };
 		01D8A8171B4675F30047BA64 /* KLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D8A8161B4675F30047BA64 /* KLineChart.m */; };
 		01D8A81A1B46849B0047BA64 /* KLineViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D8A8191B46849B0047BA64 /* KLineViewModel.m */; };
 		01D8DA3A1B253E4F0033956E /* IdxQuoteCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D8DA391B253E4F0033956E /* IdxQuoteCellViewModel.m */; };
@@ -470,6 +471,8 @@
 		01D262FF1B60B7B900A93F58 /* PerformanceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerformanceTableViewCell.h; sourceTree = "<group>"; };
 		01D263001B60B7B900A93F58 /* PerformanceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerformanceTableViewCell.m; sourceTree = "<group>"; };
 		01D263011B60B7B900A93F58 /* PerformanceTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PerformanceTableViewCell.xib; sourceTree = "<group>"; };
+		01D263041B60CB1000A93F58 /* BDNewsDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDNewsDetail.h; sourceTree = "<group>"; };
+		01D263051B60CB1000A93F58 /* BDNewsDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDNewsDetail.m; sourceTree = "<group>"; };
 		01D8A8151B4675F30047BA64 /* KLineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLineChart.h; sourceTree = "<group>"; };
 		01D8A8161B4675F30047BA64 /* KLineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLineChart.m; sourceTree = "<group>"; };
 		01D8A8181B46849B0047BA64 /* KLineViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLineViewModel.h; sourceTree = "<group>"; };
@@ -676,6 +679,8 @@
 				015B72151B5E71DA006DA827 /* BDNewsEventList.m */,
 				01D262FC1B60B58C00A93F58 /* BDNewsEventDetail.h */,
 				01D262FD1B60B58C00A93F58 /* BDNewsEventDetail.m */,
+				01D263041B60CB1000A93F58 /* BDNewsDetail.h */,
+				01D263051B60CB1000A93F58 /* BDNewsDetail.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1156,6 +1161,7 @@
 			files = (
 				01A55BE31B5E490200224F7B /* ReportTableViewCell.m in Sources */,
 				011B84BA1B0DBCBA003005BC /* BDKeyboardWizard.m in Sources */,
+				01D263061B60CB1000A93F58 /* BDNewsDetail.m in Sources */,
 				01AE17C01B4E3CA40064CB66 /* RankingListViewController.m in Sources */,
 				01642F941B5DEDE700438BDA /* InformationMainViewController.m in Sources */,
 				01A55BE51B5E490200224F7B /* ReportTableViewController.m in Sources */,

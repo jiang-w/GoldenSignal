@@ -179,14 +179,11 @@
     NSArray *allData = [service dataConvertToNSArray:data];
     NSArray *newsData = [[allData objectAtIndex:0] objectForKey:@"DATA"];
     for (NSDictionary *item in newsData) {
-        BDNews *news = [[BDNews alloc] init];
+        BDNewsEventList *news = [[BDNewsEventList alloc] init];
         news.innerId = [item[@"ID"] longValue];
         news.title = item[@"TIT"];
         news.date = [service deserializeJsonDateString:item[@"PUB_DT"]];
         news.abstract = [item[@"ABST"] isKindOfClass:[NSNull class]]? @"" :item[@"ABST"];
-        news.content = [item[@"CONT"] isKindOfClass:[NSNull class]]? @"" :item[@"CONT"];
-        news.author = [item[@"AUT"] isKindOfClass:[NSNull class]]? @"" :item[@"AUT"];
-        news.media = [item[@"MED_NAME"] isKindOfClass:[NSNull class]]? @"" :item[@"MED_NAME"];
         
         NSData *markData = [item[@"MARKS"] dataUsingEncoding:NSUTF8StringEncoding];
         NSError *error;
@@ -250,40 +247,6 @@
         [newsArray addObject:news];
     }
     return newsArray;
-}
-
-
-- (BDNews *)getNewsDetailById:(long)newsId {
-    Stopwatch *watch = [Stopwatch startNew];
-    BDNews *news = nil;
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:[NSNumber numberWithLong:newsId] forKey:@"CONT_ID"];
-    
-    @try {
-        BDCoreService *service = [BDCoreService new];
-        NSArray *data = [service syncRequestDatasourceService:1588 parameters:parameters query:nil];
-        for (NSDictionary *item in data) {
-            news = [[BDNews alloc] init];
-            news.innerId = newsId;
-            news.title = item[@"TIT"];
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            formatter.dateFormat = @"yyyy-MM-dd HH:mm";
-            news.date = [formatter dateFromString:item[@"PUB_DT"]];
-            news.media = item[@"MED_NAME"];
-            news.author = item[@"AUT"];
-            news.content = item[@"CONT"];
-            break;
-        }
-
-        [watch stop];
-        NSLog(@"Success: 加载新闻内容 Timeout:%.3fs", watch.elapsed);
-    }
-    @catch (NSException *exception) {
-        NSLog(@"Failure: 加载新闻内容 %@",exception.reason);
-    }
-    @finally {
-        return news;
-    }
 }
 
 @end

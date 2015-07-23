@@ -7,7 +7,7 @@
 //
 
 #import "NewsDetailViewController.h"
-#import "BDStockNewsService.h"
+#import "BDCoreService.h"
 #import "RegexKitLite.h"
 #import <MBProgressHUD.h>
 
@@ -17,7 +17,7 @@
 
 @implementation NewsDetailViewController
 {
-    BDNews *_news;
+    BDNewsDetail *_news;
     dispatch_queue_t loadDataQueue;
 }
 
@@ -32,15 +32,47 @@
         hud.labelText = @"加载中...";
         loadDataQueue = dispatch_queue_create("loadData", nil);
         dispatch_async(loadDataQueue, ^{
-            BDStockNewsService *service = [[BDStockNewsService alloc] init];
-            _news = [service getNewsDetailById:self.contentId];
+            _news = [self getNewsDetailById:self.contentId];
+            
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [self loadNewsDetailPage];
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
             });
         });
     }
+}
 
+- (BDNewsDetail *)getNewsDetailById:(long)newsId {
+    Stopwatch *watch = [Stopwatch startNew];
+    BDNewsDetail *news = nil;
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:[NSNumber numberWithLong:newsId] forKey:@"CONT_ID"];
+    
+    @try {
+        BDCoreService *service = [BDCoreService new];
+        NSArray *data = [service syncRequestDatasourceService:1588 parameters:parameters query:nil];
+        for (NSDictionary *item in data) {
+            news = [[BDNewsDetail alloc] init];
+            news.innerId = newsId;
+            news.title = item[@"TIT"];
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            formatter.dateFormat = @"yyyy-MM-dd HH:mm";
+            news.date = [formatter dateFromString:item[@"PUB_DT"]];
+            news.media = item[@"MED_NAME"];
+            news.author = item[@"AUT"];
+            news.content = item[@"CONT"];
+            break;
+        }
+        
+        [watch stop];
+        NSLog(@"Success: 加载新闻内容 Timeout:%.3fs", watch.elapsed);
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Failure: 加载新闻内容 %@",exception.reason);
+    }
+    @finally {
+        return news;
+    }
 }
 
 - (void)loadNewsDetailPage {

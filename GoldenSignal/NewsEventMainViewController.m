@@ -118,7 +118,7 @@
 {
     if ([segue.identifier isEqualToString:@"ShowNewsDetail"])
     {
-        BDNews *news = (BDNews *)sender;
+        BDNewsEventList *news = (BDNewsEventList *)sender;
         NewsEventDetailViewController *detailVC = (NewsEventDetailViewController *)segue.destinationViewController;
         detailVC.contentId = news.innerId;
     }
@@ -126,7 +126,7 @@
 
 #pragma mark - NewsListView Delegate
 
-- (void)didSelectNewsEvent:(BDNews *)news {
+- (void)didSelectNewsEvent:(BDNewsEventList *)news {
     [self performSegueWithIdentifier:@"ShowNewsDetail" sender:news];
 }
 

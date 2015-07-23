@@ -28,5 +28,6 @@
 #import "BDSecuNews.h"
 #import "BDNewsEventList.h"
 #import "BDNewsEventDetail.h"
+#import "BDNewsDetail.h"
 
 #endif
