@@ -32,14 +32,14 @@
             BDNewsEventService *service = [[BDNewsEventService alloc] init];
             _newsEvent = [service getNewsEventById:self.contentId];
             dispatch_sync(dispatch_get_main_queue(), ^{
-                [self loadNewsDetailPage];
+                [self loadNewsEventDetailPage];
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
             });
         });
     }
 }
 
-- (void)loadNewsDetailPage {
+- (void)loadNewsEventDetailPage {
     NSString* htmlPath = [[NSBundle mainBundle] pathForResource:@"NewsEventDetail" ofType:@"html"];
     NSString* htmlText = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
     if (_newsEvent) {

@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SecuNewsListViewDelegate <NSObject>
+
+-(void)didSelectNews:(BDSecuNews *)news;
+
+@end
+
 @interface SecuNewsListView : UITableViewController
 
+@property(nonatomic, weak) id <SecuNewsListViewDelegate> delegate;
 @property(nonatomic, strong) NSString *secuCode;
 
 @end

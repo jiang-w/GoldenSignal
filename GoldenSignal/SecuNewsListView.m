@@ -10,6 +10,7 @@
 #import "BDCoreService.h"
 #import "BDSectService.h"
 #import "NewsListViewCell.h"
+#import "NewsDetailViewController.h"
 
 #import <MBProgressHUD.h>
 
@@ -95,11 +96,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     BDSecuNews *news = _newsList[indexPath.row];
-    NSLog(@"内容ID:%ld", news.contentId);
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    NewsDetailViewController *newsDetail = [storyboard instantiateViewControllerWithIdentifier:@"NewsEventDetail"];
-//    newsDetail.newsId = news.innerId;
-//    [self.navigationController pushViewController:newsDetail animated:YES];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectNews:)]) {
+        [self.delegate didSelectNews:news];
+    }
 }
 
 

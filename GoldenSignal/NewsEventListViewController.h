@@ -16,7 +16,7 @@
 
 @interface NewsEventListViewController : UITableViewController
 
-@property(nonatomic, assign) id <NewsEventListViewDelegate> delegate;
+@property(nonatomic, weak) id <NewsEventListViewDelegate> delegate;
 
 - (id)initWithTagId:(NSNumber *)tagId andSecuCodes:(NSArray *)codes;
 
