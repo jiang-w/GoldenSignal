@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BDNews.h"
 
 @interface NewsEventDetailViewController : UIViewController<UIWebViewDelegate>
 
