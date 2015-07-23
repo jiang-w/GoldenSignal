@@ -71,13 +71,5 @@
  */
 @property (nonatomic,assign) long connectId;
 
-/**
- *  获取某类型的新闻标签
- *
- *  @param effect 事件影响
- *
- *  @return 返回标签数组
- */
-- (NSArray *)getLabelsWithEventEffect:(EventEffect) effect;
 
 @end

@@ -9,13 +9,13 @@
 #import "InformationsTabViewController.h"
 #import "BDStockPoolInfoService.h"
 #import "InfomationsTableViewCell.h"
+#import "PerformanceTableViewCell.h"
 #import <CoreText/CoreText.h>
 #import <MBProgressHUD.h>
 #import <MJRefresh.h>
 #import <AFNetworking.h>
 
-#import "BulletinViewController.h"
-
+#import "BulletinViewController.h"//公告详情页面
 
 
 @interface InformationsTabViewController ()
@@ -26,6 +26,8 @@
     BDStockPoolInfoService *_infoService;
     long _lastId;
     id _temp;
+    
+    NSUInteger _timeIndex;//次数
 }
 
 @end
@@ -62,7 +64,15 @@
     [[NSNotificationCenter defaultCenter]
      addObserver:self selector:@selector(removeCustomStockChanged3:) name:CUSTOM_STOCK_CHANGED_NOTIFICATION object:nil];
 
-    [self.tableView registerNib:[UINib nibWithNibName:@"InfomationsTableViewCell" bundle:nil] forCellReuseIdentifier:@"InformationsCell"];
+    
+    //提前注册
+    if ([self.InformationId isEqual:@"tiShi"]) {
+        [self.tableView registerNib:[UINib nibWithNibName:@"InfomationsTableViewCell" bundle:nil] forCellReuseIdentifier:@"InformationsCell"];
+    }
+    else {
+        [self.tableView registerNib:[UINib nibWithNibName:@"PerformanceTableViewCell" bundle:nil] forCellReuseIdentifier:@"PerformanceCell"];
+    }
+    
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.opacity = 0;//透明度0 表示完全透明
@@ -70,6 +80,7 @@
     
     _allArray = [[NSMutableArray alloc]initWithCapacity:0];
     self.pageNumbs = 10;
+    _timeIndex = 1;
 
     [self getRequestDataResource];
     [self refresh];
@@ -86,17 +97,19 @@
     if (self.tableView.legendHeader.isRefreshing == YES) {
         self.pageNumbs =10;
         _lastId = 0;
+        _timeIndex = 1;
     }
     else if (self.tableView.legendFooter.isRefreshing == YES) {
-//        [self downPullRefresh];
-//        return;
-        if (_temp == _allArray.lastObject) {
-            self.pageNumbs += 10;
-            _lastId = 0;
-        } else {
-            [self.tableView.legendFooter noticeNoMoreData];
-            return;
-        }
+        _timeIndex ++;
+        [self downPullRefresh];
+        return;
+//        if (_temp == _allArray.lastObject) {
+//            self.pageNumbs += 10;
+//            _lastId = 0;
+//        } else {
+//            [self.tableView.legendFooter noticeNoMoreData];
+//            return;
+//        }
     }
     DEBUGLog(@"DEBUGLog2ar=%@,cou=%ld,2c=%d",_codeArray,_codeArray.count,self.pageNumbs);
 
@@ -104,7 +117,7 @@
     dispatch_queue_t requestQueue = dispatch_queue_create("RequestData", DISPATCH_QUEUE_CONCURRENT);
     dispatch_async(requestQueue , ^{
         if ([self.InformationId isEqual:@"tiShi"]) {
-            _firstArray = [_infoService getPromptListBySecuCodes:_codeArray lastId:_lastId quantity:self.pageNumbs];
+            _firstArray = [_infoService getPromptListBySecuCodes:_codeArray pageIndex:_timeIndex andPageSize:self.pageNumbs];
         }
         else if ([self.InformationId isEqual:@"gongGao"]) {
             _firstArray = [_infoService getBulletinListBySecuCodes:_codeArray lastId:_lastId quantity:self.pageNumbs];
@@ -131,7 +144,7 @@
     if (_temp == _allArray.lastObject) {
         NSMutableArray *tempAry = [[NSMutableArray alloc]init];
         if ([self.InformationId isEqual:@"tiShi"]) {
-            tempAry = [_infoService getPromptListBySecuCodes:_codeArray lastId:_lastId quantity:self.pageNumbs];
+            tempAry = [_infoService getPromptListBySecuCodes:_codeArray pageIndex:_timeIndex andPageSize:self.pageNumbs];
         }
         else if ([self.InformationId isEqual:@"gongGao"]) {
             tempAry = [_infoService getBulletinListBySecuCodes:_codeArray lastId:_lastId quantity:self.pageNumbs];
@@ -187,25 +200,25 @@
 //    NSString *str1 = [NSString stringWithFormat:@"【%@%@】",pModel.trdCode,pModel.secuName];
  */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    InfomationsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InformationsCell"];
-
+    UITableViewCell *cell = nil;
     if ([self.InformationId isEqual:@"tiShi"]) {
+        InfomationsTableViewCell *Infocell = [tableView dequeueReusableCellWithIdentifier:@"InformationsCell"];
         BDPrompt *pModel = _allArray[indexPath.row];
-        [cell showCellAndModel:pModel];
+        [Infocell showTiShiCellAndModel:pModel];
+        cell = Infocell;
     }
     else if ([self.InformationId isEqual:@"gongGao"]) {
-        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+        PerformanceTableViewCell *gongGaoCell = [tableView dequeueReusableCellWithIdentifier:@"PerformanceCell"];
+        gongGaoCell.selectionStyle = UITableViewCellSelectionStyleDefault;
         BDBulletin *pModel = _allArray[indexPath.row];
-        [cell showGongGaoCellAndModel:pModel];
-//MJExtension.h方法
-//        TestModel *pModel = _allArray[indexPath.row];
-//        [cell showGongGaoCellAndModel2:pModel];
+        [gongGaoCell showGongGaoCellAndModel:pModel];
+        cell = gongGaoCell;
     }
     else if ([self.InformationId isEqual:@"yeJi"]) {
+        PerformanceTableViewCell *PerformanceCell = [tableView dequeueReusableCellWithIdentifier:@"PerformanceCell"];
         BDPrompt *pModel = _allArray[indexPath.row];
-        [cell showCellAndModel:pModel];
-        cell.dateLabel.hidden = YES;
+        [PerformanceCell showYeJiCellAndModel:pModel];
+        cell = PerformanceCell;
     }
     
     return cell;
@@ -217,15 +230,23 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    InfomationsTableViewCell *cell = (InfomationsTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
-//    CGFloat cellH = cell.dateLabel.hidden ? cell.frame.size.height +8 -18 : cell.frame.size.height+8;
-    CGFloat cellH = cell.title1.frame.size.height + cell.contentLabel.frame.size.height + cell.dateLabel.frame.size.height +42;
-    cellH = cell.dateLabel.hidden ? cellH - cell.dateLabel.frame.size.height-10 : cellH;
-    return cellH;
+    if ([self.InformationId isEqual:@"tiShi"]) {
+        InfomationsTableViewCell *cell = (InfomationsTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
+        CGFloat cellH = cell.title1.frame.size.height + cell.contentLabel.frame.size.height + cell.dateLabel.frame.size.height +40;
+        return cellH;
+    } else {
+        PerformanceTableViewCell *cell = (PerformanceTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
+        CGFloat cellH = cell.title1.frame.size.height + cell.contentLabel.frame.size.height+30;
+        return cellH;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return  110;
+    if ([self.InformationId isEqual:@"tiShi"]) {
+        return 125;
+    } else {
+        return  85;
+    }
 }
 
 

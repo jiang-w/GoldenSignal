@@ -13,32 +13,31 @@
 
 
 /**
- *  获取自选股提示列表（返回BDPrompt类型数组）   提示
+ *  获取自选股提示列表（返回BDPrompt类型数组）   提示1
  *
  *  @param codes         证券编码列表
  *  @param quantity      返回数量
  */
-- (NSMutableArray *)getPromptListBySecuCodes:(NSMutableArray *)codes lastId:(long)lastId quantity:(int)quantity;
+- (NSMutableArray *)getPromptListBySecuCodes:(NSMutableArray *)codes pageIndex:(NSUInteger)index andPageSize:(NSUInteger)size;
 
 /**
- *  获取自选股公告列表（返回BDBulletin类型数组） 公告
+ *  获取自选股公告列表（返回BDBulletin类型数组） 公告2
  *
  *  @param codes         证券编码列表
  *  @param quantity      返回数量
  */
 - (NSMutableArray *)getBulletinListBySecuCodes:(NSArray *)codes lastId:(long)lastId quantity:(int)quantity;
 
-
 /**
- *  获取自选股研报列表（返回BDReport类型数组）   研报
+ *  获取自选股研报列表（返回BDReport类型数组）   研报3
  *
  *  @param codes         证券编码列表
  *  @param quantity      返回数量
  */
-- (NSMutableArray *)getReportListBySecuCodes:(NSArray *)codes lastId:(long)lastId quantity:(int)quantity;
+- (NSMutableArray *)getReportListBySecuCode:(NSArray *)codes pageIndex:(NSUInteger)index andPageSize:(NSUInteger)size;
 
 /**
- *  获取自选股新闻列表（返回BDNews类型数组）     新闻
+ *  获取自选股新闻列表（返回BDNews类型数组）     新闻4
  *
  *  @param codes         证券编码列表
  *  @param quantity      返回数量
@@ -46,7 +45,7 @@
 - (NSMutableArray *)getNewsListBySecuCodes:(NSArray *)codes lastId:(long)lastId quantity:(int)quantity;
 
 /**
- *  获取自选股业绩列表（返回BDPrompt类型数组）   业绩
+ *  获取自选股业绩列表（返回BDPrompt类型数组）   业绩5
  *
  *  @param codes         证券编码列表
  *  @param quantity      返回数量
@@ -56,7 +55,7 @@
 
 
 /**
- *  获取自选股 公告 的子页面 详细数据
+ *  获取自选股 公告 的子页面 详细数据      2
  *
  *  @param connectId 每个cell对应的id（自己找下）
  *
@@ -64,15 +63,26 @@
  */
 - (BDBulletin *)getBulletinDetailById:(long)connectId;
 
+
 /**
- *  获取自选股 新闻 的子页面 详情数据
+ *  获取 研报 详细内容数据
+ *
+ *  @param id 每个cell对应的id（自己找下）3
+ *
+ *  @return 返回一个model
+ */
+- (BDReport *)getReportDetailById:(long)connectId;
+
+
+
+/**
+ *  获取自选股 新闻 的子页面 详情数据      4
  *
  *  @param connectId 每个cell对应的id（自己找下）
  *
  *  @return 返回一个model类型
  */
 - (BDNews *)getOptionalNewsDetailById:(long)connectId andPageId:(int)pageId;
-
 
 
 @end

@@ -29,7 +29,7 @@
     
     id _temp;//标记
     long _lastId;//标记
-    
+    int _timeIndex;//请求的次数
 }
 
 @end
@@ -54,7 +54,8 @@
     hud.opacity = 0;//透明度0 表示完全透明
     hud.activityIndicatorColor = [UIColor blackColor];
     _allArray = [[NSMutableArray alloc]init];
-    self.pageNumbs = 10; 
+    self.pageNumbs = 10;
+    _timeIndex = 1;
     
     [self getImportNewsRequestData];
     [self refresh];
@@ -67,27 +68,30 @@
     if (self.tableView.legendHeader.isRefreshing == YES) {
         self.pageNumbs = 10;
         _lastId = 0;
+        _timeIndex = 1;
     } else if (self.tableView.legendFooter.isRefreshing == YES) {
-        if (_temp == _allArray.lastObject) {
-            self.pageNumbs += 10;
-        } else {
-            [self downPullRefresh];
-            return;
-        }
-//        if (_dataArray.count > 0) {
-//            _tempId = [_dataArray.lastObject connectId];
-//            self.pageNumbs = 10;
-//            NSArray *tempAry = [NSArray array];
-//            tempAry = [service getImportNewsListRequestDataWithPageId:_pageId lastCellId:_tempId quantity:10];
-//            [_dataArray addObjectsFromArray:tempAry];
+        self.pageNumbs = 10;
+        _timeIndex ++;
+        [self downPullRefresh];
+        return;
+        
+//        if (_temp == _allArray.lastObject) {
+//            self.pageNumbs += 10;
+//            _timeIndex ++;
 //        } else {
+//            [self downPullRefresh];
 //            return;
 //        }
     }
 #pragma mark --异步加载
     dispatch_queue_t requestQueue = dispatch_queue_create("RequestData", DISPATCH_QUEUE_CONCURRENT);
     dispatch_async(requestQueue , ^{
-        _firstArray = [_service getImportNewsListRequestDataWithPageId:_pageId lastCellId:_lastId quantity:self.pageNumbs];
+        
+        if (_pageId == 1582) {
+            _firstArray = [_service getImportNewsStrategyRequestDataWithPageId:_pageId cellCount:10 timeNumber:_timeIndex];
+        } else {
+            _firstArray = [_service getImportNewsListRequestDataWithPageId:_pageId lastCellId:0 quantity:self.pageNumbs];
+        }
         dispatch_async(dispatch_get_main_queue(), ^{
             // 相同于主线程中执行
             [self.tableView.legendHeader endRefreshing];
@@ -107,7 +111,11 @@
 - (void)downPullRefresh{
     if (_temp == _allArray.lastObject) {
         NSMutableArray *tempAry = [[NSMutableArray alloc]init];
-        tempAry = [_service getImportNewsListRequestDataWithPageId:_pageId lastCellId:_lastId quantity:self.pageNumbs];
+        if (_pageId == 1582) {
+            tempAry = [_service getImportNewsStrategyRequestDataWithPageId:_pageId cellCount:10 timeNumber:_timeIndex];
+        } else {
+            tempAry = [_service getImportNewsListRequestDataWithPageId:_pageId lastCellId:_lastId quantity:self.pageNumbs];
+        }
         
         [self.tableView.legendFooter endRefreshing];
         _lastId = [tempAry.lastObject innerId];
@@ -145,7 +153,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     BDNews *newsModel = _allArray[indexPath.row];
-    ImportsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ImportCell"];
+    ImportsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ImportCell"] ;
     if (_pageId == 1582) {
         [cell showCellAndStrategyNewsModel:newsModel];
     } else {
@@ -157,20 +165,28 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     ImportsTableViewCell *cell = (ImportsTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
-    CGFloat cellH = cell.titleLabel.frame.size.height + cell.dateLabel.frame.size.height + cell.desLabel.frame.size.height + 43 ;
-    return cellH;
+//    CGFloat cellH = cell.titleLabel.frame.size.height + cell.dateLabel.frame.size.height + cell.desLabel.frame.size.height + 45 ;
+    
+    if (_pageId == 1582) {
+        CGFloat cellH = cell.titleHeight + cell.dateLabel.frame.size.height + cell.desHeight + 60;
+        return cellH;
+    } else {
+        CGFloat cellH = cell.titleHeight + cell.dateLabel.frame.size.height + cell.desHeight + 60;
+        return cellH;
+    }
+    
 }
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 120;
-}
+//
+//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    return 144;
+//}
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
     if (_pageId == 1582) {
         BDNews *newsModel = _allArray[indexPath.row];
-        NewsContentViewController *NCVC = [[NewsContentViewController alloc]initWithModel:newsModel andId:newsModel.connectId andPageId:_pageId];
+        NewsContentViewController *NCVC = [[NewsContentViewController alloc]initWithModel:newsModel andId:newsModel.connectId andPageId:1595];
         
         //获取UIView的父层UIViewController
         id object = [self nextResponder];
@@ -181,7 +197,7 @@
         UIViewController *uc=(UIViewController*)object;
         
         [uc.navigationController pushViewController:NCVC animated:YES];
-//        DEBUGLog(@"Debug:aa");
+        DEBUGLog(@"Debug:aa");
     }
     else {
         BDNews *newsModel = _allArray[indexPath.row];

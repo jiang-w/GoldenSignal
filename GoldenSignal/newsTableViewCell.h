@@ -20,15 +20,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *newsDesLabel;
 
 
-//- (void)showCellAndReportModel:(BDNews *)model;
 - (void)showCellAndNewsModel:(NSObject *)model;
 
 //赋值 and 自动换行,计算出cell的高度
-- (void)setContentLabels:(UILabel *)label andText:(NSString *)text;
+//- (void)setContentLabels:(UILabel *)label andText:(NSString *)text;
 
 
-
-
+@property (nonatomic,assign) CGFloat titleHeight;
+@property (nonatomic,assign) CGFloat desHeight;
 
 
 @end

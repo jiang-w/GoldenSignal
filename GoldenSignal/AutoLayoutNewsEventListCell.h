@@ -17,6 +17,6 @@
     UIView *tagContainer;
 }
 
-@property (nonatomic,setter = setNewsEvent:) BDNewsEvent *newsEvent;
+@property (nonatomic,setter = setNewsEvent:) BDNewsEventList *newsEvent;
 
 @end

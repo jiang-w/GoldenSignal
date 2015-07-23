@@ -30,7 +30,7 @@
     _tagId = tagId;
     _codes = codes;
     if (_tagId != nil || (_codes != nil && _codes.count > 0)) {
-        NSArray *newsArray = [_service getNewsEventBySecuCodes:_codes tagId:[_tagId longValue] lastId:0 quantity:self.pageSize];
+        NSArray *newsArray = [_service getNewsEventListBySecuCodes:_codes tagId:[_tagId longValue] lastId:0 quantity:self.pageSize];
         [self.newsList removeAllObjects];
         [self.newsList addObjectsFromArray:newsArray];
     }
@@ -41,7 +41,7 @@
 {
     if (_tagId != nil || (_codes != nil && _codes.count > 0)) {
         long lastId = self.newsList.count > 0 ? [[self.newsList lastObject] innerId]:0;
-        NSArray *newsArray = [_service getNewsEventBySecuCodes:_codes tagId:[_tagId longValue] lastId:lastId quantity:self.pageSize];
+        NSArray *newsArray = [_service getNewsEventListBySecuCodes:_codes tagId:[_tagId longValue] lastId:lastId quantity:self.pageSize];
         [self.newsList addObjectsFromArray:newsArray];
     }
 }
@@ -50,7 +50,7 @@
 - (void)reloadNewsEvent
 {
     if (_tagId != nil || (_codes != nil && _codes.count > 0)) {
-        NSArray *newsArray = [_service getNewsEventBySecuCodes:_codes tagId:[_tagId longValue] lastId:0 quantity:self.pageSize];
+        NSArray *newsArray = [_service getNewsEventListBySecuCodes:_codes tagId:[_tagId longValue] lastId:0 quantity:self.pageSize];
         [self.newsList removeAllObjects];
         [self.newsList addObjectsFromArray:newsArray];
     }

@@ -13,7 +13,7 @@
 
 @interface NewsEventDetailViewController ()
 {
-    BDNewsEvent *_newsEvent;
+    BDNewsEventDetail *_newsEvent;
     dispatch_queue_t loadDataQueue;
 }
 @end
@@ -30,7 +30,7 @@
         loadDataQueue = dispatch_queue_create("loadData", nil);
         dispatch_async(loadDataQueue, ^{
             BDNewsEventService *service = [[BDNewsEventService alloc] init];
-            _newsEvent = [service getNewsEventById:self.contentId];
+            _newsEvent = [service getNewsEventDetailById:self.contentId];
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [self loadNewsEventDetailPage];
                 [MBProgressHUD hideHUDForView:self.view animated:YES];

@@ -11,11 +11,11 @@
 @interface BDNewsEventService : NSObject
 
 /**
- *  根据ID获取新闻
+ *  根据ID获取新闻事件详情
  *
- *  @param newsId       新闻ID
+ *  @param innerId     内部ID
  */
-- (BDNewsEvent *)getNewsEventById:(long)innerId;
+- (BDNewsEventDetail *)getNewsEventDetailById:(long)innerId;
 
 /**
  *  根据证券编码加载新闻列表
@@ -25,6 +25,6 @@
  *  @param lastId       最新一条新闻ID
  *  @param quantity     返回新闻的数量
  */
-- (NSArray *)getNewsEventBySecuCodes:(NSArray *)codes tagId:(long)tagId lastId:(long)lastId quantity:(int)quantity;
+- (NSArray *)getNewsEventListBySecuCodes:(NSArray *)codes tagId:(long)tagId lastId:(long)lastId quantity:(int)quantity;
 
 @end

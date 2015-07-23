@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BDNewsEvent : NSObject
+@interface BDNewsEventList : NSObject
 
 /**
- *  新闻ID
+ *  内部ID
  */
 @property(nonatomic, assign) long innerId;
 
@@ -29,21 +29,6 @@
  *  摘要
  */
 @property(nonatomic, strong) NSString *abstract;
-
-/**
- *  内容
- */
-@property(nonatomic, strong) NSString *content;
-
-/**
- *  作者
- */
-@property(nonatomic, strong) NSString *author;
-
-/**
- *  媒体
- */
-@property(nonatomic, strong) NSString *media;
 
 /**
  *  新闻标签

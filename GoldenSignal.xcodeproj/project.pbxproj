@@ -109,7 +109,7 @@
 		014FF3891B1D5276007DB608 /* QuoteHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014FF3871B1D5276007DB608 /* QuoteHomeViewController.m */; };
 		014FF38A1B1D5276007DB608 /* QuoteHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 014FF3881B1D5276007DB608 /* QuoteHomeViewController.xib */; };
 		014FF3921B1DAE31007DB608 /* QuoteHomeTrendChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 014FF3911B1DAE31007DB608 /* QuoteHomeTrendChart.m */; };
-		015B72161B5E71DA006DA827 /* BDNewsEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 015B72151B5E71DA006DA827 /* BDNewsEvent.m */; };
+		015B72161B5E71DA006DA827 /* BDNewsEventList.m in Sources */ = {isa = PBXBuildFile; fileRef = 015B72151B5E71DA006DA827 /* BDNewsEventList.m */; };
 		01642F941B5DEDE700438BDA /* InformationMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01642F931B5DEDE700438BDA /* InformationMainViewController.m */; };
 		019F2A3A1B5659C5005602B7 /* BarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 019F2A351B5659C5005602B7 /* BarView.m */; };
 		019F2A3C1B5659C5005602B7 /* FundFlowBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 019F2A381B5659C5005602B7 /* FundFlowBarView.m */; };
@@ -162,6 +162,9 @@
 		01CA5C551B1EDF6C003B824F /* QuoteHomeTrendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01CA5C541B1EDF6C003B824F /* QuoteHomeTrendView.xib */; };
 		01D262F81B608FBF00A93F58 /* NewsDetail.html in Resources */ = {isa = PBXBuildFile; fileRef = 01D262F71B608FBF00A93F58 /* NewsDetail.html */; };
 		01D262FB1B60903400A93F58 /* NewsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D262FA1B60903400A93F58 /* NewsDetailViewController.m */; };
+		01D262FE1B60B58C00A93F58 /* BDNewsEventDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D262FD1B60B58C00A93F58 /* BDNewsEventDetail.m */; };
+		01D263021B60B7B900A93F58 /* PerformanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D263001B60B7B900A93F58 /* PerformanceTableViewCell.m */; };
+		01D263031B60B7B900A93F58 /* PerformanceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D263011B60B7B900A93F58 /* PerformanceTableViewCell.xib */; };
 		01D8A8171B4675F30047BA64 /* KLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D8A8161B4675F30047BA64 /* KLineChart.m */; };
 		01D8A81A1B46849B0047BA64 /* KLineViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D8A8191B46849B0047BA64 /* KLineViewModel.m */; };
 		01D8DA3A1B253E4F0033956E /* IdxQuoteCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D8DA391B253E4F0033956E /* IdxQuoteCellViewModel.m */; };
@@ -371,8 +374,8 @@
 		014FF3881B1D5276007DB608 /* QuoteHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuoteHomeViewController.xib; sourceTree = "<group>"; };
 		014FF3901B1DAE31007DB608 /* QuoteHomeTrendChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteHomeTrendChart.h; sourceTree = "<group>"; };
 		014FF3911B1DAE31007DB608 /* QuoteHomeTrendChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuoteHomeTrendChart.m; sourceTree = "<group>"; };
-		015B72141B5E71DA006DA827 /* BDNewsEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDNewsEvent.h; sourceTree = "<group>"; };
-		015B72151B5E71DA006DA827 /* BDNewsEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDNewsEvent.m; sourceTree = "<group>"; };
+		015B72141B5E71DA006DA827 /* BDNewsEventList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDNewsEventList.h; sourceTree = "<group>"; };
+		015B72151B5E71DA006DA827 /* BDNewsEventList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDNewsEventList.m; sourceTree = "<group>"; };
 		01642F921B5DEDE700438BDA /* InformationMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationMainViewController.h; sourceTree = "<group>"; };
 		01642F931B5DEDE700438BDA /* InformationMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationMainViewController.m; sourceTree = "<group>"; };
 		019F2A341B5659C5005602B7 /* BarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarView.h; sourceTree = "<group>"; };
@@ -462,6 +465,11 @@
 		01D262F71B608FBF00A93F58 /* NewsDetail.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = NewsDetail.html; sourceTree = "<group>"; };
 		01D262F91B60903400A93F58 /* NewsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsDetailViewController.h; sourceTree = "<group>"; };
 		01D262FA1B60903400A93F58 /* NewsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsDetailViewController.m; sourceTree = "<group>"; };
+		01D262FC1B60B58C00A93F58 /* BDNewsEventDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDNewsEventDetail.h; sourceTree = "<group>"; };
+		01D262FD1B60B58C00A93F58 /* BDNewsEventDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDNewsEventDetail.m; sourceTree = "<group>"; };
+		01D262FF1B60B7B900A93F58 /* PerformanceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerformanceTableViewCell.h; sourceTree = "<group>"; };
+		01D263001B60B7B900A93F58 /* PerformanceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerformanceTableViewCell.m; sourceTree = "<group>"; };
+		01D263011B60B7B900A93F58 /* PerformanceTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PerformanceTableViewCell.xib; sourceTree = "<group>"; };
 		01D8A8151B4675F30047BA64 /* KLineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLineChart.h; sourceTree = "<group>"; };
 		01D8A8161B4675F30047BA64 /* KLineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLineChart.m; sourceTree = "<group>"; };
 		01D8A8181B46849B0047BA64 /* KLineViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLineViewModel.h; sourceTree = "<group>"; };
@@ -664,8 +672,10 @@
 				01B531051B5CE42700F9B891 /* BDSecuNews.m */,
 				01A55BAF1B5E3CB400224F7B /* BDNewStockModel.h */,
 				01A55BB01B5E3CB400224F7B /* BDNewStockModel.m */,
-				015B72141B5E71DA006DA827 /* BDNewsEvent.h */,
-				015B72151B5E71DA006DA827 /* BDNewsEvent.m */,
+				015B72141B5E71DA006DA827 /* BDNewsEventList.h */,
+				015B72151B5E71DA006DA827 /* BDNewsEventList.m */,
+				01D262FC1B60B58C00A93F58 /* BDNewsEventDetail.h */,
+				01D262FD1B60B58C00A93F58 /* BDNewsEventDetail.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -927,6 +937,9 @@
 				01A55BF01B5E4A2400224F7B /* ReportDetailViewController.h */,
 				01A55BF11B5E4A2400224F7B /* ReportDetailViewController.m */,
 				01A55BF21B5E4A2400224F7B /* ReportDetailViewController.xib */,
+				01D262FF1B60B7B900A93F58 /* PerformanceTableViewCell.h */,
+				01D263001B60B7B900A93F58 /* PerformanceTableViewCell.m */,
+				01D263011B60B7B900A93F58 /* PerformanceTableViewCell.xib */,
 			);
 			name = Portfolio;
 			sourceTree = "<group>";
@@ -1067,6 +1080,7 @@
 				01D262F81B608FBF00A93F58 /* NewsDetail.html in Resources */,
 				01D8DA3F1B253F9C0033956E /* IdxQuoteViewCell.xib in Resources */,
 				011B85521B0DBEFE003005BC /* StkScalarView.xib in Resources */,
+				01D263031B60B7B900A93F58 /* PerformanceTableViewCell.xib in Resources */,
 				011B855B1B0DBEFE003005BC /* SectCollectionViewController.xib in Resources */,
 				01A55BE11B5E490200224F7B /* InfomationsTableViewCell.xib in Resources */,
 				01A55BBB1B5E3D3A00224F7B /* NewsContentViewController.xib in Resources */,
@@ -1194,7 +1208,7 @@
 				01A9614A1B4FC0FA00B705AD /* FundFlowCircleChart.m in Sources */,
 				01A46F291B4CFC7E000CD7A5 /* RankingListCell.m in Sources */,
 				01AD748E1B3948CF006EC988 /* IdxScalarView.m in Sources */,
-				015B72161B5E71DA006DA827 /* BDNewsEvent.m in Sources */,
+				015B72161B5E71DA006DA827 /* BDNewsEventList.m in Sources */,
 				011B84C01B0DBCBA003005BC /* BDUserTicket.m in Sources */,
 				011B846D1B0DBADB003005BC /* SmartTime.m in Sources */,
 				011B85561B0DBEFE003005BC /* LiteTrendView.m in Sources */,
@@ -1210,6 +1224,7 @@
 				011B855A1B0DBEFE003005BC /* SectCollectionViewController.m in Sources */,
 				011B84E71B0DBD4F003005BC /* SubDealViewModel.m in Sources */,
 				01BDBCA21B33B8400038A825 /* BDPrompt.m in Sources */,
+				01D263021B60B7B900A93F58 /* PerformanceTableViewCell.m in Sources */,
 				019F2A3C1B5659C5005602B7 /* FundFlowBarView.m in Sources */,
 				011B84BE1B0DBCBA003005BC /* BDTrendLine.m in Sources */,
 				011B84E61B0DBD4F003005BC /* StockNewsViewModel.m in Sources */,
@@ -1218,6 +1233,7 @@
 				011B85201B0DBEA9003005BC /* AutoLayoutNewsEventListCell.m in Sources */,
 				011B848B1B0DBB83003005BC /* BDQuotationService.mm in Sources */,
 				011B85581B0DBEFE003005BC /* StkQuoteViewCell.m in Sources */,
+				01D262FE1B60B58C00A93F58 /* BDNewsEventDetail.m in Sources */,
 				01A55BAB1B5E3ADC00224F7B /* ImportTableViewController.m in Sources */,
 				01A55BAE1B5E3C7D00224F7B /* BDImportService.m in Sources */,
 				011B846E1B0DBADB003005BC /* Stopwatch.m in Sources */,

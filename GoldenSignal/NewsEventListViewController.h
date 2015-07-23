@@ -10,7 +10,7 @@
 
 @protocol NewsEventListViewDelegate <NSObject>
 
--(void)didSelectNewsEvent:(BDNewsEvent *)newsEvent;
+-(void)didSelectNewsEvent:(BDNewsEventList *)newsEvent;
 
 @end
 

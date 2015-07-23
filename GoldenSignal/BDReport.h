@@ -66,5 +66,12 @@
 @property(nonatomic, assign) long sn;
 
 
+//cell 与详情页面链接的 id
+@property(nonatomic, assign) long cont_id;
+/**
+ *  全部内容
+ */
+@property(nonatomic, strong) NSString *CONT;
+
 
 @end

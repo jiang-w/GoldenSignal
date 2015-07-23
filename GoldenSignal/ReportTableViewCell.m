@@ -8,7 +8,7 @@
 
 #import "ReportTableViewCell.h"
 
-// 参数格式为：0xFFFFFF
+// 参数格式为：0xFFFFFF 颜色
 #define kColorWithRGB(rgbValue) \
 [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16)) / 255.0 \
                 green:((float)((rgbValue & 0xFF00) >> 8)) / 255.0 \
@@ -20,54 +20,42 @@
     // Initialization code
 }
 
+//计算文本label的高度
+- (CGFloat)calcHightWithString:(UILabel *)lbl{
+    return  [lbl.text boundingRectWithSize:CGSizeMake(lbl.bounds.size.width, CGFLOAT_MAX) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:lbl.font} context:nil].size.height;
+}
 
 
-
-//reportModel 研报信息 加载到Cell //rModel.rating 买入、增持、谨慎增持、中性、推荐、强力推荐、
+//reportModel 研报信息 加载到Cell      //rModel.rating 买入、增持、谨慎增持、中性、推荐、强力推荐、
 - (void)showCellAndReportModel:(BDReport *)model{
     BDReport *rModel = (BDReport *)model;
 
 //    NSString *titleStr = [NSMutableString stringWithFormat:@"%@ %@",rModel.rating,rModel.title];//新闻标题
     [self changeColorLabel:self.titleLabel RatingText:rModel.rating RateCode:rModel.RAT_CODE andOtherText:rModel.title];//传的新闻标题的label的两个字段
+    _titleHeight = [self calcHightWithString:self.titleLabel];
+    
+    
     
     NSString *dateStr = [[NSString stringWithFormat:@"%@",rModel.date] substringToIndex:10];
     self.dataAndLabel.text = [NSString stringWithFormat:@"%@ %@ %@",dateStr,rModel.com,rModel.aut];
     
     if (rModel.targ_prc == 0.00) {
+        self.priceLabel.frame = CGRectMake(self.priceLabel.frame.origin.x, self.priceLabel.frame.origin.y, self.priceLabel.frame.size.width, 0);
         self.priceLabel.hidden = YES;
         
-        CGRect frameD = self.descriLabel.frame;
-        frameD.origin.y = self.titleLabel.frame.size.height + self.dataAndLabel.frame.size.height +23;
-        self.descriLabel.frame = frameD;//描述label的坐标y上移
+        CGRect frameDes = [self.descriLabel frame];
+        frameDes.origin.y = self.titleLabel.frame.size.height + self.dataAndLabel.frame.size.height +30;
+        self.descriLabel.frame = frameDes;//描述label的坐标y上移
     } else {
         self.priceLabel.hidden = NO;
         self.priceLabel.text = [NSString stringWithFormat:@"目标价: %.2lf",rModel.targ_prc];
     }
     
     [self setContentLabels:self.descriLabel andText:[NSString stringWithFormat:@"\t%@",rModel.abst]];//摘要描述 自适应布局
+    _desHeight = [self calcHightWithString:self.descriLabel];
 }
 
 
-
-
-//赋值 and 自动换行,计算出cell的高度
-- (void)setContentLabels:(UILabel *)label andText:(NSString *)text{
-    //获得当前cell高度
-    CGRect frame = [self frame];
-    //文本赋值
-    label.text = text;
-    //设置label的最大行数
-    label.numberOfLines = 6;
-    CGSize size = CGSizeMake(300, 1000);
-    
-    CGSize labelSize = [label.text sizeWithFont:label.font constrainedToSize:size lineBreakMode:NSLineBreakByClipping];
-    label.frame = CGRectMake(label.frame.origin.x, label.frame.origin.y, labelSize.width, labelSize.height);
-    
-    //计算出自适应的高度
-    frame.size.height = labelSize.height;
-    
-    self.frame = frame;
-}
 
 
 //修改rating字体的颜色
@@ -122,6 +110,26 @@
 
 
 
+
+
+//赋值 and 自动换行,计算出cell的高度
+- (void)setContentLabels:(UILabel *)label andText:(NSString *)text{
+    //获得当前cell高度
+    CGRect frame = [self frame];
+    //文本赋值
+    label.text = text;
+    //设置label的最大行数
+    label.numberOfLines = 6;
+    CGSize size = CGSizeMake(300, 1000);
+    
+    CGSize labelSize = [label.text sizeWithFont:label.font constrainedToSize:size lineBreakMode:NSLineBreakByClipping];
+    label.frame = CGRectMake(label.frame.origin.x, label.frame.origin.y, labelSize.width, labelSize.height);
+    
+    //计算出自适应的高度
+    frame.size.height = labelSize.height;
+    
+    self.frame = frame;
+}
 
 
 

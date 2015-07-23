@@ -7,6 +7,7 @@
 //
 
 #import "ReportDetailViewController.h"//研报详情
+#import "BDStockPoolInfoService.h"
 #import "BDReport.h"
 #import <MBProgressHUD.h>
 
@@ -21,7 +22,9 @@
 
 @interface ReportDetailViewController ()<UIScrollViewDelegate>
 {
-    BDReport *_reModel;
+    BDStockPoolInfoService *_service;
+    BDReport *_reModel;//详情页面的Model数据
+    BDReport *_reModel2;//为空时调用传过来的model数据
     long _connectId;
 }
 
@@ -32,7 +35,7 @@
 - (id)initWithModel:(NSObject *)model andConnectId:(long)connectId{
     self = [super init];
     if (self) {
-        _reModel = (BDReport *)model;
+        _reModel2 = (BDReport *)model;
         _connectId = connectId;
     }
     return self;
@@ -44,9 +47,25 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.opacity = 0;//透明度0 表示完全透明
     hud.activityIndicatorColor = [UIColor blackColor];
-    
-    [self showDetailInformationWithModel:_reModel];
+    [self performSelectorInBackground:@selector(getDetailRequestDataResource) withObject:nil];
+//    [self getDetailRequestDataResource];
     [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
+}
+
+
+
+- (void)getDetailRequestDataResource{
+    _reModel = [BDReport new];
+    _service = [BDStockPoolInfoService new];
+    
+    if (_connectId == 0) {
+        [self showDetailInformationWithModel:_reModel2];
+        
+    } else {
+        _reModel = [_service getReportDetailById:_connectId];
+        [self showDetailInformationWithModel:_reModel];
+    }
 }
 
 
@@ -60,7 +79,7 @@
     self.rateAndPriLabel.attributedText =[self changeColorRatingText:model.rating RateCode:model.RAT_CODE andOtherText:model.targ_prc];
     
     
-    NSString *tempStr = model.abstsht;
+    NSString *tempStr = model.CONT;
     tempStr = [tempStr stringByReplacingOccurrencesOfString:@"<br />    " withString:@"\n\t"];
     tempStr = [tempStr stringByReplacingOccurrencesOfString:@"<br />" withString:@""];
     tempStr = [tempStr stringByReplacingOccurrencesOfString:@"    " withString:@"\t"];

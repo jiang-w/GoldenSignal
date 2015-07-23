@@ -26,6 +26,7 @@
 #import "BDSectInfo.h"
 #import "BDPrompt.h"
 #import "BDSecuNews.h"
-#import "BDNewsEvent.h"
+#import "BDNewsEventList.h"
+#import "BDNewsEventDetail.h"
 
 #endif

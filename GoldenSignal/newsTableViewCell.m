@@ -14,9 +14,42 @@
     // Initialization code
 }
 
+//计算文本label的高度
+- (CGFloat)calcHightWithString:(UILabel *)lbl{
+    return  [lbl.text boundingRectWithSize:CGSizeMake(lbl.bounds.size.width, CGFLOAT_MAX) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:lbl.font} context:nil].size.height;
+}
 
 //newsModel 新闻信息 加载到Cell
 - (void)showCellAndNewsModel:(NSObject *)model{
+    BDNews *newsModel = (BDNews *)model;
+//    [self setContentLabels:self.titleLabel andText:newsModel.title];//新闻标题内容
+    
+    self.titleLabel.text = newsModel.title;
+    _titleHeight = [self calcHightWithString:self.titleLabel];
+    
+    
+    
+    //时间
+    NSString *dateStr = nil;
+    if (newsModel.date == 0 ) {
+        dateStr = @"";
+    } else {
+        dateStr = [[NSString stringWithFormat:@"%@",newsModel.date] substringToIndex:16];
+        dateStr = [NSString stringWithFormat:@"%@ ",dateStr];
+    }
+    
+    self.dataAndLabel.text = [NSString stringWithFormat:@"%@%@",dateStr,newsModel.media];
+    
+//    [self setContentLabels:self.newsDesLabel andText:[NSString stringWithFormat:@"\t%@",newsModel.abstract]];//摘要
+    self.newsDesLabel.text = [NSString stringWithFormat:@"\t%@",newsModel.abstract];
+    _desHeight = [self calcHightWithString:self.newsDesLabel];
+    
+}
+
+
+#if 0
+//newsModel 新闻信息 加载到Cell
+- (void)showCellAndNewsModel2:(NSObject *)model{
     BDNews *newsModel = (BDNews *)model;
     [self setContentLabels:self.titleLabel andText:newsModel.title];//新闻标题内容
     //时间
@@ -53,6 +86,7 @@
     
     self.frame = frame;
 }
+#endif
 
 //打印的信息
 - (void)nslog{

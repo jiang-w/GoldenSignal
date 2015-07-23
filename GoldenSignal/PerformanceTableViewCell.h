@@ -1,15 +1,14 @@
 //
-//  InfomationsTableViewCell.h
-//  GoldenSignal
+//  PerformanceTableViewCell.h
+//  
 //
-//  Created by CBD on 6/19/15.
-//  Copyright (c) 2015 bigdata. All rights reserved.
+//  Created by CBD on 7/22/15.
+//
 //
 
 #import <UIKit/UIKit.h>
-#import "BDPrompt.h"
 
-@interface InfomationsTableViewCell : UITableViewCell
+@interface PerformanceTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIView *contenView;
 @property (weak, nonatomic) IBOutlet UIView *secondView;
@@ -18,15 +17,14 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 
 
-- (void)showTiShiCellAndModel:(NSObject *)model;
+
+- (void)showGongGaoCellAndModel:(NSObject *)model;
+- (void)showYeJiCellAndModel:(NSObject *)model;
 
 //赋值 and 自动换行,计算出cell的高度
 -(void)setContentLabels:(UILabel *)label andText:(NSString *)text;
 
-
-- (void)showGongGaoCellAndModel2:(NSObject *)model;
 
 @end

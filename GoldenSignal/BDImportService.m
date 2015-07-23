@@ -22,17 +22,14 @@
  *  @param cellNuber 列数 一般为10条
  *  @return 返回的数据 存入数组中
  */
-- (NSMutableArray *)getImportNewsListRequestDataWithPageId:(int)pageId lastCellId:(long)lastId quantity:(int)cellNumber{
+- (NSMutableArray *)getImportNewsListRequestDataWithPageId:(int)pageId lastCellId:(long)lastId quantity:(int)cellCount{
     Stopwatch *watch = [Stopwatch startNew];
     NSMutableArray *list = [NSMutableArray array];
     @try {
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        [parameters setValue:[NSNumber numberWithInt:cellNumber] forKey:@"PSize"];
-        [parameters setValue:[NSNumber numberWithInt:1] forKey:@"PIndex"];
-        if (lastId != 0) {
-            NSString *filter = [NSString stringWithFormat:@"{\"LeftPart\":\"ID\",\"RightPart\":%ld,\"Mode\":2}", lastId];
-            [parameters setValue:filter forKey:@"filter"];
-        }
+        [parameters setValue:[NSNumber numberWithInt:cellCount] forKey:@"COUNT"];
+        [parameters setValue:[NSNumber numberWithLong:lastId] forKey:@"ID"];
+        
         
         BDCoreService *service = [BDCoreService new];
         NSArray *data = [service syncRequestDatasourceService:pageId parameters:parameters query:nil];
@@ -57,10 +54,64 @@
             newsModel.author = (item[@"AUT"] == [NSNull null]) ? @"" : item[@"AUT"];//作者名字
             newsModel.abstract = item[@"ABST"];//摘要
             newsModel.ABST_SHT = item[@"ABST_SHT"];
+            newsModel.connectId = [item[@"CONT_ID"] longValue];//正文内容对应的ID
+            newsModel.innerId = [item[@"ID"]longValue];//lastId
+            
+            
+            
+            [list addObject:newsModel];
+        }
+        [watch stop];
+        NSLog(@"Success: 加载要闻列表 Timeout:%.3fs", watch.elapsed);
+        
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Failure: 加载要闻列表 %@",exception.reason);
+    }
+    return list;
+}
+
+
+
+/**
+ *  获取要闻 策略页面的数据
+ *  @param pageId    不同页面对应的id
+ *  @param cellCount 列数 一般为10条
+ *  @param index     次数 第几次
+ *  @return 返回的数据 存入数组中
+ */
+- (NSMutableArray *)getImportNewsStrategyRequestDataWithPageId:(int)pageId cellCount:(int)cellCount timeNumber:(int)index {
+    Stopwatch *watch = [Stopwatch startNew];
+    NSMutableArray *list = [NSMutableArray array];
+    @try {
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [parameters setValue:[NSNumber numberWithInt:cellCount] forKey:@"COUNT"];
+        [parameters setValue:[NSNumber numberWithInt:index] forKey:@"INDEX"];
+        
+        
+        BDCoreService *service = [BDCoreService new];
+        NSArray *data = [service syncRequestDatasourceService:pageId parameters:parameters query:nil];
+        
+        for (NSDictionary *item in data) {
+            BDNews *newsModel = [[BDNews alloc] init];
+            
+            newsModel.title = item[@"TIT"];//标题
+            
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            
+            if (pageId == 1582) {
+                formatter.dateFormat = @"yyyy-MM-dd";
+            } else {
+                formatter.dateFormat = @"yyyy-MM-dd HH:mm";
+            }
+            
+            newsModel.date = (item[@"PUB_DT"] == [NSNull null]) ? 0 : [formatter dateFromString:item[@"PUB_DT"]] ;//日期
+            
+            newsModel.companyName = item[@"COM_NAME"];
+            newsModel.author = (item[@"AUT"] == [NSNull null]) ? @"" : item[@"AUT"];//作者名字
+            newsModel.abstract = item[@"ABST"];//摘要
+            newsModel.ABST_SHT = item[@"ABST_SHT"];//摘要全文
             newsModel.connectId = [item[@"CONT_ID"] longValue];//正文内容对应的ID //lastId
-            
-            
-            
             
             [list addObject:newsModel];
         }

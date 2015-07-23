@@ -6,9 +6,9 @@
 //  Copyright (c) 2015年 bigdata. All rights reserved.
 //
 
-#import "BDNewsEvent.h"
+#import "BDNewsEventList.h"
 
-@implementation BDNewsEvent
+@implementation BDNewsEventList
 
 - (id)init
 {

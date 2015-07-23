@@ -72,7 +72,7 @@
     }];
 }
 
-- (NSString *)getTagLabelText:(BDNewsEvent *)news forEventEffect:(EventEffect)effect {
+- (NSString *)getTagLabelText:(BDNewsEventList *)news forEventEffect:(EventEffect)effect {
     NSString *text = @"";
     NSArray *labels = [news getLabelsWithEventEffect:effect];
     if (labels.count > 0) {
@@ -93,7 +93,7 @@
     return text;
 }
 
-- (void)setNewsEvent:(BDNewsEvent *)news
+- (void)setNewsEvent:(BDNewsEventList *)news
 {
     _newsEvent = news;
     title.text = news.title;

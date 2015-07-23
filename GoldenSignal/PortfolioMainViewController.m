@@ -133,7 +133,7 @@
 }
 
 #pragma mark - NewsEventListViewDelegate
-- (void)didSelectNewsEvent:(BDNewsEvent *)news{
+- (void)didSelectNewsEvent:(BDNewsEventList *)news{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     NewsEventDetailViewController *detailVC = [storyboard instantiateViewControllerWithIdentifier:@"NewsEventDetail"];
     detailVC.contentId = news.innerId;

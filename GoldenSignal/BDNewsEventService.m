@@ -12,9 +12,9 @@
 
 @implementation BDNewsEventService
 
-- (BDNewsEvent *)getNewsEventById:(long)innerId {
+- (BDNewsEventDetail *)getNewsEventDetailById:(long)innerId {
     Stopwatch *watch = [Stopwatch startNew];
-    BDNewsEvent *news = nil;
+    BDNewsEventDetail *detail = nil;
     
     NSHTTPURLResponse *response;
     NSError *error;
@@ -26,8 +26,7 @@
 
     @try {
         NSData *data = [[BDNetworkService sharedInstance] syncPostRequest:POSTURL parameters:parameters returnResponse:&response error:&error];
-        NSArray *newsArray = [self paraseNewsEvent:data];
-        news = [newsArray firstObject];
+        detail = [self paraseNewsEventDetail:data];
         
         [watch stop];
         NSLog(@"Success: 加载新闻内容 Timeout:%.3fs", watch.elapsed);
@@ -36,11 +35,11 @@
         NSLog(@"Failure: 加载新闻内容 %@",exception.reason);
     }
     @finally {
-        return news;
+        return detail;
     }
 }
 
-- (NSArray *)getNewsEventBySecuCodes:(NSArray *)codes tagId:(long)tagId lastId:(long)lastId quantity:(int)quantity {
+- (NSArray *)getNewsEventListBySecuCodes:(NSArray *)codes tagId:(long)tagId lastId:(long)lastId quantity:(int)quantity {
     Stopwatch *watch = [Stopwatch startNew];
     NSArray *newsArray = nil;
     
@@ -60,7 +59,7 @@
     
     @try {
         NSData *data = [[BDNetworkService sharedInstance] syncPostRequest:POSTURL parameters:parameters returnResponse:&response error:&error];
-        newsArray = [self paraseNewsEvent:data];
+        newsArray = [self paraseNewsEventList:data];
         
         [watch stop];
         NSLog(@"Success: 加载新闻列表 Timeout:%.3fs", watch.elapsed);
@@ -76,8 +75,8 @@
 
 #pragma mark - parsing
 
-// 解析新闻数据
-- (NSArray *)paraseNewsEvent:(NSData *)data {
+// 解析新闻事件列表数据
+- (NSArray *)paraseNewsEventList:(NSData *)data {
     NSMutableArray *newsArray = [NSMutableArray array];
     if (data == nil) {
         return newsArray;
@@ -87,14 +86,11 @@
     NSArray *allData = [service dataConvertToNSArray:data];
     NSArray *newsData = [[allData objectAtIndex:0] objectForKey:@"DATA"];
     for (NSDictionary *item in newsData) {
-        BDNewsEvent *news = [[BDNewsEvent alloc] init];
+        BDNewsEventList *news = [[BDNewsEventList alloc] init];
         news.innerId = [item[@"ID"] longValue];
         news.title = item[@"TIT"];
         news.date = [service deserializeJsonDateString:item[@"PUB_DT"]];
         news.abstract = [item[@"ABST"] isKindOfClass:[NSNull class]]? @"" :item[@"ABST"];
-        news.content = [item[@"CONT"] isKindOfClass:[NSNull class]]? @"" :item[@"CONT"];
-        news.author = [item[@"AUT"] isKindOfClass:[NSNull class]]? @"" :item[@"AUT"];
-        news.media = [item[@"MED_NAME"] isKindOfClass:[NSNull class]]? @"" :item[@"MED_NAME"];
         
         NSData *markData = [item[@"MARKS"] dataUsingEncoding:NSUTF8StringEncoding];
         NSError *error;
@@ -138,6 +134,28 @@
         [newsArray addObject:news];
     }
     return newsArray;
+}
+
+// 解析新闻事件详情数据
+- (BDNewsEventDetail *)paraseNewsEventDetail:(NSData *)data {
+    BDNewsEventDetail *detail = nil;
+    if (data == nil) {
+        return detail;
+    }
+    BDCoreService *service = [[BDCoreService alloc] init];
+    NSArray *allData = [service dataConvertToNSArray:data];
+    NSArray *newsData = [[allData objectAtIndex:0] objectForKey:@"DATA"];
+    for (NSDictionary *item in newsData) {
+        detail = [[BDNewsEventDetail alloc] init];
+        detail.innerId = [item[@"ID"] longValue];
+        detail.title = item[@"TIT"];
+        detail.date = [service deserializeJsonDateString:item[@"PUB_DT"]];
+        detail.content = [item[@"CONT"] isKindOfClass:[NSNull class]]? @"" :item[@"CONT"];
+        detail.media = [item[@"MED_NAME"] isKindOfClass:[NSNull class]]? @"" :item[@"MED_NAME"];
+        detail.author = [item[@"AUT"] isKindOfClass:[NSNull class]]? @"" :item[@"AUT"];
+        break;
+    }
+    return detail;
 }
 
 @end

@@ -27,6 +27,7 @@
     NSMutableArray *_allArray;
     long _lastId;
     id _temp;
+    NSUInteger _timeIndex;//次数
 }
 
 @end
@@ -68,6 +69,7 @@
 //    _allArray = [[NSMutableArray alloc]init];
     
     self.pageNumbs = 10;
+    _timeIndex = 1;
     _allArray = [[NSMutableArray alloc]init];
     [self getRequestDataResource2];
     [self refresh];
@@ -81,11 +83,14 @@
     //_innerId	long	1097587482	1097587482
     //判断上拉下拉刷新
     if (self.tableView.legendHeader.isRefreshing == YES) {
+        _lastId = 0;
+        _timeIndex = 1;
         self.pageNumbs =10;
     } else if (self.tableView.legendFooter.isRefreshing == YES) {
+        _timeIndex ++;
         [self downPullRefresh];
         return;
-//这是 数据条数变的时候 每次都重新请求一次，浪费流量
+//这是 数据条数变的时候 每次都重新请求一次，浪费性能
 //        if (_temp == _allArray.lastObject) {
 //            self.pageNumbs += 10;
 //        } else {
@@ -99,10 +104,10 @@
     dispatch_queue_t requestQueue = dispatch_queue_create("RequestData", DISPATCH_QUEUE_CONCURRENT);
     dispatch_async(requestQueue , ^{//异步请求
         if ([self.codeId isEqual:@"report"]) {
-            _firstArray = [_infoService getReportListBySecuCodes:_codeArray lastId:0 quantity:self.pageNumbs];
+            _firstArray = (NSMutableArray *)[_infoService getReportListBySecuCode:_codeArray pageIndex:_timeIndex andPageSize:self.pageNumbs];
         }
         else if ([self.codeId isEqual:@"news"]) {
-            _firstArray = [_infoService getNewsListBySecuCodes:_codeArray lastId:0 quantity:self.pageNumbs];
+            _firstArray = [_infoService getNewsListBySecuCodes:_codeArray lastId:_lastId quantity:self.pageNumbs];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             // 相当于主线程中执行
@@ -123,7 +128,7 @@
     if (_temp == _allArray.lastObject) {
         NSMutableArray *tempAry = [[NSMutableArray alloc]init];
         if ([self.codeId isEqual:@"report"]) {
-            tempAry = [_infoService getReportListBySecuCodes:_codeArray lastId:_lastId quantity:self.pageNumbs];
+            tempAry = (NSMutableArray *)[_infoService getReportListBySecuCode:_codeArray pageIndex:_timeIndex andPageSize:self.pageNumbs];
         }
         else if ([self.codeId isEqual:@"news"]) {
             tempAry = [_infoService getNewsListBySecuCodes:_codeArray lastId:_lastId quantity:self.pageNumbs];
@@ -188,7 +193,7 @@
         [newsCell showCellAndNewsModel:newsModel];
         cell = newsCell;
     }
-    
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     return cell;
 }
 
@@ -196,33 +201,40 @@
     if ([self.codeId isEqual:@"report"]) {
         ReportTableViewCell *ReportCell = (ReportTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
         //这里计算Cell的高度时必须是 自适应lebel（多个）的高度和 加上 剩余其他控件的高度
-        CGFloat cellH = ReportCell.titleLabel.frame.size.height + ReportCell.dataAndLabel.frame.size.height + ReportCell.priceLabel.frame.size.height + ReportCell.descriLabel.frame.size.height;
+        [ReportCell layoutIfNeeded];
+        CGFloat cellH = ReportCell.titleHeight + ReportCell.dataAndLabel.frame.size.height + ReportCell.priceLabel.frame.size.height + ReportCell.desHeight;
         if (ReportCell.priceLabel.hidden == YES) {
-            return cellH + 53 - 26;
+            return cellH + 55 - 20;
         } else {
-            return cellH + 53;
+            return cellH + 55;
         }
     }
     else {
         newsTableViewCell *newsCell = (newsTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
-        CGFloat cellH = newsCell.titleLabel.frame.size.height + newsCell.dataAndLabel.frame.size.height + newsCell.newsDesLabel.frame.size.height ;
-        return cellH + 48;
+        
+        [newsCell layoutIfNeeded];
+//        CGFloat cellH = [newsCell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+        
+        CGFloat cellH = newsCell.titleHeight +newsCell.dataAndLabel.frame.size.height + newsCell.desHeight;;
+        DEBUGLog(@"Debug:H%.2lf",cellH);
+        return cellH + 60;
     }
+    
 }
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if ([self.codeId isEqual:@"report"]) {
-        return 150;
-    } else {
-        return 115;
-    }
-}
+//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    if ([self.codeId isEqual:@"report"]) {
+//        return 150;
+//    } else {
+//        return 145;
+//    }
+//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if ([self.codeId isEqual:@"report"]) {
         BDReport *rModel = _allArray[indexPath.row];
-        ReportDetailViewController *RDVC = [[ReportDetailViewController alloc]initWithModel:rModel andConnectId:rModel.innerId];
+        ReportDetailViewController *RDVC = [[ReportDetailViewController alloc]initWithModel:rModel andConnectId:rModel.cont_id];
         
         //获取UIView的父层UIViewController
         id object = [self nextResponder];
@@ -251,6 +263,11 @@
     
     
 }
+
+
+
+
+
 
 
 // //////////////////////////////////////////////////////////////

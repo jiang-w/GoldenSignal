@@ -37,6 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     // Do any additional setup after loading the view from its nib.
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.opacity = 0;//透明度0 表示完全透明
@@ -73,17 +74,29 @@
     if (model.date == 0 ) {
         self.dateLabel.text = 0;
     } else {
-        
-        self.dateLabel.text = [[NSString stringWithFormat:@"%@",model.date] substringToIndex:16];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"yyyy-MM-dd HH:mm";
+        if (_pageId == 1595) {
+            formatter.dateFormat = @"yyyy-MM-dd";
+        }
+        self.dateLabel.text = [formatter stringFromDate:model.date];
     }
     
     self.mediaLabel.text = model.media;
-    self.authorLabel.text = model.author;
+    if (_pageId == 1595) {
+        self.mediaLabel.text = model.companyName;
+    }
+    
+    self.authorLabel.text = [model.author isEqualToString:@"--"] ? @"" : model.author;
     
     if (_connectId == 0) {
         self.desLabel.text = [NSString stringWithFormat:@"%@",model.title];
     } else {
-        self.desLabel.text = [NSString stringWithFormat:@"%@",model.content];
+        NSString *tempStr = model.content;
+        tempStr = [tempStr stringByReplacingOccurrencesOfString:@"<br />    " withString:@"\n\t"];
+        tempStr = [tempStr stringByReplacingOccurrencesOfString:@"<br />" withString:@""];
+        tempStr = [tempStr stringByReplacingOccurrencesOfString:@"    " withString:@"\n\t"];
+        self.desLabel.text = tempStr;
     }
     
 }
@@ -95,7 +108,9 @@
     if (model.date == 0 ) {
         self.dateLabel.text = 0;
     } else {
-        self.dateLabel.text = [[NSString stringWithFormat:@"%@",model.date] substringToIndex:10];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"yyyy-MM-dd";
+        self.dateLabel.text = [formatter stringFromDate:model.date];
     }
     
     self.mediaLabel.text = model.companyName;
@@ -106,7 +121,7 @@
     NSString *tempStr = model.ABST_SHT;
     tempStr = [tempStr stringByReplacingOccurrencesOfString:@"<br />    " withString:@"\n\t"];
     tempStr = [tempStr stringByReplacingOccurrencesOfString:@"<br />" withString:@""];
-    tempStr = [tempStr stringByReplacingOccurrencesOfString:@"    " withString:@"\t"];
+    tempStr = [tempStr stringByReplacingOccurrencesOfString:@"    " withString:@"\n\t"];
     self.desLabel.text = tempStr;
     
 }

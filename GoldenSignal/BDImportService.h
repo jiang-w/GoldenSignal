@@ -19,7 +19,18 @@
 *  @param cellNuber 列数 一般为10条
 *  @return 返回的数据 存入数组中
 */
-- (NSMutableArray *)getImportNewsListRequestDataWithPageId:(int)pageId lastCellId:(long)lastId quantity:(int)cellNumber;
+- (NSMutableArray *)getImportNewsListRequestDataWithPageId:(int)pageId lastCellId:(long)lastId quantity:(int)cellCount;
+
+
+/**
+ *  获取要闻 策略页面的数据
+ *  @param pageId    不同页面对应的id
+ *  @param cellCount 列数 一般为10条
+ *  @param index     次数 第几次
+ *  @return 返回的数据 存入数组中
+ */
+- (NSMutableArray *)getImportNewsStrategyRequestDataWithPageId:(int)pageId cellCount:(int)cellCount timeNumber:(int)index;
+
 
 
 /**
