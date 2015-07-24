@@ -166,7 +166,7 @@
     }
     
     if (cell) {
-        UILongPressGestureRecognizer *longPressDelete = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(cellLongPressDelete:)];
+        UILongPressGestureRecognizer *longPressDelete = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(cellLongPressDelete:)];
         longPressDelete.minimumPressDuration = 1.0;
         longPressDelete.delegate = self;
         longPressDelete.view.tag = indexPath.row;
@@ -178,31 +178,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     StkQuoteViewCell *cell = (StkQuoteViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-    id object = [self nextResponder];
-    while (object != nil) {
-        if (![object isKindOfClass:[UIViewController class]]) {
-            object = [object nextResponder];
-        }
-        else {
-            UIViewController *controller = (UIViewController *)object;
-            UINavigationController *nav = controller.navigationController;
-            if (nav) {
-                BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:cell.code];
-                if (secu.typ == idx) {
-                    IdxDetailViewController *idxVC = [[IdxDetailViewController alloc] initWithIdxCode:secu.bdCode];
-                    idxVC.hidesBottomBarWhenPushed = YES;
-                    [nav pushViewController:idxVC animated:NO];
-                }
-                else {
-                    StkDetailViewController *stkVC = [[StkDetailViewController alloc] initWithSecuCode:secu.bdCode];
-                    [nav pushViewController:stkVC animated:NO];
-                }
-                break;
-            }
-            else {
-                object = [object nextResponder];
-            }
-        }
+    BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:cell.code];
+    if (secu.typ == idx) {
+        IdxDetailViewController *idxVC = [[IdxDetailViewController alloc] initWithIdxCode:secu.bdCode];
+        idxVC.hidesBottomBarWhenPushed = YES;
+        [self pushViewController:idxVC animated:NO];
+    }
+    else {
+        StkDetailViewController *stkVC = [[StkDetailViewController alloc] initWithSecuCode:secu.bdCode];
+        [self pushViewController:stkVC animated:NO];
     }
 }
 
@@ -224,31 +208,24 @@
 }
 
 - (void)cellLongPressDelete:(UIGestureRecognizer *)gestureRecognizer {
-    
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        
         CGPoint point = [gestureRecognizer locationInView:self.tableView];
         _indexPath = [self.tableView indexPathForRowAtPoint:point];//记录标记
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                        message:NSLocalizedString(@"是否删除", nil)
-                                                       delegate:self
-                                              cancelButtonTitle:NSLocalizedString(@"取消", nil)
-                                              otherButtonTitles:NSLocalizedString(@"确定", nil), nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"是否删除", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"取消", nil) otherButtonTitles:NSLocalizedString(@"确定", nil), nil];
         alert.tag = 100;
         [alert show];
         
         if(_indexPath == nil)
-            return ;
+            return;
     }
 }
 
 #pragma mark UIAlertViewDelegate
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (alertView.tag == 100)
-    {
-        if (buttonIndex == 1)
-        {
+    if (alertView.tag == 100) {
+        if (buttonIndex == 1) {
             StkQuoteViewCell *cell = (StkQuoteViewCell *)[self.tableView cellForRowAtIndexPath:_indexPath];
             [[BDStockPool sharedInstance] removeStockWithCode:cell.code];
             _secuCodes = [NSArray arrayWithArray:[BDStockPool sharedInstance].codes];

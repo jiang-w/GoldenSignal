@@ -114,6 +114,7 @@
 		015E17F81B623384005FD389 /* ReportDetailViewController1.m in Sources */ = {isa = PBXBuildFile; fileRef = 015E17F71B623384005FD389 /* ReportDetailViewController1.m */; };
 		015E17FB1B623409005FD389 /* BDReportDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 015E17FA1B623409005FD389 /* BDReportDetail.m */; };
 		01642F941B5DEDE700438BDA /* InformationMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01642F931B5DEDE700438BDA /* InformationMainViewController.m */; };
+		0192DB201B6286A700D06D00 /* UIViewController+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 0192DB1F1B6286A700D06D00 /* UIViewController+Common.m */; };
 		019F2A3A1B5659C5005602B7 /* BarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 019F2A351B5659C5005602B7 /* BarView.m */; };
 		019F2A3C1B5659C5005602B7 /* FundFlowBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 019F2A381B5659C5005602B7 /* FundFlowBarView.m */; };
 		019F2A3D1B5659C5005602B7 /* FundFlowBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 019F2A391B5659C5005602B7 /* FundFlowBarView.xib */; };
@@ -383,6 +384,8 @@
 		015E17FA1B623409005FD389 /* BDReportDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDReportDetail.m; sourceTree = "<group>"; };
 		01642F921B5DEDE700438BDA /* InformationMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationMainViewController.h; sourceTree = "<group>"; };
 		01642F931B5DEDE700438BDA /* InformationMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationMainViewController.m; sourceTree = "<group>"; };
+		0192DB1E1B6286A700D06D00 /* UIViewController+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Common.h"; sourceTree = "<group>"; };
+		0192DB1F1B6286A700D06D00 /* UIViewController+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Common.m"; sourceTree = "<group>"; };
 		019F2A341B5659C5005602B7 /* BarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarView.h; sourceTree = "<group>"; };
 		019F2A351B5659C5005602B7 /* BarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarView.m; sourceTree = "<group>"; };
 		019F2A371B5659C5005602B7 /* FundFlowBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FundFlowBarView.h; sourceTree = "<group>"; };
@@ -595,6 +598,8 @@
 				011B84681B0DBADB003005BC /* Stopwatch.m */,
 				011B84691B0DBADB003005BC /* UIImageView+ImageLoading.h */,
 				011B846A1B0DBADB003005BC /* UIImageView+ImageLoading.m */,
+				0192DB1E1B6286A700D06D00 /* UIViewController+Common.h */,
+				0192DB1F1B6286A700D06D00 /* UIViewController+Common.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1180,6 +1185,7 @@
 				011B84A11B0DBC57003005BC /* BDBulletin.m in Sources */,
 				011B85071B0DBE1F003005BC /* SideMenuViewController.m in Sources */,
 				011B85551B0DBEFE003005BC /* LiteKLineView.m in Sources */,
+				0192DB201B6286A700D06D00 /* UIViewController+Common.m in Sources */,
 				011B855D1B0DBEFE003005BC /* StkDetailViewController.m in Sources */,
 				01AAD7EE1B5F6E1C0051556A /* IndexQuoteViewController.m in Sources */,
 				011B84861B0DBB83003005BC /* BDDatabaseAccess.m in Sources */,

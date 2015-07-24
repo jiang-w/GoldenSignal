@@ -14,5 +14,6 @@
 #import "UIImageView+ImageLoading.h"
 #import "Stopwatch.h"
 #import "SmartTime.h"
+#import "UIViewController+Common.h"
 
 #endif
