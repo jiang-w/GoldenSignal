@@ -359,7 +359,7 @@
                     }
                 }
             }
-            BDReport *report = (BDReport *)_quoteNewsViewModel.reportList[indexPath.row];
+            BDReportList *report = (BDReportList *)_quoteNewsViewModel.reportList[indexPath.row];
             cell.report = report;
             if (indexPath.row % 2 == 0) {
                 cell.backgroundColor = [UIColor blackColor];

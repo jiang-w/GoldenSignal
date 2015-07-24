@@ -112,7 +112,7 @@
         NSArray *data = [service syncRequestDatasourceService:1576 parameters:parameters query:nil];
         
         for (NSDictionary *item in data) {
-            BDReport *report = [[BDReport alloc] init];
+            BDReportList *report = [[BDReportList alloc] init];
             report.innerId = [item[@"ID"] longValue];
             report.title = item[@"TIT"];
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -124,7 +124,7 @@
             report.RAT_CODE = (item[@"RAT_CODE"] == [NSNull null]) ? 0 : [item[@"RAT_CODE"] longValue];
             report.targ_prc = (item[@"TARG_PRC"] == [NSNull null]) ? 0.00 : [item[@"TARG_PRC"] floatValue];
             report.com = item[@"COM_NAME"];
-            report.aut = item[@"AUT"];
+            report.aut = (item[@"AUT"] == [NSNull null]) ? @"" : item[@"AUT"];
             report.abst = item[@"ABST"];
             report.cont_id = [item[@"CONT_ID"] longValue];
             [list addObject:report];
@@ -259,14 +259,14 @@
  *
  *  @return 返回一个model
  */
-- (BDReport *)getReportDetailById:(long)connectId {
-    BDReport *report = nil;
+- (BDReportList *)getReportDetailById:(long)connectId {
+    BDReportList *report = nil;
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setValue:[NSNumber numberWithLong:connectId] forKey:@"CONT_ID"];
     BDCoreService *service = [BDCoreService new];
     NSArray *data = [service syncRequestDatasourceService:1595 parameters:parameters query:nil];
     for (NSDictionary *item in data) {
-        report = [[BDReport alloc] init];
+        report = [[BDReportList alloc] init];
         report.title = item[@"TIT"];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         formatter.dateFormat = @"yyyy-MM-dd";
@@ -279,7 +279,7 @@
         report.com = item[@"COM_NAME"];
         report.aut = item[@"AUT"];
         report.cont_id = [item[@"CONT_ID"] longValue];//链接Id
-        report.CONT = item[@"CONT"];
+//        report.CONT = item[@"CONT"];
         break;
     }
     return report;

@@ -71,7 +71,7 @@
  *
  *  @return 返回一个model
  */
-- (BDReport *)getReportDetailById:(long)connectId;
+- (BDReportList *)getReportDetailById:(long)connectId;
 
 
 

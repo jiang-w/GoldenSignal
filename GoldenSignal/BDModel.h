@@ -21,7 +21,7 @@
 #import "BDTrendLine.h"
 #import "BDSubDeal.h"
 #import "BDBulletin.h"
-#import "BDReport.h"
+#import "BDReportList.h"
 #import "BDStockPool.h"
 #import "BDSectInfo.h"
 #import "BDPrompt.h"
@@ -29,5 +29,6 @@
 #import "BDNewsEventList.h"
 #import "BDNewsEventDetail.h"
 #import "BDNewsDetail.h"
+#import "BDReportDetail.h"
 
 #endif

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BDReport : NSObject
+@interface BDReportList : NSObject
 
 /**
  *  研报ID
@@ -29,11 +29,11 @@
  *  当前评级
  */
 @property(nonatomic, strong) NSString *rating;
+
 /**
  *  评级对应的Code
  */
 @property(nonatomic, assign) long RAT_CODE;
-
 
 /**
  *  机构
@@ -56,22 +56,14 @@
 @property(nonatomic, strong) NSString *abst;
 
 /**
- *  摘要全文
- */
-@property(nonatomic, copy) NSString *abstsht;
-
-/**
  *  序号
  */
 @property(nonatomic, assign) long sn;
 
-
-//cell 与详情页面链接的 id
-@property(nonatomic, assign) long cont_id;
 /**
- *  全部内容
+ *  内容ID
  */
-@property(nonatomic, strong) NSString *CONT;
+@property(nonatomic, assign) long cont_id;
 
 
 @end

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 //两个Model
-#import "BDReport.h"
+#import "BDReportList.h"
 #import "BDNews.h"
 
 @interface ReportTableViewCell : UITableViewCell
@@ -29,7 +29,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *descriLabel;
 
 
-- (void)showCellAndReportModel:(BDReport *)model;
+- (void)showCellAndReportModel:(BDReportList *)model;
 
 //赋值 and 自动换行,计算出cell的高度
 - (void)setContentLabels:(UILabel *)label andText:(NSString *)text;

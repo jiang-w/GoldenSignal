@@ -27,8 +27,8 @@
 
 
 //reportModel 研报信息 加载到Cell      //rModel.rating 买入、增持、谨慎增持、中性、推荐、强力推荐、
-- (void)showCellAndReportModel:(BDReport *)model{
-    BDReport *rModel = (BDReport *)model;
+- (void)showCellAndReportModel:(BDReportList *)model{
+    BDReportList *rModel = (BDReportList *)model;
 
 //    NSString *titleStr = [NSMutableString stringWithFormat:@"%@ %@",rModel.rating,rModel.title];//新闻标题
     [self changeColorLabel:self.titleLabel RatingText:rModel.rating RateCode:rModel.RAT_CODE andOtherText:rModel.title];//传的新闻标题的label的两个字段

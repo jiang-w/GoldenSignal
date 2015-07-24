@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <style type='text/css'>
+            html { font-family:Helvetica; color:#222 }
+            h1 { color:black; font-size:16px; margin-top:10px; text-align:left }
+            h2 { color:steelblue; font-size:12px; text-align:left; font-weight:lighter }
+            #ratDiv {font-size:12px;}
+            p {text-indent: 2em; color:black; font-size:14px; line-height:30px; text-align:left; word-break:break-all }
+        </style>
+    </head>
+    <body onload="myFun()">
+        <h1>${title}</h1>
+        <h2>${date}&nbsp;&nbsp;${com_name}&nbsp;&nbsp;${author}</h2>
+        <div id="ratDiv">评级：<span id="ratSpan">${rat_name}</span>&nbsp;&nbsp;目标价：${prc}</div>
+        <div><p>${content}</p></div>
+    </body>
+
+    <script type="text/javascript">
+  		function myFun() {
+  			var obj = window.document.getElementById("ratDiv");
+  			var rat_code = ${rat_code};
+  			if (rat_code == 0) {
+				obj.style.display = 'none';
+  			}
+  			else {
+				obj.style.display = '';
+				var txt = window.document.getElementById("ratSpan");
+				switch(rat_code)
+				{
+					case 10:
+					  txt.style.color = "red";
+					  break;
+					case 20:
+					  txt.style.color = "FFC000";
+					  break;
+					case 30:
+					  txt.style.color = "0070C0";
+					  break;
+					case 40:
+					  txt.style.color = "4F6228";
+					  break;
+					case 50:
+					  txt.style.color = "00B050";
+					  break;
+					default:
+					  txt.style.color = "black";
+				}
+  			}
+  		}
+
+	</script>
+</html>

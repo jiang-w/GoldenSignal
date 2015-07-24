@@ -136,25 +136,25 @@
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section{
     
     UITableViewHeaderFooterView *headView = (UITableViewHeaderFooterView *)view;
+    UILabel *tempLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 200, 20)];
+    tempLabel.backgroundColor = [UIColor blackColor];
+    [headView addSubview:tempLabel];
     if (section == 0) {
-        headView.textLabel.text = @"常用指数";
+        tempLabel.text = @"常用指数";
         if (_indexArray.count == 0){
-            headView.textLabel.text = @"";
+            tempLabel.text = @"";
             headView.hidden = YES;
         }
     } else if (section == 1){
-        headView.textLabel.text = @"行业指数";
+        tempLabel.text = @"行业指数";
         if (_indexArray2.count == 0){
-            headView.textLabel.text = @"";
+            tempLabel.text = @"";
             headView.hidden = YES;
         }
     }
-    view.tintColor = RGB(17, 17, 17, 1);
-    headView.textLabel.font = [UIFont systemFontOfSize:14];
-    headView.textLabel.textColor = [UIColor orangeColor];
-    CGRect frame = headView.textLabel.frame;
-    frame.origin.x = 10;
-    headView.textLabel.frame = frame;
+    view.tintColor = [UIColor blackColor];
+    tempLabel.font = [UIFont systemFontOfSize:14];
+    tempLabel.textColor = [UIColor whiteColor];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

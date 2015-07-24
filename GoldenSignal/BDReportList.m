@@ -6,8 +6,8 @@
 //  Copyright (c) 2014年 bigdata. All rights reserved.
 //
 
-#import "BDReport.h"
+#import "BDReportList.h"
 
-@implementation BDReport
+@implementation BDReportList
 
 @end

@@ -14,8 +14,7 @@
 #import <MJRefresh.h>
 #import <MJRefreshFooter.h>
 
-#import "ReportDetailViewController.h"//研报详情页面
-#import "NewsContentViewController.h"//新闻详情页面
+#import "ReportDetailViewController1.h"//研报详情页面
 #import "NewsDetailViewController.h"
 
 
@@ -196,7 +195,7 @@
     UITableViewCell *cell = nil;
     
     if ([self.codeId isEqual:@"report"]) {
-        BDReport *rModel = _allArray[indexPath.row];
+        BDReportList *rModel = _allArray[indexPath.row];
         ReportTableViewCell *ReportCell = [tableView dequeueReusableCellWithIdentifier:@"ReportNewsCell" ] ;
         //把Model里面解析出来的数据 加载到Cell里面
         [ReportCell showCellAndReportModel:rModel];
@@ -256,8 +255,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if ([self.codeId isEqual:@"report"]) {
-        BDReport *rModel = _allArray[indexPath.row];
-        ReportDetailViewController *RDVC = [[ReportDetailViewController alloc]initWithModel:rModel andConnectId:rModel.cont_id];
+        BDReportList *rModel = _allArray[indexPath.row];
+        ReportDetailViewController1 *detail = [[ReportDetailViewController1 alloc] init];
+        detail.contentId = rModel.cont_id;
         
         //获取UIView的父层UIViewController
         id object = [self nextResponder];
@@ -267,7 +267,7 @@
         }
         UIViewController *uc=(UIViewController*)object;
         
-        [uc.navigationController pushViewController:RDVC animated:YES];
+        [uc.navigationController pushViewController:detail animated:YES];
     }
     else if ([self.codeId isEqual:@"news"]) {
         BDNews *newsModel = _allArray[indexPath.row];

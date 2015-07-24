@@ -17,8 +17,8 @@
 #import "ImportsTableViewCell.h"
 
 //详情页面 调用自选股的新闻详情页面
-#import "NewsContentViewController.h"
 #import "NewsDetailViewController.h"
+#import "ReportDetailViewController1.h"
 
 @interface ImportTableViewController ()
 {
@@ -191,7 +191,8 @@
 
     if (_pageId == 1582) {
         BDNews *newsModel = _allArray[indexPath.row];
-        NewsContentViewController *NCVC = [[NewsContentViewController alloc]initWithModel:newsModel andId:newsModel.connectId andPageId:1595];
+        ReportDetailViewController1 *detail = [[ReportDetailViewController1 alloc] init];
+        detail.contentId = newsModel.connectId;
         
         //获取UIView的父层UIViewController
         id object = [self nextResponder];
@@ -201,7 +202,7 @@
         }
         UIViewController *uc=(UIViewController*)object;
         
-        [uc.navigationController pushViewController:NCVC animated:YES];
+        [uc.navigationController pushViewController:detail animated:YES];
         DEBUGLog(@"Debug:aa");
     }
     else {

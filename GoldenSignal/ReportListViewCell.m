@@ -21,7 +21,7 @@
     // Configure the view for the selected state
 }
 
-- (void)setReport:(BDReport *)report {
+- (void)setReport:(BDReportList *)report {
     _report = report;
     self.title.text = report.title;
     if ([report.date isSameDay:[NSDate date]]) {

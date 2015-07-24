@@ -36,7 +36,7 @@
                                @"filter": [NSString stringWithFormat:@"{\"LeftPart\":{\"LeftPart\":\"SN\",\"RightPart\":%ld,\"Mode\":0},\"RightPart\":{\"LeftPart\":\"SN\",\"RightPart\":%ld,\"Mode\":3},\"Mode\":9}", sn, sn + quantity]};
     NSArray *data = [service syncRequestDatasourceService:1550 parameters:paramDic query:nil];
     for (NSDictionary *item in data) {
-        BDReport *report = [[BDReport alloc] init];
+        BDReportList *report = [[BDReportList alloc] init];
         report.innerId = [item[@"ID"] longValue];
         report.title = item[@"TIT"];
         report.date = [service deserializeJsonDateString:item[@"PUB_DT"]];
