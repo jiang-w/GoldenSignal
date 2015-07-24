@@ -95,26 +95,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    id object = [self nextResponder];
-    while (object != nil) {
-        if (![object isKindOfClass:[UIViewController class]]) {
-            object = [object nextResponder];
-        }
-        else {
-            UIViewController *controller = (UIViewController *)object;
-            UINavigationController *nav = controller.navigationController;
-            if (nav) {
-                BDSecuNews *news = _newsList[indexPath.row];
-                NewsDetailViewController *detail = [[NewsDetailViewController alloc] init];
-                detail.contentId = news.contentId;
-                [nav pushViewController:detail animated:YES];
-                break;
-            }
-            else {
-                object = [object nextResponder];
-            }
-        }
-    }
+    BDSecuNews *news = _newsList[indexPath.row];
+    NewsDetailViewController *detail = [[NewsDetailViewController alloc] init];
+    detail.contentId = news.contentId;
+    [self pushViewController:detail animated:YES];
 }
 
 
