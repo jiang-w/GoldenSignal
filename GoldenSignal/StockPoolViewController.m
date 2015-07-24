@@ -178,19 +178,31 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     StkQuoteViewCell *cell = (StkQuoteViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-//    BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:cell.code];
-//    if (secu.typ == idx) {
-//        IdxDetailViewController *idxVC = [[IdxDetailViewController alloc] initWithIdxCode:secu.bdCode];
-//        idxVC.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:idxVC animated:NO];
-//    }
-//    else {
-//        StkDetailViewController *stkVC = [[StkDetailViewController alloc] initWithSecuCode:secu.bdCode];
-//        [self.navigationController pushViewController:stkVC animated:NO];
-//    }
-    
-    if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectRowSecu:)]) {
-        [self.delegate didSelectRowSecu:cell.code];
+    id object = [self nextResponder];
+    while (object != nil) {
+        if (![object isKindOfClass:[UIViewController class]]) {
+            object = [object nextResponder];
+        }
+        else {
+            UIViewController *controller = (UIViewController *)object;
+            UINavigationController *nav = controller.navigationController;
+            if (nav) {
+                BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:cell.code];
+                if (secu.typ == idx) {
+                    IdxDetailViewController *idxVC = [[IdxDetailViewController alloc] initWithIdxCode:secu.bdCode];
+                    idxVC.hidesBottomBarWhenPushed = YES;
+                    [nav pushViewController:idxVC animated:NO];
+                }
+                else {
+                    StkDetailViewController *stkVC = [[StkDetailViewController alloc] initWithSecuCode:secu.bdCode];
+                    [nav pushViewController:stkVC animated:NO];
+                }
+                break;
+            }
+            else {
+                object = [object nextResponder];
+            }
+        }
     }
 }
 

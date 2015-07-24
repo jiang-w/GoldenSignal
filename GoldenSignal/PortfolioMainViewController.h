@@ -11,6 +11,6 @@
 #import "NewsEventListViewController.h"
 #import "StockPoolViewController.h"
 
-@interface PortfolioMainViewController : UIViewController<UIScrollViewDelegate, TitleTabViewDelegate, StockPoolViewDelegate, NewsEventListViewDelegate>
+@interface PortfolioMainViewController : UIViewController<UIScrollViewDelegate, TitleTabViewDelegate, NewsEventListViewDelegate>
 
 @end

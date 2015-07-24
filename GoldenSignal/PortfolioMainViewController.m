@@ -81,7 +81,6 @@
     
     if ([code isEqualToString:@"quote"]) {
         StockPoolViewController *optionalVC = [[StockPoolViewController alloc] init];
-        optionalVC.delegate = self;
         controller = optionalVC;
     }
     else if ([code isEqualToString:@"goldenSignal"]) {
@@ -111,25 +110,11 @@
     }
 }
 
+
 #pragma mark - ScrollView Delegate
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scroll {
     NSInteger index = scroll.contentOffset.x / CGRectGetWidth(_scrollView.frame);
     [_titleTabVC changeSelectedIndex:index];
-}
-
-#pragma mark - StockPoolViewDelegate
-
-- (void)didSelectRowSecu:(NSString *)secuCode {
-    BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:secuCode];
-    if (secu.typ == idx) {
-        IdxDetailViewController *idxVC = [[IdxDetailViewController alloc] initWithIdxCode:secu.bdCode];
-        idxVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:idxVC animated:NO];
-    }
-    else {
-        StkDetailViewController *stkVC = [[StkDetailViewController alloc] initWithSecuCode:secu.bdCode];
-        [self.navigationController pushViewController:stkVC animated:NO];
-    }
 }
 
 #pragma mark - NewsEventListViewDelegate

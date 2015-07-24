@@ -219,7 +219,7 @@
     if ([self.codeId isEqual:@"report"]) {
         ReportTableViewCell *ReportCell = (ReportTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
         //这里计算Cell的高度时必须是 自适应lebel（多个）的高度和 加上 剩余其他控件的高度
-        [ReportCell layoutIfNeeded];
+//        [ReportCell layoutIfNeeded];
         return ReportCell.rowHeight;
     }
     else {
@@ -228,7 +228,7 @@
         [newsCell layoutIfNeeded];
         //        CGFloat cellH = [newsCell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
         
-        CGFloat cellH = newsCell.titleHeight +newsCell.dataAndLabel.frame.size.height + newsCell.desHeight + 60;
+        CGFloat cellH = newsCell.titleHeight +newsCell.dataAndLabel.frame.size.height + newsCell.desHeight + 42;
 //        DEBUGLog(@"11Debug:H%.2lf",cellH);
         return cellH;
     }

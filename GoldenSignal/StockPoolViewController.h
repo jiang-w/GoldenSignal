@@ -8,14 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol StockPoolViewDelegate <NSObject>
-
-- (void)didSelectRowSecu:(NSString *)secuCode;
-
-@end
-
 @interface StockPoolViewController : UITableViewController<UIGestureRecognizerDelegate>
-
-@property (nonatomic, weak) id <StockPoolViewDelegate> delegate;
 
 @end
