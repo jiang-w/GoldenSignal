@@ -33,19 +33,20 @@
     [container addSubview:title];
     
     date = [UILabel new];
-    date.font = [UIFont systemFontOfSize:10];
+    date.font = [UIFont systemFontOfSize:12];
     date.textColor = RGB(43, 176, 241, 1);
     [container addSubview:date];
     
     detail = [UILabel new];
-    detail.font = [UIFont systemFontOfSize:12];
+    detail.font = [UIFont systemFontOfSize:14];
+    detail.textColor = [UIColor darkGrayColor];
     detail.numberOfLines = 2;
     [container addSubview:detail];
     
     tagContainer = [UIView new];
     [container addSubview:tagContainer];
     
-    UIEdgeInsets padding = UIEdgeInsetsMake(10, 16, 10, 10);
+    UIEdgeInsets padding = UIEdgeInsetsMake(10, 8, 10, 8);
     [container mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(SCREEN_WIDTH);
     }];
@@ -72,27 +73,7 @@
     }];
 }
 
-- (NSString *)getTagLabelText:(BDNewsEventList *)news forEventEffect:(EventEffect)effect {
-    NSString *text = @"";
-    NSArray *labels = [news getLabelsWithEventEffect:effect];
-    if (labels.count > 0) {
-        for (BDNewsTag *label in labels) {
-            if ([text isNullOrEmpty]) {
-                text = label.name;
-            }
-            else {
-                if (effect == 5) {
-                    text = [NSString stringWithFormat:@"%@ | %@", text, label.name];
-                }
-                else {
-                    text = [NSString stringWithFormat:@"%@,%@", text, label.name];
-                }
-            }
-        }
-    }
-    return text;
-}
-
+// 在视图中添加新闻事件标签
 - (void)setNewsEvent:(BDNewsEventList *)news
 {
     _newsEvent = news;
@@ -175,6 +156,28 @@
             }
         }
     }
+}
+
+// 拼接新闻事件标签字符串
+- (NSString *)getTagLabelText:(BDNewsEventList *)news forEventEffect:(EventEffect)effect {
+    NSString *text = @"";
+    NSArray *labels = [news getLabelsWithEventEffect:effect];
+    if (labels.count > 0) {
+        for (BDNewsTag *label in labels) {
+            if ([text isNullOrEmpty]) {
+                text = label.name;
+            }
+            else {
+                if (effect == 5) {
+                    text = [NSString stringWithFormat:@"%@ | %@", text, label.name];
+                }
+                else {
+                    text = [NSString stringWithFormat:@"%@,%@", text, label.name];
+                }
+            }
+        }
+    }
+    return text;
 }
 
 @end

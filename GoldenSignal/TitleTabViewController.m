@@ -75,12 +75,12 @@ static NSString * const reuseIdentifier = @"TitleTabCell";
 
 - (void)setSelectedStyleForCell:(TitleTabCell *)cell {
     cell.textLabel.textColor = [UIColor redColor];
-    cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
+    cell.textLabel.font = [UIFont boldSystemFontOfSize:16];
 }
 
 - (void)removeSelectedStyleForCell:(TitleTabCell *)cell {
     cell.textLabel.textColor = [UIColor blackColor];
-    cell.textLabel.font = [UIFont systemFontOfSize:13];
+    cell.textLabel.font = [UIFont boldSystemFontOfSize:16];
 }
 
 
@@ -121,7 +121,7 @@ static NSString * const reuseIdentifier = @"TitleTabCell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *item = [self.tabArray objectAtIndex:indexPath.row];
     NSString *name = item.allValues.firstObject;
-    CGSize size = [name sizeWithFont:[UIFont systemFontOfSize:14] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    CGSize size = [name sizeWithFont:[UIFont boldSystemFontOfSize:16] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
     return size;
 }
 

@@ -50,7 +50,7 @@
     [super viewDidLoad];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ImportsTableViewCell" bundle:nil] forCellReuseIdentifier:@"ImportCell"];
-    
+   
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.opacity = 0;//透明度0 表示完全透明
     hud.activityIndicatorColor = [UIColor blackColor];
@@ -173,13 +173,17 @@
         return cellH;
     } else {
         CGFloat cellH = cell.titleHeight + cell.dateLabel.frame.size.height + cell.desHeight + 60;
+        DEBUGLog(@"11Debug:H%.2lf",cellH);
         return cellH;
     }
     
 }
-//
+
 //- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    return 144;
+//    CGFloat cellH = [self tableView:self.tableView heightForRowAtIndexPath:indexPath];
+//    DEBUGLog(@"2222Debug:H%.2lf",cellH);
+//    return cellH;
+////    return 144;
 //}
 
 
@@ -212,7 +216,6 @@
             object = [object nextResponder];
         }
         UIViewController *uc=(UIViewController*)object;
-        
         [uc.navigationController pushViewController:detail animated:YES];
     }
 }

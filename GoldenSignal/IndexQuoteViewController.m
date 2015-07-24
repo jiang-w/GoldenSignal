@@ -149,9 +149,12 @@
             headView.hidden = YES;
         }
     }
-    view.tintColor = [UIColor blackColor];
-    headView.textLabel.font = [UIFont systemFontOfSize:15];
+    view.tintColor = RGB(17, 17, 17, 1);
+    headView.textLabel.font = [UIFont systemFontOfSize:14];
     headView.textLabel.textColor = [UIColor orangeColor];
+    CGRect frame = headView.textLabel.frame;
+    frame.origin.x = 10;
+    headView.textLabel.frame = frame;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

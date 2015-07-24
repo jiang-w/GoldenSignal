@@ -15,7 +15,8 @@
 #import <MJRefreshFooter.h>
 
 #import "ReportDetailViewController.h"//研报详情页面
-#import "NewsDetailViewController.h"//新闻详情页面
+#import "NewsContentViewController.h"//新闻详情页面
+#import "NewsDetailViewController.h"
 
 
 
@@ -35,6 +36,20 @@
 
 
 @implementation ReportTableViewController
+
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+    DEBUGLog(@"Debug:11");
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self.tableView reloadData];
+    DEBUGLog(@"Debug:222");
+}
+
 
 #pragma mark -- 刷新
 - (void)refresh{
@@ -185,12 +200,15 @@
         ReportTableViewCell *ReportCell = [tableView dequeueReusableCellWithIdentifier:@"ReportNewsCell" ] ;
         //把Model里面解析出来的数据 加载到Cell里面
         [ReportCell showCellAndReportModel:rModel];
+        ReportCell.tag = indexPath.row +100;
+//        self.tableView.rowHeight = ReportCell.rowHeight;
         cell = ReportCell;
     }
     else if ([self.codeId isEqual:@"news"]) {
         BDNews *newsModel = _allArray[indexPath.row];
         newsTableViewCell *newsCell = [tableView dequeueReusableCellWithIdentifier:@"newsTableCell"];
         [newsCell showCellAndNewsModel:newsModel];
+        newsCell.tag = indexPath.row + 200;
         cell = newsCell;
     }
     self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -198,37 +216,42 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
     if ([self.codeId isEqual:@"report"]) {
         ReportTableViewCell *ReportCell = (ReportTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
         //这里计算Cell的高度时必须是 自适应lebel（多个）的高度和 加上 剩余其他控件的高度
         [ReportCell layoutIfNeeded];
-        CGFloat cellH = ReportCell.titleHeight + ReportCell.dataAndLabel.frame.size.height + ReportCell.priceLabel.frame.size.height + ReportCell.desHeight;
-        if (ReportCell.priceLabel.hidden == YES) {
-            return cellH + 55 - 20;
-        } else {
-            return cellH + 55;
-        }
+        return ReportCell.rowHeight;
     }
     else {
         newsTableViewCell *newsCell = (newsTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
         
         [newsCell layoutIfNeeded];
-//        CGFloat cellH = [newsCell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+        //        CGFloat cellH = [newsCell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
         
-        CGFloat cellH = newsCell.titleHeight +newsCell.dataAndLabel.frame.size.height + newsCell.desHeight;;
-        DEBUGLog(@"Debug:H%.2lf",cellH);
-        return cellH + 60;
+        CGFloat cellH = newsCell.titleHeight +newsCell.dataAndLabel.frame.size.height + newsCell.desHeight + 60;
+        DEBUGLog(@"11Debug:H%.2lf",cellH);
+        return cellH;
     }
-    
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if ([self.codeId isEqual:@"report"]) {
-//        return 150;
-//    } else {
-//        return 145;
-//    }
-//}
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    CGFloat cellH = [self tableView:self.tableView heightForRowAtIndexPath:indexPath];
+//    DEBUGLog(@"222222222Debug:H%.2lf",cellH);
+//    return cellH;
+    
+    if ([self.codeId isEqual:@"report"]) {
+        ReportTableViewCell *ReportCell = (ReportTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
+        if (ReportCell.priceLabel.hidden == YES) {
+            return 137;
+        } else{
+            return 152;
+        }
+       
+    } else {
+        return 145;
+    }
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -248,8 +271,8 @@
     }
     else if ([self.codeId isEqual:@"news"]) {
         BDNews *newsModel = _allArray[indexPath.row];
-        NewsDetailViewController *ONDVC = [[NewsDetailViewController alloc] init];
-        ONDVC.contentId = newsModel.connectId;
+        NewsDetailViewController *detail = [[NewsDetailViewController alloc] init];
+        detail.contentId = newsModel.connectId;
         
         //获取UIView的父层UIViewController
         id object = [self nextResponder];
@@ -259,10 +282,8 @@
         }
         UIViewController *uc=(UIViewController*)object;
         
-        [uc.navigationController pushViewController:ONDVC animated:YES];
+        [uc.navigationController pushViewController:detail animated:YES];
     }
-    
-    
 }
 
 

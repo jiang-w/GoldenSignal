@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -18,15 +17,15 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j90-WI-zt6" userLabel="SecondView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m9P-rc-BCC" userLabel="title">
-                                <rect key="frame" x="10" y="10" width="302" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m9P-rc-BCC" userLabel="title">
+                                <rect key="frame" x="8" y="10" width="304" height="17"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="日期" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uat-4n-mVc" userLabel="日期">
-                                <rect key="frame" x="10" y="37" width="28" height="18"/>
+                                <rect key="frame" x="8" y="37" width="28" height="18"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="Y7J-DT-FdI"/>
@@ -42,16 +41,16 @@
                             <constraint firstItem="Uat-4n-mVc" firstAttribute="top" secondItem="m9P-rc-BCC" secondAttribute="bottom" constant="10" id="BIF-4X-aa8"/>
                             <constraint firstAttribute="bottom" secondItem="Uat-4n-mVc" secondAttribute="bottom" constant="9" id="eoi-ac-NJE"/>
                             <constraint firstItem="m9P-rc-BCC" firstAttribute="top" secondItem="j90-WI-zt6" secondAttribute="top" constant="10" id="jgZ-kA-7XO"/>
-                            <constraint firstItem="m9P-rc-BCC" firstAttribute="leading" secondItem="j90-WI-zt6" secondAttribute="leading" constant="10" id="sKk-td-47S"/>
-                            <constraint firstItem="Uat-4n-mVc" firstAttribute="leading" secondItem="j90-WI-zt6" secondAttribute="leading" constant="10" id="yCO-cH-Drq"/>
+                            <constraint firstItem="m9P-rc-BCC" firstAttribute="leading" secondItem="j90-WI-zt6" secondAttribute="leading" constant="8" id="sKk-td-47S"/>
+                            <constraint firstItem="Uat-4n-mVc" firstAttribute="leading" secondItem="j90-WI-zt6" secondAttribute="leading" constant="8" id="yCO-cH-Drq"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="j90-WI-zt6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="6Hh-JE-jnf"/>
-                    <constraint firstItem="j90-WI-zt6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="GCq-8u-yna"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="j90-WI-zt6" secondAttribute="bottom" constant="-8" id="PxK-At-DsH"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="j90-WI-zt6" secondAttribute="trailing" constant="-8" id="a6v-4x-tXO"/>
+                    <constraint firstAttribute="bottom" secondItem="j90-WI-zt6" secondAttribute="bottom" id="0ak-dv-nRH"/>
+                    <constraint firstItem="j90-WI-zt6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ORl-0X-6Ub"/>
+                    <constraint firstAttribute="trailing" secondItem="j90-WI-zt6" secondAttribute="trailing" id="hip-oE-NEu"/>
+                    <constraint firstItem="j90-WI-zt6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="meS-3J-wtG"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

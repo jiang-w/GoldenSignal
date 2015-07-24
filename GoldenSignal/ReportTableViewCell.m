@@ -39,20 +39,27 @@
     NSString *dateStr = [[NSString stringWithFormat:@"%@",rModel.date] substringToIndex:10];
     self.dataAndLabel.text = [NSString stringWithFormat:@"%@ %@ %@",dateStr,rModel.com,rModel.aut];
     
+    [self setContentLabels:self.descriLabel andText:[NSString stringWithFormat:@"\t%@",rModel.abst]];//摘要描述 自适应布局
+    _desHeight = [self calcHightWithString:self.descriLabel];
+    
+    
     if (rModel.targ_prc == 0.00) {
-        self.priceLabel.frame = CGRectMake(self.priceLabel.frame.origin.x, self.priceLabel.frame.origin.y, self.priceLabel.frame.size.width, 0);
         self.priceLabel.hidden = YES;
+        self.thirdView.frame = CGRectMake(self.thirdView.frame.origin.x, self.thirdView.frame.origin.y, self.thirdView.frame.size.width, 17);
         
-        CGRect frameDes = [self.descriLabel frame];
-        frameDes.origin.y = self.titleLabel.frame.size.height + self.dataAndLabel.frame.size.height +30;
-        self.descriLabel.frame = frameDes;//描述label的坐标y上移
+//        CGRect frameDes = [self.descriLabel frame];
+//        frameDes.origin.y = self.titleLabel.frame.size.height + self.dataAndLabel.frame.size.height +27;
+        
+        self.descriLabel.frame = CGRectMake(self.descriLabel.frame.origin.x, self.thirdView.frame.origin.y + 27, self.descriLabel.frame.size.width, self.descriLabel.frame.size.height);//描述label的坐标y上移
+        
+        _rowHeight = _titleHeight + self.thirdView.frame.size.height + _desHeight + 40;
+        
     } else {
         self.priceLabel.hidden = NO;
         self.priceLabel.text = [NSString stringWithFormat:@"目标价: %.2lf",rModel.targ_prc];
+        
+        _rowHeight = _titleHeight + self.thirdView.frame.size.height + _desHeight + 40;
     }
-    
-    [self setContentLabels:self.descriLabel andText:[NSString stringWithFormat:@"\t%@",rModel.abst]];//摘要描述 自适应布局
-    _desHeight = [self calcHightWithString:self.descriLabel];
 }
 
 

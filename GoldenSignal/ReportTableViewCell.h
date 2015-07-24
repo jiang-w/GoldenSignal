@@ -15,6 +15,8 @@
 
 @property (weak, nonatomic) IBOutlet UIView *contenView;
 @property (weak, nonatomic) IBOutlet UIView *secondView;
+@property (weak, nonatomic) IBOutlet UIView *thirdView;
+
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
@@ -35,5 +37,7 @@
 
 @property (nonatomic,assign) CGFloat titleHeight;
 @property (nonatomic,assign) CGFloat desHeight;
+
+@property (nonatomic,assign) CGFloat rowHeight;
 
 @end

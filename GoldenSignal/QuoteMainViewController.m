@@ -37,7 +37,7 @@
     [self.view addSubview:titleTabVC.view];
     [titleTabVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.equalTo(self.view);
-        make.height.mas_equalTo(30);
+        make.height.mas_equalTo(32);
         make.top.equalTo(self.view).with.offset(64);
     }];
     
