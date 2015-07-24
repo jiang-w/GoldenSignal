@@ -18,13 +18,16 @@
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 
 
-
+@property (nonatomic,assign) CGFloat cellRowHeight;
 
 - (void)showGongGaoCellAndModel:(NSObject *)model;
 - (void)showYeJiCellAndModel:(NSObject *)model;
 
 //赋值 and 自动换行,计算出cell的高度
 -(void)setContentLabels:(UILabel *)label andText:(NSString *)text;
+
+
+
 
 
 @end

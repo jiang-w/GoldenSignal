@@ -31,6 +31,8 @@
     if (self.contentId > 0) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.labelText = @"加载中...";
+        hud.opacity = 0;
+        hud.activityIndicatorColor = [UIColor blackColor];
         loadDataQueue = dispatch_queue_create("loadData", nil);
         dispatch_async(loadDataQueue, ^{
             _news = [self getNewsDetailById:self.contentId];

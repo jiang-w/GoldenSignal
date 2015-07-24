@@ -111,7 +111,7 @@
 //            return;
 //        }
     }
-    DEBUGLog(@"DEBUGLog2ar=%@,cou=%ld,2c=%d",_codeArray,_codeArray.count,self.pageNumbs);
+//    DEBUGLog(@"DEBUGLog2ar=%@,cou=%ld,2c=%d",_codeArray,_codeArray.count,self.pageNumbs);
 
 #pragma mark --异步加载
     dispatch_queue_t requestQueue = dispatch_queue_create("RequestData", DISPATCH_QUEUE_CONCURRENT);
@@ -232,22 +232,21 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([self.InformationId isEqual:@"tiShi"]) {
         InfomationsTableViewCell *cell = (InfomationsTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
-        CGFloat cellH = cell.titleLabelHeight + cell.dateLabel.frame.size.height +40;
+        CGFloat cellH = cell.titleLabelHeight + cell.dateLabel.frame.size.height +30;
+//        DEBUGLog(@"11Debug:H%.2lf",cellH);
         return cellH;
     } else {
         PerformanceTableViewCell *cell = (PerformanceTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
-        CGFloat cellH = cell.title1.frame.size.height + cell.contentLabel.frame.size.height+30;
-        return cellH;
+//        CGFloat cellH = cell.title1.frame.size.height + cell.contentLabel.frame.size.height+30;
+        return cell.cellRowHeight;
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if ([self.InformationId isEqual:@"tiShi"]) {
-        return 125;
-    } else {
-        return  85;
-    }
-}
+//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    CGFloat cellH = [self tableView:self.tableView heightForRowAtIndexPath:indexPath];
+//    DEBUGLog(@"2222Debug:H%.2lf",cellH);
+//    return cellH;
+//}
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -263,7 +262,6 @@
             object = [object nextResponder];
         }
         UIViewController *uc=(UIViewController*)object;
-        
         [uc.navigationController pushViewController:BVC animated:YES];
     } else {
         return;

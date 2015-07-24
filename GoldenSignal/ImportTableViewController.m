@@ -173,7 +173,7 @@
         return cellH;
     } else {
         CGFloat cellH = cell.titleHeight + cell.dateLabel.frame.size.height + cell.desHeight + 60;
-        DEBUGLog(@"11Debug:H%.2lf",cellH);
+//        DEBUGLog(@"11Debug:H%.2lf",cellH);
         return cellH;
     }
     

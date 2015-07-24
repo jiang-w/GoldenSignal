@@ -14,30 +14,42 @@
     // Initialization code
 }
 
+
+//计算文本label的高度
+- (CGFloat)calcHightWithString:(UILabel *)lbl{
+    return  [lbl.text boundingRectWithSize:CGSizeMake(lbl.bounds.size.width, CGFLOAT_MAX) options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:lbl.font} context:nil].size.height;
+}
+
+
+
 //公告的Cell
 - (void)showGongGaoCellAndModel:(NSObject *)model{
     BDBulletin *pModel = (BDBulletin *)model;
     //日期 截取
     NSString *dateStr = [[NSString stringWithFormat:@"%@",pModel.date] substringToIndex:10];
     
-    NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"【%@】",dateStr]];
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"【%@】%@",dateStr,pModel.title]];
     [str addAttribute:NSForegroundColorAttributeName
                 value:RGB(61, 177, 241, 1)
-                range:NSMakeRange(1, str.length - 2)];
+                range:NSMakeRange(1, dateStr.length)];
     self.title1.attributedText = str;
+    _cellRowHeight = [self calcHightWithString:self.title1] + 25;
     
-    [self setContentLabels:self.contentLabel andText:[NSString stringWithFormat:@"\t%@",pModel.title]];
+    
+//    [self setContentLabels:self.contentLabel andText:[NSString stringWithFormat:@"\t%@",pModel.title]];
 }
 
 //业绩的Cell
 - (void)showYeJiCellAndModel:(NSObject *)model{
     BDPrompt *pModel = (BDPrompt *)model;
-    NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"【%@ %@】",pModel.trdCode,pModel.secuName]];
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"【%@ %@】%@",pModel.trdCode,pModel.secuName,pModel.title]];
     [str addAttribute:NSForegroundColorAttributeName
                 value:RGB(61, 177, 241, 1)
-                range:NSMakeRange(1, str.length - 2)];
+                range:NSMakeRange(1, pModel.trdCode.length + 1 + pModel.secuName.length)];
     self.title1.attributedText = str;
-    [self setContentLabels:self.contentLabel andText:[NSString stringWithFormat:@"\t%@",pModel.title]];
+    _cellRowHeight = [self calcHightWithString:self.title1] + 25;
+    
+//    [self setContentLabels:self.contentLabel andText:[NSString stringWithFormat:@"\t%@",pModel.title]];
 }
 
 //赋值 and 自动换行,计算出cell的高度

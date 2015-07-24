@@ -14,7 +14,7 @@
 
 @end
 
-@interface StockPoolViewController : UITableViewController
+@interface StockPoolViewController : UITableViewController<UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak) id <StockPoolViewDelegate> delegate;
 

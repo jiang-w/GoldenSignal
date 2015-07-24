@@ -40,13 +40,13 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.tableView reloadData];
-    DEBUGLog(@"Debug:11");
+//    DEBUGLog(@"Debug:11");
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self.tableView reloadData];
-    DEBUGLog(@"Debug:222");
+//    DEBUGLog(@"Debug:222");
 }
 
 
@@ -229,7 +229,7 @@
         //        CGFloat cellH = [newsCell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
         
         CGFloat cellH = newsCell.titleHeight +newsCell.dataAndLabel.frame.size.height + newsCell.desHeight + 60;
-        DEBUGLog(@"11Debug:H%.2lf",cellH);
+//        DEBUGLog(@"11Debug:H%.2lf",cellH);
         return cellH;
     }
 }

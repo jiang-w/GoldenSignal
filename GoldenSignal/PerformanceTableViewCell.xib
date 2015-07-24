@@ -18,31 +18,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="neS-OJ-QG4" userLabel="title">
-                                <rect key="frame" x="2" y="10" width="24" height="18"/>
+                                <rect key="frame" x="8" y="10" width="304" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="18" id="A6S-ha-kUQ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="摘要" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y3b-xj-tFs" userLabel="摘要">
-                                <rect key="frame" x="8" y="38" width="304" height="17"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Y3b-xj-tFs" firstAttribute="top" secondItem="neS-OJ-QG4" secondAttribute="bottom" constant="10" id="56B-IE-Rba"/>
-                            <constraint firstItem="neS-OJ-QG4" firstAttribute="leading" secondItem="IZy-5r-ffI" secondAttribute="leading" constant="2" id="93k-d6-mkY"/>
-                            <constraint firstAttribute="bottom" secondItem="Y3b-xj-tFs" secondAttribute="bottom" constant="9" id="SnV-jC-H3u"/>
-                            <constraint firstAttribute="trailing" secondItem="Y3b-xj-tFs" secondAttribute="trailing" constant="8" id="WJK-nZ-Srm"/>
+                            <constraint firstItem="neS-OJ-QG4" firstAttribute="leading" secondItem="IZy-5r-ffI" secondAttribute="leading" constant="8" id="93k-d6-mkY"/>
+                            <constraint firstAttribute="bottom" secondItem="neS-OJ-QG4" secondAttribute="bottom" constant="10" id="OWN-u7-Qpv"/>
                             <constraint firstItem="neS-OJ-QG4" firstAttribute="top" secondItem="IZy-5r-ffI" secondAttribute="top" constant="10" id="Xhd-4K-vvy"/>
-                            <constraint firstItem="Y3b-xj-tFs" firstAttribute="leading" secondItem="IZy-5r-ffI" secondAttribute="leading" constant="6" id="oXe-Q2-EHf"/>
+                            <constraint firstAttribute="trailing" secondItem="neS-OJ-QG4" secondAttribute="trailing" constant="8" id="tmC-vo-vnF"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -55,7 +43,6 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="contenView" destination="H2p-sc-9uM" id="qpF-ZZ-Nbh"/>
-                <outlet property="contentLabel" destination="Y3b-xj-tFs" id="OQM-n6-FbQ"/>
                 <outlet property="secondView" destination="IZy-5r-ffI" id="qM5-AA-TCK"/>
                 <outlet property="title1" destination="neS-OJ-QG4" id="2Pp-4h-rz1"/>
             </connections>

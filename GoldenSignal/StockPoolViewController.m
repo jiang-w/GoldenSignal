@@ -24,6 +24,7 @@
     NSArray *_secuCodes;
     BOOL _asc;
     dispatch_queue_t loadDataQueue;
+    NSIndexPath *_indexPath;
 }
 
 - (void)viewDidLoad {
@@ -163,6 +164,15 @@
     else {
         cell.backgroundColor = RGB(30, 30, 30, 1);
     }
+    
+    if (cell) {
+        UILongPressGestureRecognizer *longPressDelete = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(cellLongPressDelete:)];
+        longPressDelete.minimumPressDuration = 1.0;
+        longPressDelete.delegate = self;
+        longPressDelete.view.tag = indexPath.row;
+        [cell addGestureRecognizer:longPressDelete];
+    }
+
     return cell;
 }
 
@@ -198,6 +208,39 @@
         [[BDStockPool sharedInstance] removeStockWithCode:cell.code];
         _secuCodes = [NSArray arrayWithArray:[BDStockPool sharedInstance].codes];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+    }
+}
+
+- (void)cellLongPressDelete:(UIGestureRecognizer *)gestureRecognizer {
+    
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        
+        CGPoint point = [gestureRecognizer locationInView:self.tableView];
+        _indexPath = [self.tableView indexPathForRowAtPoint:point];//记录标记
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:NSLocalizedString(@"是否删除", nil)
+                                                       delegate:self
+                                              cancelButtonTitle:NSLocalizedString(@"取消", nil)
+                                              otherButtonTitles:NSLocalizedString(@"确定", nil), nil];
+        alert.tag = 100;
+        [alert show];
+        
+        if(_indexPath == nil)
+            return ;
+    }
+}
+
+#pragma mark UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView.tag == 100)
+    {
+        if (buttonIndex == 1)
+        {
+            StkQuoteViewCell *cell = (StkQuoteViewCell *)[self.tableView cellForRowAtIndexPath:_indexPath];
+            [[BDStockPool sharedInstance] removeStockWithCode:cell.code];
+            _secuCodes = [NSArray arrayWithArray:[BDStockPool sharedInstance].codes];
+        }
     }
 }
 
