@@ -54,7 +54,6 @@
 		011B84E31B0DBD4F003005BC /* StkQuoteCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84D11B0DBD4F003005BC /* StkQuoteCellViewModel.m */; };
 		011B84E41B0DBD4F003005BC /* RegisterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84D31B0DBD4F003005BC /* RegisterViewModel.m */; };
 		011B84E51B0DBD4F003005BC /* SectCollectionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84D51B0DBD4F003005BC /* SectCollectionViewModel.m */; };
-		011B84E61B0DBD4F003005BC /* StockNewsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84D71B0DBD4F003005BC /* StockNewsViewModel.m */; };
 		011B84E71B0DBD4F003005BC /* SubDealViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84D91B0DBD4F003005BC /* SubDealViewModel.m */; };
 		011B84F31B0DBDBC003005BC /* CustomTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84EC1B0DBDBC003005BC /* CustomTagViewController.m */; };
 		011B84F41B0DBDBC003005BC /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84EE1B0DBDBC003005BC /* LoginViewController.m */; };
@@ -68,15 +67,11 @@
 		011B850A1B0DBE1F003005BC /* TitleTabViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011B85021B0DBE1F003005BC /* TitleTabViewController.xib */; };
 		011B850B1B0DBE1F003005BC /* UINavigationItem+CustomBackButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85041B0DBE1F003005BC /* UINavigationItem+CustomBackButton.m */; };
 		011B85201B0DBEA9003005BC /* AutoLayoutNewsEventListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B850E1B0DBEA9003005BC /* AutoLayoutNewsEventListCell.m */; };
-		011B85211B0DBEA9003005BC /* BulletinListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85101B0DBEA9003005BC /* BulletinListViewCell.m */; };
-		011B85221B0DBEA9003005BC /* BulletinListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011B85111B0DBEA9003005BC /* BulletinListViewCell.xib */; };
 		011B85231B0DBEA9003005BC /* NewsEventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85131B0DBEA9003005BC /* NewsEventDetailViewController.m */; };
 		011B85241B0DBEA9003005BC /* SecuNewsListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85151B0DBEA9003005BC /* SecuNewsListViewCell.m */; };
 		011B85251B0DBEA9003005BC /* SecuNewsListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011B85161B0DBEA9003005BC /* SecuNewsListViewCell.xib */; };
 		011B85261B0DBEA9003005BC /* NewsEventListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85181B0DBEA9003005BC /* NewsEventListViewController.m */; };
 		011B85271B0DBEA9003005BC /* NewsEventMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B851A1B0DBEA9003005BC /* NewsEventMainViewController.m */; };
-		011B85281B0DBEA9003005BC /* ReportListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B851C1B0DBEA9003005BC /* ReportListViewCell.m */; };
-		011B85291B0DBEA9003005BC /* ReportListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011B851D1B0DBEA9003005BC /* ReportListViewCell.xib */; };
 		011B852A1B0DBEA9003005BC /* SlideImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B851F1B0DBEA9003005BC /* SlideImageViewController.m */; };
 		011B854E1B0DBEFE003005BC /* StockPoolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B852C1B0DBEFE003005BC /* StockPoolViewController.m */; };
 		011B854F1B0DBEFE003005BC /* F10ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B852E1B0DBEFE003005BC /* F10ViewController.m */; };
@@ -281,8 +276,6 @@
 		011B84D31B0DBD4F003005BC /* RegisterViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewModel.m; sourceTree = "<group>"; };
 		011B84D41B0DBD4F003005BC /* SectCollectionViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectCollectionViewModel.h; sourceTree = "<group>"; };
 		011B84D51B0DBD4F003005BC /* SectCollectionViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectCollectionViewModel.m; sourceTree = "<group>"; };
-		011B84D61B0DBD4F003005BC /* StockNewsViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockNewsViewModel.h; sourceTree = "<group>"; };
-		011B84D71B0DBD4F003005BC /* StockNewsViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockNewsViewModel.m; sourceTree = "<group>"; };
 		011B84D81B0DBD4F003005BC /* SubDealViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubDealViewModel.h; sourceTree = "<group>"; };
 		011B84D91B0DBD4F003005BC /* SubDealViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubDealViewModel.m; sourceTree = "<group>"; };
 		011B84EB1B0DBDBC003005BC /* CustomTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTagViewController.h; sourceTree = "<group>"; };
@@ -308,9 +301,6 @@
 		011B85041B0DBE1F003005BC /* UINavigationItem+CustomBackButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationItem+CustomBackButton.m"; sourceTree = "<group>"; };
 		011B850D1B0DBEA9003005BC /* AutoLayoutNewsEventListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoLayoutNewsEventListCell.h; sourceTree = "<group>"; };
 		011B850E1B0DBEA9003005BC /* AutoLayoutNewsEventListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoLayoutNewsEventListCell.m; sourceTree = "<group>"; };
-		011B850F1B0DBEA9003005BC /* BulletinListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulletinListViewCell.h; sourceTree = "<group>"; };
-		011B85101B0DBEA9003005BC /* BulletinListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulletinListViewCell.m; sourceTree = "<group>"; };
-		011B85111B0DBEA9003005BC /* BulletinListViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BulletinListViewCell.xib; sourceTree = "<group>"; };
 		011B85121B0DBEA9003005BC /* NewsEventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsEventDetailViewController.h; sourceTree = "<group>"; };
 		011B85131B0DBEA9003005BC /* NewsEventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsEventDetailViewController.m; sourceTree = "<group>"; };
 		011B85141B0DBEA9003005BC /* SecuNewsListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecuNewsListViewCell.h; sourceTree = "<group>"; };
@@ -320,9 +310,6 @@
 		011B85181B0DBEA9003005BC /* NewsEventListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsEventListViewController.m; sourceTree = "<group>"; };
 		011B85191B0DBEA9003005BC /* NewsEventMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsEventMainViewController.h; sourceTree = "<group>"; };
 		011B851A1B0DBEA9003005BC /* NewsEventMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsEventMainViewController.m; sourceTree = "<group>"; };
-		011B851B1B0DBEA9003005BC /* ReportListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportListViewCell.h; sourceTree = "<group>"; };
-		011B851C1B0DBEA9003005BC /* ReportListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportListViewCell.m; sourceTree = "<group>"; };
-		011B851D1B0DBEA9003005BC /* ReportListViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportListViewCell.xib; sourceTree = "<group>"; };
 		011B851E1B0DBEA9003005BC /* SlideImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideImageViewController.h; sourceTree = "<group>"; };
 		011B851F1B0DBEA9003005BC /* SlideImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideImageViewController.m; sourceTree = "<group>"; };
 		011B852B1B0DBEFE003005BC /* StockPoolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolViewController.h; sourceTree = "<group>"; };
@@ -714,8 +701,6 @@
 				011B84D31B0DBD4F003005BC /* RegisterViewModel.m */,
 				011B84D41B0DBD4F003005BC /* SectCollectionViewModel.h */,
 				011B84D51B0DBD4F003005BC /* SectCollectionViewModel.m */,
-				011B84D61B0DBD4F003005BC /* StockNewsViewModel.h */,
-				011B84D71B0DBD4F003005BC /* StockNewsViewModel.m */,
 				011B84D81B0DBD4F003005BC /* SubDealViewModel.h */,
 				011B84D91B0DBD4F003005BC /* SubDealViewModel.m */,
 				01CA5C491B1ECC03003B824F /* QuoteHomeTrendViewModel.h */,
@@ -783,12 +768,6 @@
 				011B85141B0DBEA9003005BC /* SecuNewsListViewCell.h */,
 				011B85151B0DBEA9003005BC /* SecuNewsListViewCell.m */,
 				011B85161B0DBEA9003005BC /* SecuNewsListViewCell.xib */,
-				011B850F1B0DBEA9003005BC /* BulletinListViewCell.h */,
-				011B85101B0DBEA9003005BC /* BulletinListViewCell.m */,
-				011B85111B0DBEA9003005BC /* BulletinListViewCell.xib */,
-				011B851B1B0DBEA9003005BC /* ReportListViewCell.h */,
-				011B851C1B0DBEA9003005BC /* ReportListViewCell.m */,
-				011B851D1B0DBEA9003005BC /* ReportListViewCell.xib */,
 				011B851E1B0DBEA9003005BC /* SlideImageViewController.h */,
 				011B851F1B0DBEA9003005BC /* SlideImageViewController.m */,
 				01D262F91B60903400A93F58 /* NewsDetailViewController.h */,
@@ -1108,8 +1087,6 @@
 				011B850A1B0DBE1F003005BC /* TitleTabViewController.xib in Resources */,
 				011B84411B0DB51F003005BC /* Images.xcassets in Resources */,
 				01A55BEF1B5E4A0A00224F7B /* BulletinViewController.xib in Resources */,
-				011B85291B0DBEA9003005BC /* ReportListViewCell.xib in Resources */,
-				011B85221B0DBEA9003005BC /* BulletinListViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1234,7 +1211,6 @@
 				01D263021B60B7B900A93F58 /* PerformanceTableViewCell.m in Sources */,
 				019F2A3C1B5659C5005602B7 /* FundFlowBarView.m in Sources */,
 				011B84BE1B0DBCBA003005BC /* BDTrendLine.m in Sources */,
-				011B84E61B0DBD4F003005BC /* StockNewsViewModel.m in Sources */,
 				011B85531B0DBEFE003005BC /* KeyboardWizardViewController.m in Sources */,
 				011B84F31B0DBDBC003005BC /* CustomTagViewController.m in Sources */,
 				011B85201B0DBEA9003005BC /* AutoLayoutNewsEventListCell.m in Sources */,
@@ -1261,7 +1237,6 @@
 				011B84BD1B0DBCBA003005BC /* BDSubDeal.m in Sources */,
 				01B541921B3A5A4100AF5C05 /* IdxDetailViewController.m in Sources */,
 				011B84BF1B0DBCBA003005BC /* BDUserInfo.m in Sources */,
-				011B85281B0DBEA9003005BC /* ReportListViewCell.m in Sources */,
 				011B84DC1B0DBD4F003005BC /* CustomTagsViewModel.m in Sources */,
 				011B846F1B0DBADB003005BC /* UIImageView+ImageLoading.m in Sources */,
 				01B4C70E1B3B9A0E002B1118 /* BDTradingDayService.m in Sources */,
@@ -1276,7 +1251,6 @@
 				01A55BB51B5E3CE800224F7B /* ImportsTableViewCell.m in Sources */,
 				011B84A41B0DBC57003005BC /* BDNewsList.m in Sources */,
 				011B848C1B0DBB83003005BC /* BDRelationQuery.m in Sources */,
-				011B85211B0DBEA9003005BC /* BulletinListViewCell.m in Sources */,
 				011B84F51B0DBDBC003005BC /* ManageTagsViewController.m in Sources */,
 				011B84871B0DBB83003005BC /* BDFieldQuery.m in Sources */,
 				01A55BC41B5E3F7900224F7B /* newStockDetailViewController.m in Sources */,

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StkDetailViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface StkDetailViewController : UIViewController <UIScrollViewDelegate>
 
 - (instancetype)initWithSecuCode:(NSString *)code;
 

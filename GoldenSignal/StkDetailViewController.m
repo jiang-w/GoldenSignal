@@ -7,11 +7,6 @@
 //
 
 #import "StkDetailViewController.h"
-#import "NewsEventDetailViewController.h"
-#import "SecuNewsListViewCell.h"
-#import "ReportListViewCell.h"
-#import "BulletinListViewCell.h"
-#import "StockNewsViewModel.h"
 #import "StkScalarView.h"
 #import "StockTrendView.h"
 #import "KLineChart.h"
@@ -38,8 +33,6 @@
 @property(nonatomic, strong) KLineChart *monthlyKLine;
 
 @property(nonatomic, strong) PPiFlatSegmentedControl *infoTabView;
-@property(nonatomic, strong) UITableView *infoListView;
-
 @property(nonatomic, assign) NSUInteger chartSelectIndex;
 @property(nonatomic, assign) NSUInteger infoTabIndex;
 
@@ -52,7 +45,6 @@
 @implementation StkDetailViewController
 {
     BDSecuCode *_secu;
-    StockNewsViewModel *_quoteNewsViewModel;
 }
 
 - (instancetype)initWithSecuCode:(NSString *)code {
@@ -179,8 +171,6 @@
 // 订阅个股相关数据
 - (void)loadData {
     if (_secu) {
-        _quoteNewsViewModel = [[StockNewsViewModel alloc] initWithCode:_secu.bdCode];
-        
         // 显示股票代码及名称
         self.titleLabel.text = [NSString stringWithFormat:@"%@(%@)", _secu.name, _secu.trdCode];
         [self.titleLabel sizeToFit];
@@ -248,22 +238,6 @@
 
 // 加载个股资讯
 - (void)loadQuoteNewsTableView {
-    if (self.infoListView == nil) {
-        self.infoListView = [UITableView new];
-        self.infoListView.backgroundColor = [UIColor clearColor];
-        [self.infoListView setRowHeight:60.0];
-        self.infoListView.bounces = NO;
-        self.infoListView.delegate = self;
-        self.infoListView.dataSource = self;
-        self.infoListView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [self.infoContainerView addSubview:self.infoListView];
-        
-        [self.infoListView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.infoContainerView);
-            make.height.mas_equalTo(300);
-        }];
-    }
-    
     switch (_infoTabIndex) {
         case 0: {
             if (self.newsListView == nil) {
@@ -311,113 +285,6 @@
             break;
         }
     }
-}
-
-
-#pragma mark - Table delegate and dataSource
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    switch (_infoTabIndex) {
-        case 0:
-            return _quoteNewsViewModel.newsList.count;
-        case 1:
-            return _quoteNewsViewModel.reportList.count;
-        case 2:
-            return _quoteNewsViewModel.bulletinList.count;
-        default:
-            return 0;
-    }
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    switch (_infoTabIndex) {
-        case 0: {
-            SecuNewsListViewCell *cell = (SecuNewsListViewCell *)[tableView dequeueReusableCellWithIdentifier:@"NewsListCell"];
-            if (cell == nil) {
-                NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"NewsListViewCell" owner:self options:nil];
-                for (id obj in nib) {
-                    if ([obj isKindOfClass:[SecuNewsListViewCell class]]) {
-                        cell = obj;
-                        cell.title.textColor = RGB(208, 208, 208, 1);
-                        cell.date.textColor = RGB(46, 116, 147, 1);
-                    }
-                }
-            }
-            BDNewsList *news = (BDNewsList *)_quoteNewsViewModel.newsList[indexPath.row];
-            cell.news = news;
-            if (indexPath.row % 2 == 0) {
-                cell.backgroundColor = [UIColor blackColor];
-            }
-            else {
-                cell.backgroundColor = RGB(30, 30, 30, 1);
-            }
-            return cell;
-        }
-        case 1: {
-            ReportListViewCell *cell = (ReportListViewCell *)[tableView dequeueReusableCellWithIdentifier:@"ReportListCell"];
-            if (cell == nil) {
-                NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ReportListViewCell" owner:self options:nil];
-                for (id obj in nib) {
-                    if ([obj isKindOfClass:[ReportListViewCell class]]) {
-                        cell = obj;
-                        cell.title.textColor = RGB(208, 208, 208, 1);
-                        cell.date.textColor = RGB(46, 116, 147, 1);
-                    }
-                }
-            }
-            BDReportList *report = (BDReportList *)_quoteNewsViewModel.reportList[indexPath.row];
-            cell.report = report;
-            if (indexPath.row % 2 == 0) {
-                cell.backgroundColor = [UIColor blackColor];
-            }
-            else {
-                cell.backgroundColor = RGB(30, 30, 30, 1);
-            }
-            return cell;
-        }
-        case 2: {
-            BulletinListViewCell *cell = (BulletinListViewCell *)[tableView dequeueReusableCellWithIdentifier:@"BulletinListCell"];
-            if (cell == nil) {
-                NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"BulletinListViewCell" owner:self options:nil];
-                for (id obj in nib) {
-                    if ([obj isKindOfClass:[BulletinListViewCell class]]) {
-                        cell = obj;
-                        cell.title.textColor = RGB(208, 208, 208, 1);
-                        cell.date.textColor = RGB(46, 116, 147, 1);
-                    }
-                }
-            }
-            BDBulletin *bulletin = (BDBulletin *)_quoteNewsViewModel.bulletinList[indexPath.row];
-            cell.bulletin = bulletin;
-            if (indexPath.row % 2 == 0) {
-                cell.backgroundColor = [UIColor blackColor];
-            }
-            else {
-                cell.backgroundColor = RGB(30, 30, 30, 1);
-            }
-            return cell;
-        }
-        default:
-            return nil;
-    }
-}
-
-// 动态设置行高
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 60;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    // 预设cell高度，可以提高性能
-    return 60.0;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    BDNewsList *news = _quoteNewsViewModel.newsList[indexPath.row];
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    NewsEventDetailViewController *newsDetail = [storyboard instantiateViewControllerWithIdentifier:@"NewsEventDetail"];
-    newsDetail.contentId = news.innerId;
-    [self.navigationController pushViewController:newsDetail animated:YES];
 }
 
 
