@@ -306,6 +306,7 @@
             if (self.newsListView == nil) {
                 self.newsListView = [[SecuNewsListView alloc] init];
                 self.newsListView.secuCode = _secu.bdCode;
+                self.newsListView.type = NWS;
             }
             [self.infoContainerView addSubview:self.newsListView.view];
             [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {

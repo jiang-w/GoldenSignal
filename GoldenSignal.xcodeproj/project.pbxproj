@@ -71,8 +71,8 @@
 		011B85211B0DBEA9003005BC /* BulletinListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85101B0DBEA9003005BC /* BulletinListViewCell.m */; };
 		011B85221B0DBEA9003005BC /* BulletinListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011B85111B0DBEA9003005BC /* BulletinListViewCell.xib */; };
 		011B85231B0DBEA9003005BC /* NewsEventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85131B0DBEA9003005BC /* NewsEventDetailViewController.m */; };
-		011B85241B0DBEA9003005BC /* NewsListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85151B0DBEA9003005BC /* NewsListViewCell.m */; };
-		011B85251B0DBEA9003005BC /* NewsListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011B85161B0DBEA9003005BC /* NewsListViewCell.xib */; };
+		011B85241B0DBEA9003005BC /* SecuNewsListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85151B0DBEA9003005BC /* SecuNewsListViewCell.m */; };
+		011B85251B0DBEA9003005BC /* SecuNewsListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011B85161B0DBEA9003005BC /* SecuNewsListViewCell.xib */; };
 		011B85261B0DBEA9003005BC /* NewsEventListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B85181B0DBEA9003005BC /* NewsEventListViewController.m */; };
 		011B85271B0DBEA9003005BC /* NewsEventMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B851A1B0DBEA9003005BC /* NewsEventMainViewController.m */; };
 		011B85281B0DBEA9003005BC /* ReportListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B851C1B0DBEA9003005BC /* ReportListViewCell.m */; };
@@ -313,9 +313,9 @@
 		011B85111B0DBEA9003005BC /* BulletinListViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BulletinListViewCell.xib; sourceTree = "<group>"; };
 		011B85121B0DBEA9003005BC /* NewsEventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsEventDetailViewController.h; sourceTree = "<group>"; };
 		011B85131B0DBEA9003005BC /* NewsEventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsEventDetailViewController.m; sourceTree = "<group>"; };
-		011B85141B0DBEA9003005BC /* NewsListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsListViewCell.h; sourceTree = "<group>"; };
-		011B85151B0DBEA9003005BC /* NewsListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsListViewCell.m; sourceTree = "<group>"; };
-		011B85161B0DBEA9003005BC /* NewsListViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsListViewCell.xib; sourceTree = "<group>"; };
+		011B85141B0DBEA9003005BC /* SecuNewsListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecuNewsListViewCell.h; sourceTree = "<group>"; };
+		011B85151B0DBEA9003005BC /* SecuNewsListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecuNewsListViewCell.m; sourceTree = "<group>"; };
+		011B85161B0DBEA9003005BC /* SecuNewsListViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecuNewsListViewCell.xib; sourceTree = "<group>"; };
 		011B85171B0DBEA9003005BC /* NewsEventListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsEventListViewController.h; sourceTree = "<group>"; };
 		011B85181B0DBEA9003005BC /* NewsEventListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsEventListViewController.m; sourceTree = "<group>"; };
 		011B85191B0DBEA9003005BC /* NewsEventMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsEventMainViewController.h; sourceTree = "<group>"; };
@@ -778,12 +778,14 @@
 		011B84F71B0DBDC6003005BC /* News */ = {
 			isa = PBXGroup;
 			children = (
+				01B531011B5CDF1B00F9B891 /* SecuNewsListView.h */,
+				01B531021B5CDF1B00F9B891 /* SecuNewsListView.m */,
+				011B85141B0DBEA9003005BC /* SecuNewsListViewCell.h */,
+				011B85151B0DBEA9003005BC /* SecuNewsListViewCell.m */,
+				011B85161B0DBEA9003005BC /* SecuNewsListViewCell.xib */,
 				011B850F1B0DBEA9003005BC /* BulletinListViewCell.h */,
 				011B85101B0DBEA9003005BC /* BulletinListViewCell.m */,
 				011B85111B0DBEA9003005BC /* BulletinListViewCell.xib */,
-				011B85141B0DBEA9003005BC /* NewsListViewCell.h */,
-				011B85151B0DBEA9003005BC /* NewsListViewCell.m */,
-				011B85161B0DBEA9003005BC /* NewsListViewCell.xib */,
 				011B851B1B0DBEA9003005BC /* ReportListViewCell.h */,
 				011B851C1B0DBEA9003005BC /* ReportListViewCell.m */,
 				011B851D1B0DBEA9003005BC /* ReportListViewCell.xib */,
@@ -915,8 +917,6 @@
 				01A46F261B4CFC7E000CD7A5 /* RankingListCell.h */,
 				01A46F271B4CFC7E000CD7A5 /* RankingListCell.m */,
 				01A46F281B4CFC7E000CD7A5 /* RankingListCell.xib */,
-				01B531011B5CDF1B00F9B891 /* SecuNewsListView.h */,
-				01B531021B5CDF1B00F9B891 /* SecuNewsListView.m */,
 			);
 			name = Detail;
 			sourceTree = "<group>";
@@ -1093,7 +1093,7 @@
 				01A55BE11B5E490200224F7B /* InfomationsTableViewCell.xib in Resources */,
 				01A55BB61B5E3CE800224F7B /* ImportsTableViewCell.xib in Resources */,
 				014FF38A1B1D5276007DB608 /* QuoteHomeViewController.xib in Resources */,
-				011B85251B0DBEA9003005BC /* NewsListViewCell.xib in Resources */,
+				011B85251B0DBEA9003005BC /* SecuNewsListViewCell.xib in Resources */,
 				01A55BC71B5E3F7900224F7B /* NewStockTableViewCell.xib in Resources */,
 				01A55BC51B5E3F7900224F7B /* newStockDetailViewController.xib in Resources */,
 				011B845D1B0DB9D8003005BC /* NewsEventDetail.html in Resources */,
@@ -1189,7 +1189,7 @@
 				011B855D1B0DBEFE003005BC /* StkDetailViewController.m in Sources */,
 				01AAD7EE1B5F6E1C0051556A /* IndexQuoteViewController.m in Sources */,
 				011B84861B0DBB83003005BC /* BDDatabaseAccess.m in Sources */,
-				011B85241B0DBEA9003005BC /* NewsListViewCell.m in Sources */,
+				011B85241B0DBEA9003005BC /* SecuNewsListViewCell.m in Sources */,
 				011B850B1B0DBE1F003005BC /* UINavigationItem+CustomBackButton.m in Sources */,
 				01D8DA3A1B253E4F0033956E /* IdxQuoteCellViewModel.m in Sources */,
 				01B541951B3A918200AF5C05 /* TrendLineViewModel.m in Sources */,

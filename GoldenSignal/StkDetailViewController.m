@@ -8,7 +8,7 @@
 
 #import "StkDetailViewController.h"
 #import "NewsEventDetailViewController.h"
-#import "NewsListViewCell.h"
+#import "SecuNewsListViewCell.h"
 #import "ReportListViewCell.h"
 #import "BulletinListViewCell.h"
 #import "StockNewsViewModel.h"
@@ -16,6 +16,7 @@
 #import "StockTrendView.h"
 #import "KLineChart.h"
 #import "F10ViewController.h"
+#import "SecuNewsListView.h"
 
 #import <PPiFlatSegmentedControl.h>
 #import <Masonry.h>
@@ -41,6 +42,10 @@
 
 @property(nonatomic, assign) NSUInteger chartSelectIndex;
 @property(nonatomic, assign) NSUInteger infoTabIndex;
+
+@property(nonatomic, strong) SecuNewsListView *newsListView;
+@property(nonatomic, strong) SecuNewsListView *reportListView;
+@property(nonatomic, strong) SecuNewsListView *bulletinListView;
 
 @end
 
@@ -261,49 +266,50 @@
     
     switch (_infoTabIndex) {
         case 0: {
-            if (_quoteNewsViewModel.newsList.count > 0) {
-                [self.infoListView reloadData];
+            if (self.newsListView == nil) {
+                self.newsListView = [[SecuNewsListView alloc] init];
+                self.newsListView.secuCode = _secu.bdCode;
+                self.newsListView.type = NWS;
             }
-            else {
-                dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                    [_quoteNewsViewModel loadNews];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.infoListView reloadData];
-                    });
-                });
-            }
-        }
+            [self.infoContainerView addSubview:self.newsListView.view];
+            [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(self.newsListView.tableView.rowHeight * 5);
+            }];
+            [self.newsListView.view mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(self.infoContainerView);
+            }];
             break;
-        case 1:
-        {
-            if (_quoteNewsViewModel.reportList.count > 0) {
-                [self.infoListView reloadData];
-            }
-            else {
-                dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                    [_quoteNewsViewModel loadReport];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.infoListView reloadData];
-                    });
-                });
-            }
         }
+        case 1:{
+            if (self.reportListView == nil) {
+                self.reportListView = [[SecuNewsListView alloc] init];
+                self.reportListView.secuCode = _secu.bdCode;
+                self.reportListView.type = RPT;
+            }
+            [self.infoContainerView addSubview:self.reportListView.view];
+            [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(self.reportListView.tableView.rowHeight * 5);
+            }];
+            [self.reportListView.view mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(self.infoContainerView);
+            }];
             break;
-        case 2:
-        {
-            if (_quoteNewsViewModel.bulletinList.count > 0) {
-                [self.infoListView reloadData];
-            }
-            else {
-                dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                    [_quoteNewsViewModel loadBulletin];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.infoListView reloadData];
-                    });
-                });
-            }
         }
+        case 2: {
+            if (self.bulletinListView == nil) {
+                self.bulletinListView = [[SecuNewsListView alloc] init];
+                self.bulletinListView.secuCode = _secu.bdCode;
+                self.bulletinListView.type = ANNC;
+            }
+            [self.infoContainerView addSubview:self.bulletinListView.view];
+            [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(self.bulletinListView.tableView.rowHeight * 5);
+            }];
+            [self.bulletinListView.view mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(self.infoContainerView);
+            }];
             break;
+        }
     }
 }
 
@@ -326,11 +332,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (_infoTabIndex) {
         case 0: {
-            NewsListViewCell *cell = (NewsListViewCell *)[tableView dequeueReusableCellWithIdentifier:@"NewsListCell"];
+            SecuNewsListViewCell *cell = (SecuNewsListViewCell *)[tableView dequeueReusableCellWithIdentifier:@"NewsListCell"];
             if (cell == nil) {
                 NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"NewsListViewCell" owner:self options:nil];
                 for (id obj in nib) {
-                    if ([obj isKindOfClass:[NewsListViewCell class]]) {
+                    if ([obj isKindOfClass:[SecuNewsListViewCell class]]) {
                         cell = obj;
                         cell.title.textColor = RGB(208, 208, 208, 1);
                         cell.date.textColor = RGB(46, 116, 147, 1);

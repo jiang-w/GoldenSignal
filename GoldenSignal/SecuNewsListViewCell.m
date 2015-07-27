@@ -6,10 +6,10 @@
 //  Copyright (c) 2014年 bigdata. All rights reserved.
 //
 
-#import "NewsListViewCell.h"
+#import "SecuNewsListViewCell.h"
 #import "NSDate+Utility.h"
 
-@implementation NewsListViewCell
+@implementation SecuNewsListViewCell
 
 - (void)awakeFromNib {
     // Initialization code
@@ -21,10 +21,10 @@
     // Configure the view for the selected state
 }
 
-- (void)setNews:(BDNewsList *)news {
+- (void)setNews:(BDSecuNewsList *)news {
     _news = news;
     self.title.text = news.title;
-//    self.date.text= [news.date toString:@"yyyy-MM-dd hh:mm"];
+//    self.date.text= [news.date toString:@"yyyy-MM-dd"];
     if ([news.date isSameDay:[NSDate date]]) {
         self.date.text= [news.date toString:@"hh:mm"];
     }

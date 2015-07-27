@@ -11,5 +11,6 @@
 @interface SecuNewsListView : UITableViewController
 
 @property(nonatomic, strong) NSString *secuCode;
+@property(nonatomic, assign) NewsType type;
 
 @end

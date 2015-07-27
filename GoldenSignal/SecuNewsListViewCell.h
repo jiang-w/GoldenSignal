@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewsListViewCell : UITableViewCell
+@interface SecuNewsListViewCell : UITableViewCell
 
 @property(nonatomic,strong) IBOutlet UILabel *title;
 @property(nonatomic,strong) IBOutlet UILabel *date;
 
-@property (nonatomic,setter = setNews:) BDNewsList *news;
+@property (nonatomic,setter = setNews:) BDSecuNewsList *news;
 
 @end
