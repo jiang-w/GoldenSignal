@@ -25,7 +25,7 @@
 #import "BDStockPool.h"
 #import "BDSectInfo.h"
 #import "BDPrompt.h"
-#import "BDSecuNews.h"
+#import "BDSecuNewsList.h"
 #import "BDNewsEventList.h"
 #import "BDNewsEventDetail.h"
 #import "BDNewsDetail.h"

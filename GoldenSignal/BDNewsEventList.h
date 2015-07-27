@@ -1,5 +1,5 @@
 //
-//  BDNewsEvent.h
+//  BDNewsEventList.h
 //  GoldenSignal
 //
 //  Created by Frank on 15/7/21.

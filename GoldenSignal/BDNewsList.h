@@ -1,5 +1,5 @@
 //
-//  BDNews.h
+//  BDNewsList.h
 //  CBNAPP
 //
 //  Created by Frank on 14-8-13.

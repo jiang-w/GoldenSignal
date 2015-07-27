@@ -6,11 +6,11 @@
 //  Copyright (c) 2014年 bigdata. All rights reserved.
 //
 
-#import "BDStockNewsService.h"
+#import "BDSecuNewsService.h"
 #import "BDCoreService.h"
 #import "BDNetworkService.h"
 
-@implementation BDStockNewsService
+@implementation BDSecuNewsService
 
 - (NSArray *)getBulletinBySecuCode:(NSString *)code andSN:(long)sn andQuantity:(int)quantity {
     NSMutableArray *bulletinArray = [NSMutableArray array];
@@ -247,6 +247,21 @@
         [newsArray addObject:news];
     }
     return newsArray;
+}
+
+
+- (NSArray *)getListWithSecuCode:(NSString *)code type:(NewsType)type quantity:(NSUInteger)quantity {
+    NSMutableArray *list = [NSMutableArray array];
+    switch (type) {
+        case NWS:
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+    return list;
 }
 
 @end

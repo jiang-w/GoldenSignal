@@ -7,11 +7,11 @@
 //
 
 #import "StockNewsViewModel.h"
-#import "BDStockNewsService.h"
+#import "BDSecuNewsService.h"
 
 @implementation StockNewsViewModel
 {
-    BDStockNewsService *_service;
+    BDSecuNewsService *_service;
 }
 
 - (id)initWithCode:(NSString *)code
@@ -22,7 +22,7 @@
         _reportList = [NSMutableArray arrayWithCapacity:0];
         _secuCode = [code copy];
         _pageSize = 5;
-        _service = [[BDStockNewsService alloc] init];
+        _service = [[BDSecuNewsService alloc] init];
     }
     return self;
 }

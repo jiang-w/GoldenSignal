@@ -1,5 +1,5 @@
 //
-//  BDSecuNews.h
+//  BDSecuNewsList.h
 //  GoldenSignal
 //
 //  Created by Frank on 15/7/20.
@@ -8,15 +8,22 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BDSecuNews : NSObject
+typedef enum {
+    NWS = 1,    // 新闻
+    RPT = 2,    // 研报
+    ANNC = 3    // 公告
+} NewsType;
+
+// 证券新闻资讯model
+@interface BDSecuNewsList : NSObject
 
 /**
- *  新闻ID
+ *  内部ID
  */
 @property(nonatomic, assign) long innerId;
 
 /**
- *  新闻标题
+ *  标题
  */
 @property(nonatomic, strong) NSString *title;
 
@@ -26,23 +33,13 @@
 @property(nonatomic, strong) NSDate *date;
 
 /**
- *  摘要
- */
-@property(nonatomic, strong) NSString *abstract;
-
-/**
  *  内容ID
  */
 @property(nonatomic, assign) long contentId;
 
 /**
- *  作者
+ *  资讯内容
  */
-@property(nonatomic, strong) NSString *author;
-
-/**
- *  媒体
- */
-@property(nonatomic, strong) NSString *media;
+@property(nonatomic, assign) NewsType type;
 
 @end

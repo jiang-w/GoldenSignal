@@ -1,5 +1,5 @@
 //
-//  BDReport.h
+//  BDReportList.h
 //  CBNAPP
 //
 //  Created by Frank on 14/12/24.

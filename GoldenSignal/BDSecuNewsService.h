@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BDStockNewsService : NSObject
+@interface BDSecuNewsService : NSObject
 
 /**
  *  根据证券编码加载公告列表

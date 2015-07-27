@@ -28,7 +28,7 @@
 		011B848B1B0DBB83003005BC /* BDQuotationService.mm in Sources */ = {isa = PBXBuildFile; fileRef = 011B847E1B0DBB83003005BC /* BDQuotationService.mm */; };
 		011B848C1B0DBB83003005BC /* BDRelationQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84801B0DBB83003005BC /* BDRelationQuery.m */; };
 		011B848D1B0DBB83003005BC /* BDSectService.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84821B0DBB83003005BC /* BDSectService.m */; };
-		011B848E1B0DBB83003005BC /* BDStockNewsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84841B0DBB83003005BC /* BDStockNewsService.m */; };
+		011B848E1B0DBB83003005BC /* BDSecuNewsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84841B0DBB83003005BC /* BDSecuNewsService.m */; };
 		011B84A11B0DBC57003005BC /* BDBulletin.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84911B0DBC57003005BC /* BDBulletin.m */; };
 		011B84A21B0DBC57003005BC /* BDChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84931B0DBC57003005BC /* BDChannel.m */; };
 		011B84A31B0DBC57003005BC /* BDKLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84951B0DBC57003005BC /* BDKLine.m */; };
@@ -152,7 +152,7 @@
 		01B4C70E1B3B9A0E002B1118 /* BDTradingDayService.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B4C70D1B3B9A0E002B1118 /* BDTradingDayService.m */; };
 		01B4C7101B3BCAC6002B1118 /* base.db in Resources */ = {isa = PBXBuildFile; fileRef = 01B4C70F1B3BCAB0002B1118 /* base.db */; };
 		01B531031B5CDF1B00F9B891 /* SecuNewsListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B531021B5CDF1B00F9B891 /* SecuNewsListView.m */; };
-		01B531061B5CE42700F9B891 /* BDSecuNews.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B531051B5CE42700F9B891 /* BDSecuNews.m */; };
+		01B531061B5CE42700F9B891 /* BDSecuNewsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B531051B5CE42700F9B891 /* BDSecuNewsList.m */; };
 		01B5418F1B3A572700AF5C05 /* TrendLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B5418E1B3A572700AF5C05 /* TrendLineChart.m */; };
 		01B541921B3A5A4100AF5C05 /* IdxDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B541911B3A5A4100AF5C05 /* IdxDetailViewController.m */; };
 		01B541951B3A918200AF5C05 /* TrendLineViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B541941B3A918200AF5C05 /* TrendLineViewModel.m */; };
@@ -228,8 +228,8 @@
 		011B84801B0DBB83003005BC /* BDRelationQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDRelationQuery.m; sourceTree = "<group>"; };
 		011B84811B0DBB83003005BC /* BDSectService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDSectService.h; sourceTree = "<group>"; };
 		011B84821B0DBB83003005BC /* BDSectService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDSectService.m; sourceTree = "<group>"; };
-		011B84831B0DBB83003005BC /* BDStockNewsService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDStockNewsService.h; sourceTree = "<group>"; };
-		011B84841B0DBB83003005BC /* BDStockNewsService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDStockNewsService.m; sourceTree = "<group>"; };
+		011B84831B0DBB83003005BC /* BDSecuNewsService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDSecuNewsService.h; sourceTree = "<group>"; };
+		011B84841B0DBB83003005BC /* BDSecuNewsService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDSecuNewsService.m; sourceTree = "<group>"; };
 		011B84901B0DBC57003005BC /* BDBulletin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBulletin.h; sourceTree = "<group>"; };
 		011B84911B0DBC57003005BC /* BDBulletin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBulletin.m; sourceTree = "<group>"; };
 		011B84921B0DBC57003005BC /* BDChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDChannel.h; sourceTree = "<group>"; };
@@ -449,8 +449,8 @@
 		01B4C70F1B3BCAB0002B1118 /* base.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = base.db; sourceTree = "<group>"; };
 		01B531011B5CDF1B00F9B891 /* SecuNewsListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecuNewsListView.h; sourceTree = "<group>"; };
 		01B531021B5CDF1B00F9B891 /* SecuNewsListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecuNewsListView.m; sourceTree = "<group>"; };
-		01B531041B5CE42700F9B891 /* BDSecuNews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDSecuNews.h; sourceTree = "<group>"; };
-		01B531051B5CE42700F9B891 /* BDSecuNews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDSecuNews.m; sourceTree = "<group>"; };
+		01B531041B5CE42700F9B891 /* BDSecuNewsList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDSecuNewsList.h; sourceTree = "<group>"; };
+		01B531051B5CE42700F9B891 /* BDSecuNewsList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDSecuNewsList.m; sourceTree = "<group>"; };
 		01B5418D1B3A572700AF5C05 /* TrendLineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrendLineChart.h; sourceTree = "<group>"; };
 		01B5418E1B3A572700AF5C05 /* TrendLineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendLineChart.m; sourceTree = "<group>"; };
 		01B541901B3A5A4100AF5C05 /* IdxDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdxDetailViewController.h; sourceTree = "<group>"; };
@@ -617,6 +617,8 @@
 				011B84781B0DBB83003005BC /* BDNetworkService.m */,
 				011B84791B0DBB83003005BC /* BDNewsEventService.h */,
 				011B847A1B0DBB83003005BC /* BDNewsEventService.m */,
+				011B84831B0DBB83003005BC /* BDSecuNewsService.h */,
+				011B84841B0DBB83003005BC /* BDSecuNewsService.m */,
 				011B847B1B0DBB83003005BC /* BDQuery.h */,
 				011B847C1B0DBB83003005BC /* BDQuery.m */,
 				011B847D1B0DBB83003005BC /* BDQuotationService.h */,
@@ -625,8 +627,6 @@
 				011B84801B0DBB83003005BC /* BDRelationQuery.m */,
 				011B84811B0DBB83003005BC /* BDSectService.h */,
 				011B84821B0DBB83003005BC /* BDSectService.m */,
-				011B84831B0DBB83003005BC /* BDStockNewsService.h */,
-				011B84841B0DBB83003005BC /* BDStockNewsService.m */,
 				01A95D231B32BE6A008CF76B /* BDStockPoolInfoService.h */,
 				01A95D241B32BE6A008CF76B /* BDStockPoolInfoService.m */,
 				01B4C70C1B3B9A0E002B1118 /* BDTradingDayService.h */,
@@ -671,8 +671,6 @@
 				011B849E1B0DBC57003005BC /* BDSectInfo.m */,
 				011B849F1B0DBC57003005BC /* BDSecuCode.h */,
 				011B84A01B0DBC57003005BC /* BDSecuCode.m */,
-				01B531041B5CE42700F9B891 /* BDSecuNews.h */,
-				01B531051B5CE42700F9B891 /* BDSecuNews.m */,
 				01A55BAF1B5E3CB400224F7B /* BDNewStockModel.h */,
 				01A55BB01B5E3CB400224F7B /* BDNewStockModel.m */,
 				015B72141B5E71DA006DA827 /* BDNewsEventList.h */,
@@ -687,6 +685,8 @@
 				011B849C1B0DBC57003005BC /* BDReportList.m */,
 				015E17F91B623409005FD389 /* BDReportDetail.h */,
 				015E17FA1B623409005FD389 /* BDReportDetail.m */,
+				01B531041B5CE42700F9B891 /* BDSecuNewsList.h */,
+				01B531051B5CE42700F9B891 /* BDSecuNewsList.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1197,7 +1197,7 @@
 				0129EF5D1B1FED4B00690920 /* QuoteHomeKLineView.m in Sources */,
 				011B84A51B0DBC57003005BC /* BDNewsTag.m in Sources */,
 				01D262FB1B60903400A93F58 /* NewsDetailViewController.m in Sources */,
-				01B531061B5CE42700F9B891 /* BDSecuNews.m in Sources */,
+				01B531061B5CE42700F9B891 /* BDSecuNewsList.m in Sources */,
 				011B84B91B0DBCBA003005BC /* BDCustomTagCollection.m in Sources */,
 				011B852A1B0DBEA9003005BC /* SlideImageViewController.m in Sources */,
 				011B84F61B0DBDBC003005BC /* RegisterViewController.m in Sources */,
@@ -1270,7 +1270,7 @@
 				015E17F81B623384005FD389 /* ReportDetailViewController1.m in Sources */,
 				01AD74931B395789006EC988 /* IdxScalarViewModel.m in Sources */,
 				011B85231B0DBEA9003005BC /* NewsEventDetailViewController.m in Sources */,
-				011B848E1B0DBB83003005BC /* BDStockNewsService.m in Sources */,
+				011B848E1B0DBB83003005BC /* BDSecuNewsService.m in Sources */,
 				011B84891B0DBB83003005BC /* BDNewsEventService.m in Sources */,
 				011B85571B0DBEFE003005BC /* QuoteMainViewController.m in Sources */,
 				01A55BB51B5E3CE800224F7B /* ImportsTableViewCell.m in Sources */,

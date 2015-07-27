@@ -8,7 +8,6 @@
 
 #import "SecuNewsListView.h"
 #import "BDCoreService.h"
-#import "BDSectService.h"
 #import "NewsListViewCell.h"
 #import "NewsDetailViewController.h"
 
@@ -71,7 +70,7 @@
             }
         }
     }
-    BDSecuNews *news = (BDSecuNews *)_newsList[indexPath.row];
+    BDSecuNewsList *news = (BDSecuNewsList *)_newsList[indexPath.row];
     cell.title.text = news.title;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"yyyy-MM-dd";
@@ -95,7 +94,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    BDSecuNews *news = _newsList[indexPath.row];
+    BDSecuNewsList *news = _newsList[indexPath.row];
     NewsDetailViewController *detail = [[NewsDetailViewController alloc] init];
     detail.contentId = news.contentId;
     [self pushViewController:detail animated:YES];
@@ -104,7 +103,7 @@
 
 - (void)loadNewsListWithSecuCode:(NSString *)code {
     BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:code];
-    NSArray *idxList = @[@"000001", @"000002", @"000003", @"000010", @"000016", @"000043", @"000300", @"000903", @"000905", @"399001", @"399004", @"399005", @"399006", @"399100", @"399101", @"399102", @"399106", @"399107", @"399108"];
+    NSArray *idxList = @[@"000001", @"000002", @"000003", @"000010", @"000016", @"000300", @"399001", @"399005", @"399006"];
     NSArray *data;
     if ([idxList containsObject:secu.trdCode]) {    // 是否为市场指数
         NSDictionary *paramDic = @{@"ID": [NSNumber numberWithInt:0],
@@ -112,23 +111,17 @@
         data = [[BDCoreService new] syncRequestDatasourceService:1580 parameters:paramDic query:nil];
     }
     else {
-        BDSectService *service = [[BDSectService alloc] init];
-        NSUInteger sectId = [service getSectIdByIndexCode:secu.bdCode];
-        NSDictionary *paramDic = @{@"PSIZE": [NSNumber numberWithUnsignedInteger:5],
-                                   @"PINDEX": [NSNumber numberWithUnsignedInteger:1],
-                                   @"sect_id": [NSNumber numberWithUnsignedInteger:sectId]};
-        data = [[BDCoreService new] syncRequestDatasourceService:1585 parameters:paramDic query:nil];
+        NSDictionary *paramDic = @{@"ID": [NSNumber numberWithInt:0],
+                                   @"COUNT": [NSNumber numberWithInt:5]};
+        data = [[BDCoreService new] syncRequestDatasourceService:1584 parameters:paramDic query:nil];
     }
     [_newsList removeAllObjects];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"yyyy-MM-dd HH:mm";
     for (NSDictionary *item in data) {
-        BDSecuNews *news = [BDSecuNews new];
+        BDSecuNewsList *news = [BDSecuNewsList new];
         news.date = [formatter dateFromString:item[@"PUB_DT"]];
         news.title = item[@"TIT"];
-        news.media = item[@"MED_NAME"];
-        news.author = item[@"AUT"];
-        news.abstract = item[@"ABST"];
         news.contentId = [item[@"CONT_ID"] longValue];
         [_newsList addObject:news];
     }

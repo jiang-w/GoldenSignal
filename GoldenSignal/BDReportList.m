@@ -1,5 +1,5 @@
 //
-//  BDReport.m
+//  BDReportList.m
 //  CBNAPP
 //
 //  Created by Frank on 14/12/24.

@@ -1,5 +1,5 @@
 //
-//  BDNewsEvent.m
+//  BDNewsEventList.m
 //  GoldenSignal
 //
 //  Created by Frank on 15/7/21.

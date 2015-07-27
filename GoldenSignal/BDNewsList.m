@@ -1,5 +1,5 @@
 //
-//  BDNews.m
+//  BDNewsList.m
 //  CBNAPP
 //
 //  Created by Frank on 14-8-13.
