@@ -10,8 +10,6 @@
 
 @interface BDStockPoolInfoService : NSObject
 
-
-
 /**
  *  获取自选股提示列表（返回BDPrompt类型数组）   提示1
  *
@@ -62,27 +60,6 @@
  *  @return 返回一个model
  */
 - (BDBulletin *)getBulletinDetailById:(long)connectId;
-
-
-/**
- *  获取 研报 详细内容数据
- *
- *  @param id 每个cell对应的id（自己找下）3
- *
- *  @return 返回一个model
- */
-- (BDReportList *)getReportDetailById:(long)connectId;
-
-
-
-/**
- *  获取自选股 新闻 的子页面 详情数据      4
- *
- *  @param connectId 每个cell对应的id（自己找下）
- *
- *  @return 返回一个model类型
- */
-- (BDNews *)getOptionalNewsDetailById:(long)connectId andPageId:(int)pageId;
 
 
 @end

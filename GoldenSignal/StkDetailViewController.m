@@ -337,7 +337,7 @@
                     }
                 }
             }
-            BDNews *news = (BDNews *)_quoteNewsViewModel.newsList[indexPath.row];
+            BDNewsList *news = (BDNewsList *)_quoteNewsViewModel.newsList[indexPath.row];
             cell.news = news;
             if (indexPath.row % 2 == 0) {
                 cell.backgroundColor = [UIColor blackColor];
@@ -407,7 +407,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    BDNews *news = _quoteNewsViewModel.newsList[indexPath.row];
+    BDNewsList *news = _quoteNewsViewModel.newsList[indexPath.row];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     NewsEventDetailViewController *newsDetail = [storyboard instantiateViewControllerWithIdentifier:@"NewsEventDetail"];
     newsDetail.contentId = news.innerId;

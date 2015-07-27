@@ -240,7 +240,7 @@
     NSArray *allData = [service dataConvertToNSArray:data];
     NSArray *newsData = [[allData objectAtIndex:0] objectForKey:@"DATA"];
     for (NSDictionary *item in newsData) {
-        BDNews *news = [[BDNews alloc] init];
+        BDNewsList *news = [[BDNewsList alloc] init];
         news.innerId = [item[@"ID"] longValue];
         news.title = item[@"TIT"];
         news.date = [service deserializeJsonDateString:item[@"PUB_DT"]];

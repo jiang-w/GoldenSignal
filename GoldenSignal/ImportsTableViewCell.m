@@ -22,7 +22,7 @@
 
 //newsModel 要闻 加载到Cell
 - (void)showCellAndNewsModel:(NSObject *)model{
-    BDNews *newsModel = (BDNews *)model;
+    BDNewsList *newsModel = (BDNewsList *)model;
     self.titleLabel.text =  newsModel.title;
     _titleHeight = [self calcHightWithString:self.titleLabel];
     
@@ -41,7 +41,7 @@
 
 //策略的数据
 - (void)showCellAndStrategyNewsModel:(NSObject *)model{
-    BDNews *newsModel = (BDNews *)model;
+    BDNewsList *newsModel = (BDNewsList *)model;
     
     self.titleLabel.text = newsModel.title;//新闻标题内容
     _titleHeight = [self calcHightWithString:self.titleLabel];
@@ -56,7 +56,7 @@
     }
     
     newsModel.author = [newsModel.author isEqualToString:@"--"] ? @"" : newsModel.author;
-    self.dateLabel.text = [NSString stringWithFormat:@"%@%@ %@",dateStr,newsModel.companyName,newsModel.author];
+    self.dateLabel.text = [NSString stringWithFormat:@"%@%@ %@",dateStr, newsModel.companyName, newsModel.author];
     
     self.desLabel.text = [NSString stringWithFormat:@"\t%@",newsModel.abstract];
     _desHeight = [self calcHightWithString:self.desLabel];

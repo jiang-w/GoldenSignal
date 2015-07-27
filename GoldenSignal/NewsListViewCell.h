@@ -13,6 +13,6 @@
 @property(nonatomic,strong) IBOutlet UILabel *title;
 @property(nonatomic,strong) IBOutlet UILabel *date;
 
-@property (nonatomic,setter = setNews:) BDNews *news;
+@property (nonatomic,setter = setNews:) BDNewsList *news;
 
 @end

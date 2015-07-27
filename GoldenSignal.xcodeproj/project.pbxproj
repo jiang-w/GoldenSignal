@@ -32,7 +32,7 @@
 		011B84A11B0DBC57003005BC /* BDBulletin.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84911B0DBC57003005BC /* BDBulletin.m */; };
 		011B84A21B0DBC57003005BC /* BDChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84931B0DBC57003005BC /* BDChannel.m */; };
 		011B84A31B0DBC57003005BC /* BDKLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84951B0DBC57003005BC /* BDKLine.m */; };
-		011B84A41B0DBC57003005BC /* BDNews.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84981B0DBC57003005BC /* BDNews.m */; };
+		011B84A41B0DBC57003005BC /* BDNewsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84981B0DBC57003005BC /* BDNewsList.m */; };
 		011B84A51B0DBC57003005BC /* BDNewsTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B849A1B0DBC57003005BC /* BDNewsTag.m */; };
 		011B84A61B0DBC57003005BC /* BDReportList.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B849C1B0DBC57003005BC /* BDReportList.m */; };
 		011B84A71B0DBC57003005BC /* BDSectInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B849E1B0DBC57003005BC /* BDSectInfo.m */; };
@@ -237,8 +237,8 @@
 		011B84941B0DBC57003005BC /* BDKLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDKLine.h; sourceTree = "<group>"; };
 		011B84951B0DBC57003005BC /* BDKLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDKLine.m; sourceTree = "<group>"; };
 		011B84961B0DBC57003005BC /* BDModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDModel.h; sourceTree = "<group>"; };
-		011B84971B0DBC57003005BC /* BDNews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDNews.h; sourceTree = "<group>"; };
-		011B84981B0DBC57003005BC /* BDNews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDNews.m; sourceTree = "<group>"; };
+		011B84971B0DBC57003005BC /* BDNewsList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDNewsList.h; sourceTree = "<group>"; };
+		011B84981B0DBC57003005BC /* BDNewsList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDNewsList.m; sourceTree = "<group>"; };
 		011B84991B0DBC57003005BC /* BDNewsTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDNewsTag.h; sourceTree = "<group>"; };
 		011B849A1B0DBC57003005BC /* BDNewsTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDNewsTag.m; sourceTree = "<group>"; };
 		011B849B1B0DBC57003005BC /* BDReportList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDReportList.h; sourceTree = "<group>"; };
@@ -665,8 +665,6 @@
 				011B84931B0DBC57003005BC /* BDChannel.m */,
 				011B84941B0DBC57003005BC /* BDKLine.h */,
 				011B84951B0DBC57003005BC /* BDKLine.m */,
-				011B84971B0DBC57003005BC /* BDNews.h */,
-				011B84981B0DBC57003005BC /* BDNews.m */,
 				011B84991B0DBC57003005BC /* BDNewsTag.h */,
 				011B849A1B0DBC57003005BC /* BDNewsTag.m */,
 				011B849D1B0DBC57003005BC /* BDSectInfo.h */,
@@ -681,6 +679,8 @@
 				015B72151B5E71DA006DA827 /* BDNewsEventList.m */,
 				01D262FC1B60B58C00A93F58 /* BDNewsEventDetail.h */,
 				01D262FD1B60B58C00A93F58 /* BDNewsEventDetail.m */,
+				011B84971B0DBC57003005BC /* BDNewsList.h */,
+				011B84981B0DBC57003005BC /* BDNewsList.m */,
 				01D263041B60CB1000A93F58 /* BDNewsDetail.h */,
 				01D263051B60CB1000A93F58 /* BDNewsDetail.m */,
 				011B849B1B0DBC57003005BC /* BDReportList.h */,
@@ -1274,7 +1274,7 @@
 				011B84891B0DBB83003005BC /* BDNewsEventService.m in Sources */,
 				011B85571B0DBEFE003005BC /* QuoteMainViewController.m in Sources */,
 				01A55BB51B5E3CE800224F7B /* ImportsTableViewCell.m in Sources */,
-				011B84A41B0DBC57003005BC /* BDNews.m in Sources */,
+				011B84A41B0DBC57003005BC /* BDNewsList.m in Sources */,
 				011B848C1B0DBB83003005BC /* BDRelationQuery.m in Sources */,
 				011B85211B0DBEA9003005BC /* BulletinListViewCell.m in Sources */,
 				011B84F51B0DBDBC003005BC /* ManageTagsViewController.m in Sources */,

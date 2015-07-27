@@ -21,7 +21,7 @@
 
 //newsModel 新闻信息 加载到Cell
 - (void)showCellAndNewsModel:(NSObject *)model{
-    BDNews *newsModel = (BDNews *)model;
+    BDNewsList *newsModel = (BDNewsList *)model;
 //    [self setContentLabels:self.titleLabel andText:newsModel.title];//新闻标题内容
     
     self.titleLabel.text = newsModel.title;

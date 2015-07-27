@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 //两个Model
 #import "BDReportList.h"
-#import "BDNews.h"
+#import "BDNewsList.h"
 
 @interface ReportTableViewCell : UITableViewCell
 

@@ -21,7 +21,7 @@
     // Configure the view for the selected state
 }
 
-- (void)setNews:(BDNews *)news {
+- (void)setNews:(BDNewsList *)news {
     _news = news;
     self.title.text = news.title;
 //    self.date.text= [news.date toString:@"yyyy-MM-dd hh:mm"];

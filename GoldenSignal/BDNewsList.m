@@ -6,8 +6,8 @@
 //  Copyright (c) 2014年 bigdata. All rights reserved.
 //
 
-#import "BDNews.h"
+#import "BDNewsList.h"
 
-@implementation BDNews
+@implementation BDNewsList
 
 @end

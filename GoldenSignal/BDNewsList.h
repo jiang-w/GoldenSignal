@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "BDNewsTag.h"
 
-@interface BDNews : NSObject
+@interface BDNewsList : NSObject
 
 /**
- *  新闻ID
+ *  内部ID
  */
 @property(nonatomic, assign) long innerId;
 
@@ -32,21 +32,6 @@
 @property(nonatomic, strong) NSString *abstract;
 
 /**
- *  摘要全文
- */
-@property(nonatomic, strong) NSString *ABST_SHT;
-
-/**
- *  内容
- */
-@property(nonatomic, strong) NSString *content;
-
-/**
- *  公司名字
- */
-@property(nonatomic, strong) NSString *companyName;
-
-/**
  *  作者
  */
 @property(nonatomic, strong) NSString *author;
@@ -59,7 +44,12 @@
 /**
  *  每条新闻对应的连接ID 有可能为空
  */
-@property (nonatomic,assign) long connectId;
+@property(nonatomic, assign) long connectId;
+
+/**
+ *  机构名称（用于策略）
+ */
+@property(nonatomic, strong) NSString *companyName;
 
 
 @end

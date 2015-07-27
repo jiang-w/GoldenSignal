@@ -204,7 +204,7 @@
         cell = ReportCell;
     }
     else if ([self.codeId isEqual:@"news"]) {
-        BDNews *newsModel = _allArray[indexPath.row];
+        BDNewsList *newsModel = _allArray[indexPath.row];
         newsTableViewCell *newsCell = [tableView dequeueReusableCellWithIdentifier:@"newsTableCell"];
         [newsCell showCellAndNewsModel:newsModel];
         newsCell.tag = indexPath.row + 200;
@@ -270,7 +270,7 @@
         [uc.navigationController pushViewController:detail animated:YES];
     }
     else if ([self.codeId isEqual:@"news"]) {
-        BDNews *newsModel = _allArray[indexPath.row];
+        BDNewsList *newsModel = _allArray[indexPath.row];
         NewsDetailViewController *detail = [[NewsDetailViewController alloc] init];
         detail.contentId = newsModel.connectId;
         

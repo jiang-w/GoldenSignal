@@ -12,7 +12,7 @@
 #import "BDUserInfo.h"
 #import "BDUserTicket.h"
 #import "BDRegisterInfo.h"
-#import "BDNews.h"
+#import "BDNewsList.h"
 #import "BDNewsTag.h"
 #import "BDCustomTagCollection.h"
 #import "BDSecuCode.h"

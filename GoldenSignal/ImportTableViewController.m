@@ -11,7 +11,7 @@
  */
 #import "ImportTableViewController.h"
 #import "BDImportService.h"
-#import "BDNews.h"//Model
+#import "BDNewsList.h"//Model
 #import <MBProgressHUD.h>
 #import <MJRefresh.h>
 #import "ImportsTableViewCell.h"
@@ -153,7 +153,7 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    BDNews *newsModel = _allArray[indexPath.row];
+    BDNewsList *newsModel = _allArray[indexPath.row];
     ImportsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ImportCell"] ;
     if (_pageId == 1582) {
         [cell showCellAndStrategyNewsModel:newsModel];
@@ -190,7 +190,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
     if (_pageId == 1582) {
-        BDNews *newsModel = _allArray[indexPath.row];
+        BDNewsList *newsModel = _allArray[indexPath.row];
         ReportDetailViewController1 *detail = [[ReportDetailViewController1 alloc] init];
         detail.contentId = newsModel.connectId;
         
@@ -206,7 +206,7 @@
         DEBUGLog(@"Debug:aa");
     }
     else {
-        BDNews *newsModel = _allArray[indexPath.row];
+        BDNewsList *newsModel = _allArray[indexPath.row];
         NewsDetailViewController *detail = [[NewsDetailViewController alloc] init];
         detail.contentId = newsModel.connectId;
         

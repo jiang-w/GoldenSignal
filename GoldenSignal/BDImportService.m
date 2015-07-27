@@ -9,7 +9,7 @@
 #import "BDImportService.h"
 #import "BDCoreService.h"
 #import <AFNetworking.h>
-#import "BDNews.h"//Model，用来存数据
+#import "BDNewsList.h"//Model，用来存数据
 #import "BDNewStockModel.h"//要闻 新股Model
 
 
@@ -35,7 +35,7 @@
         NSArray *data = [service syncRequestDatasourceService:pageId parameters:parameters query:nil];
         
         for (NSDictionary *item in data) {
-            BDNews *newsModel = [[BDNews alloc] init];
+            BDNewsList *newsModel = [[BDNewsList alloc] init];
             
             newsModel.title = item[@"TIT"];//标题
             
@@ -50,10 +50,10 @@
             newsModel.date = (item[@"PUB_DT"] == [NSNull null]) ? 0 : [formatter dateFromString:item[@"PUB_DT"]] ;//日期
             
             newsModel.media = item[@"MED_NAME"];//媒体名字
-            newsModel.companyName = item[@"COM_NAME"];
+//            newsModel.companyName = item[@"COM_NAME"];
             newsModel.author = (item[@"AUT"] == [NSNull null]) ? @"" : item[@"AUT"];//作者名字
             newsModel.abstract = item[@"ABST"];//摘要
-            newsModel.ABST_SHT = item[@"ABST_SHT"];
+//            newsModel.ABST_SHT = item[@"ABST_SHT"];
             newsModel.connectId = [item[@"CONT_ID"] longValue];//正文内容对应的ID
             newsModel.innerId = [item[@"ID"]longValue];//lastId
             
@@ -93,7 +93,7 @@
         NSArray *data = [service syncRequestDatasourceService:pageId parameters:parameters query:nil];
         
         for (NSDictionary *item in data) {
-            BDNews *newsModel = [[BDNews alloc] init];
+            BDNewsList *newsModel = [[BDNewsList alloc] init];
             
             newsModel.title = item[@"TIT"];//标题
             
@@ -110,7 +110,6 @@
             newsModel.companyName = item[@"COM_NAME"];
             newsModel.author = (item[@"AUT"] == [NSNull null]) ? @"" : item[@"AUT"];//作者名字
             newsModel.abstract = item[@"ABST"];//摘要
-            newsModel.ABST_SHT = item[@"ABST_SHT"];//摘要全文
             newsModel.connectId = [item[@"CONT_ID"] longValue];//正文内容对应的ID //lastId
             
             [list addObject:newsModel];
