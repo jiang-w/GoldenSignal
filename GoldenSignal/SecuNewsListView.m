@@ -33,7 +33,8 @@
     
     _newsList = [NSMutableArray array];
     if (self.secuCode) {
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
+        hud.opacity = 0;
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             BDSecuNewsService *service = [[BDSecuNewsService alloc] init];
             [_newsList addObjectsFromArray:[service getListWithSecuCode:self.secuCode type:self.type quantity:5]];
