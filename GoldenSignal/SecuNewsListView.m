@@ -97,18 +97,21 @@
         case NWS: {
             NewsDetailViewController *detail = [[NewsDetailViewController alloc] init];
             detail.contentId = news.contentId;
+            detail.hidesBottomBarWhenPushed = YES;
             [self pushViewController:detail animated:YES];
             break;
         }
         case RPT: {
             ReportDetailViewController1 *detail = [[ReportDetailViewController1 alloc] init];
             detail.contentId = news.contentId;
+            detail.hidesBottomBarWhenPushed = YES;
             [self pushViewController:detail animated:YES];
             break;
         }
         case ANNC: {
             AnnouncementDetailViewController *detail = [[AnnouncementDetailViewController alloc] init];
             detail.contentId = news.innerId;
+            detail.hidesBottomBarWhenPushed = YES;
             [self pushViewController:detail animated:YES];
             break;
         }

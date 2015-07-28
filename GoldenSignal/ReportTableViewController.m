@@ -258,6 +258,7 @@
         BDReportList *rModel = _allArray[indexPath.row];
         ReportDetailViewController1 *detail = [[ReportDetailViewController1 alloc] init];
         detail.contentId = rModel.cont_id;
+        detail.hidesBottomBarWhenPushed = YES;
         
         //获取UIView的父层UIViewController
         id object = [self nextResponder];
@@ -273,6 +274,7 @@
         BDNewsList *newsModel = _allArray[indexPath.row];
         NewsDetailViewController *detail = [[NewsDetailViewController alloc] init];
         detail.contentId = newsModel.connectId;
+        detail.hidesBottomBarWhenPushed = YES;
         
         //获取UIView的父层UIViewController
         id object = [self nextResponder];

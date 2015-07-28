@@ -255,6 +255,7 @@
         BDAnnouncementList *bModel = _allArray[indexPath.row];
         AnnouncementDetailViewController *detail = [[AnnouncementDetailViewController alloc] init];
         detail.contentId = bModel.innerId;
+        detail.hidesBottomBarWhenPushed = YES;
         
         //获取UIView的父层UIViewController
         id object = [self nextResponder];

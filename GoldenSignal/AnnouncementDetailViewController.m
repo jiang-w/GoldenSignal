@@ -9,7 +9,9 @@
 #import "AnnouncementDetailViewController.h"
 #import "BDCoreService.h"
 #import "RegexKitLite.h"
+
 #import <MBProgressHUD.h>
+#import <Masonry.h>
 
 @interface AnnouncementDetailViewController ()
 
@@ -24,10 +26,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationController setNavigationBarHidden:NO];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    self.webView.delegate = self;
     self.webView.backgroundColor = [UIColor whiteColor];
-//    self.webView.scalesPageToFit = YES;
     [self.view addSubview:self.webView];
+    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(64);
+        make.left.right.bottom.equalTo(self.view);
+    }];
     
     if (self.contentId > 0) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -44,7 +52,6 @@
             });
         });
     }
-
 }
 
 - (BDAnnouncementDetail *)getAnnouncementDetailById:(long)newsId {
@@ -101,6 +108,20 @@
     }
     NSURL *baseURL = [NSURL fileURLWithPath:htmlPath];
     [self.webView loadHTMLString:htmlText baseURL:baseURL];
+}
+
+
+#pragma mark - UIWebViewDelegate
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    NSURL *url = webView.request.URL;
+    NSRange range = [url.relativePath rangeOfString:[NSString stringWithFormat:@"%ld.%@", _announcement.ann_cont_id, _announcement.ann_fmt]];
+    if (range.length > 0) {
+        self.webView.scalesPageToFit = YES;
+    }
+    else {
+        self.webView.scalesPageToFit = NO;
+    }
 }
 
 @end

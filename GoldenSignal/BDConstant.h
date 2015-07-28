@@ -33,7 +33,7 @@
 #define TAGS_SORTED_NOTIFICATION @"CustomTagsSorted"
 
 /* 公告附件服务器路径 */
-#define ATTACHMENT_SERVER_PATH @"http://d1.chinabigdata.com/annex/blt"
+#define ATTACHMENT_SERVER_PATH @"http://d2.chinabigdata.com/annex/blt"
 
 
 #define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136),[[UIScreen mainScreen] currentMode].size):NO)
