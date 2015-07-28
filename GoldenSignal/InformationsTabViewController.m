@@ -15,7 +15,7 @@
 #import <MJRefresh.h>
 #import <AFNetworking.h>
 
-#import "BulletinViewController.h"//公告详情页面
+#import "AnnouncementDetailViewController.h"//公告详情页面
 
 
 @interface InformationsTabViewController ()
@@ -210,7 +210,7 @@
     else if ([self.InformationId isEqual:@"gongGao"]) {
         PerformanceTableViewCell *gongGaoCell = [tableView dequeueReusableCellWithIdentifier:@"PerformanceCell"];
         gongGaoCell.selectionStyle = UITableViewCellSelectionStyleDefault;
-        BDBulletin *pModel = _allArray[indexPath.row];
+        BDAnnouncementList *pModel = _allArray[indexPath.row];
         [gongGaoCell showGongGaoCellAndModel:pModel];
         cell = gongGaoCell;
     }
@@ -252,8 +252,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if ([self.InformationId isEqual:@"gongGao"]) {
-        BDBulletin *bModel = _allArray[indexPath.row];
-        BulletinViewController *BVC = [[BulletinViewController alloc]initWithModel:bModel andId:bModel.connectId];
+        BDAnnouncementList *bModel = _allArray[indexPath.row];
+        AnnouncementDetailViewController *detail = [[AnnouncementDetailViewController alloc] init];
+        detail.contentId = bModel.innerId;
         
         //获取UIView的父层UIViewController
         id object = [self nextResponder];
@@ -262,7 +263,7 @@
             object = [object nextResponder];
         }
         UIViewController *uc=(UIViewController*)object;
-        [uc.navigationController pushViewController:BVC animated:YES];
+        [uc.navigationController pushViewController:detail animated:YES];
     } else {
         return;
     }

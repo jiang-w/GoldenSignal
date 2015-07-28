@@ -24,7 +24,7 @@
 
 //公告的Cell
 - (void)showGongGaoCellAndModel:(NSObject *)model{
-    BDBulletin *pModel = (BDBulletin *)model;
+    BDAnnouncementList *pModel = (BDAnnouncementList *)model;
     //日期 截取
     NSString *dateStr = [[NSString stringWithFormat:@"%@",pModel.date] substringToIndex:10];
     

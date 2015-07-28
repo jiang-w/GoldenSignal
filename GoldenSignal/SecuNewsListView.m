@@ -11,6 +11,7 @@
 #import "SecuNewsListViewCell.h"
 #import "NewsDetailViewController.h"
 #import "ReportDetailViewController1.h"
+#import "AnnouncementDetailViewController.h"
 
 #import <MBProgressHUD.h>
 
@@ -102,6 +103,12 @@
         case RPT: {
             ReportDetailViewController1 *detail = [[ReportDetailViewController1 alloc] init];
             detail.contentId = news.contentId;
+            [self pushViewController:detail animated:YES];
+            break;
+        }
+        case ANNC: {
+            AnnouncementDetailViewController *detail = [[AnnouncementDetailViewController alloc] init];
+            detail.contentId = news.innerId;
             [self pushViewController:detail animated:YES];
             break;
         }

@@ -1,5 +1,5 @@
 //
-//  BDBulletin.h
+//  BDAnnouncementList.h
 //  CBNAPP
 //
 //  Created by Frank on 14/12/17.
@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BDBulletin : NSObject
+@interface BDAnnouncementList : NSObject
 
 /**
- *  公告ID
+ *  内部ID
  */
 @property(nonatomic, assign) long innerId;
 
@@ -26,19 +26,13 @@
 @property(nonatomic, strong) NSDate *date;
 
 /**
- *  序号
+ *  内容ID
  */
-@property(nonatomic, assign) long sn;
-
-
-/**
- *  每条新闻对应的连接ID 有可能为空
- */
-@property (nonatomic,assign) long connectId;
+@property(nonatomic, assign) long contentId;
 
 /**
  *  详情页面的内容
  */
-@property (nonatomic, copy) NSString *content;
+//@property (nonatomic, copy) NSString *content;
 
 @end

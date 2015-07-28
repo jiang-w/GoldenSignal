@@ -51,15 +51,4 @@
 - (NSMutableArray *)getPerformanceListBySecuCodes:(NSArray *)codes lastId:(long)lastId quantity:(int)quantity;
 
 
-
-/**
- *  获取自选股 公告 的子页面 详细数据      2
- *
- *  @param connectId 每个cell对应的id（自己找下）
- *
- *  @return 返回一个model
- */
-- (BDBulletin *)getBulletinDetailById:(long)connectId;
-
-
 @end

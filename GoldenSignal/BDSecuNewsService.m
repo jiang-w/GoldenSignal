@@ -68,10 +68,12 @@
             obj.date = [formatter dateFromString:item[@"PUB_DT"]];
             
             if (item[@"CONT_ID"] == [NSNull null]) {
-                obj.contentId = 0;//标记下
+                obj.contentId = 0;
             } else {
                 obj.contentId = [item[@"CONT_ID"] longValue];
             }
+            
+            obj.type = type;
             
             [list addObject:obj];
         }

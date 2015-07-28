@@ -68,18 +68,19 @@
         BDCoreService *service = [BDCoreService new];
         NSArray *data = [service syncRequestDatasourceService:1575 parameters:parameters query:nil];
         for (NSDictionary *item in data) {
-            BDBulletin *bulletin = [[BDBulletin alloc] init];
+            BDAnnouncementList *bulletin = [[BDAnnouncementList alloc] init];
             bulletin.innerId = [item[@"ID"] longValue];
             bulletin.title = item[@"TIT"];
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             formatter.dateFormat = @"yyyy-MM-dd";
             bulletin.date = [formatter dateFromString:item[@"PUB_DT"]];
+            bulletin.contentId = bulletin.innerId;
             
-            if (item[@"CONT_ID"] == [NSNull null]) {
-                bulletin.connectId = 0;//标记下
-            } else {
-                bulletin.connectId = [item[@"CONT_ID"] longValue];
-            }
+//            if (item[@"CONT_ID"] == [NSNull null]) {
+//                bulletin.connectId = 0;//标记下
+//            } else {
+//                bulletin.connectId = [item[@"CONT_ID"] longValue];
+//            }
             
             [list addObject:bulletin];
         }
@@ -219,35 +220,6 @@
         NSLog(@"Failure: 加载自选股提示列表 %@",exception.reason);
     }
     return list;
-}
-
-
-/**
- *  获取 公告 详细内容数据
- *
- *  @param id 每个cell对应的id（自己找下）
- *
- *  @return 返回一个model
- */
-- (BDBulletin *)getBulletinDetailById:(long)connectId {
-    BDBulletin *bulletin = nil;
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setValue:[NSNumber numberWithLong:connectId] forKey:@"CONT_ID"];
-    BDCoreService *service = [BDCoreService new];
-    NSArray *data = [service syncRequestDatasourceService:1589 parameters:parameters query:nil];
-    for (NSDictionary *item in data) {
-        bulletin = [[BDBulletin alloc] init];
-        bulletin.connectId = connectId;
-        
-        bulletin.title = item[@"TIT"];
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        formatter.dateFormat = @"yyyy-MM-dd";
-        bulletin.date = [formatter dateFromString:item[@"PUB_DT"]];
-        bulletin.content = item[@"CONT"];
-        
-        break;
-    }
-    return bulletin;
 }
 
 @end
