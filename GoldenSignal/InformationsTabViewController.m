@@ -209,7 +209,7 @@
     }
     else if ([self.InformationId isEqual:@"gongGao"]) {
         PerformanceTableViewCell *gongGaoCell = [tableView dequeueReusableCellWithIdentifier:@"PerformanceCell"];
-        gongGaoCell.selectionStyle = UITableViewCellSelectionStyleDefault;
+//        gongGaoCell.selectionStyle = UITableViewCellSelectionStyleDefault;
         BDAnnouncementList *pModel = _allArray[indexPath.row];
         [gongGaoCell showGongGaoCellAndModel:pModel];
         cell = gongGaoCell;

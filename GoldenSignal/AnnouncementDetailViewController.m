@@ -26,6 +26,7 @@
     [self.navigationController setNavigationBarHidden:NO];
     self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     self.webView.backgroundColor = [UIColor whiteColor];
+//    self.webView.scalesPageToFit = YES;
     [self.view addSubview:self.webView];
     
     if (self.contentId > 0) {
@@ -95,6 +96,8 @@
         // 新闻内容格式处理
         NSString *formatContent = [_announcement.content stringByReplacingOccurrencesOfRegex:@"\r\n" withString:@"<br />"];
         htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${content}" withString:formatContent];
+        NSString *url = [NSString stringWithFormat:@"%@/%ld.%@", ATTACHMENT_SERVER_PATH, _announcement.ann_cont_id, _announcement.ann_fmt];
+        htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${url}" withString:url];
     }
     NSURL *baseURL = [NSURL fileURLWithPath:htmlPath];
     [self.webView loadHTMLString:htmlText baseURL:baseURL];
