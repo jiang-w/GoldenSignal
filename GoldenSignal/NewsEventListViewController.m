@@ -36,6 +36,9 @@ static NSString *tableCellIdentifier = @"NewsListCell";
         _codes = codes;
         _vm = [[NewsEventListViewModel alloc] init];
         loadDataQueue = dispatch_queue_create("loadData", nil);
+        
+        [[NSNotificationCenter defaultCenter]
+         addObserver:self selector:@selector(customStockChanged:) name:CUSTOM_STOCK_CHANGED_NOTIFICATION object:nil];
     }
     return self;
 }
@@ -142,6 +145,22 @@ static NSString *tableCellIdentifier = @"NewsListCell";
     [_vm loadMoreNewsEvent];
     [self.tableView reloadData];
     [self.tableView.footer endRefreshing];
+}
+
+// 自选股变化后的通知事件（用于自选股金信号视图）
+- (void)customStockChanged:(NSNotification *)notification {
+    NSString *op = notification.userInfo[@"op"];
+    if ([op isEqualToString:@"add"] || [op isEqualToString:@"remove"]) {
+        if (_tagId == nil) {
+            dispatch_async(loadDataQueue, ^{
+                _codes = [BDStockPool sharedInstance].codes;
+                [_vm loadNewsEventWithTagId:_tagId andSecuCodes:_codes];
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [self.tableView reloadData];
+                });
+            });
+        }
+    }
 }
 
 @end
