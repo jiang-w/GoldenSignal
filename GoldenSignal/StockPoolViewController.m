@@ -56,8 +56,10 @@
         dispatch_async(loadDataQueue, ^{
             BDSectService *service = [[BDSectService alloc] init];
             NSArray *sortCodes = [service getSecuCodesBySectId:[userId longValue] andCodes:_secuCodes sortByIndicateName:nil ascending:_asc];
+//            NSLog(@"股池变化（排序前）:%@", _secuCodes);
             if (sortCodes > 0) {
                 _secuCodes = sortCodes;
+//                NSLog(@"股池变化（排序后）:%@", _secuCodes);
                 // 返回主线程刷新视图
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.tableView reloadData];
@@ -202,8 +204,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         StkQuoteViewCell *cell = (StkQuoteViewCell *)[tableView cellForRowAtIndexPath:indexPath];
         [[BDStockPool sharedInstance] removeStockWithCode:cell.code];
-        _secuCodes = [NSArray arrayWithArray:[BDStockPool sharedInstance].codes];
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+//        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     }
 }
 
@@ -228,7 +229,6 @@
         if (buttonIndex == 1) {
             StkQuoteViewCell *cell = (StkQuoteViewCell *)[self.tableView cellForRowAtIndexPath:_indexPath];
             [[BDStockPool sharedInstance] removeStockWithCode:cell.code];
-            _secuCodes = [NSArray arrayWithArray:[BDStockPool sharedInstance].codes];
         }
     }
 }
