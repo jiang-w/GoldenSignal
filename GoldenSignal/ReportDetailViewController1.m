@@ -36,9 +36,10 @@
         loadDataQueue = dispatch_queue_create("loadData", nil);
         dispatch_async(loadDataQueue, ^{
             _report = [self getReportDetailById:self.contentId];
-            
             dispatch_sync(dispatch_get_main_queue(), ^{
-                [self loadNewsDetailPage];
+                if (_report) {
+                    [self loadNewsDetailPage];
+                }
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
             });
         });
@@ -101,7 +102,12 @@
         htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${content}" withString:formatContent];
         htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${rat_name}" withString:[NSString stringWithFormat:@"%@", _report.rating]];
         htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${rat_code}" withString:[NSString stringWithFormat:@"%d", _report.rat_code]];
-        htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${prc}" withString:[NSString stringWithFormat:@"%.2f", _report.targ_prc]];
+        if (_report.targ_prc != 0) {
+            htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${prc}" withString:[NSString stringWithFormat:@"%.2f", _report.targ_prc]];
+        }
+        else {
+            htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${prc}" withString:@"--"];
+        }
     }
     NSURL *baseURL = [NSURL fileURLWithPath:htmlPath];
     [self.webView loadHTMLString:htmlText baseURL:baseURL];
