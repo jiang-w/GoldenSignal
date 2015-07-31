@@ -169,10 +169,10 @@
 //    CGFloat cellH = cell.titleLabel.frame.size.height + cell.dateLabel.frame.size.height + cell.desLabel.frame.size.height + 45 ;
     
     if (_pageId == 1582) {
-        CGFloat cellH = cell.titleHeight + cell.dateLabel.frame.size.height + cell.desHeight + 60;
+        CGFloat cellH = cell.titleHeight + cell.dateLabel.frame.size.height + cell.desHeight + 42;
         return cellH;
     } else {
-        CGFloat cellH = cell.titleHeight + cell.dateLabel.frame.size.height + cell.desHeight + 60;
+        CGFloat cellH = cell.titleHeight + cell.dateLabel.frame.size.height + cell.desHeight + 42;
 //        DEBUGLog(@"11Debug:H%.2lf",cellH);
         return cellH;
     }

@@ -132,32 +132,21 @@
  *  @param cellNumber 列数 一般为10条
  *  @return 返回的数据 存入数组中
  */
-- (NSMutableArray *)getImportNewStockRequestDataWithPageId:(int)pageId lastCellId:(long)lastId quantity:(int)cellNumber{
+- (NSMutableArray *)getImportNewStockRequestDataWithPageId:(int)pageId{
     Stopwatch *watch = [Stopwatch startNew];
     NSMutableArray *list = [NSMutableArray array];
     @try {
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        [parameters setValue:[NSNumber numberWithInt:cellNumber] forKey:@"PSize"];
-        [parameters setValue:[NSNumber numberWithInt:1] forKey:@"PIndex"];
-        if (lastId != 0) {
-            NSString *filter = [NSString stringWithFormat:@"{\"LeftPart\":\"ID\",\"RightPart\":%ld,\"Mode\":2}", lastId];
-            [parameters setValue:filter forKey:@"filter"];
-        }
+//        [parameters setValue:[NSNumber numberWithInt:cellNumber] forKey:@"PSize"];
+//        [parameters setValue:[NSNumber numberWithInt:1] forKey:@"PIndex"];
+//        if (lastId != 0) {
+//            NSString *filter = [NSString stringWithFormat:@"{\"LeftPart\":\"ID\",\"RightPart\":%ld,\"Mode\":2}", lastId];
+//            [parameters setValue:filter forKey:@"filter"];
+//        }
         BDCoreService *service = [BDCoreService new];
         
         //如果没有数据，界面显示"近期无IPO新股申购"
         NSArray *dataArray = [service syncRequestDatasourceService:pageId parameters:parameters query:nil];
-        //test
-//        dataArray = @[@{@"SUB_BGN_DT_ON":@"11" , @"SECU_SHT":@"aaa"},
-//                      @{@"SUB_BGN_DT_ON":@"11" , @"SECU_SHT":@"bbb"},
-//                      @{@"SUB_BGN_DT_ON":@"11" , @"SECU_SHT":@"ccc"},
-//                      @{@"SUB_BGN_DT_ON":@"22" , @"SECU_SHT":@"dddd"},
-//                      @{@"SUB_BGN_DT_ON":@"22" , @"SECU_SHT":@"eeee"},
-//                      @{@"SUB_BGN_DT_ON":@"333" , @"SECU_SHT":@"123"},
-//                      @{@"SUB_BGN_DT_ON":@"333" , @"SECU_SHT":@"456"},
-//                      @{@"SUB_BGN_DT_ON":@"333" , @"SECU_SHT":@"333"},
-//                      @{@"SUB_BGN_DT_ON":@"333" , @"SECU_SHT":@"789"},];
-        
         
         DEBUGLog(@"Debug:data>%@",dataArray);
         if (dataArray.count ==0) {
@@ -167,30 +156,26 @@
         for (NSDictionary *item in dataArray) {
             BDNewStockModel *nsModel = [[BDNewStockModel alloc] init];
             nsModel.SECU_SHT = item[@"SECU_SHT"];
-            nsModel.TRD_CODE = [item[@"TRD_CODE"] longValue];
+            nsModel.TRD_CODE = item[@"TRD_CODE"];
             
             NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
-            formatter1.dateFormat = @"YYYY-MM-DD DAY";
-            nsModel.SUB_BGN_DT_ON = [formatter1 dateFromString:item[@"SUB_BGN_DT_ON"]];
-            
-//            nsModel.SUB_BGN_DT_ON = item[@"SUB_BGN_DT_ON"];
-//            DEBUGLog(@"11Debug:%@,%@>" ,item[@"SUB_BGN_DT_ON"],item[@"SECU_SHT"]);
-//            DEBUGLog(@"22Debug:%@,%@>",nsModel.SUB_BGN_DT_ON ,nsModel.SECU_SHT);
-            
+            formatter1.dateFormat = @"yyyy-MM-dd";
+            nsModel.SUB_BGN_DT_ON1 = [formatter1 dateFromString:item[@"SUB_BGN_DT_ON"]];
             
             NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
-            formatter2.dateFormat = @"YYYY-MM";
-            nsModel.ALOT_RSLT_NTC_DT = [formatter2 dateFromString:item[@"ALOT_RSLT_NTC_DT"]];
+            formatter2.dateFormat = @"yyyy-MM-dd";
+            nsModel.ALOT_RSLT_NTC_DT1 = [formatter2 dateFromString:item[@"ALOT_RSLT_NTC_DT"]];
             
-            nsModel.ISS_PRC     = [item[@"ISS_PRC"] floatValue];
-            nsModel.PE_DIL      = [item[@"PE_DIL"]  floatValue];
-            nsModel.SUB_SHR_ON  = [item[@"SUB_SHR_ON"] floatValue];
-            nsModel.ISS_SHR     = [item[@"ISS_SHR"]  integerValue];
+            nsModel.ISS_PRC     = item[@"ISS_PRC"];
+            nsModel.PE_DIL      = item[@"PE_DIL"];
+            nsModel.SUB_SHR_ON  = item[@"SUB_SHR_ON"];
+            nsModel.ISS_SHR     = item[@"ISS_SHR"];
+            
+            nsModel.SECU_ID     = [item[@"SECU_ID"] longValue];//cell与详情页面连接的ID
             
             [list addObject:nsModel];
         }
         
-//        list = [NSMutableArray arrayWithArray:dataArray];
         [watch stop];
         DEBUGLog(@"Success: 加载要闻 新股列表 Timeout:%.3fs", watch.elapsed);
         
@@ -214,13 +199,14 @@
 - (BDNewStockModel *)getImportNewsStockDetailWithId:(long)connectId andPageId:(int)pageId{
     BDNewStockModel *newsModel = [BDNewStockModel new];
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setValue:[NSNumber numberWithLong:connectId] forKey:@"id"];
+    [parameters setValue:[NSNumber numberWithLong:connectId] forKey:@"SECU_ID"];
+//    [parameters setValue:connectId forKey:@"id"];
     BDCoreService *service = [BDCoreService new];
     
     NSArray *dataAry = [service syncRequestDatasourceService:pageId parameters:parameters query:nil];
     for (NSDictionary *items in dataAry) {
         
-        newsModel.TRD_CODE = connectId;//链接的id 股票代码
+        newsModel.SECU_ID = connectId;//链接的id 股票代码
         
         //KVC赋值
         newsModel = [[BDNewStockModel alloc]initWithDictionary:(NSMutableDictionary *)items];
@@ -233,11 +219,16 @@
 }
 
 
-- (NSMutableArray *)getImportNewsStockDetailById2:(long)connectId andPageId2:(int)pageId{
+
+
+
+
+
+- (NSMutableArray *)getImportNewsStockDetailById2:(NSString *)connectId andPageId2:(int)pageId{
     NSMutableArray * souceArray = [NSMutableArray array];
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setValue:[NSNumber numberWithLong:connectId] forKey:@"id"];
+    [parameters setValue:connectId forKey:@"id"];
     BDCoreService *service = [BDCoreService new];
     
     NSArray *dataArray = [service syncRequestDatasourceService:pageId parameters:parameters query:nil];

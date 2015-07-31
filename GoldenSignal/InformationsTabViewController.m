@@ -28,6 +28,7 @@
     id _temp;
     
     NSUInteger _timeIndex;//次数
+    UILabel *_label;
 }
 
 @end
@@ -72,20 +73,29 @@
     else {
         [self.tableView registerNib:[UINib nibWithNibName:@"PerformanceTableViewCell" bundle:nil] forCellReuseIdentifier:@"PerformanceCell"];
     }
-    
+    self.tableView.rowHeight = 60;
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.opacity = 0;//透明度0 表示完全透明
     hud.activityIndicatorColor = [UIColor blackColor];
     
-    _allArray = [[NSMutableArray alloc]initWithCapacity:0];
+    _allArray = [[NSMutableArray alloc]init];
     self.pageNumbs = 10;
     _timeIndex = 1;
 
     [self getRequestDataResource];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
     [self refresh];
+    
     //    [self performSelectorInBackground:@selector(getRequestDataResource) withObject:nil];
     //    [self performSelectorInBackground:@selector(refresh) withObject:nil];
+    
+    _label = [[UILabel alloc]init];
+//    _label.backgroundColor = [UIColor yellowColor];
+    _label.frame = CGRectMake(0, 30, self.view.frame.size.width, 25);
+    _label.font = [UIFont systemFontOfSize:14];
+    _label.textAlignment = NSTextAlignmentCenter;
 }
 
 - (void)getRequestDataResource{
@@ -93,25 +103,26 @@
     _codeArray = [[BDStockPool sharedInstance].codes copy];
     _infoService = [BDStockPoolInfoService new];
     DEBUGLog(@"DEBUGLog1arr=>%@",_codeArray);
+    
+    
     //判断上拉下拉刷新
     if (self.tableView.legendHeader.isRefreshing == YES) {
+        _label.text = @"";
+        [_label removeFromSuperview];
         self.pageNumbs =10;
         _lastId = 0;
         _timeIndex = 1;
     }
     else if (self.tableView.legendFooter.isRefreshing == YES) {
+        _label.text = @"";
+        [_label removeFromSuperview];
         _timeIndex ++;
         [self downPullRefresh];
         return;
-//        if (_temp == _allArray.lastObject) {
-//            self.pageNumbs += 10;
-//            _lastId = 0;
-//        } else {
-//            [self.tableView.legendFooter noticeNoMoreData];
-//            return;
-//        }
     }
-//    DEBUGLog(@"DEBUGLog2ar=%@,cou=%ld,2c=%d",_codeArray,_codeArray.count,self.pageNumbs);
+    
+    
+    
 
 #pragma mark --异步加载
     dispatch_queue_t requestQueue = dispatch_queue_create("RequestData", DISPATCH_QUEUE_CONCURRENT);
@@ -132,11 +143,23 @@
             _temp = _firstArray.lastObject;
             _lastId = [_firstArray.lastObject innerId];
             _allArray = [NSMutableArray arrayWithArray:_firstArray];
+            if (_codeArray.count == 0) {
+                [self.tableView addSubview:_label];
+                _label.text = @"请先添加自选股然后查看相关的数据";
+            }
+            else if (_allArray.count == 0) {
+                [self.tableView addSubview:_label];
+                _label.text = @"此栏目近期没有相关的数据";
+            }
+            else {
+                _label.text = @" ";
+                [_label removeFromSuperview];
+            }
+            
+            
             [self.tableView reloadData];
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
     });
-    
 }
 
 //上拉刷新 这是每次都拼接固定的条数的方法
@@ -156,11 +179,27 @@
         _lastId = [tempAry.lastObject innerId];
         _temp = tempAry.lastObject;
         [_allArray addObjectsFromArray:tempAry];
+        _label.text = @" ";
+        if (_codeArray.count == 0) {
+            [self.tableView addSubview:_label];
+            _label.text = @"请先添加自选股然后查看相关的数据";
+        }
+        else if (_allArray.count == 0) {
+            [self.tableView addSubview:_label];
+            _label.text = @"此栏目近期没有相关的数据";
+        }
+        else {
+            _label.text = @" ";
+            [_label removeFromSuperview];
+            _label.hidden = YES;
+        }
         [self.tableView reloadData];
     } else {
         [self.tableView.legendFooter noticeNoMoreData];
         return;
     }
+    
+    
 }
 
 - (void)addCustomStockChanged3:(NSNotification *)notification {
@@ -177,7 +216,15 @@
     }
 }
 
-
+//#pragma mark  -- 如果没有数据，界面显示“此栏目近期没有相关的披露的数据”
+//- (UIView *)creatOtherView{
+//    UILabel *label = [[UILabel alloc]init];
+//    label.backgroundColor = [UIColor yellowColor];
+//    label.frame = CGRectMake((self.view.frame.size.width-260)/2, 15, 260, 25);
+//    label.text = @"此栏目近期没有相关的披露的数据";
+//    [self.tableView addSubview:label];
+//    return label;
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -232,7 +279,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([self.InformationId isEqual:@"tiShi"]) {
         InfomationsTableViewCell *cell = (InfomationsTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
-        CGFloat cellH = cell.titleLabelHeight + cell.dateLabel.frame.size.height +30;
+        CGFloat cellH = cell.titleLabelHeight + cell.dateLabel.frame.size.height +32;
 //        DEBUGLog(@"11Debug:H%.2lf",cellH);
         return cellH;
     } else {

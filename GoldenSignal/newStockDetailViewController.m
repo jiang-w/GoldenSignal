@@ -12,7 +12,8 @@
 
 @interface newStockDetailViewController ()
 {
-    long _stockCode;
+//    long _stockCode;
+    long _connectId;
     BDNewStockModel *_nsModel;
     BDImportService *_service;
 }
@@ -22,10 +23,10 @@
 @implementation newStockDetailViewController
 
 
-- (instancetype)initWithStockCode:(long)stockCode{
+- (instancetype)initWithStockConnectId:(long)connectId{
     self = [super init];
     if (self) {
-        _stockCode = stockCode;
+        _connectId = connectId;
     }
     return self;
 }
@@ -43,25 +44,25 @@
     _nsModel = [BDNewStockModel new];
     _service = [BDImportService new];
     
-    _nsModel = [_service getImportNewsStockDetailWithId:_stockCode andPageId:1591];
+    _nsModel = [_service getImportNewsStockDetailWithId:_connectId andPageId:1591];
     [self showDetailInformationWithModel:_nsModel];
 }
 
 
 - (void)showDetailInformationWithModel:(BDNewStockModel *)model{
     _mediaLabel.text    = model.SECU_SHT;
-    _codeIdLabel.text   = [NSString stringWithFormat:@"%ld",model.SUB_CODE];
-    _stockIdLabel.text  = [NSString stringWithFormat:@"%ld",_stockCode];
+    _codeIdLabel.text   = [NSString stringWithFormat:@"%@",model.SUB_CODE];
+    _stockIdLabel.text  = [NSString stringWithFormat:@"%@",model.TRD_CODE];
     _starDateLabel.text = [NSString stringWithFormat:@"%@",model.SUB_BGN_DT_ON];
     
-    _priceLabel.text  = [NSString stringWithFormat:@"%.2lf",model.ISS_PRC];
-    _diluteLabel.text = [NSString stringWithFormat:@"%.2lf",model.PE_DIL];
-    _grossLabel.text  = [NSString stringWithFormat:@"%ld",model.ISS_SHR];
-    _upperLabel.text  = [NSString stringWithFormat:@"%.2lf",model.SUB_SHR_ON];
+    _priceLabel.text  = [NSString stringWithFormat:@"%@",model.ISS_PRC];
+    _diluteLabel.text = [NSString stringWithFormat:@"%@",model.PE_DIL];
+    _grossLabel.text  = [NSString stringWithFormat:@"%@",model.ISS_SHR];
+    _upperLabel.text  = [NSString stringWithFormat:@"%@",model.SUB_SHR_ON];
     
     _resultDateLabel.text = [NSString stringWithFormat:@"%@",model.ALOT_RSLT_NTC_DT];
     _marketTimeLabel.text = [NSString stringWithFormat:@"%@",model.LST_DT];
-    _signRateLabel.text   = [NSString stringWithFormat:@"%.2lf",model.SUCC_RAT_ON];
+    _signRateLabel.text   = [NSString stringWithFormat:@"%@",model.SUCC_RAT_ON];
     _signNumbLabel.text   = model.ISS_ALOT_NO;
     
 }

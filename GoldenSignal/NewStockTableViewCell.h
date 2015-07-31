@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BDNewStockModel.h"
 
 @interface NewStockTableViewCell : UITableViewCell
 
@@ -29,6 +30,7 @@
  *  总量
  */
 @property (weak, nonatomic) IBOutlet UILabel *grossLabel;
+
 /**
  *  结果日
  */
@@ -36,7 +38,7 @@
 
 
 
-
+- (void)showNewStockCellAndModel:(NSObject *)model;
 
 
 

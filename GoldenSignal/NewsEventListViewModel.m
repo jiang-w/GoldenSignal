@@ -29,9 +29,9 @@
 - (void)loadNewsEventWithTagId:(NSNumber *)tagId andSecuCodes:(NSArray *)codes {
     _tagId = tagId;
     _codes = codes;
-    [self.newsList removeAllObjects];
     if (_tagId != nil || (_codes != nil && _codes.count > 0)) {
         NSArray *newsArray = [_service getNewsEventListBySecuCodes:_codes tagId:[_tagId longValue] lastId:0 quantity:self.pageSize];
+        [self.newsList removeAllObjects];
         [self.newsList addObjectsFromArray:newsArray];
     }
 }

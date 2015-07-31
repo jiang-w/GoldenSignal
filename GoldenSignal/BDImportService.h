@@ -40,7 +40,7 @@
  *  @param cellNumber 列数 一般为10条
  *  @return 返回的数据 存入数组中
  */
-- (NSMutableArray *)getImportNewStockRequestDataWithPageId:(int)pageId lastCellId:(long)lastId quantity:(int)cellNumber;
+- (NSMutableArray *)getImportNewStockRequestDataWithPageId:(int)pageId;
 
 
 /**

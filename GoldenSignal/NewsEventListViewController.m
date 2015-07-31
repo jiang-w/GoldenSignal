@@ -134,17 +134,25 @@ static NSString *tableCellIdentifier = @"NewsListCell";
 // 下拉刷新数据
 - (void)headerRereshing
 {
-    [_vm reloadNewsEvent];
-    [self.tableView reloadData];
-    [self.tableView.header endRefreshing];
+    dispatch_async(loadDataQueue, ^{
+        [_vm reloadNewsEvent];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+            [self.tableView.header endRefreshing];
+        });
+    });
 }
 
 // 上拉加载更多数据
 - (void)footerRereshing
 {
-    [_vm loadMoreNewsEvent];
-    [self.tableView reloadData];
-    [self.tableView.footer endRefreshing];
+    dispatch_async(loadDataQueue, ^{
+        [_vm loadMoreNewsEvent];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+            [self.tableView.footer endRefreshing];
+        });
+    });
 }
 
 // 自选股变化后的通知事件（用于自选股金信号视图）

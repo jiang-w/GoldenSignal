@@ -28,6 +28,7 @@
     long _lastId;
     id _temp;
     NSUInteger _timeIndex;//次数
+    UILabel *_label;
 }
 
 @end
@@ -35,19 +36,6 @@
 
 
 @implementation ReportTableViewController
-
-
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [self.tableView reloadData];
-//    DEBUGLog(@"Debug:11");
-}
-
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    [self.tableView reloadData];
-//    DEBUGLog(@"Debug:222");
-}
 
 
 #pragma mark -- 刷新
@@ -76,6 +64,8 @@
     else if ([self.codeId isEqual:@"news"]) {
         [self.tableView registerNib:[UINib nibWithNibName:@"newsTableViewCell" bundle:nil] forCellReuseIdentifier:@"newsTableCell"];
     }
+    self.tableView.rowHeight = 120;
+    
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.opacity = 0;//透明度0 表示完全透明
@@ -87,6 +77,14 @@
     _allArray = [[NSMutableArray alloc]init];
     [self getRequestDataResource2];
     [self refresh];
+    
+    _label = [[UILabel alloc]init];
+    //    _label.backgroundColor = [UIColor yellowColor];
+    _label.frame = CGRectMake(0, 30, self.view.frame.size.width, 25);
+    _label.font = [UIFont systemFontOfSize:14];
+    _label.textAlignment = NSTextAlignmentCenter;
+    [self.tableView addSubview:_label];
+    _label.hidden  = YES;
 }
 
 - (void)getRequestDataResource2{
@@ -97,10 +95,12 @@
     //_innerId	long	1097587482	1097587482
     //判断上拉下拉刷新
     if (self.tableView.legendHeader.isRefreshing == YES) {
+        _label.text = @"";
         _lastId = 0;
         _timeIndex = 1;
         self.pageNumbs =10;
     } else if (self.tableView.legendFooter.isRefreshing == YES) {
+        _label.text = @"";
         _timeIndex ++;
         [self downPullRefresh];
         return;
@@ -131,6 +131,18 @@
             _temp = _firstArray.lastObject;
             _lastId = [_firstArray.lastObject innerId];
             _allArray = [NSMutableArray arrayWithArray:_firstArray];
+            if (_codeArray.count == 0) {
+                _label.hidden = NO;
+                _label.text = @"请先添加自选股然后查看相关的数据";
+            }
+            else if (_allArray.count == 0) {
+                _label.hidden = NO;
+                _label.text = @"此栏目近期没有相关的数据";
+            }
+            else {
+                _label.text = @"";
+                _label.hidden = YES;
+            }
             [self.tableView reloadData];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
@@ -151,6 +163,18 @@
         _lastId = [tempAry.lastObject innerId];
         _temp = tempAry.lastObject;
         [_allArray addObjectsFromArray:tempAry];
+        if (_codeArray.count == 0) {
+            _label.hidden = NO;
+            _label.text = @"请先添加自选股然后查看相关的数据";
+        }
+        else if (_allArray.count == 0) {
+            _label.hidden = NO;
+            _label.text = @"此栏目近期没有相关的数据";
+        }
+        else {
+            _label.text = @"";
+            _label.hidden = YES;
+        }
         [self.tableView reloadData];
     } else {
         [self.tableView.legendFooter noticeNoMoreData];

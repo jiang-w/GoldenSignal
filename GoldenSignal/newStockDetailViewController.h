@@ -31,7 +31,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *signNumbLabel;//网上中签号
 
 //股票代码的Code
-- (instancetype)initWithStockCode:(long)stockCode;
+- (instancetype)initWithStockConnectId:(long)connectId;
 
+@property (nonatomic, assign) long connectId;
 
 @end
