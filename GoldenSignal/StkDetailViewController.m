@@ -120,9 +120,11 @@
             // 点击Tab后scrollView滚动到其位置
             CGFloat scrollHeight = weakSelf.scrollView.frame.size.height;
             CGFloat contentHeight = weakSelf.scrollView.contentSize.height;
-            CGFloat tabViewY = weakSelf.infoTabView.frame.origin.y;
+            CGFloat tabViewY = weakSelf.infoTabView.frame.origin.y - 64;
             CGFloat offsetY = tabViewY + scrollHeight > contentHeight ? contentHeight - scrollHeight : tabViewY;
-            [weakSelf.scrollView setContentOffset:CGPointMake(0, offsetY) animated:YES];
+            if (offsetY >= 0) {
+                [weakSelf.scrollView setContentOffset:CGPointMake(0, offsetY) animated:YES];
+            }
         }
     }];
     self.infoTabView.color = RGB(7, 9, 8, 1);
@@ -238,6 +240,10 @@
 
 // 加载个股资讯
 - (void)loadQuoteNewsTableView {
+    for (UIView *sub in self.infoContainerView.subviews) {
+        [sub removeFromSuperview];
+    }
+    
     switch (_infoTabIndex) {
         case 0: {
             if (self.newsListView == nil) {
@@ -246,11 +252,13 @@
                 self.newsListView.type = NWS;
             }
             [self.infoContainerView addSubview:self.newsListView.view];
-            [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
+            [self.newsListView.view mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.left.right.equalTo(self.infoContainerView);
                 make.height.mas_equalTo(self.newsListView.tableView.rowHeight * 5);
             }];
-            [self.newsListView.view mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.infoContainerView);
+            
+            [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(self.newsListView.view);
             }];
             break;
         }
@@ -261,11 +269,14 @@
                 self.reportListView.type = RPT;
             }
             [self.infoContainerView addSubview:self.reportListView.view];
-            [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
+            
+            [self.reportListView.view mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.left.right.equalTo(self.infoContainerView);
                 make.height.mas_equalTo(self.reportListView.tableView.rowHeight * 5);
             }];
-            [self.reportListView.view mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.infoContainerView);
+            
+            [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(self.reportListView.view);
             }];
             break;
         }
@@ -276,15 +287,20 @@
                 self.bulletinListView.type = ANNC;
             }
             [self.infoContainerView addSubview:self.bulletinListView.view];
-            [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
+            
+            [self.bulletinListView.view mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.left.right.equalTo(self.infoContainerView);
                 make.height.mas_equalTo(self.bulletinListView.tableView.rowHeight * 5);
             }];
-            [self.bulletinListView.view mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.infoContainerView);
+            
+            [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(self.bulletinListView.view);
             }];
             break;
         }
     }
+    
+    [self.scrollView layoutIfNeeded];
 }
 
 
