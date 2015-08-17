@@ -9,16 +9,16 @@
         </style>
     </head>
     <body onload="myFun()">
-        <h1>${title}</h1>
-        <h2>${date}&nbsp;&nbsp;${com_name}&nbsp;&nbsp;${author}</h2>
-        <div id="ratDiv">评级：<span id="ratSpan">${rat_name}</span>&nbsp;&nbsp;目标价：${prc}</div>
-        <div><p>${content}</p></div>
+        <h1>{{title}}</h1>
+        <h2>{{date}}&nbsp;&nbsp;{{com_name}}&nbsp;&nbsp;{{author}}</h2>
+        <div id="ratDiv">评级：<span id="ratSpan">{{rat_name}}</span>&nbsp;&nbsp;目标价：{{prc}}</div>
+        <div><p>{{{content}}}</p></div>
     </body>
 
     <script type="text/javascript">
   		function myFun() {
   			var obj = window.document.getElementById("ratDiv");
-  			var rat_code = ${rat_code};
+            var rat_code = {{rat_code}};
   			if (rat_code == 0) {
 				obj.style.display = 'none';
   			}

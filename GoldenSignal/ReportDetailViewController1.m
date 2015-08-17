@@ -10,6 +10,7 @@
 #import "BDCoreService.h"
 #import "RegexKitLite.h"
 #import <MBProgressHUD.h>
+#import <GRMustache.h>
 
 @interface ReportDetailViewController1 ()
 
@@ -83,34 +84,33 @@
 }
 
 - (void)loadNewsDetailPage {
-    NSString* htmlPath = [[NSBundle mainBundle] pathForResource:@"ReportDetail" ofType:@"html"];
-    NSString* htmlText = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
     if (_report) {
-        htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${title}" withString:_report.title];
-        NSDateFormatter *dateFormatter = [NSDateFormatter new];
+        NSMutableDictionary *renderObject = [NSMutableDictionary dictionary];
+        [renderObject setObject:_report.title forKey:@"title"];
         if (_report.date) {
-            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-            htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${date}" withString:[dateFormatter stringFromDate:_report.date]];
+            NSDateFormatter *dateFormatter = [NSDateFormatter new];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+            [renderObject setObject:[dateFormatter stringFromDate:_report.date] forKey:@"date"];
         }
         else {
-            htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${date}" withString:@"-"];
+            [renderObject setObject:@"-" forKey:@"date"];
         }
-        htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${com_name}" withString:[NSString stringWithFormat:@"%@", _report.com]];
-        htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${author}" withString:[NSString stringWithFormat:@"%@", _report.author]];
-        // 新闻内容格式处理
+        [renderObject setObject:_report.com forKey:@"com_name"];
+        [renderObject setObject:_report.author forKey:@"author"];
         NSString *formatContent = [_report.content stringByReplacingOccurrencesOfRegex:@"\\s{2,}" withString:@"</p><p>"];
-        htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${content}" withString:formatContent];
-        htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${rat_name}" withString:[NSString stringWithFormat:@"%@", _report.rating]];
-        htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${rat_code}" withString:[NSString stringWithFormat:@"%d", _report.rat_code]];
+        [renderObject setObject:formatContent forKey:@"content"];
+        [renderObject setObject:[NSString stringWithFormat:@"%@", _report.rating] forKey:@"rat_name"];
+        [renderObject setObject:[NSString stringWithFormat:@"%d", _report.rat_code] forKey:@"rat_code"];
         if (_report.targ_prc != 0) {
-            htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${prc}" withString:[NSString stringWithFormat:@"%.2f", _report.targ_prc]];
+            [renderObject setObject:[NSString stringWithFormat:@"%.2f", _report.targ_prc] forKey:@"prc"];
         }
         else {
-            htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${prc}" withString:@"--"];
+            [renderObject setObject:@"--" forKey:@"prc"];
         }
+        
+        NSString *htmlText = [GRMustacheTemplate renderObject:renderObject fromResource:@"ReportDetail" bundle:nil error:NULL];
+        [self.webView loadHTMLString:htmlText baseURL:nil];
     }
-    NSURL *baseURL = [NSURL fileURLWithPath:htmlPath];
-    [self.webView loadHTMLString:htmlText baseURL:baseURL];
 }
 
 @end

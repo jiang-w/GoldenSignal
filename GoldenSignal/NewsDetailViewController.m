@@ -10,6 +10,7 @@
 #import "BDCoreService.h"
 #import "RegexKitLite.h"
 #import <MBProgressHUD.h>
+#import <GRMustache.h>
 
 @interface NewsDetailViewController ()
 
@@ -79,26 +80,25 @@
 }
 
 - (void)loadNewsDetailPage {
-    NSString* htmlPath = [[NSBundle mainBundle] pathForResource:@"NewsDetail" ofType:@"html"];
-    NSString* htmlText = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
     if (_news) {
-        htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${title}" withString:_news.title];
-        NSDateFormatter *dateFormatter = [NSDateFormatter new];
+        NSMutableDictionary *renderObject = [NSMutableDictionary dictionary];
+        [renderObject setObject:_news.title forKey:@"title"];
         if (_news.date) {
+            NSDateFormatter *dateFormatter = [NSDateFormatter new];
             [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-            htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${date}" withString:[dateFormatter stringFromDate:_news.date]];
+            [renderObject setObject:[dateFormatter stringFromDate:_news.date] forKey:@"date"];
         }
         else {
-            htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${date}" withString:@"-"];
+            [renderObject setObject:@"-" forKey:@"date"];
         }
-        htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${media}" withString:[NSString stringWithFormat:@"%@", _news.media]];
-        htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${author}" withString:[NSString stringWithFormat:@"%@", _news.author]];
-        // 新闻内容格式处理
+        [renderObject setObject:_news.media forKey:@"media"];
+        [renderObject setObject:_news.author forKey:@"author"];
         NSString *formatContent = [_news.content stringByReplacingOccurrencesOfRegex:@"\\s{2,}" withString:@"</p><p>"];
-        htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${content}" withString:formatContent];
+        [renderObject setObject:formatContent forKey:@"content"];
+
+        NSString *htmlText = [GRMustacheTemplate renderObject:renderObject fromResource:@"NewsDetail" bundle:nil error:NULL];
+        [self.webView loadHTMLString:htmlText baseURL:nil];
     }
-    NSURL *baseURL = [NSURL fileURLWithPath:htmlPath];
-    [self.webView loadHTMLString:htmlText baseURL:baseURL];
 }
 
 @end

@@ -14,6 +14,7 @@ pod 'GHSidebarNav'
 pod 'MJRefresh'
 pod 'MBProgressHUD'
 pod 'PPiFlatSegmentedControl', '= 1.3.3'
+pod 'GRMustache'
 
 end
 

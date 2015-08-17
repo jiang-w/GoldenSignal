@@ -8,145 +8,141 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
 		<key>Pods-GoldenSignal-FMDB.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
 		<key>Pods-GoldenSignal-FontAwesome+iOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>4</integer>
 		</dict>
 		<key>Pods-GoldenSignal-GHSidebarNav.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>5</integer>
+		</dict>
+		<key>Pods-GoldenSignal-GRMustache.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-GoldenSignal-JRSwizzle.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods-GoldenSignal-KVOController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>6</integer>
 		</dict>
 		<key>Pods-GoldenSignal-MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>8</integer>
 		</dict>
 		<key>Pods-GoldenSignal-MJRefresh.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>9</integer>
 		</dict>
 		<key>Pods-GoldenSignal-Masonry.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>7</integer>
 		</dict>
 		<key>Pods-GoldenSignal-PPiAwesomeButton.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>10</integer>
 		</dict>
 		<key>Pods-GoldenSignal-PPiFlatSegmentedControl.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>11</integer>
 		</dict>
 		<key>Pods-GoldenSignal-RegexKitLite.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>12</integer>
 		</dict>
 		<key>Pods-GoldenSignal.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1AF372F08BCBC8B6F80C7262</key>
+		<key>0593D91D60582E17D6F83583</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>43443AFB863390DB263D98A5</key>
+		<key>09833CF2035A6BD08B410DAE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>438B50ED8B4AD37759CC8E64</key>
+		<key>23FD081687939F23CEBAF0F0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>679C86312FA702D5558A6ADC</key>
+		<key>298512577D9A06B90B47450D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>67A042FC764D59E3F71040E9</key>
+		<key>2C6143B6BCCA7BDB60C03E0E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8C80580251E3836352A5AD4D</key>
+		<key>48FE2093065294F5144792C1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B52C04542F266B9795374097</key>
+		<key>5569D25674FC517038494A8C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D225FBC9CEF1D3C86954AE47</key>
+		<key>5A16CA311B241796E085A60B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D533D3C71AA0550ECCB1D7BA</key>
+		<key>79F7EE3B89757027D3918D79</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D9CBC37578B955B91C6ABB3A</key>
+		<key>8D1FB68EE73EB6FF1B53B7E0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DA9B67947E5EDC577BBE819E</key>
+		<key>A43D72DB76E3334D7D072240</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F97B6465C10278EC9CBFB0E7</key>
+		<key>ACE26B624C28A3F14395CFE0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C528B7C14027555E4866991D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FF8BD3B43E0C1F75975AD0B5</key>
 		<dict>
 			<key>primary</key>
 			<true/>

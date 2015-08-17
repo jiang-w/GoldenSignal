@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8C80580251E3836352A5AD4D"
+               BlueprintIdentifier = "5569D25674FC517038494A8C"
                BuildableName = "libPods-GoldenSignal-FMDB.a"
                BlueprintName = "Pods-GoldenSignal-FMDB"
                ReferencedContainer = "container:Pods.xcodeproj">

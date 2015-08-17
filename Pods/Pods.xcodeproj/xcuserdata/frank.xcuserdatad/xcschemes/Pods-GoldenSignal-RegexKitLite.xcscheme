@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D9CBC37578B955B91C6ABB3A"
+               BlueprintIdentifier = "79F7EE3B89757027D3918D79"
                BuildableName = "libPods-GoldenSignal-RegexKitLite.a"
                BlueprintName = "Pods-GoldenSignal-RegexKitLite"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -39,15 +39,6 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D9CBC37578B955B91C6ABB3A"
-            BuildableName = "libPods-GoldenSignal-RegexKitLite.a"
-            BlueprintName = "Pods-GoldenSignal-RegexKitLite"
-            ReferencedContainer = "container:Pods.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

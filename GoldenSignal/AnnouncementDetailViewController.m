@@ -12,6 +12,7 @@
 
 #import <MBProgressHUD.h>
 #import <Masonry.h>
+#import <GRMustache.h>
 
 @interface AnnouncementDetailViewController ()
 
@@ -88,26 +89,25 @@
 }
 
 - (void)loadNewsDetailPage {
-    NSString* htmlPath = [[NSBundle mainBundle] pathForResource:@"AnnouncementDetail" ofType:@"html"];
-    NSString* htmlText = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
     if (_announcement) {
-        htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${title}" withString:_announcement.title];
-        NSDateFormatter *dateFormatter = [NSDateFormatter new];
+        NSMutableDictionary *renderObject = [NSMutableDictionary dictionary];
+        [renderObject setObject:_announcement.title forKey:@"title"];
         if (_announcement.date) {
-            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-            htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${date}" withString:[dateFormatter stringFromDate:_announcement.date]];
+            NSDateFormatter *dateFormatter = [NSDateFormatter new];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+            [renderObject setObject:[dateFormatter stringFromDate:_announcement.date] forKey:@"date"];
         }
         else {
-            htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${date}" withString:@"-"];
+            [renderObject setObject:@"-" forKey:@"date"];
         }
-        // 新闻内容格式处理
-        NSString *formatContent = [_announcement.content stringByReplacingOccurrencesOfRegex:@"\r\n" withString:@"<br />"];
-        htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${content}" withString:formatContent];
         NSString *url = [NSString stringWithFormat:@"%@/%ld.%@", ATTACHMENT_SERVER_PATH, _announcement.ann_cont_id, _announcement.ann_fmt];
-        htmlText = [htmlText stringByReplacingOccurrencesOfString:@"${url}" withString:url];
+        [renderObject setObject:url forKey:@"url"];
+        NSString *formatContent = [_announcement.content stringByReplacingOccurrencesOfRegex:@"\r\n" withString:@"<br />"];
+        [renderObject setObject:formatContent forKey:@"content"];
+        
+        NSString *htmlText = [GRMustacheTemplate renderObject:renderObject fromResource:@"AnnouncementDetail" bundle:nil error:NULL];
+        [self.webView loadHTMLString:htmlText baseURL:nil];
     }
-    NSURL *baseURL = [NSURL fileURLWithPath:htmlPath];
-    [self.webView loadHTMLString:htmlText baseURL:baseURL];
 }
 
 
