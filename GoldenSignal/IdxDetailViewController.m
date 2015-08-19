@@ -120,12 +120,14 @@
         [weakSelf loadRankingList];
         
         // 点击Tab后scrollView滚动到其位置
-//        CGFloat scrollHeight = weakSelf.scrollView.frame.size.height;
-//        CGFloat contentHeight = weakSelf.scrollView.contentSize.height;
-//        NSLog(@"contentHeight: %f", contentHeight);
-//        CGFloat tabViewY = weakSelf.infoTabView.frame.origin.y;
-//        CGFloat offsetY = tabViewY > (contentHeight - scrollHeight) ? contentHeight - scrollHeight : tabViewY;
-//        [weakSelf.scrollView setContentOffset:CGPointMake(0, offsetY) animated:YES];
+        CGFloat scrollHeight = weakSelf.scrollView.frame.size.height;
+        CGFloat contentHeight = weakSelf.scrollView.contentSize.height;
+        CGFloat tabViewY = weakSelf.infoTabView.frame.origin.y - 64;
+        CGFloat offsetY = tabViewY + scrollHeight > contentHeight ? contentHeight - scrollHeight : tabViewY;
+        if (offsetY >= 0) {
+            [weakSelf.scrollView setContentOffset:CGPointMake(0, offsetY) animated:YES];
+        }
+
     }];
     self.infoTabView.color = RGB(7, 9, 8, 1);
     self.infoTabView.borderWidth = 1;
@@ -318,6 +320,8 @@
             break;
         }
     }
+    
+    [self.scrollView layoutIfNeeded];
 }
 
 

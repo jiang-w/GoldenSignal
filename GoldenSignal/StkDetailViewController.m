@@ -13,6 +13,7 @@
 #import "F10ViewController.h"
 #import "SecuNewsListView.h"
 #import "FundFlowBarView.h"
+#import "FundFlowCircleChart.h"
 
 #import <PPiFlatSegmentedControl.h>
 #import <Masonry.h>
@@ -42,6 +43,7 @@
 @property(nonatomic, strong) SecuNewsListView *bulletinListView;
 
 @property(nonatomic, strong) FundFlowBarView *fundFlowBarView;
+@property(nonatomic, strong) FundFlowCircleChart *fundFlowCircleChart;
 
 @end
 
@@ -302,6 +304,17 @@
             break;
         }
         case 3: {
+            if (self.fundFlowCircleChart == nil) {
+                self.fundFlowCircleChart = [[FundFlowCircleChart alloc] init];
+                self.fundFlowCircleChart.backgroundColor = RGB(22, 25, 30, 1);
+            }
+            [self.infoContainerView addSubview:self.fundFlowCircleChart];
+            
+            [self.fundFlowCircleChart mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.left.right.equalTo(self.infoContainerView);
+                make.height.mas_equalTo(160);
+            }];
+
             if (self.fundFlowBarView == nil) {
                 self.fundFlowBarView = [[FundFlowBarView alloc] initWithNibName:@"FundFlowBarView" bundle:nil];
                 self.fundFlowBarView.code = _secu.bdCode;
@@ -309,7 +322,8 @@
             [self.infoContainerView addSubview:self.fundFlowBarView.view];
             
             [self.fundFlowBarView.view mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.left.right.equalTo(self.infoContainerView);
+                make.top.equalTo(self.fundFlowCircleChart.mas_bottom);
+                make.left.right.equalTo(self.infoContainerView);
                 make.height.mas_equalTo(self.fundFlowBarView.view.frame.size.height);
             }];
             
