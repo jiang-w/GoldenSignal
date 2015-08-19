@@ -12,6 +12,7 @@
 #import "KLineChart.h"
 #import "F10ViewController.h"
 #import "SecuNewsListView.h"
+#import "FundFlowBarView.h"
 
 #import <PPiFlatSegmentedControl.h>
 #import <Masonry.h>
@@ -39,6 +40,8 @@
 @property(nonatomic, strong) SecuNewsListView *newsListView;
 @property(nonatomic, strong) SecuNewsListView *reportListView;
 @property(nonatomic, strong) SecuNewsListView *bulletinListView;
+
+@property(nonatomic, strong) FundFlowBarView *fundFlowBarView;
 
 @end
 
@@ -109,8 +112,8 @@
     [self addSubView:self.chartContainerView withHeight:180 andSpace:4];
     
     /* 资讯Tab */
-    self.infoTabView = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 320, 30) items:@[@{@"text":@"金信号"}, @{@"text":@"研报"}, @{@"text":@"公告"}, @{@"text":@"F10"}] iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex) {
-        if (segmentIndex == 3) {
+    self.infoTabView = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 320, 30) items:@[@{@"text":@"金信号"}, @{@"text":@"研报"}, @{@"text":@"公告"}, @{@"text":@"诊断"}, @{@"text":@"F10"}] iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex) {
+        if (segmentIndex == 4) {
             [weakSelf pushF10ViewController];
         }
         else {
@@ -295,6 +298,23 @@
             
             [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.bottom.equalTo(self.bulletinListView.view);
+            }];
+            break;
+        }
+        case 3: {
+            if (self.fundFlowBarView == nil) {
+                self.fundFlowBarView = [[FundFlowBarView alloc] initWithNibName:@"FundFlowBarView" bundle:nil];
+                self.fundFlowBarView.code = _secu.bdCode;
+            }
+            [self.infoContainerView addSubview:self.fundFlowBarView.view];
+            
+            [self.fundFlowBarView.view mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.left.right.equalTo(self.infoContainerView);
+                make.height.mas_equalTo(self.fundFlowBarView.view.frame.size.height);
+            }];
+            
+            [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(self.fundFlowBarView.view);
             }];
             break;
         }

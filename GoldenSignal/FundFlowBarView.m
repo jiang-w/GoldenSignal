@@ -1,5 +1,5 @@
 //
-//  FundFlowBarChart1.m
+//  FundFlowBarView.m
 //  GoldenSignal
 //
 //  Created by Frank on 15/7/14.
@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *date3;
 @property (weak, nonatomic) IBOutlet UILabel *date4;
 @property (weak, nonatomic) IBOutlet UILabel *date5;
+@property (weak, nonatomic) IBOutlet UILabel *unitLabel;
 
 @end
 
@@ -56,19 +57,30 @@
 
 - (void)loadDataWithSecuCode:(NSString *)code {
     BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:code];
-    NSArray *idxList = @[@"000001", @"000002", @"000003", @"000010", @"000016", @"000043", @"000300", @"000903", @"000905", @"399001", @"399004", @"399005", @"399006", @"399100", @"399101", @"399102", @"399106", @"399107", @"399108"];
     NSArray *data;
-    if ([idxList containsObject:secu.trdCode]) {    // 是否为市场指数
-        self.titleLabel.text = @"沪深A股近期大单资金流向";
-        NSDictionary *paramDic = @{@"days": [NSNumber numberWithUnsignedInteger:5]};
-        data = [[BDCoreService new] syncRequestDatasourceService:1593 parameters:paramDic query:nil];
+    if (secu.typ == idx) {
+        self.unitLabel.text = @"单位(亿元)";
+        NSArray *idxList = @[@"000001", @"000002", @"000003", @"000010", @"000016", @"000043", @"000300", @"000903", @"000905", @"399001", @"399004", @"399005", @"399006", @"399100", @"399101", @"399102", @"399106", @"399107", @"399108"];
+        if ([idxList containsObject:secu.trdCode]) {    // 是否为市场指数
+            self.titleLabel.text = @"沪深A股近期大单资金流向";
+            NSDictionary *paramDic = @{@"days": [NSNumber numberWithUnsignedInteger:5]};
+            data = [[BDCoreService new] syncRequestDatasourceService:1593 parameters:paramDic query:nil];
+        }
+        else {
+            self.titleLabel.text = @"行业近期大单资金流向";
+            NSDictionary *paramDic = @{@"BD_CODE": [NSString stringWithFormat:@"'%@'",code],
+                                       @"days": [NSNumber numberWithUnsignedInteger:5]};
+            data = [[BDCoreService new] syncRequestDatasourceService:1587 parameters:paramDic query:nil];
+        }
     }
     else {
-        self.titleLabel.text = @"行业近期大单资金流向";
+        self.titleLabel.text = @"近期大单资金流向";
+        self.unitLabel.text = @"单位(万元)";
         NSDictionary *paramDic = @{@"BD_CODE": [NSString stringWithFormat:@"'%@'",code],
                                    @"days": [NSNumber numberWithUnsignedInteger:5]};
-        data = [[BDCoreService new] syncRequestDatasourceService:1587 parameters:paramDic query:nil];
+        data = [[BDCoreService new] syncRequestDatasourceService:1598 parameters:paramDic query:nil];
     }
+    
     [_valueArray removeAllObjects];
     [_dateArray removeAllObjects];
     for (NSDictionary *item in data) {

@@ -1,5 +1,5 @@
 //
-//  FundFlowBarChart1.h
+//  FundFlowBarView.h
 //  GoldenSignal
 //
 //  Created by Frank on 15/7/14.
