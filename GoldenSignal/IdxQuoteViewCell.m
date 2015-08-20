@@ -85,13 +85,13 @@
                 }
                 // 设置背景色
                 if (changeRange > 0) {
-                    view.changeRange.superview.backgroundColor = RGB(204.0, 21.0, 21.0, 1.0);
+                    view.changeRange.superview.backgroundColor = RGB(204, 21, 21);
                 }
                 else if (changeRange < 0) {
-                    view.changeRange.superview.backgroundColor = RGB(41.0, 152.0, 8.0, 1.0);
+                    view.changeRange.superview.backgroundColor = RGB(41, 152, 8);
                 }
                 else if (changeRange == 0) {
-                    view.changeRange.superview.backgroundColor = RGB(43.0, 176.0, 241.0, 1.0);
+                    view.changeRange.superview.backgroundColor = RGB(43, 176, 241);
                 }
                 else {
                     view.changeRange.superview.backgroundColor = [UIColor clearColor];

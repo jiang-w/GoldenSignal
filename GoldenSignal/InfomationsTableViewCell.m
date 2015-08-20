@@ -26,7 +26,7 @@
     BDPrompt *pModel = (BDPrompt *)model;
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"【%@】%@",pModel.secuName , pModel.title]];
     [str addAttribute:NSForegroundColorAttributeName
-                value:RGB(61, 177, 241, 1)
+                value:RGB(61, 177, 241)
                 range:NSMakeRange(1, pModel.secuName.length)];
     self.title1.attributedText = str;
     _titleLabelHeight = [self calcHightWithString:self.title1];

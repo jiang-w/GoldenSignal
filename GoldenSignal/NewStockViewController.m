@@ -140,7 +140,7 @@
 - (UIView *)middleTitleView {
     NSArray *titlesAry = @[@"申购新股",@"发行价/\n摊薄PE",@"上限/总量\n（万股）",@"中签日"];
     UIView *middleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 36)];
-    middleView.backgroundColor = RGB(199, 218, 241, 1);
+    middleView.backgroundColor = RGB(199, 218, 241);
     CGRect mainFrame = self.view.frame;
     UILabel *_titleLabel;
     for (int i=0; i<titlesAry.count; i++) {
@@ -178,7 +178,7 @@
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section{
     UITableViewHeaderFooterView *headView = (UITableViewHeaderFooterView *)view;
     UILabel *tempLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
-    tempLabel.backgroundColor = RGB(217, 217, 217, 1);
+    tempLabel.backgroundColor = RGB(217, 217, 217);
     [headView addSubview:tempLabel];
     DEBUGLog(@"Debug:cccc %@",[_subscribeArray[section] class]);//date
     
@@ -202,7 +202,7 @@
     }
     view.tintColor = [UIColor lightGrayColor];
     tempLabel.font = [UIFont systemFontOfSize:14];
-    tempLabel.textColor = RGB(43, 176, 241, 1);
+    tempLabel.textColor = RGB(43, 176, 241);
 }
 
 

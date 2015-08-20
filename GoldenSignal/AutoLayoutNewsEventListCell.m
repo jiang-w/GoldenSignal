@@ -34,7 +34,7 @@
     
     date = [UILabel new];
     date.font = [UIFont systemFontOfSize:12];
-    date.textColor = RGB(43, 176, 241, 1);
+    date.textColor = RGB(43, 176, 241);
     [container addSubview:date];
     
     detail = [UILabel new];
@@ -95,26 +95,26 @@
             switch (i) {
                 case PositivePlus:
                     symbol.image = [UIImage imageNamed:@"positivePlus"];
-                    label.textColor = RGB(165, 0, 0, 1);
+                    label.textColor = RGB(165, 0, 0);
                     break;
                 case Positive:
                     symbol.image = [UIImage imageNamed:@"positive"];
-                    label.textColor = RGB(165, 0, 0, 1);
+                    label.textColor = RGB(165, 0, 0);
                     break;
                 case Neutral:
                     symbol.image = [UIImage imageNamed:@"neutral"];
-                    label.textColor = RGB(14, 93, 164, 1);
+                    label.textColor = RGB(14, 93, 164);
                     break;
                 case Negative:
                     symbol.image = [UIImage imageNamed:@"negative"];
-                    label.textColor = RGB(33, 142, 0, 1);
+                    label.textColor = RGB(33, 142, 0);
                     break;
                 case NegativeMinus:
                     symbol.image = [UIImage imageNamed:@"negativeMinus"];
-                    label.textColor = RGB(33, 142, 0, 1);
+                    label.textColor = RGB(33, 142, 0);
                     break;
                 default:
-                    label.textColor = RGB(33, 134, 225, 1);
+                    label.textColor = RGB(33, 134, 225);
                     break;
             }
             if (i == None) {

@@ -42,7 +42,7 @@
 - (void)drawRect:(CGRect)rect {
     CGContextRef context = UIGraphicsGetCurrentContext();
     // 设置画笔颜色和宽度
-    CGContextSetStrokeColorWithColor(context, [RGB(80.0, 80.0, 80.0, 1.0) CGColor]);
+    CGContextSetStrokeColorWithColor(context, [RGB(80, 80, 80) CGColor]);
     CGContextSetLineWidth(context, 2);
     
     // 绘制文本

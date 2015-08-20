@@ -10,4 +10,6 @@
 
 @interface FundFlowCircleChart : UIView
 
+- (void)loadDataWithSecuCode:(NSString *)code;
+
 @end

@@ -65,8 +65,8 @@
         for (id obj in nib) {
             if ([obj isKindOfClass:[SecuNewsListViewCell class]]) {
                 cell = obj;
-                cell.title.textColor = RGB(208, 208, 208, 1);
-                cell.date.textColor = RGB(46, 116, 147, 1);
+                cell.title.textColor = RGB(208, 208, 208);
+                cell.date.textColor = RGB(46, 116, 147);
             }
         }
     }
@@ -77,7 +77,7 @@
         cell.backgroundColor = [UIColor blackColor];
     }
     else {
-        cell.backgroundColor = RGB(30, 30, 30, 1);
+        cell.backgroundColor = RGB(30, 30, 30);
     }
     return cell;
 }

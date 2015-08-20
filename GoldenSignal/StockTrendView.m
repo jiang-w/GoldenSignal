@@ -44,12 +44,12 @@
             weakSelf.selectedTabIndex = segmentIndex;
             [weakSelf loadSideView];
         }];
-        segmented.color = RGB(7, 9, 8, 1);
+        segmented.color = RGB(7, 9, 8);
         segmented.borderWidth = 1;
-        segmented.borderColor = RGB(80.0, 80.0, 80.0, 1.0);
-        segmented.selectedColor = RGB(30, 30, 30, 1);
+        segmented.borderColor = RGB(80, 80, 80);
+        segmented.selectedColor = RGB(30, 30, 30);
         segmented.textAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:11], NSForegroundColorAttributeName:[UIColor whiteColor]};
-        segmented.selectedTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:11], NSForegroundColorAttributeName:RGB(216, 1, 1, 1)};
+        segmented.selectedTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:11], NSForegroundColorAttributeName:RGB(216, 1, 1)};
         [self addSubview:segmented];
         
         if (code) {

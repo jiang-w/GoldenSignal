@@ -307,7 +307,7 @@
         CAShapeLayer *pathLayer = [CAShapeLayer layer];
         pathLayer.frame = frame;
         pathLayer.path = [self getVolumePathInFrame:pathLayer.bounds forTradingDay:dates[i]];
-        pathLayer.strokeColor = [RGB(217, 166, 58, 1) CGColor];
+        pathLayer.strokeColor = [RGB(217, 166, 58) CGColor];
         pathLayer.fillColor = nil;
         pathLayer.lineWidth = 1;
         pathLayer.lineJoin = kCALineJoinRound;

@@ -101,13 +101,13 @@
                 }
                 // 设置背景色
                 if (changeRange > 0) {
-                    view.now.superview.backgroundColor = RGB(204.0, 21.0, 21.0, 1.0);
+                    view.now.superview.backgroundColor = RGB(204, 21, 21);
                 }
                 else if (changeRange < 0) {
-                    view.now.superview.backgroundColor = RGB(41.0, 152.0, 8.0, 1.0);
+                    view.now.superview.backgroundColor = RGB(41, 152, 8);
                 }
                 else if (changeRange == 0) {
-                    view.now.superview.backgroundColor = RGB(43.0, 176.0, 241.0, 1.0);
+                    view.now.superview.backgroundColor = RGB(43, 176, 241);
                 }
                 else {
                     view.now.superview.backgroundColor = [UIColor clearColor];
@@ -139,23 +139,23 @@
                 switch (level) {
                     case 2:
                         view.level.text = @"正+";
-                        view.level.superview.backgroundColor = RGB(204.0, 21.0, 21.0, 1.0);
+                        view.level.superview.backgroundColor = RGB(204, 21, 21);
                         break;
                     case 1:
                         view.level.text = @"正";
-                        view.level.superview.backgroundColor = RGB(204.0, 21.0, 21.0, 1.0);
+                        view.level.superview.backgroundColor = RGB(204, 21, 21);
                         break;
                     case 0:
                         view.level.text = @"中";
-                        view.level.superview.backgroundColor = RGB(43.0, 176.0, 241.0, 1.0);
+                        view.level.superview.backgroundColor = RGB(43, 176, 241);
                         break;
                     case -1:
                         view.level.text = @"负";
-                        view.level.superview.backgroundColor = RGB(41.0, 152.0, 8.0, 1.0);
+                        view.level.superview.backgroundColor = RGB(41, 152, 8);
                         break;
                     case -2:
                         view.level.text = @"负-";
-                        view.level.superview.backgroundColor = RGB(41.0, 152.0, 8.0, 1.0);
+                        view.level.superview.backgroundColor = RGB(41, 152, 8);
                         break;
                     default:
                         break;

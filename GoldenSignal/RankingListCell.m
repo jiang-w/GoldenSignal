@@ -63,13 +63,13 @@
                 }
                 // 设置背景色
                 if (changeRange > 0) {
-                    view.now.textColor = view.changeRange.textColor = view.change.textColor = RGB(204.0, 21.0, 21.0, 1.0);
+                    view.now.textColor = view.changeRange.textColor = view.change.textColor = RGB(204, 21, 21);
                 }
                 else if (changeRange < 0) {
-                    view.now.textColor = view.changeRange.textColor = view.change.textColor = RGB(41.0, 152.0, 8.0, 1.0);
+                    view.now.textColor = view.changeRange.textColor = view.change.textColor = RGB(41, 152, 8);
                 }
                 else {
-                    view.now.textColor = view.changeRange.textColor = view.change.textColor = RGB(43.0, 176.0, 241.0, 1.0);
+                    view.now.textColor = view.changeRange.textColor = view.change.textColor = RGB(43, 176, 241);
                 }
             });
         }];

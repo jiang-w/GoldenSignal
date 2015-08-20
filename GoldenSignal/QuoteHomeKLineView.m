@@ -84,13 +84,13 @@
 
 - (UIColor *)textColorValue:(float)val1 otherValue:(float)val2 {
     if (val1 > val2) {
-        return RGB(204.0, 21.0, 21.0, 1.0);
+        return RGB(204, 21, 21);
     }
     else if (val1 < val2) {
-        return RGB(41.0, 152.0, 8.0, 1.0);
+        return RGB(41, 152, 8);
     }
     else {
-        return RGB(43.0, 176.0, 241.0, 1.0);
+        return RGB(43, 176, 241);
     }
 }
 

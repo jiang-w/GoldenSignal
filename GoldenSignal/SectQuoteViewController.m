@@ -35,7 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = RGB(29, 34, 40, 1);
+    self.tableView.backgroundColor = RGB(29, 34, 40);
     self.tableView.bounces = NO;
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -87,7 +87,7 @@
         titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10+(mainFrame.size.width/5)*i, 0, mainFrame.size.width/5-10, 30)];
         titleLabel.font = [UIFont systemFontOfSize:13];
         titleLabel.textAlignment = NSTextAlignmentCenter;
-        titleLabel.textColor = RGB(249, 191, 0, 1);
+        titleLabel.textColor = RGB(249, 191, 0);
         titleLabel.userInteractionEnabled = YES;
         titleLabel.text = titlesAry[i];
         [middleView addSubview:titleLabel];
@@ -156,7 +156,7 @@
         cell.backgroundColor = [UIColor blackColor];
     }
     else {
-        cell.backgroundColor = RGB(30, 30, 30, 1);
+        cell.backgroundColor = RGB(30, 30, 30);
     }
     return cell;
 }

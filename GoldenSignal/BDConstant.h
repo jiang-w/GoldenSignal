@@ -39,10 +39,19 @@
 #define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136),[[UIScreen mainScreen] currentMode].size):NO)
 #define IOS_7 [[[UIDevice currentDevice] systemVersion] floatValue] > 6.1
 
-#define RGB(R,G,B,A) [UIColor colorWithRed:(R)/255.0 green:(G)/255.0 blue:(B)/255.0 alpha:(A)]
+// 定义颜色
+#define RGB(R,G,B)  [UIColor colorWithRed:(R)/255.0 green:(G)/255.0 blue:(B)/255.0 alpha:1.0]
+#define RGBA(R,G,B,A) [UIColor colorWithRed:(R)/255.0 green:(G)/255.0 blue:(B)/255.0 alpha:(A)]
+#define UIColorFromRGB(rgbValue) UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 // 获取屏幕 宽度、高度
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 #define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
+
+// 角度转弧度
+#define DEGREE_TO_RADIAN(D) (D)/ 180.0 * M_PI
+// 弧度转角度
+#define RADIAN_TO_DEGREE(R) (R)/ M_PI * 180.0
 
 // CGMargin
 typedef struct {

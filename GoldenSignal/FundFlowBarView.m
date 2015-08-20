@@ -135,7 +135,7 @@
         UILabel *label = [[UILabel alloc] init];
         [bar.superview addSubview:label];
         label.text = [NSString stringWithFormat:@"%.2f", [_valueArray[i] floatValue]];
-        label.font = [UIFont systemFontOfSize:8];
+        label.font = [UIFont systemFontOfSize:10];
         if (bar.grade > 0) {
             label.textColor = [UIColor redColor];
             [label mas_makeConstraints:^(MASConstraintMaker *make) {

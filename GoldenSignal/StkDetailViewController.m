@@ -100,17 +100,17 @@
         weakSelf.chartSelectIndex = segmentIndex;
         [weakSelf loadChartView];
     }];
-    self.chartTabView.color = RGB(7, 9, 8, 1);
+    self.chartTabView.color = RGB(7, 9, 8);
     self.chartTabView.borderWidth = 1;
-    self.chartTabView.borderColor = RGB(80.0, 80.0, 80.0, 1.0);
-    self.chartTabView.selectedColor = RGB(30, 30, 30, 1);
-    self.chartTabView.textAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(214, 214, 214, 1)};
-    self.chartTabView.selectedTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(216, 1, 1, 1)};
+    self.chartTabView.borderColor = RGB(80, 80, 80);
+    self.chartTabView.selectedColor = RGB(30, 30, 30);
+    self.chartTabView.textAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(214, 214, 214)};
+    self.chartTabView.selectedTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(216, 1, 1)};
     [self addSubView:self.chartTabView withHeight:30 andSpace:2];
     
     /* 分时、K线容器视图 */
     self.chartContainerView = [[UIView alloc] init];
-    self.chartContainerView.backgroundColor = RGB(30, 30, 30, 1);
+    self.chartContainerView.backgroundColor = RGB(30, 30, 30);
     [self addSubView:self.chartContainerView withHeight:180 andSpace:4];
     
     /* 资讯Tab */
@@ -132,12 +132,12 @@
             }
         }
     }];
-    self.infoTabView.color = RGB(7, 9, 8, 1);
+    self.infoTabView.color = RGB(7, 9, 8);
     self.infoTabView.borderWidth = 1;
-    self.infoTabView.borderColor = RGB(80.0, 80.0, 80.0, 1.0);
-    self.infoTabView.selectedColor = RGB(30, 30, 30, 1);
-    self.infoTabView.textAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(214, 214, 214, 1)};
-    self.infoTabView.selectedTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(216, 1, 1, 1)};
+    self.infoTabView.borderColor = RGB(80, 80, 80);
+    self.infoTabView.selectedColor = RGB(30, 30, 30);
+    self.infoTabView.textAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(214, 214, 214)};
+    self.infoTabView.selectedTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName:RGB(216, 1, 1)};
     [self addSubView:self.infoTabView withHeight:30 andSpace:2];
     
     /* 新闻视图容器 */
@@ -306,7 +306,8 @@
         case 3: {
             if (self.fundFlowCircleChart == nil) {
                 self.fundFlowCircleChart = [[FundFlowCircleChart alloc] init];
-                self.fundFlowCircleChart.backgroundColor = RGB(22, 25, 30, 1);
+                self.fundFlowCircleChart.backgroundColor = RGB(22, 25, 30);
+                [self.fundFlowCircleChart loadDataWithSecuCode:_secu.bdCode];
             }
             [self.infoContainerView addSubview:self.fundFlowCircleChart];
             

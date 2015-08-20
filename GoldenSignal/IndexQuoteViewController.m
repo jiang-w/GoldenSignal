@@ -94,7 +94,7 @@
         _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10+(mainFrame.size.width/5)*i, 0, mainFrame.size.width/5-10, 30)];
         _titleLabel.font = [UIFont systemFontOfSize:13];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
-        _titleLabel.textColor = RGB(249, 191, 0, 1);
+        _titleLabel.textColor = RGB(249, 191, 0);
         _titleLabel.userInteractionEnabled = YES;
         
         _titleLabel.text = titlesAry[i];
@@ -209,7 +209,7 @@
         }
     }
     
-    cell.backgroundColor = (indexPath.row%2 == 0) ? RGB(30, 30, 30, 1) :[UIColor blackColor];
+    cell.backgroundColor = (indexPath.row%2 == 0) ? RGB(30, 30, 30) :[UIColor blackColor];
         
     return cell;
     

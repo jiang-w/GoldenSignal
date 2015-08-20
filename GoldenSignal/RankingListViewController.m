@@ -24,7 +24,7 @@
     
     self.tableView.rowHeight = 36;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = RGB(30, 30, 30, 1);
+    self.tableView.backgroundColor = RGB(30, 30, 30);
     self.tableView.allowsSelection = NO;
 }
 

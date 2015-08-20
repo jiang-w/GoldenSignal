@@ -84,7 +84,7 @@ static NSString * const headerIdentifier = @"HeaderView";
     
     if ( kind == UICollectionElementKindSectionHeader ) {
         UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerIdentifier forIndexPath:indexPath];
-        headerView.backgroundColor = RGB(0, 98, 132, 1);
+        headerView.backgroundColor = RGB(0, 98, 132);
         NSString *title = [_vm getTitleForSection:indexPath.section];
         if (headerView.subviews.count > 0) {
             UILabel *label = [headerView.subviews firstObject];

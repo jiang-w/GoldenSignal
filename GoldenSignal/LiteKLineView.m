@@ -98,10 +98,10 @@
         
         // 设置蜡烛图的颜色
         if (kLine.open > kLine.close) { // 阴线
-            CGContextSetStrokeColorWithColor(context, [RGB(35, 255, 238, 1) CGColor]);
+            CGContextSetStrokeColorWithColor(context, [RGB(35, 255, 238) CGColor]);
         }
         else if (kLine.open < kLine.close) { // 阳线
-            CGContextSetStrokeColorWithColor(context, [RGB(254, 0, 0, 1) CGColor]);
+            CGContextSetStrokeColorWithColor(context, [RGB(254, 0, 0) CGColor]);
         }
         else {
             CGContextSetStrokeColorWithColor(context, [[UIColor whiteColor] CGColor]);  // 十字线

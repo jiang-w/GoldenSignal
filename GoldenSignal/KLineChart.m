@@ -231,10 +231,10 @@
         
         // 设置蜡烛图的颜色
         if (kLine.open > kLine.close) { // 阴线
-            CGContextSetStrokeColorWithColor(context, [RGB(35, 255, 238, 1) CGColor]);
+            CGContextSetStrokeColorWithColor(context, [RGB(35, 255, 238) CGColor]);
         }
         else if (kLine.open < kLine.close) { // 阳线
-            CGContextSetStrokeColorWithColor(context, [RGB(254, 0, 0, 1) CGColor]);
+            CGContextSetStrokeColorWithColor(context, [RGB(254, 0, 0) CGColor]);
         }
         else {
             CGContextSetStrokeColorWithColor(context, [[UIColor whiteColor] CGColor]);  // 十字线
@@ -296,7 +296,7 @@
     CAShapeLayer *ma20LineLayer = [CAShapeLayer layer];
     ma20LineLayer.frame = self.lineChartFrame;
     ma20LineLayer.path = [self getAvgPricePathInFrame:ma20LineLayer.bounds withMA:20];
-    ma20LineLayer.strokeColor = [RGB(46, 169, 223, 1) CGColor];
+    ma20LineLayer.strokeColor = [RGB(46, 169, 223) CGColor];
     ma20LineLayer.fillColor = nil;
     ma20LineLayer.lineWidth = 1;
     ma20LineLayer.lineJoin = kCALineJoinRound;
