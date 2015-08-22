@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "79F7EE3B89757027D3918D79"
+               BlueprintIdentifier = "04020D762FB4B324C76DC83B"
                BuildableName = "libPods-GoldenSignal-RegexKitLite.a"
                BlueprintName = "Pods-GoldenSignal-RegexKitLite"
                ReferencedContainer = "container:Pods.xcodeproj">
