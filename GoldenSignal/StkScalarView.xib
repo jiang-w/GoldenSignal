@@ -190,9 +190,6 @@
                     <state key="normal" image="favorite_0">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
-                    <connections>
-                        <action selector="favoriteBtnClick:" destination="b2u-fk-e2L" eventType="touchUpInside" id="ZgJ-pG-fpq"/>
-                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.1137254902" green="0.1333333333" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
