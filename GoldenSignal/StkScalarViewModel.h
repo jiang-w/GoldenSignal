@@ -41,16 +41,6 @@
 @property(nonatomic, readonly) double Now;
 
 /**
- *  涨跌
- */
-@property(nonatomic, readonly) double Change;
-
-/**
- *  涨跌幅
- */
-@property(nonatomic, readonly) double ChangeRange;
-
-/**
  *  日成交额(金额)
  */
 @property(nonatomic, readonly) double Amount;

@@ -93,7 +93,7 @@
                                                              }];
             [[changeRangeSignal deliverOn:RACScheduler.mainThreadScheduler] subscribeNext:^(id x) {
                 @strongify(self);
-                self.changeRange.text = [NSString stringWithFormat:@"%.2f", [x doubleValue]];
+                self.changeRange.text = [NSString stringWithFormat:@"%.2f%%", [x doubleValue]];
                 self.changeRange.textColor = [self textColorValue:[x doubleValue] otherValue:0];
             }];
             // 最高价

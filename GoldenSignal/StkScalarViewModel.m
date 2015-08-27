@@ -22,7 +22,7 @@ static NSArray *indicaters;
     if (self) {
         _propertyUpdateQueue = dispatch_queue_create("IndicatorUpdate", nil);
         _service = [BDQuotationService sharedInstance];
-        indicaters = @[@"PrevClose", @"Open", @"Now", @"High", @"Low", @"Amount", @"Volume", @"Change", @"ChangeRange", @"ChangeHandsRate", @"VolRatio", @"TtlShr", @"TtlShrNtlc", @"VolumeSpread", @"PEttm", @"Eps"];
+        indicaters = @[@"PrevClose", @"Open", @"Now", @"High", @"Low", @"Amount", @"Volume", @"ChangeHandsRate", @"VolRatio", @"TtlShr", @"TtlShrNtlc", @"VolumeSpread", @"PEttm", @"Eps"];
         
         [[NSNotificationCenter defaultCenter]
          addObserver:self selector:@selector(subscribeScalarChanged:) name:QUOTE_SCALAR_NOTIFICATION object:nil];
@@ -103,10 +103,6 @@ static NSArray *indicaters;
     [self setValue:[NSNumber numberWithDouble:amount] forKey:@"Amount"];
     unsigned long volume = [[_service getCurrentIndicateWithCode:code andName:@"Volume"] unsignedLongValue];
     [self setValue:[NSNumber numberWithUnsignedLong:volume] forKey:@"Volume"];
-    double change = [[_service getCurrentIndicateWithCode:code andName:@"Change"] doubleValue];
-    [self setValue:[NSNumber numberWithDouble:change] forKey:@"Change"];
-    double changeRange = [[_service getCurrentIndicateWithCode:code andName:@"ChangeRange"] doubleValue];
-    [self setValue:[NSNumber numberWithDouble:changeRange] forKey:@"ChangeRange"];
     double changeHandsRate = [[_service getCurrentIndicateWithCode:code andName:@"ChangeHandsRate"] doubleValue];
     [self setValue:[NSNumber numberWithDouble:changeHandsRate] forKey:@"ChangeHandsRate"];
     double volRatio = [[_service getCurrentIndicateWithCode:code andName:@"VolRatio"] doubleValue];
