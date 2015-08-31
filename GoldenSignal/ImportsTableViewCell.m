@@ -31,8 +31,9 @@
     if (newsModel.date == 0 ) {
         dateStr = @"";
     } else {
-        dateStr = [[NSString stringWithFormat:@"%@",newsModel.date] substringToIndex:16];
-        dateStr = [NSString stringWithFormat:@"%@ ",dateStr];
+        NSDateFormatter *dateFormatter = [NSDateFormatter new];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+        dateStr = [dateFormatter stringFromDate:newsModel.date];
     }
     self.dateLabel.text = dateStr;
     self.desLabel.text = [NSString stringWithFormat:@"\t%@",newsModel.abstract];

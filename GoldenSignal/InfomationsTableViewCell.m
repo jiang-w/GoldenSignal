@@ -31,7 +31,9 @@
     self.title1.attributedText = str;
     _titleLabelHeight = [self calcHightWithString:self.title1];
     
-    NSString *dateStr = [NSString stringWithFormat:@"%@",pModel.date];
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *dateStr = [dateFormatter stringFromDate:pModel.date];
     self.dateLabel.text = [dateStr substringToIndex:10];
 }
 

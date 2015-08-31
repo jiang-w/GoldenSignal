@@ -26,7 +26,9 @@
 - (void)showGongGaoCellAndModel:(NSObject *)model{
     BDAnnouncementList *pModel = (BDAnnouncementList *)model;
     //日期 截取
-    NSString *dateStr = [[NSString stringWithFormat:@"%@",pModel.date] substringToIndex:10];
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *dateStr = [dateFormatter stringFromDate:pModel.date];
     
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"【%@】%@",dateStr,pModel.title]];
     [str addAttribute:NSForegroundColorAttributeName

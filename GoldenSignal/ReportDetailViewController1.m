@@ -89,7 +89,7 @@
         [renderObject setObject:_report.title forKey:@"title"];
         if (_report.date) {
             NSDateFormatter *dateFormatter = [NSDateFormatter new];
-            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
             [renderObject setObject:[dateFormatter stringFromDate:_report.date] forKey:@"date"];
         }
         else {

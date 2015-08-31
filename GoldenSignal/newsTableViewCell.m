@@ -34,11 +34,12 @@
     if (newsModel.date == 0 ) {
         dateStr = @"";
     } else {
-        dateStr = [[NSString stringWithFormat:@"%@",newsModel.date] substringToIndex:16];
-        dateStr = [NSString stringWithFormat:@"%@ ",dateStr];
+        NSDateFormatter *dateFormatter = [NSDateFormatter new];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+        dateStr = [dateFormatter stringFromDate:newsModel.date];
     }
     
-    self.dataAndLabel.text = [NSString stringWithFormat:@"%@%@",dateStr,newsModel.media];
+    self.dataAndLabel.text = [NSString stringWithFormat:@"%@ %@",dateStr,newsModel.media];
     
 //    [self setContentLabels:self.newsDesLabel andText:[NSString stringWithFormat:@"\t%@",newsModel.abstract]];//摘要
     self.newsDesLabel.text = [NSString stringWithFormat:@"\t%@",newsModel.abstract];

@@ -35,8 +35,10 @@
     _titleHeight = [self calcHightWithString:self.titleLabel];
     
     
-    
-    NSString *dateStr = [[NSString stringWithFormat:@"%@",rModel.date] substringToIndex:10];
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *dateStr = [dateFormatter stringFromDate:rModel.date];
+//    NSString *dateStr = [[NSString stringWithFormat:@"%@",rModel.date] substringToIndex:10];
     self.dataAndLabel.text = [NSString stringWithFormat:@"%@ %@ %@",dateStr,rModel.com,rModel.aut];
     
     [self setContentLabels:self.descriLabel andText:[NSString stringWithFormat:@"\t%@",rModel.abst]];//摘要描述 自适应布局

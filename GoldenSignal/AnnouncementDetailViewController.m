@@ -94,7 +94,7 @@
         [renderObject setObject:_announcement.title forKey:@"title"];
         if (_announcement.date) {
             NSDateFormatter *dateFormatter = [NSDateFormatter new];
-            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
             [renderObject setObject:[dateFormatter stringFromDate:_announcement.date] forKey:@"date"];
         }
         else {
