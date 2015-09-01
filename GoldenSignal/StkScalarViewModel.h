@@ -1,6 +1,6 @@
 //
-//  BDQuotation.h
-//  CBNAPP
+//  StkScalarViewModel.h
+//  GoldenSignal
 //
 //  Created by Frank on 14/10/27.
 //  Copyright (c) 2014年 bigdata. All rights reserved.

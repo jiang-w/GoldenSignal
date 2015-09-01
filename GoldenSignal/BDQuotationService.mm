@@ -42,8 +42,6 @@ NSMutableDictionary *BookingPoint;
 - (id)init {
     self = [super init];
     if (self) {
-        //[self connect];
-        
         [[NSNotificationCenter defaultCenter]
          addObserver:self selector:@selector(resubmit) name:QUOTE_SOCKET_CONNECT object:nil];
     }
@@ -361,12 +359,42 @@ id convertFieldValue(const Messages::FieldCPtr field)
     }
 }
 
-#pragma - mark
-
 // 生成字典中的Key
 + (NSString *)generateKeyWithCode:(NSString *)code andIndicaterName:(NSString *)name {
     NSString *key = [NSString stringWithFormat:@"%@->%@", code, name];
     return key;
+}
+
+
+#pragma - ReactiveCocoa
+
+- (RACSignal *)scalarSignalWithCode:(NSString *)code andIndicater:(NSString *)name {
+    @weakify(self);
+    RACSignal *localSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        id value = [self getCurrentIndicateWithCode:code andName:name];
+        [subscriber sendNext:value];
+        [subscriber sendCompleted];
+        return nil;
+    }];
+    
+    RACSignal *quoteSignal = [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:QUOTE_SCALAR_NOTIFICATION object:nil] filter:^BOOL(NSNotification *notification) {
+        NSDictionary *dic = notification.userInfo;
+        NSString *secuCode = dic[@"code"];
+        NSString *indicaterName = dic[@"name"];
+        if ([secuCode isEqualToString:code] && [indicaterName isEqualToString:name]) {
+            return YES;
+        }
+        else {
+            return NO;
+        }
+    }] map:^id(NSNotification *notification) {
+        NSDictionary *dic = notification.userInfo;
+        return dic[@"value"];
+    }];
+    
+    RACSignal *combineSignal = [[localSignal concat:quoteSignal] ignore:nil];
+    return combineSignal;
 }
 
 @end

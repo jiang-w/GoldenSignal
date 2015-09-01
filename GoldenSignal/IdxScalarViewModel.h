@@ -1,5 +1,5 @@
 //
-//  IdxQuoteViewModel.h
+//  IdxScalarViewModel.h
 //  GoldenSignal
 //
 //  Created by Frank on 15/6/23.

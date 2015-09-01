@@ -51,7 +51,6 @@
 		011B84DC1B0DBD4F003005BC /* CustomTagsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84C31B0DBD4F003005BC /* CustomTagsViewModel.m */; };
 		011B84DD1B0DBD4F003005BC /* FiveBetsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84C51B0DBD4F003005BC /* FiveBetsViewModel.m */; };
 		011B84DE1B0DBD4F003005BC /* StkScalarViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84C71B0DBD4F003005BC /* StkScalarViewModel.m */; };
-		011B84DF1B0DBD4F003005BC /* KLineViewModel_old.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84C91B0DBD4F003005BC /* KLineViewModel_old.m */; };
 		011B84E01B0DBD4F003005BC /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84CB1B0DBD4F003005BC /* LoginViewModel.m */; };
 		011B84E21B0DBD4F003005BC /* NewsEventListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84CF1B0DBD4F003005BC /* NewsEventListViewModel.m */; };
 		011B84E31B0DBD4F003005BC /* StkQuoteCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011B84D11B0DBD4F003005BC /* StkQuoteCellViewModel.m */; };
@@ -270,8 +269,6 @@
 		011B84C51B0DBD4F003005BC /* FiveBetsViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FiveBetsViewModel.m; sourceTree = "<group>"; };
 		011B84C61B0DBD4F003005BC /* StkScalarViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StkScalarViewModel.h; sourceTree = "<group>"; };
 		011B84C71B0DBD4F003005BC /* StkScalarViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StkScalarViewModel.m; sourceTree = "<group>"; };
-		011B84C81B0DBD4F003005BC /* KLineViewModel_old.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLineViewModel_old.h; sourceTree = "<group>"; };
-		011B84C91B0DBD4F003005BC /* KLineViewModel_old.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLineViewModel_old.m; sourceTree = "<group>"; };
 		011B84CA1B0DBD4F003005BC /* LoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewModel.h; sourceTree = "<group>"; };
 		011B84CB1B0DBD4F003005BC /* LoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewModel.m; sourceTree = "<group>"; };
 		011B84CE1B0DBD4F003005BC /* NewsEventListViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsEventListViewModel.h; sourceTree = "<group>"; };
@@ -693,8 +690,6 @@
 				011B84C51B0DBD4F003005BC /* FiveBetsViewModel.m */,
 				011B84C61B0DBD4F003005BC /* StkScalarViewModel.h */,
 				011B84C71B0DBD4F003005BC /* StkScalarViewModel.m */,
-				011B84C81B0DBD4F003005BC /* KLineViewModel_old.h */,
-				011B84C91B0DBD4F003005BC /* KLineViewModel_old.m */,
 				011B84CA1B0DBD4F003005BC /* LoginViewModel.h */,
 				011B84CB1B0DBD4F003005BC /* LoginViewModel.m */,
 				011B84CE1B0DBD4F003005BC /* NewsEventListViewModel.h */,
@@ -1151,7 +1146,6 @@
 				01A55BE91B5E494800224F7B /* newsTableViewCell.m in Sources */,
 				01A55BC61B5E3F7900224F7B /* NewStockTableViewCell.m in Sources */,
 				011B84E31B0DBD4F003005BC /* StkQuoteCellViewModel.m in Sources */,
-				011B84DF1B0DBD4F003005BC /* KLineViewModel_old.m in Sources */,
 				011B85051B0DBE1F003005BC /* AdViewController.m in Sources */,
 				011B84A81B0DBC57003005BC /* BDSecuCode.m in Sources */,
 				011B84BB1B0DBCBA003005BC /* BDRegisterInfo.m in Sources */,

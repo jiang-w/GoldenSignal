@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <ReactiveCocoa.h>
 
 @interface BDQuotationService : NSObject
 
@@ -27,5 +28,7 @@
 - (BOOL)isConnected;
 
 - (void)resubmit;
+
+- (RACSignal *)scalarSignalWithCode:(NSString *)code andIndicater:(NSString *)name;
 
 @end
