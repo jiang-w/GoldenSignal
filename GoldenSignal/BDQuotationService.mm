@@ -369,6 +369,10 @@ id convertFieldValue(const Messages::FieldCPtr field)
 #pragma - ReactiveCocoa
 
 - (RACSignal *)scalarSignalWithCode:(NSString *)code andIndicater:(NSString *)name {
+    // subscribe quote
+    [self subscribeScalarWithCode:code indicaters:@[name]];
+    NSLog(@"subscribe:%@ -> %@", code, name);
+    // create signal
     @weakify(self);
     RACSignal *localSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         @strongify(self);

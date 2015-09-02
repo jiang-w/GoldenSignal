@@ -31,8 +31,6 @@
         if (self.Code) {
             [_service unsubscribeScalarWithCode:self.Code indicaters:IndicaterNames];
         }
-        [_service subscribeScalarWithCode:code indicaters:IndicaterNames];
-        
         // Properties Binding
         [self setValue:code forKey:@"Code"];
         RAC(self, PrevClose) = [_service scalarSignalWithCode:code andIndicater:@"PrevClose"];

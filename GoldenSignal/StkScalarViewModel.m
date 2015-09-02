@@ -64,8 +64,6 @@ static NSArray *indicaters;
         if (self.Code != nil) {
             [_service unsubscribeScalarWithCode:self.Code indicaters:indicaters];
         }
-        [_service subscribeScalarWithCode:code indicaters:indicaters];
-        
         // Properties Binding
         [self setValue:code forKey:@"Code"];
         RAC(self, PrevClose) = [_service scalarSignalWithCode:code andIndicater:@"PrevClose"];
