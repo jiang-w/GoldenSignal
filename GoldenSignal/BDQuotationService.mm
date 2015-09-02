@@ -369,17 +369,17 @@ id convertFieldValue(const Messages::FieldCPtr field)
 #pragma - ReactiveCocoa
 
 - (RACSignal *)scalarSignalWithCode:(NSString *)code andIndicater:(NSString *)name {
-    // subscribe quote
-    [self subscribeScalarWithCode:code indicaters:@[name]];
-    NSLog(@"subscribe:%@ -> %@", code, name);
-    // create signal
     @weakify(self);
-    RACSignal *localSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+    RACSignal *localSignal = [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         @strongify(self);
         id value = [self getCurrentIndicateWithCode:code andName:name];
         [subscriber sendNext:value];
         [subscriber sendCompleted];
         return nil;
+    }] doCompleted:^{
+        // subscribe quote
+        [self subscribeScalarWithCode:code indicaters:@[name]];
+        NSLog(@"subscribe:%@ -> %@", code, name);
     }];
     
     RACSignal *quoteSignal = [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:QUOTE_SCALAR_NOTIFICATION object:nil] filter:^BOOL(NSNotification *notification) {
