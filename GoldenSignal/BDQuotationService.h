@@ -31,4 +31,6 @@
 
 - (RACSignal *)scalarSignalWithCode:(NSString *)code andIndicater:(NSString *)name;
 
+- (RACSignal *)kLineSignalWithCode:(NSString *)code forType:(KLineType)type andNumber:(NSInteger)number;
+
 @end

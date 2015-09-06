@@ -379,7 +379,7 @@ id convertFieldValue(const Messages::FieldCPtr field)
     }] doCompleted:^{
         // subscribe quote
         [self subscribeScalarWithCode:code indicaters:@[name]];
-        NSLog(@"subscribe:%@ -> %@", code, name);
+//        NSLog(@"subscribe:%@ -> %@", code, name);
     }];
     
     RACSignal *quoteSignal = [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:QUOTE_SCALAR_NOTIFICATION object:nil] filter:^BOOL(NSNotification *notification) {
@@ -399,6 +399,36 @@ id convertFieldValue(const Messages::FieldCPtr field)
     
     RACSignal *combineSignal = [[localSignal concat:quoteSignal] ignore:nil];
     return combineSignal;
+}
+
+- (RACSignal *)kLineSignalWithCode:(NSString *)code forType:(KLineType)type andNumber:(NSInteger)number {
+    RACSignal *signal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:QUOTE_SCALAR_NOTIFICATION object:nil] filter:^BOOL(NSNotification *notification) {
+            NSDictionary *dic = notification.userInfo;
+            NSString *secuCode = dic[@"code"];
+            NSString *indicaterName = dic[@"name"];
+            int num = [dic[@"numberFromBegin"] intValue];
+            KLineType ktype = (KLineType)[dic[@"numberType"] intValue];
+            
+            if ([secuCode isEqualToString:code] && [indicaterName isEqualToString:@"KLine"]
+                && ktype == type && num == number) {
+                return YES;
+            }
+            else {
+                return NO;
+            }
+        }] subscribeNext:^(NSNotification *notification) {
+            NSDictionary *dic = notification.userInfo;
+            id value = dic[@"value"];
+            [subscriber sendNext:value];
+            [subscriber sendCompleted];
+        }];
+        
+        return nil;
+    }];
+                         
+    [self subscribeSerialsWithCode:code indicateName:@"KLine" beginDate:0 beginTime:0 numberType:(int)type number:(int)number];
+    return signal;
 }
 
 @end
