@@ -102,6 +102,16 @@
             }
             _vm = [[KLineViewModel alloc] initWithCode:_secu.bdCode kLineType:self.type andNumber:self.number];
             [_vm addObserver:self forKeyPath:@"lines" options:NSKeyValueObservingOptionNew context:NULL];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self animated:YES];
+//                MBProgressHUD *txtHud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+//                txtHud.mode = MBProgressHUDModeText;
+//                txtHud.labelText = @"请求超时";
+//                txtHud.labelFont = [UIFont systemFontOfSize:13];
+//                txtHud.opacity = 0;
+//                txtHud.removeFromSuperViewOnHide = YES;
+            });
         }
     }
 }

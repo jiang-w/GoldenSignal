@@ -95,6 +95,17 @@
             hud.opacity = 0;
             _secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:code];
             [_vm loadDataWithSecuCode:code forDays:_days andInterval:_interval];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self animated:YES];
+//                    MBProgressHUD *txtHud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+//                    txtHud.mode = MBProgressHUDModeText;
+//                    txtHud.labelText = @"请求超时";
+//                    txtHud.labelFont = [UIFont systemFontOfSize:13];
+//                    txtHud.opacity = 0;
+//                    txtHud.removeFromSuperViewOnHide = YES;
+//                    [txtHud hide:YES afterDelay:3];
+            });
         }
     }
 }

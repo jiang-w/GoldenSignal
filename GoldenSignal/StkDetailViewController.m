@@ -14,6 +14,7 @@
 #import "SecuNewsListView.h"
 #import "FundFlowBarView.h"
 #import "FundFlowCircleChart.h"
+#import "DiagnoseContentView.h"
 
 #import <PPiFlatSegmentedControl.h>
 #import <Masonry.h>
@@ -42,8 +43,7 @@
 @property(nonatomic, strong) SecuNewsListView *reportListView;
 @property(nonatomic, strong) SecuNewsListView *bulletinListView;
 
-@property(nonatomic, strong) FundFlowBarView *fundFlowBarView;
-@property(nonatomic, strong) FundFlowCircleChart *fundFlowCircleChart;
+@property(nonatomic, strong) DiagnoseContentView *diagnoseView;//诊断
 
 @end
 
@@ -304,32 +304,19 @@
             break;
         }
         case 3: {
-            if (self.fundFlowCircleChart == nil) {
-                self.fundFlowCircleChart = [[FundFlowCircleChart alloc] init];
-                self.fundFlowCircleChart.backgroundColor = RGB(22, 25, 30);
-                [self.fundFlowCircleChart loadDataWithSecuCode:_secu.bdCode];
+            if (self.diagnoseView == nil) {
+                self.diagnoseView = [[DiagnoseContentView alloc] init];
+                self.diagnoseView.secuCode = _secu.bdCode;
             }
-            [self.infoContainerView addSubview:self.fundFlowCircleChart];
+            [self.infoContainerView addSubview:self.diagnoseView.view];
             
-            [self.fundFlowCircleChart mas_makeConstraints:^(MASConstraintMaker *make) {
+            [self.diagnoseView.view mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.left.right.equalTo(self.infoContainerView);
-                make.height.mas_equalTo(160);
-            }];
-
-            if (self.fundFlowBarView == nil) {
-                self.fundFlowBarView = [[FundFlowBarView alloc] initWithNibName:@"FundFlowBarView" bundle:nil];
-                self.fundFlowBarView.code = _secu.bdCode;
-            }
-            [self.infoContainerView addSubview:self.fundFlowBarView.view];
-            
-            [self.fundFlowBarView.view mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.fundFlowCircleChart.mas_bottom);
-                make.left.right.equalTo(self.infoContainerView);
-                make.height.mas_equalTo(self.fundFlowBarView.view.frame.size.height);
+                make.bottom.equalTo(self.infoContainerView);
             }];
             
             [self.infoContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.bottom.equalTo(self.fundFlowBarView.view);
+                make.bottom.equalTo(self.diagnoseView.view);
             }];
             break;
         }
