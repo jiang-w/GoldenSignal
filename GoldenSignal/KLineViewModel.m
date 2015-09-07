@@ -140,14 +140,7 @@
                 lastLine.volume = self.tmpLine.volume;
             }
             else {
-                BDKLine *newLine = [[BDKLine alloc] init];
-                newLine.date = self.tmpLine.date;
-                newLine.high = self.tmpLine.high;
-                newLine.open = self.tmpLine.open;
-                newLine.low = self.tmpLine.low;
-                newLine.close = self.tmpLine.close;
-                newLine.volume = self.tmpLine.volume;
-                [self.lines addObject:newLine];
+                [self.lines addObject:[self.tmpLine copy]];
             }
             break;
         case KLINE_WEEK:
@@ -162,14 +155,7 @@
                 lastLine.date = self.tmpLine.date;
             }
             else {
-                BDKLine *newLine = [[BDKLine alloc] init];
-                newLine.date = self.tmpLine.date;
-                newLine.high = self.tmpLine.high;
-                newLine.open = self.tmpLine.open;
-                newLine.low = self.tmpLine.low;
-                newLine.close = self.tmpLine.close;
-                newLine.volume = self.tmpLine.volume;
-                [self.lines addObject:newLine];
+                [self.lines addObject:[self.tmpLine copy]];
             }
         case KLINE_MONTH:
             if (lastLine && [self inSameMonthWithDate:lastLine.date andDate:self.tmpLine.date]) {
@@ -183,14 +169,7 @@
                 lastLine.date = self.tmpLine.date;
             }
             else {
-                BDKLine *newLine = [[BDKLine alloc] init];
-                newLine.date = self.tmpLine.date;
-                newLine.high = self.tmpLine.high;
-                newLine.open = self.tmpLine.open;
-                newLine.low = self.tmpLine.low;
-                newLine.close = self.tmpLine.close;
-                newLine.volume = self.tmpLine.volume;
-                [self.lines addObject:newLine];
+                [self.lines addObject:[self.tmpLine copy]];
             }
     }
     [self setValue:self.lines forKey:@"lines"];

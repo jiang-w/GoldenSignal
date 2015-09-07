@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BDKLine : NSObject
+@interface BDKLine : NSObject <NSCopying>
 
 @property(nonatomic, assign) unsigned int date;
 @property(nonatomic, assign) double high;

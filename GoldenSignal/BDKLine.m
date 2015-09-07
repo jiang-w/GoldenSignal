@@ -10,4 +10,16 @@
 
 @implementation BDKLine
 
+- (id)copyWithZone:(NSZone *)zone
+{
+    BDKLine *copyLine = [[BDKLine allocWithZone:zone] init];
+    copyLine.date = self.date;
+    copyLine.high = self.high;
+    copyLine.low = self.low;
+    copyLine.open = self.open;
+    copyLine.close = self.close;
+    copyLine.volume = self.volume;
+    return copyLine;
+}
+
 @end
