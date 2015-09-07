@@ -35,13 +35,13 @@
     [self.view addSubview:self.titleTabVC.view];
     [self.titleTabVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.equalTo(self.view);
-        make.height.mas_equalTo(30);
+        make.height.mas_equalTo(36);
         make.top.equalTo(self.view).with.offset(64);
     }];
     
     CGFloat pageWidth = CGRectGetWidth(self.view.frame);
-    CGFloat pageHeight = CGRectGetHeight(self.view.frame)-49-94;
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 94, pageWidth, pageHeight)];
+    CGFloat pageHeight = CGRectGetHeight(self.view.frame)-49-100;
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 100, pageWidth, pageHeight)];
     self.scrollView.bounces = NO;
     self.scrollView.pagingEnabled = YES;
     self.scrollView.delegate = self;

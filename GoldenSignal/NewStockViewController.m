@@ -44,7 +44,7 @@
     _tableVieww.frame = CGRectMake(0, 36, CGRectGetWidth(self.view.frame), self.view.frame.size.height - 180);
     _tableVieww.dataSource = self;
     _tableVieww.delegate = self;
-    _tableVieww.rowHeight = 50;
+    _tableVieww.rowHeight = 60;
     [self.view addSubview:_tableVieww];
     [_tableVieww registerNib:[UINib nibWithNibName:@"NewStockTableViewCell" bundle:nil] forCellReuseIdentifier:@"nstvcell"];
     
@@ -130,7 +130,7 @@
 #pragma mark  -- 如果没有数据，界面显示“近期无IPO新股申购”
 - (void)creatOtherView{
     UILabel *label = [[UILabel alloc]init];
-    label.frame = CGRectMake((self.view.frame.size.width-150)/2, 15, 150, 25);
+    label.frame = CGRectMake((self.view.frame.size.width-150)/2, 30, 150, 25);
     label.font = [UIFont systemFontOfSize:14];
     label.text = @"近期无IPO新股申购";
     [_tableVieww addSubview:label];

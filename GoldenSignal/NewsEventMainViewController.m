@@ -30,13 +30,13 @@
     [self.view addSubview:titleTabVC.view];
     [titleTabVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.equalTo(self.view);
-        make.height.mas_equalTo(32);
+        make.height.mas_equalTo(36);
         make.top.equalTo(self.view).with.offset(64);
     }];
 
     CGFloat pageWidth = CGRectGetWidth(self.view.frame);
-    CGFloat pageHeight = CGRectGetHeight(self.view.frame)-49-94;
-    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 94, pageWidth, pageHeight)];
+    CGFloat pageHeight = CGRectGetHeight(self.view.frame)-49-100;
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 100, pageWidth, pageHeight)];
     scrollView.bounces = NO;
     scrollView.pagingEnabled = YES;
     scrollView.delegate = self;
@@ -86,7 +86,7 @@
 - (void)refreshView {
     _tabArray = [self getTabArray];
     CGFloat pageWidth = CGRectGetWidth(self.view.frame);
-    CGFloat pageHeight = CGRectGetHeight(self.view.frame)-49-94;
+    CGFloat pageHeight = CGRectGetHeight(self.view.frame)-49-100;
     scrollView.contentSize = CGSizeMake(pageWidth * _tabArray.count , pageHeight);
     titleTabVC.tabArray = _tabArray;
     

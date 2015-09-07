@@ -64,7 +64,7 @@
     else if ([self.codeId isEqual:@"news"]) {
         [self.tableView registerNib:[UINib nibWithNibName:@"newsTableViewCell" bundle:nil] forCellReuseIdentifier:@"newsTableCell"];
     }
-    self.tableView.rowHeight = 120;
+    self.tableView.rowHeight = 60;
     
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];

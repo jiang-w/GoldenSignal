@@ -77,7 +77,7 @@
     for (int i = 1; i<= 5; i++) {
         UIImageView *imageView = [[UIImageView alloc]init];
         imageView.frame =  CGRectMake(i*50-17, 215, 13, 13);
-        imageView.backgroundColor = [UIColor lightGrayColor];
+//        imageView.backgroundColor = [UIColor lightGrayColor];
         imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"rat0%d.png",i]];
         [self.baseView addSubview:imageView];
         

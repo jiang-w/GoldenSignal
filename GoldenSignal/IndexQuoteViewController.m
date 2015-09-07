@@ -40,7 +40,7 @@
     [super viewDidLoad];
     
     
-    _tableVieww = [[UITableView alloc]initWithFrame:CGRectMake(0, 26, CGRectGetWidth(self.view.frame), self.view.frame.size.height - 164)];
+    _tableVieww = [[UITableView alloc]initWithFrame:CGRectMake(0, 30, CGRectGetWidth(self.view.frame), self.view.frame.size.height - 164)];
     
     _tableVieww.backgroundColor = [UIColor blackColor];
     [self.view addSubview:_tableVieww];
@@ -86,7 +86,7 @@
 
 - (UIView *)middleTitleView{
     NSArray *titlesAry = @[@"涨幅%↓",@"指标",@"分时",@"K线",@"金信号"];
-    UIView *middleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 26)];
+    UIView *middleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 30)];
 
     CGRect mainFrame = self.view.frame;
     UILabel *_titleLabel;

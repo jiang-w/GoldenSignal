@@ -75,13 +75,13 @@
 #pragma mark - Table view delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 26;
+    return 30;
 }
 
 //系统方法设置标题视图，此方法Header不随cell移动
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     NSArray *titlesAry = @[@"涨幅%↓",@"指标",@"分时",@"K线",@"金信号"];
-    UIView *middleView = [[UIView alloc]initWithFrame:CGRectMake(0, 94, CGRectGetWidth(self.view.frame), 26)];
+    UIView *middleView = [[UIView alloc]initWithFrame:CGRectMake(0, 100, CGRectGetWidth(self.view.frame), 30)];
     middleView.backgroundColor = [UIColor blackColor];
     CGRect mainFrame = self.view.frame;
     UILabel *titleLabel;
