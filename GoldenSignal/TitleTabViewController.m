@@ -121,8 +121,9 @@ static NSString * const reuseIdentifier = @"TitleTabCell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *item = [self.tabArray objectAtIndex:indexPath.row];
     NSString *name = item.allValues.firstObject;
-    CGSize size = [name sizeWithFont:[UIFont boldSystemFontOfSize:16] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-    return size;
+    CGSize fontSize = [name sizeWithFont:[UIFont boldSystemFontOfSize:16] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    CGSize cellSize = CGSizeMake(fontSize.width + 20, 30);
+    return cellSize;
 }
 
 //定义每个UICollectionView 的 margin
