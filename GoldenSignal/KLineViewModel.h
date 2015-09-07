@@ -18,7 +18,7 @@
 /**
  *  走势线
  */
-@property(nonatomic, strong, readonly) NSMutableArray *lines;
+@property(nonatomic, strong) NSMutableArray *lines;
 
 /**
  *  价格区间
@@ -31,7 +31,7 @@
 @property(nonatomic, assign, readonly) unsigned long maxVolume;
 
 
-- (void)loadDataWithSecuCode:(NSString *)code forType:(KLineType)type andNumber:(NSUInteger)number;
+- (instancetype)initWithCode:(NSString *)code kLineType:(KLineType)type andNumber:(NSUInteger)number;
 
 - (double)calcAvgPriceForDate:(NSUInteger)date andMA:(NSUInteger)value;
 

@@ -38,9 +38,6 @@
         [self setDefaultParameters];
         [self addTextLabel];
 //        [self addXYLineAndGesture];
-        
-        _vm = [[KLineViewModel alloc] init];
-        [_vm addObserver:self forKeyPath:@"lines" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
 }
@@ -100,7 +97,11 @@
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
             hud.opacity = 0;
             _secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:code];
-            [_vm loadDataWithSecuCode:_secu.bdCode forType:_type andNumber:_number];
+            if (_vm) {
+                [_vm removeObserver:self forKeyPath:@"lines"];
+            }
+            _vm = [[KLineViewModel alloc] initWithCode:_secu.bdCode kLineType:self.type andNumber:self.number];
+            [_vm addObserver:self forKeyPath:@"lines" options:NSKeyValueObservingOptionNew context:NULL];
         }
     }
 }

@@ -29,8 +29,7 @@
         [self commonInit];
         
         _number = 40;
-        _vm = [[KLineViewModel alloc] init];
-        [_vm loadDataWithSecuCode:code forType:KLINE_DAY andNumber:_number];
+        _vm = [[KLineViewModel alloc] initWithCode:_code kLineType:KLINE_DAY andNumber:_number];
         [_vm addObserver:self forKeyPath:@"lines" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
