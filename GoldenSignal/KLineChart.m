@@ -7,9 +7,10 @@
 //
 
 #import "KLineChart.h"
-#import "KLineViewModel.h"
+
 #import <Masonry.h>
 #import <MBProgressHUD.h>
+#import <ReactiveCocoa.h>
 
 @interface KLineChart()
 
@@ -27,17 +28,20 @@
 
 @implementation KLineChart
 {
-    KLineViewModel *_vm;
-    BDSecuCode *_secu;
+    KLineViewModel *_viewModel;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame andViewModel:(KLineViewModel *)viewModel {
     self = [super initWithFrame:frame];
     if (self) {
         _layers = [NSMutableArray array];
+        _viewModel = viewModel;
+        
         [self setDefaultParameters];
         [self addTextLabel];
 //        [self addXYLineAndGesture];
+
+        [self observeViewModel];
     }
     return self;
 }
@@ -54,13 +58,25 @@
     _drawInnerGrid = YES;
     
     _labelFont = [UIFont systemFontOfSize:9];
-    
-    _type = KLINE_DAY;
-    _number = 60;
-    
+
     self.backgroundColor = [UIColor clearColor];
 }
 
+- (void)observeViewModel {
+    @weakify(self)
+    [RACObserve(_viewModel, lines) subscribeNext:^(id x) {
+        @strongify(self)
+        dispatch_async(dispatch_get_main_queue(), ^{
+            @try {
+//                    NSLog(@"%@ 绘制K线图 (number:%lu)", _viewModel.code, _viewModel.lines.count);
+                [self setNeedsDisplay];
+            }
+            @catch (NSException *exception) {
+                NSLog(@"KLineChart 绘制K线异常: %@", exception.reason);
+            }
+        });
+    }];
+}
 
 #pragma mark - property
 
@@ -89,53 +105,13 @@
     return rect;
 }
 
-#pragma mark - loading data
-
-- (void)loadDataWithSecuCode:(NSString *)code {
-    if (code) {
-        if (_secu == nil || ![_secu.bdCode isEqualToString:code]) {
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
-            hud.opacity = 0;
-            _secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:code];
-            if (_vm) {
-                [_vm removeObserver:self forKeyPath:@"lines"];
-            }
-            _vm = [[KLineViewModel alloc] initWithCode:_secu.bdCode kLineType:self.type andNumber:self.number];
-            [_vm addObserver:self forKeyPath:@"lines" options:NSKeyValueObservingOptionNew context:NULL];
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideHUDForView:self animated:YES];
-//                MBProgressHUD *txtHud = [MBProgressHUD showHUDAddedTo:self animated:YES];
-//                txtHud.mode = MBProgressHUDModeText;
-//                txtHud.labelText = @"请求超时";
-//                txtHud.labelFont = [UIFont systemFontOfSize:13];
-//                txtHud.opacity = 0;
-//                txtHud.removeFromSuperViewOnHide = YES;
-            });
-        }
-    }
-}
-
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        @try {
-//            NSLog(@"%@ 绘制K线图 (number:%lu)", _secu.bdCode, _vm.number);
-            [self setNeedsDisplay];
-            [MBProgressHUD hideHUDForView:self animated:YES];
-        }
-        @catch (NSException *exception) {
-            NSLog(@"KLineChart 绘制K线异常: %@", exception.reason);
-        }
-    });
-}
-
 
 #pragma mark - draw
 
 - (void)drawRect:(CGRect)rect {
     [self drawGrid];
     [self layoutTextLabel];
-    if (_vm.lines.count > 0) {
+    if (_viewModel.lines.count > 0) {
         [self clearLayers];
         [self strokeCandleChart];
         [self strokeAvgLineChart];
@@ -220,13 +196,13 @@
 
 - (void)strokeCandleChart {
 //    Stopwatch *watch = [Stopwatch startNew];
-    PriceRange priceRange = _vm.priceRange;
-    unsigned long maxVolume = _vm.maxTrdVol;
+    PriceRange priceRange = _viewModel.priceRange;
+    unsigned long maxVolume = _viewModel.maxTrdVol;
     
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGFloat lineWidth = CGRectGetWidth(self.lineChartFrame) / _vm.displayNum;
-    for (int i = 0; i < _vm.lines.count; i++) {
-        BDKLine *kLine = _vm.lines[i];
+    CGFloat lineWidth = CGRectGetWidth(self.lineChartFrame) / _viewModel.displayNum;
+    for (int i = 0; i < _viewModel.lines.count; i++) {
+        BDKLine *kLine = _viewModel.lines[i];
         float xOffset = CGRectGetMinX(self.lineChartFrame) + (i + 0.5) * lineWidth;
         float highYOffset = (priceRange.high - kLine.high) / (priceRange.high - priceRange.low) * CGRectGetHeight(self.lineChartFrame) + CGRectGetMinY(self.lineChartFrame);
         float lowYOffset = (priceRange.high - kLine.low) / (priceRange.high - priceRange.low) * CGRectGetHeight(self.lineChartFrame) + CGRectGetMinY(self.lineChartFrame);
@@ -270,8 +246,8 @@
     // 最高价、最低价、起止日期
     self.highLabel.text = [NSString stringWithFormat:@"%.2f", priceRange.high];
     self.lowLabel.text = [NSString stringWithFormat:@"%.2f", priceRange.low];
-    self.beginDateLabel.text = [NSString stringWithFormat:@"%d", ((BDKLine *)[_vm.lines firstObject]).date];
-    self.endDateLabel.text = [NSString stringWithFormat:@"%d", ((BDKLine *)[_vm.lines lastObject]).date];
+    self.beginDateLabel.text = [NSString stringWithFormat:@"%d", ((BDKLine *)[_viewModel.lines firstObject]).date];
+    self.endDateLabel.text = [NSString stringWithFormat:@"%d", ((BDKLine *)[_viewModel.lines lastObject]).date];
     
 //    [watch stop];
 //    NSLog(@"绘制K线 Timeout:%.3fs", watch.elapsed);
@@ -318,15 +294,15 @@
 
 - (CGPathRef)getAvgPricePathInFrame:(CGRect)frame withMA:(NSUInteger)value {
     UIBezierPath* path = [UIBezierPath bezierPath];
-    PriceRange priceRange = _vm.priceRange;
+    PriceRange priceRange = _viewModel.priceRange;
     double scale = (priceRange.high - priceRange.low) / CGRectGetHeight(frame);
     
     CGPoint beginPoint = CGPointZero;
-    for (int i = 0; i < _vm.lines.count; i++) {
-        BDKLine *line = _vm.lines[i];
-        double price = [_vm calcAvgPriceForDate:line.date andMA:value];
+    for (int i = 0; i < _viewModel.lines.count; i++) {
+        BDKLine *line = _viewModel.lines[i];
+        double price = [_viewModel calcAvgPriceForDate:line.date andMA:value];
         if (price > 0) {
-            CGFloat xOffset = CGRectGetMinX(frame) + (i + 0.5) * CGRectGetWidth(frame) / _vm.displayNum;
+            CGFloat xOffset = CGRectGetMinX(frame) + (i + 0.5) * CGRectGetWidth(frame) / _viewModel.displayNum;
             CGFloat yOffset = CGRectGetMaxY(frame) - (price - priceRange.low) / scale;
             if (CGPointEqualToPoint(beginPoint, CGPointZero)) {
                 beginPoint = CGPointMake(xOffset, yOffset);
@@ -381,11 +357,11 @@
             self.yLine.hidden = NO;
         }
         
-        CGFloat candleWidth = CGRectGetWidth(self.lineChartFrame) / _vm.displayNum;
+        CGFloat candleWidth = CGRectGetWidth(self.lineChartFrame) / _viewModel.displayNum;
         CGFloat touchXoffset = touchPoint.x - CGRectGetMinX(self.lineChartFrame);
         NSUInteger candleSN = floor(touchXoffset / candleWidth); //是从0开始的第几根K线
-        NSUInteger indexOfLines = _vm.lines.count > _vm.displayNum ? _vm.lines.count - _vm.displayNum + candleSN : candleSN;
-        BDKLine *line = [_vm.lines objectAtIndex:indexOfLines];
+        NSUInteger indexOfLines = _viewModel.lines.count > _viewModel.displayNum ? _viewModel.lines.count - _viewModel.displayNum + candleSN : candleSN;
+        BDKLine *line = [_viewModel.lines objectAtIndex:indexOfLines];
         NSLog(@"日期: %d, 价格: %.2f", line.date, line.close);
 
         CGRect xLineFrame = self.xLine.frame;
@@ -401,8 +377,7 @@
 #pragma mark - Dealloc
 
 - (void)dealloc {
-    [_vm removeObserver:self forKeyPath:@"lines"];
-//    NSLog(@"KLineChart dealloc (%@)", _secu.bdCode);
+//    NSLog(@"KLineChart dealloc (%@)", _viewModel.code);
 }
 
 @end

@@ -9,27 +9,18 @@
 #import "QuoteHomeKLineChart.h"
 #import "KLineViewModel.h"
 
-@interface QuoteHomeKLineChart()
-
-@property (nonatomic, strong) NSString *code;
-
-@end
-
 @implementation QuoteHomeKLineChart
 {
     KLineViewModel *_vm;
-    NSInteger _number;
 }
 
 - (id)initWithFrame:(CGRect)frame andIdxCode:(NSString *)code
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _code = code;
         [self commonInit];
         
-        _number = 40;
-        _vm = [[KLineViewModel alloc] initWithCode:_code kLineType:KLINE_DAY andNumber:_number];
+        _vm = [[KLineViewModel alloc] initWithCode:code kLineType:KLINE_DAY andNumber:40];
         [_vm addObserver:self forKeyPath:@"lines" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
