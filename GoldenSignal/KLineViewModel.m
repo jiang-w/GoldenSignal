@@ -14,8 +14,7 @@
 
 @interface KLineViewModel()
 
-@property(nonatomic, assign) KLineType type;    // K线的类型（日K、周K、月K）
-@property(nonatomic, assign) NSUInteger number; // K线数量
+@property(nonatomic, strong) NSMutableArray *allLines;
 @property(nonatomic, strong) BDKLine *tmpLine;
 
 @end
@@ -26,8 +25,8 @@
     self = [super init];
     if (self) {
         _code = code;
-        self.number = number;
-        self.type = type;
+        _number = number;
+        _type = type;
         
         [self setSignal];
     }
@@ -40,9 +39,7 @@
 - (PriceRange)priceRange {
     double maxPrice = 0;
     double minPrice = 0;
-    NSRange range = _lines.count > _number ? NSMakeRange(_lines.count - _number, _number) : NSMakeRange(0, _lines.count);
-    NSArray *lines = [_lines subarrayWithRange:range];
-    for (BDKLine *kLine in lines) {
+    for (BDKLine *kLine in _lines) {
         if (kLine.high > maxPrice) {
             maxPrice = kLine.high;
         }
@@ -56,9 +53,7 @@
 // 最大交易量
 - (unsigned long)maxVolume {
     unsigned long max = 0;
-    NSRange range = _lines.count > _number ? NSMakeRange(_lines.count - _number, _number) : NSMakeRange(0, _lines.count);
-    NSArray *lines = [_lines subarrayWithRange:range];
-    for (BDKLine *kLine in lines) {
+    for (BDKLine *kLine in _lines) {
         if (kLine.volume > max) {
             max = kLine.volume;
         }
@@ -72,7 +67,7 @@
 // 计算均价
 - (double)calcAvgPriceForDate:(NSUInteger)date andMA:(NSUInteger)value {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"date <= %lu", date]];
-    NSMutableArray *lines = [NSMutableArray arrayWithArray:[self.lines filteredArrayUsingPredicate:predicate]];
+    NSMutableArray *lines = [NSMutableArray arrayWithArray:[self.allLines filteredArrayUsingPredicate:predicate]];
     [lines sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]]];
     if (lines.count >= value) {
         NSRange range = NSMakeRange(0, value);
@@ -97,7 +92,7 @@
     @weakify(self);
     RACSignal *initSignal = [[service kLineSignalWithCode:self.code forType:self.type andNumber:self.number + ExtraLines] map:^id(id value) {
         @strongify(self);
-        self.lines = [self paraseTrendLines:[value objectForKey:@"KLine"]];
+        self.allLines = [self paraseTrendLines:[value objectForKey:@"KLine"]];
         return @(YES);
     }];
     
@@ -129,8 +124,8 @@
 }
 
 - (void)updateKLine {
-    BDKLine *lastLine = [self.lines lastObject];
-    switch (self.type) {
+    BDKLine *lastLine = [self.allLines lastObject];
+    switch (_type) {
         case KLINE_DAY:
             if (lastLine && lastLine.date == self.tmpLine.date) {
                 lastLine.high = self.tmpLine.high;
@@ -140,7 +135,7 @@
                 lastLine.volume = self.tmpLine.volume;
             }
             else {
-                [self.lines addObject:[self.tmpLine copy]];
+                [self.allLines addObject:[self.tmpLine copy]];
             }
             break;
         case KLINE_WEEK:
@@ -155,7 +150,7 @@
                 lastLine.date = self.tmpLine.date;
             }
             else {
-                [self.lines addObject:[self.tmpLine copy]];
+                [self.allLines addObject:[self.tmpLine copy]];
             }
         case KLINE_MONTH:
             if (lastLine && [self inSameMonthWithDate:lastLine.date andDate:self.tmpLine.date]) {
@@ -169,10 +164,13 @@
                 lastLine.date = self.tmpLine.date;
             }
             else {
-                [self.lines addObject:[self.tmpLine copy]];
+                [self.allLines addObject:[self.tmpLine copy]];
             }
     }
-    [self setValue:self.lines forKey:@"lines"];
+    
+    NSRange range = self.allLines.count > _number ? NSMakeRange(self.allLines.count - _number, _number) : NSMakeRange(0, self.allLines.count);
+    NSArray *lines = [self.allLines subarrayWithRange:range];
+    [self setValue:lines forKey:@"lines"];
 }
 
 - (NSMutableArray *)paraseTrendLines:(NSArray *)data {

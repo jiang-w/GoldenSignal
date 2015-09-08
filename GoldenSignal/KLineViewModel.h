@@ -16,9 +16,19 @@
 @property(nonatomic, strong, readonly) NSString *code;
 
 /**
- *  走势线
+ *  K线数组
  */
-@property(nonatomic, strong) NSMutableArray *lines;
+@property(nonatomic, strong, readonly) NSArray *lines;
+
+/**
+ *  K线的类型（日K、周K、月K）
+ */
+@property(nonatomic, assign, readonly) KLineType type;
+
+/**
+ *  K线呈现的根数
+ */
+@property(nonatomic, assign, readonly) NSUInteger number;
 
 /**
  *  价格区间

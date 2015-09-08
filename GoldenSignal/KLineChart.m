@@ -55,7 +55,7 @@
     
     _labelFont = [UIFont systemFontOfSize:9];
     
-     _type = KLINE_DAY;
+    _type = KLINE_DAY;
     _number = 60;
     
     self.backgroundColor = [UIColor clearColor];
@@ -119,7 +119,7 @@
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     dispatch_async(dispatch_get_main_queue(), ^{
         @try {
-//            NSLog(@"%@ 绘制K线图 (number:%lu)", _secu.bdCode, _number);
+//            NSLog(@"%@ 绘制K线图 (number:%lu)", _secu.bdCode, _vm.number);
             [self setNeedsDisplay];
             [MBProgressHUD hideHUDForView:self animated:YES];
         }
@@ -222,14 +222,12 @@
 //    Stopwatch *watch = [Stopwatch startNew];
     PriceRange priceRange = _vm.priceRange;
     unsigned long maxVolume = _vm.maxVolume;
-    NSRange range = _vm.lines.count > _number ? NSMakeRange(_vm.lines.count - _number, _number) : NSMakeRange(0, _vm.lines.count);
-    NSArray *lines = [_vm.lines subarrayWithRange:range];
     
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGFloat lineWidth = CGRectGetWidth(self.lineChartFrame) / _number;
-    for (int i = 0; i < lines.count; i++) {
-        BDKLine *kLine = lines[i];
-        float xOffset = CGRectGetMinX(self.lineChartFrame) + lineWidth * (i + 1) - lineWidth / 2;
+    CGFloat lineWidth = CGRectGetWidth(self.lineChartFrame) / _vm.number;
+    for (int i = 0; i < _vm.lines.count; i++) {
+        BDKLine *kLine = _vm.lines[i];
+        float xOffset = CGRectGetMinX(self.lineChartFrame) + (i + 0.5) * lineWidth;
         float highYOffset = (priceRange.high - kLine.high) / (priceRange.high - priceRange.low) * CGRectGetHeight(self.lineChartFrame) + CGRectGetMinY(self.lineChartFrame);
         float lowYOffset = (priceRange.high - kLine.low) / (priceRange.high - priceRange.low) * CGRectGetHeight(self.lineChartFrame) + CGRectGetMinY(self.lineChartFrame);
         float openYOffset = (priceRange.high - kLine.open) / (priceRange.high - priceRange.low) * CGRectGetHeight(self.lineChartFrame) + CGRectGetMinY(self.lineChartFrame);
@@ -272,8 +270,8 @@
     // 最高价、最低价、起止日期
     self.highLabel.text = [NSString stringWithFormat:@"%.2f", priceRange.high];
     self.lowLabel.text = [NSString stringWithFormat:@"%.2f", priceRange.low];
-    self.beginDateLabel.text = [NSString stringWithFormat:@"%d", ((BDKLine *)[lines firstObject]).date];
-    self.endDateLabel.text = [NSString stringWithFormat:@"%d", ((BDKLine *)[lines lastObject]).date];
+    self.beginDateLabel.text = [NSString stringWithFormat:@"%d", ((BDKLine *)[_vm.lines firstObject]).date];
+    self.endDateLabel.text = [NSString stringWithFormat:@"%d", ((BDKLine *)[_vm.lines lastObject]).date];
     
 //    [watch stop];
 //    NSLog(@"绘制K线 Timeout:%.3fs", watch.elapsed);
@@ -324,13 +322,11 @@
     double scale = (priceRange.high - priceRange.low) / CGRectGetHeight(frame);
     
     CGPoint beginPoint = CGPointZero;
-    NSRange range = _vm.lines.count > _number ? NSMakeRange(_vm.lines.count - _number, _number) : NSMakeRange(0, _vm.lines.count);
-    NSArray *lines = [_vm.lines subarrayWithRange:range];
-    for (int i = 0; i < lines.count; i++) {
-        BDKLine *line = lines[i];
+    for (int i = 0; i < _vm.lines.count; i++) {
+        BDKLine *line = _vm.lines[i];
         double price = [_vm calcAvgPriceForDate:line.date andMA:value];
         if (price > 0) {
-            CGFloat xOffset = CGRectGetMinX(frame) + (i + 0.5) * CGRectGetWidth(frame) / _number;
+            CGFloat xOffset = CGRectGetMinX(frame) + (i + 0.5) * CGRectGetWidth(frame) / _vm.number;
             CGFloat yOffset = CGRectGetMaxY(frame) - (price - priceRange.low) / scale;
             if (CGPointEqualToPoint(beginPoint, CGPointZero)) {
                 beginPoint = CGPointMake(xOffset, yOffset);
@@ -385,10 +381,10 @@
             self.yLine.hidden = NO;
         }
         
-        CGFloat candleWidth = CGRectGetWidth(self.lineChartFrame) / _number;
+        CGFloat candleWidth = CGRectGetWidth(self.lineChartFrame) / _vm.number;
         CGFloat touchXoffset = touchPoint.x - CGRectGetMinX(self.lineChartFrame);
         NSUInteger candleSN = floor(touchXoffset / candleWidth); //是从0开始的第几根K线
-        NSUInteger indexOfLines = _vm.lines.count > _number ? _vm.lines.count - _number + candleSN : candleSN;
+        NSUInteger indexOfLines = _vm.lines.count > _vm.number ? _vm.lines.count - _vm.number + candleSN : candleSN;
         BDKLine *line = [_vm.lines objectAtIndex:indexOfLines];
         NSLog(@"日期: %d, 价格: %.2f", line.date, line.close);
 

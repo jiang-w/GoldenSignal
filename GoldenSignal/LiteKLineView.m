@@ -12,23 +12,19 @@
 @interface LiteKLineView()
 
 @property(nonatomic) CGRect lineChartFrame;
-@property(nonatomic, strong) NSString *code;
 
 @end
 
 @implementation LiteKLineView
 {
     KLineViewModel *_vm;
-    int _number;
 }
 
 - (id)initWithFrame:(CGRect)frame andCode:(NSString *)code {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
-        _code = code;
-        _number = 5;
-        _vm = [[KLineViewModel alloc] initWithCode:_code kLineType:KLINE_DAY andNumber:_number];
+        _vm = [[KLineViewModel alloc] initWithCode:code kLineType:KLINE_DAY andNumber:5];
         [_vm addObserver:self forKeyPath:@"lines" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
@@ -78,14 +74,12 @@
 
 - (void)strokeCandleChart {
     PriceRange priceRange = _vm.priceRange;
-    NSRange range = _vm.lines.count > _number ? NSMakeRange(_vm.lines.count - _number, _number) : NSMakeRange(0, _vm.lines.count);
-    NSArray *lines = [_vm.lines subarrayWithRange:range];
     
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGFloat lineWidth = CGRectGetWidth(self.lineChartFrame) / _number;
-    for (int i = 0; i < lines.count; i++) {
-        BDKLine *kLine = lines[i];
-        float xOffset = CGRectGetMinX(self.lineChartFrame) + lineWidth * (i + 1) - lineWidth / 2;
+    CGFloat lineWidth = CGRectGetWidth(self.lineChartFrame) / _vm.number;
+    for (int i = 1; i <= _vm.lines.count; i++) {
+        BDKLine *kLine = _vm.lines[_vm.lines.count - i];
+        float xOffset = CGRectGetMaxX(self.lineChartFrame) - lineWidth * (i - 0.5);
         float highYOffset = (priceRange.high - kLine.high) / (priceRange.high - priceRange.low) * CGRectGetHeight(self.lineChartFrame) + CGRectGetMinY(self.lineChartFrame);
         float lowYOffset = (priceRange.high - kLine.low) / (priceRange.high - priceRange.low) * CGRectGetHeight(self.lineChartFrame) + CGRectGetMinY(self.lineChartFrame);
         float openYOffset = (priceRange.high - kLine.open) / (priceRange.high - priceRange.low) * CGRectGetHeight(self.lineChartFrame) + CGRectGetMinY(self.lineChartFrame);
@@ -125,7 +119,7 @@
 
 - (void)dealloc {
     [_vm removeObserver:self forKeyPath:@"lines"];
-//    NSLog(@"LiteKLineView dealloc (%@)", _code);
+//    NSLog(@"LiteKLineView dealloc (%@)", _vm.code);
 }
 
 @end
