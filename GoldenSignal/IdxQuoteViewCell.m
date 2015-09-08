@@ -52,7 +52,8 @@
 - (void)addKLineViewWithCode:(NSString *)code {
     [self.kLineView removeFromSuperview];
     CGRect frame = self.kLineView.frame;
-    self.kLineView = [[LiteKLineView alloc] initWithFrame:frame andCode:code];
+    KLineViewModel *viewModel = [_vm getKLineViewModel];
+    self.kLineView = [[LiteKLineView alloc] initWithFrame:frame andViewModel:viewModel];
     [self addSubview:self.kLineView];
 }
 

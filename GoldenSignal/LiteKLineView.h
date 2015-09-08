@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KLineViewModel.h"
 
 @interface LiteKLineView : UIView
 
-- (id)initWithFrame:(CGRect)frame andCode:(NSString *)code;
+- (id)initWithFrame:(CGRect)frame andViewModel:(KLineViewModel *)viewModel;
 
 @end

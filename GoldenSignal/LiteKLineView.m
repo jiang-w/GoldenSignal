@@ -7,7 +7,8 @@
 //
 
 #import "LiteKLineView.h"
-#import "KLineViewModel.h"
+
+#import <ReactiveCocoa.h>
 
 @interface LiteKLineView()
 
@@ -20,12 +21,24 @@
     KLineViewModel *_vm;
 }
 
-- (id)initWithFrame:(CGRect)frame andCode:(NSString *)code {
+- (id)initWithFrame:(CGRect)frame andViewModel:(KLineViewModel *)viewModel {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
-        _vm = [[KLineViewModel alloc] initWithCode:code kLineType:KLINE_DAY andNumber:5];
-        [_vm addObserver:self forKeyPath:@"lines" options:NSKeyValueObservingOptionNew context:NULL];
+        
+        _vm = viewModel;
+        @weakify(self)
+        [RACObserve(_vm, lines) subscribeNext:^(id x) {
+            @strongify(self)
+            dispatch_async(dispatch_get_main_queue(), ^{
+                @try {
+                    [self setNeedsDisplay];
+                }
+                @catch (NSException *exception) {
+                    NSLog(@"LiteKLineView 绘制K线异常: %@", exception.reason);
+                }
+            });
+        }];
     }
     return self;
 }
@@ -34,18 +47,6 @@
     CGRect rect = CGRectMake(1, 1, CGRectGetWidth(self.frame)-2, CGRectGetHeight(self.frame)-2);
     return rect;
 }
-
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        @try {
-            [self setNeedsDisplay];
-        }
-        @catch (NSException *exception) {
-            NSLog(@"LiteKLineView 绘制K线异常: %@", exception.reason);
-        }
-    });
-}
-
 
 #pragma mark - Draw View
 
@@ -118,7 +119,6 @@
 #pragma mark - Dealloc
 
 - (void)dealloc {
-    [_vm removeObserver:self forKeyPath:@"lines"];
 //    NSLog(@"LiteKLineView dealloc (%@)", _vm.code);
 }
 

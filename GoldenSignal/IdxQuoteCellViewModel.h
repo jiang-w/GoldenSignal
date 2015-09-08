@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "KLineViewModel.h"
 
 @interface IdxQuoteCellViewModel : NSObject
 
@@ -67,5 +68,7 @@
 
 
 - (void)subscribeQuotationScalarWithCode:(NSString *)code;
+
+- (KLineViewModel *)getKLineViewModel;
 
 @end

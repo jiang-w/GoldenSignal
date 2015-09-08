@@ -230,7 +230,7 @@
 - (void)dealloc {
     BDQuotationService *service = [BDQuotationService sharedInstance];
     [service unsubscribeScalarWithCode:self.code indicaters:IndicaterNames];
-    NSLog(@"KLineViewModel dealloc (%@)", self.code);
+//    NSLog(@"KLineViewModel dealloc (%@)", self.code);
 }
 
 @end

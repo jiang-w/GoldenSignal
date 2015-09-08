@@ -43,11 +43,6 @@
 }
 
 - (void)addTrendViewWithCode:(NSString *)code {
-//    [self.trendView removeFromSuperview];
-//    CGRect frame = self.trendView.frame;
-//    self.trendView = [[LiteTrendView alloc] initWithFrame:frame andCode:code];
-//    [self addSubview:self.trendView];
-    
     for (UIView *subView in self.trendView.subviews) {
         [subView removeFromSuperview];
     }
@@ -56,15 +51,11 @@
 }
 
 - (void)addKLineViewWithCode:(NSString *)code {
-//    [self.kLineView removeFromSuperview];
-//    CGRect frame = self.kLineView.frame;
-//    self.kLineView = [[LiteKLineView alloc] initWithFrame:frame andCode:code];
-//    [self addSubview:self.kLineView];
-    
     for (UIView *subView in self.kLineView.subviews) {
         [subView removeFromSuperview];
     }
-    LiteKLineView *kLine = [[LiteKLineView alloc] initWithFrame:self.kLineView.bounds andCode:code];
+    KLineViewModel *viewModel = [_vm getKLineViewModel];
+    LiteKLineView *kLine = [[LiteKLineView alloc] initWithFrame:self.kLineView.bounds andViewModel:viewModel];
     [self.kLineView addSubview:kLine];
 }
 
