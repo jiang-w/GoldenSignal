@@ -52,12 +52,13 @@
     if (newsModel.date == 0 ) {
         dateStr = @"";
     } else {
-        dateStr = [[NSString stringWithFormat:@"%@",newsModel.date] substringToIndex:10];
-        dateStr = [NSString stringWithFormat:@"%@ ",dateStr];
+        NSDateFormatter *dateFormatter = [NSDateFormatter new];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        dateStr = [dateFormatter stringFromDate:newsModel.date];
     }
     
     newsModel.author = [newsModel.author isEqualToString:@"--"] ? @"" : newsModel.author;
-    self.dateLabel.text = [NSString stringWithFormat:@"%@%@ %@",dateStr, newsModel.companyName, newsModel.author];
+    self.dateLabel.text = [NSString stringWithFormat:@"%@ %@ %@",dateStr, newsModel.companyName, newsModel.author];
     
     self.desLabel.text = [NSString stringWithFormat:@"\t%@",newsModel.abstract];
     _desHeight = [self calcHightWithString:self.desLabel];
