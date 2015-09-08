@@ -63,13 +63,31 @@
 }
 
 - (void)observeViewModel {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+    hud.color = [UIColor clearColor];
+    hud.removeFromSuperViewOnHide = YES;
+    [hud hide:YES afterDelay:6];
+    hud.completionBlock  = ^() {
+        if(_viewModel.lines.count == 0) {
+            MBProgressHUD *txtHud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+            txtHud.mode = MBProgressHUDModeText;
+            txtHud.labelText = @"请求超时";
+            txtHud.labelFont = [UIFont systemFontOfSize:13];
+            txtHud.opacity = 0;
+            txtHud.removeFromSuperViewOnHide = YES;
+            [txtHud hide:YES afterDelay:3];
+        }
+    };
+    
     @weakify(self)
-    [RACObserve(_viewModel, lines) subscribeNext:^(id x) {
+    [RACObserve(_viewModel, lines) subscribeNext:^(NSArray *values) {
         @strongify(self)
         dispatch_async(dispatch_get_main_queue(), ^{
             @try {
-//                    NSLog(@"%@ 绘制K线图 (number:%lu)", _viewModel.code, _viewModel.lines.count);
-                [self setNeedsDisplay];
+                if (values.count > 0) {
+                    [self setNeedsDisplay];
+                    [MBProgressHUD hideHUDForView:self animated:YES];
+                }
             }
             @catch (NSException *exception) {
                 NSLog(@"KLineChart 绘制K线异常: %@", exception.reason);
