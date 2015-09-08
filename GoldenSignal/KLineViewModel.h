@@ -28,7 +28,7 @@
 /**
  *  K线呈现的根数
  */
-@property(nonatomic, assign, readonly) NSUInteger number;
+@property(nonatomic, assign, readonly) NSUInteger displayNum;
 
 /**
  *  价格区间
@@ -38,7 +38,7 @@
 /**
  *  最大交易量
  */
-@property(nonatomic, assign, readonly) unsigned long maxVolume;
+@property(nonatomic, assign, readonly) unsigned long maxTrdVol;
 
 
 - (instancetype)initWithCode:(NSString *)code kLineType:(KLineType)type andNumber:(NSUInteger)number;

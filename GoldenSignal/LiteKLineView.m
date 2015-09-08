@@ -76,7 +76,7 @@
     PriceRange priceRange = _vm.priceRange;
     
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGFloat lineWidth = CGRectGetWidth(self.lineChartFrame) / _vm.number;
+    CGFloat lineWidth = CGRectGetWidth(self.lineChartFrame) / _vm.displayNum;
     for (int i = 1; i <= _vm.lines.count; i++) {
         BDKLine *kLine = _vm.lines[_vm.lines.count - i];
         float xOffset = CGRectGetMaxX(self.lineChartFrame) - lineWidth * (i - 0.5);

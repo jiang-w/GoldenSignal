@@ -121,17 +121,14 @@
     if (priceRange.high - priceRange.low == 0) {
         return;
     }
-    
     CGRect lineFrame = CGRectMake(_margin, _margin, self.chartWidth, self.chartHeight);
-    CGFloat lineWidth = CGRectGetWidth(lineFrame) / _number;
-    NSRange range = _vm.lines.count > _number ? NSMakeRange(_vm.lines.count - _number, _number) : NSMakeRange(0, _vm.lines.count);
-    NSArray *lines = [_vm.lines subarrayWithRange:range];
+    CGFloat lineWidth = CGRectGetWidth(lineFrame) / _vm.displayNum;
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineDash (context, 0, 0, 0);
-    for (int i = 0; i < lines.count; i++) {
-        BDKLine *kLine = lines[i];
-        float xOffset = CGRectGetMinX(lineFrame) + lineWidth * (i + 1) - lineWidth / 2;
+    for (int i = 0; i < _vm.lines.count; i++) {
+        BDKLine *kLine = _vm.lines[i];
+        float xOffset = CGRectGetMinX(lineFrame) + (i + 0.5) * lineWidth;
         float highYOffset = (priceRange.high - kLine.high) / (priceRange.high - priceRange.low) * CGRectGetHeight(lineFrame) + CGRectGetMinY(lineFrame);
         float lowYOffset = (priceRange.high - kLine.low) / (priceRange.high - priceRange.low) * CGRectGetHeight(lineFrame) + CGRectGetMinY(lineFrame);
         float openYOffset = (priceRange.high - kLine.open) / (priceRange.high - priceRange.low) * CGRectGetHeight(lineFrame) + CGRectGetMinY(lineFrame);

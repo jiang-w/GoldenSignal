@@ -221,10 +221,10 @@
 - (void)strokeCandleChart {
 //    Stopwatch *watch = [Stopwatch startNew];
     PriceRange priceRange = _vm.priceRange;
-    unsigned long maxVolume = _vm.maxVolume;
+    unsigned long maxVolume = _vm.maxTrdVol;
     
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGFloat lineWidth = CGRectGetWidth(self.lineChartFrame) / _vm.number;
+    CGFloat lineWidth = CGRectGetWidth(self.lineChartFrame) / _vm.displayNum;
     for (int i = 0; i < _vm.lines.count; i++) {
         BDKLine *kLine = _vm.lines[i];
         float xOffset = CGRectGetMinX(self.lineChartFrame) + (i + 0.5) * lineWidth;
@@ -326,7 +326,7 @@
         BDKLine *line = _vm.lines[i];
         double price = [_vm calcAvgPriceForDate:line.date andMA:value];
         if (price > 0) {
-            CGFloat xOffset = CGRectGetMinX(frame) + (i + 0.5) * CGRectGetWidth(frame) / _vm.number;
+            CGFloat xOffset = CGRectGetMinX(frame) + (i + 0.5) * CGRectGetWidth(frame) / _vm.displayNum;
             CGFloat yOffset = CGRectGetMaxY(frame) - (price - priceRange.low) / scale;
             if (CGPointEqualToPoint(beginPoint, CGPointZero)) {
                 beginPoint = CGPointMake(xOffset, yOffset);
@@ -381,10 +381,10 @@
             self.yLine.hidden = NO;
         }
         
-        CGFloat candleWidth = CGRectGetWidth(self.lineChartFrame) / _vm.number;
+        CGFloat candleWidth = CGRectGetWidth(self.lineChartFrame) / _vm.displayNum;
         CGFloat touchXoffset = touchPoint.x - CGRectGetMinX(self.lineChartFrame);
         NSUInteger candleSN = floor(touchXoffset / candleWidth); //是从0开始的第几根K线
-        NSUInteger indexOfLines = _vm.lines.count > _vm.number ? _vm.lines.count - _vm.number + candleSN : candleSN;
+        NSUInteger indexOfLines = _vm.lines.count > _vm.displayNum ? _vm.lines.count - _vm.displayNum + candleSN : candleSN;
         BDKLine *line = [_vm.lines objectAtIndex:indexOfLines];
         NSLog(@"日期: %d, 价格: %.2f", line.date, line.close);
 

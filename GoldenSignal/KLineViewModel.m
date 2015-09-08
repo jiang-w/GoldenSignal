@@ -25,7 +25,7 @@
     self = [super init];
     if (self) {
         _code = code;
-        _number = number;
+        _displayNum = number;
         _type = type;
         
         [self setSignal];
@@ -51,7 +51,7 @@
 }
 
 // 最大交易量
-- (unsigned long)maxVolume {
+- (unsigned long)maxTrdVol {
     unsigned long max = 0;
     for (BDKLine *kLine in _lines) {
         if (kLine.volume > max) {
@@ -90,7 +90,7 @@
     self.tmpLine = [BDKLine new];
     
     @weakify(self);
-    RACSignal *initSignal = [[service kLineSignalWithCode:self.code forType:self.type andNumber:self.number + ExtraLines] map:^id(id value) {
+    RACSignal *initSignal = [[service kLineSignalWithCode:self.code forType:self.type andNumber:self.displayNum + ExtraLines] map:^id(id value) {
         @strongify(self);
         self.allLines = [self paraseTrendLines:[value objectForKey:@"KLine"]];
         return @(YES);
@@ -168,7 +168,7 @@
             }
     }
     
-    NSRange range = self.allLines.count > _number ? NSMakeRange(self.allLines.count - _number, _number) : NSMakeRange(0, self.allLines.count);
+    NSRange range = self.allLines.count > _displayNum ? NSMakeRange(self.allLines.count - _displayNum, _displayNum) : NSMakeRange(0, self.allLines.count);
     NSArray *lines = [self.allLines subarrayWithRange:range];
     [self setValue:lines forKey:@"lines"];
 }
@@ -230,7 +230,7 @@
 - (void)dealloc {
     BDQuotationService *service = [BDQuotationService sharedInstance];
     [service unsubscribeScalarWithCode:self.code indicaters:IndicaterNames];
-//    NSLog(@"KLineViewModel dealloc (%@)", self.code);
+    NSLog(@"KLineViewModel dealloc (%@)", self.code);
 }
 
 @end
