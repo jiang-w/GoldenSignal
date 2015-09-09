@@ -418,11 +418,36 @@ id convertFieldValue(const Messages::FieldCPtr field)
         }
     }] map:^id(NSNotification *notification) {
         NSDictionary *dic = notification.userInfo;
-        NSLog(@"Signal: 订阅历史K线(%@)", dic[@"code"]);
+//        NSLog(@"Signal: 订阅历史K线(%@)", dic[@"code"]);
         return dic[@"value"];
     }];
     
     [self subscribeSerialsWithCode:code indicateName:@"KLine" beginDate:0 beginTime:0 numberType:(int)type number:(int)number];
+    return signal;
+}
+
+- (RACSignal *)trendLineWithCode:(NSString *)code forDays:(NSUInteger)days andInterval:(NSUInteger)interval {
+    RACSignal *signal = [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:QUOTE_SCALAR_NOTIFICATION object:nil] filter:^BOOL(NSNotification *notification) {
+        NSDictionary *dic = notification.userInfo;
+        NSString *secuCode = dic[@"code"];
+        NSString *indicaterName = dic[@"name"];
+        int num = [dic[@"numberFromBegin"] intValue];
+        int type = [dic[@"numberType"] intValue];
+        
+        if ([secuCode isEqualToString:code] && [indicaterName isEqualToString:@"TrendLine"]
+            && type == interval && num == days) {
+            return YES;
+        }
+        else {
+            return NO;
+        }
+    }] map:^id(NSNotification *notification) {
+        NSDictionary *dic = notification.userInfo;
+//        NSLog(@"Signal: 订阅历史走势线(%@)", dic[@"code"]);
+        return dic[@"value"];
+    }];
+
+    [self subscribeSerialsWithCode:code indicateName:@"TrendLine" beginDate:0 beginTime:0 numberType:(int)interval number:(int)days];
     return signal;
 }
 

@@ -27,8 +27,30 @@
 
 - (BOOL)isConnected;
 
+/**
+ *  获取指标signal
+ *
+ *  @param code     证券编码
+ *  @param name     指标名称
+ */
 - (RACSignal *)scalarSignalWithCode:(NSString *)code andIndicater:(NSString *)name;
 
+/**
+ *  获取历史K线signal
+ *
+ *  @param code     证券编码
+ *  @param type     K线类型（日K、周K、月K）
+ *  @param number   K线的条数
+ */
 - (RACSignal *)kLineSignalWithCode:(NSString *)code forType:(KLineType)type andNumber:(NSInteger)number;
+
+/**
+ *  获取历史走势线signal
+ *
+ *  @param code     证券编码
+ *  @param days     天数（一日、五日）
+ *  @param interval 间隔分钟数（一分钟、五分钟）
+ */
+- (RACSignal *)trendLineWithCode:(NSString *)code forDays:(NSUInteger)days andInterval:(NSUInteger)interval;
 
 @end
