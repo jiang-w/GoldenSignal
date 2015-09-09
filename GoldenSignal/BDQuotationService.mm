@@ -402,31 +402,26 @@ id convertFieldValue(const Messages::FieldCPtr field)
 }
 
 - (RACSignal *)kLineSignalWithCode:(NSString *)code forType:(KLineType)type andNumber:(NSInteger)number {
-    RACSignal *signal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:QUOTE_SCALAR_NOTIFICATION object:nil] filter:^BOOL(NSNotification *notification) {
-            NSDictionary *dic = notification.userInfo;
-            NSString *secuCode = dic[@"code"];
-            NSString *indicaterName = dic[@"name"];
-            int num = [dic[@"numberFromBegin"] intValue];
-            KLineType ktype = (KLineType)[dic[@"numberType"] intValue];
-            
-            if ([secuCode isEqualToString:code] && [indicaterName isEqualToString:@"KLine"]
-                && ktype == type && num == number) {
-                return YES;
-            }
-            else {
-                return NO;
-            }
-        }] subscribeNext:^(NSNotification *notification) {
-            NSDictionary *dic = notification.userInfo;
-            id value = dic[@"value"];
-            [subscriber sendNext:value];
-            [subscriber sendCompleted];
-        }];
+    RACSignal *signal = [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:QUOTE_SCALAR_NOTIFICATION object:nil] filter:^BOOL(NSNotification *notification) {
+        NSDictionary *dic = notification.userInfo;
+        NSString *secuCode = dic[@"code"];
+        NSString *indicaterName = dic[@"name"];
+        int num = [dic[@"numberFromBegin"] intValue];
+        KLineType ktype = (KLineType)[dic[@"numberType"] intValue];
         
-        return nil;
+        if ([secuCode isEqualToString:code] && [indicaterName isEqualToString:@"KLine"]
+            && ktype == type && num == number) {
+            return YES;
+        }
+        else {
+            return NO;
+        }
+    }] map:^id(NSNotification *notification) {
+        NSDictionary *dic = notification.userInfo;
+        NSLog(@"Signal: 订阅历史K线(%@)", dic[@"code"]);
+        return dic[@"value"];
     }];
-                         
+    
     [self subscribeSerialsWithCode:code indicateName:@"KLine" beginDate:0 beginTime:0 numberType:(int)type number:(int)number];
     return signal;
 }

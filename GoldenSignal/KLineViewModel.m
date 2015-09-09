@@ -28,7 +28,9 @@
         _displayNum = number;
         _type = type;
         
-        [self setSignal];
+        if (_code) {
+            [self setSignal];
+        }
     }
     return self;
 }
@@ -90,10 +92,16 @@
     self.tmpLine = [BDKLine new];
     
     @weakify(self);
-    RACSignal *initSignal = [[service kLineSignalWithCode:self.code forType:self.type andNumber:self.displayNum + ExtraLines] map:^id(id value) {
-        @strongify(self);
-        self.allLines = [self paraseTrendLines:[value objectForKey:@"KLine"]];
-        return @(YES);
+    RACSignal *initSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [[[service kLineSignalWithCode:self.code forType:self.type andNumber:self.displayNum + ExtraLines] timeout:10 onScheduler:[RACScheduler mainThreadScheduler]] subscribeNext:^(id value) {
+            @strongify(self);
+            self.allLines = [self paraseTrendLines:[value objectForKey:@"KLine"]];
+            [subscriber sendNext:@(YES)];
+            [subscriber sendCompleted];
+        } error:^(NSError *error) {
+            [subscriber sendError:nil];
+        }];
+        return nil;
     }];
     
     RACSignal *updateSignal = [[RACSignal combineLatest:@[[service scalarSignalWithCode:self.code andIndicater:@"Date"],
@@ -118,8 +126,12 @@
         @strongify(self);
         RACTupleUnpack(id initFlag, id updateFlag) = tuple;
         if (initFlag && updateFlag) {
+//            NSLog(@"Signal: 更新K线数据(%@)", self.code);
             [self updateKLine];
         }
+    } error:^(NSError *error) {
+        @strongify(self);
+        NSLog(@"Signal: 获取历史K线数据失败(%@)", self.code);
     }];
 }
 
@@ -228,8 +240,7 @@
 #pragma mark - Dealloc
 
 - (void)dealloc {
-    BDQuotationService *service = [BDQuotationService sharedInstance];
-    [service unsubscribeScalarWithCode:self.code indicaters:IndicaterNames];
+    [[BDQuotationService sharedInstance] unsubscribeScalarWithCode:self.code indicaters:IndicaterNames];
 //    NSLog(@"KLineViewModel dealloc (%@)", self.code);
 }
 
