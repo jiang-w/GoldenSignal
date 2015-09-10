@@ -133,11 +133,11 @@
     // 昨收价
     RAC(self, prevClose) = [service scalarSignalWithCode:self.code andIndicater:@"PrevClose"];
     // 连接socket后重新订阅历史数据
-    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:QUOTE_SOCKET_CONNECT object:nil] subscribeNext:^(id x) {
-        [initSignal subscribeNext:^(id x) {
-            
-        }];
-    }];
+//    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:QUOTE_SOCKET_CONNECT object:nil] subscribeNext:^(id x) {
+//        [initSignal subscribeNext:^(id x) {
+//            
+//        }];
+//    }];
 }
 
 - (void)updateTrendLine {

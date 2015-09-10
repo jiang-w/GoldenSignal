@@ -37,7 +37,7 @@
         }
 
         [_vm subscribeQuotationScalarWithCode:_code];
-        [self addTrendViewWithCode:_code];
+//        [self addTrendViewWithCode:_code];
         [self addKLineViewWithCode:_code];
     }
 }

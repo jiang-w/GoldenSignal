@@ -94,7 +94,8 @@
     @weakify(self);
     RACSignal *initSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         @strongify(self);
-        [[[service kLineSignalWithCode:self.code forType:self.type andNumber:self.displayNum + ExtraLines] timeout:10 onScheduler:[RACScheduler mainThreadScheduler]] subscribeNext:^(NSArray *values) {
+        [[[service kLineSignalWithCode:self.code forType:self.type andNumber:self.displayNum + ExtraLines] timeout:10 onScheduler:[RACScheduler mainThreadScheduler]]
+         subscribeNext:^(NSArray *values) {
             @strongify(self);
             self.allLines = [self paraseTrendLines:values];
             [subscriber sendNext:@(YES)];
@@ -106,13 +107,14 @@
     }];
     
     RACSignal *updateSignal = [[RACSignal combineLatest:@[[service scalarSignalWithCode:self.code andIndicater:@"Date"],
-                                                          [service scalarSignalWithCode:self.code andIndicater:@"Now"],
-                                                          [service scalarSignalWithCode:self.code andIndicater:@"Open"],
-                                                          [service scalarSignalWithCode:self.code andIndicater:@"High"],
-                                                          [service scalarSignalWithCode:self.code andIndicater:@"Low"],
-                                                          [service scalarSignalWithCode:self.code andIndicater:@"Volume"]
-                                                          ]] map:^id(RACTuple *tuple) {
+                                                           [service scalarSignalWithCode:self.code andIndicater:@"Now"],
+                                                           [service scalarSignalWithCode:self.code andIndicater:@"Open"],
+                                                           [service scalarSignalWithCode:self.code andIndicater:@"High"],
+                                                           [service scalarSignalWithCode:self.code andIndicater:@"Low"],
+                                                           [service scalarSignalWithCode:self.code andIndicater:@"Volume"]
+                                                           ]] map:^id(RACTuple *tuple) {
         @strongify(self);
+        NSLog(@"(%@)k线更新指标", self.code);
         RACTupleUnpack(NSNumber *date, NSNumber *now, NSNumber *open, NSNumber *high, NSNumber *low, NSNumber *volume) = tuple;
         self.tmpLine.date = [date unsignedIntValue];
         self.tmpLine.high = [high doubleValue];
@@ -243,7 +245,7 @@
 
 - (void)dealloc {
     [[BDQuotationService sharedInstance] unsubscribeScalarWithCode:self.code indicaters:IndicaterNames];
-//    NSLog(@"KLineViewModel dealloc (%@)", self.code);
+    NSLog(@"KLineViewModel dealloc (%@)", self.code);
 }
 
 @end
