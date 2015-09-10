@@ -93,9 +93,10 @@
     
     @weakify(self);
     RACSignal *initSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        [[[service kLineSignalWithCode:self.code forType:self.type andNumber:self.displayNum + ExtraLines] timeout:10 onScheduler:[RACScheduler mainThreadScheduler]] subscribeNext:^(id value) {
+        @strongify(self);
+        [[[service kLineSignalWithCode:self.code forType:self.type andNumber:self.displayNum + ExtraLines] timeout:10 onScheduler:[RACScheduler mainThreadScheduler]] subscribeNext:^(NSArray *values) {
             @strongify(self);
-            self.allLines = [self paraseTrendLines:[value objectForKey:@"KLine"]];
+            self.allLines = [self paraseTrendLines:values];
             [subscriber sendNext:@(YES)];
             [subscriber sendCompleted];
         } error:^(NSError *error) {
@@ -122,7 +123,8 @@
         return @(YES);
     }];
     
-    [[RACSignal combineLatest:@[initSignal, updateSignal]] subscribeNext:^(RACTuple *tuple) {
+    [[[RACSignal combineLatest:@[initSignal, updateSignal]] takeUntil:[self rac_willDeallocSignal]]
+     subscribeNext:^(RACTuple *tuple) {
         @strongify(self);
         RACTupleUnpack(id initFlag, id updateFlag) = tuple;
         if (initFlag && updateFlag) {

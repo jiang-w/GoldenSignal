@@ -11,6 +11,7 @@
 #import "FiveBetsView.h"
 #import "SubDealView.h"
 #import "PPiFlatSegmentedControl.h"
+#import "TrendLineViewModel.h"
 
 @interface StockTrendView()
 
@@ -66,16 +67,15 @@
     switch (type) {
         case TRENDLINE_1:
             if (self.oneDayLine == nil) {
-                self.oneDayLine = [[TrendLineChart alloc] initWithFrame:self.mainView.bounds];
-                [self.oneDayLine loadDataWithSecuCode:_code];
+                TrendLineViewModel *viewModel = [[TrendLineViewModel alloc] initWithCode:self.code forDays:1 andInterval:1];
+                self.oneDayLine = [[TrendLineChart alloc] initWithFrame:self.mainView.bounds andViewModel:viewModel];
             }
             [self.mainView addSubview:self.oneDayLine];
             break;
         case TRENDLINE_5:
             if (self.fiveDaysLine == nil) {
-                self.fiveDaysLine = [[TrendLineChart alloc] initWithFrame:self.mainView.bounds];
-                self.fiveDaysLine.days = 5;
-                [self.fiveDaysLine loadDataWithSecuCode:_code];
+                TrendLineViewModel *viewModel = [[TrendLineViewModel alloc] initWithCode:self.code forDays:5 andInterval:1];
+                self.fiveDaysLine = [[TrendLineChart alloc] initWithFrame:self.mainView.bounds andViewModel:viewModel];
             }
             [self.mainView addSubview:self.fiveDaysLine];
             break;

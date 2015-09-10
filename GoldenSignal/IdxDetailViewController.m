@@ -189,17 +189,16 @@
     switch (_chartSelectIndex) {
         case 0: {
             if (self.oneDayTrendLine == nil) {
-                self.oneDayTrendLine = [[TrendLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
-                [self.oneDayTrendLine loadDataWithSecuCode:_secu.bdCode];
+                TrendLineViewModel *viewModel = [[TrendLineViewModel alloc] initWithCode:_secu.bdCode forDays:1 andInterval:1];
+                self.oneDayTrendLine = [[TrendLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180) andViewModel:viewModel];
             }
             [self.chartContainerView addSubview:self.oneDayTrendLine];
             break;
         }
         case 1: {
             if (self.fiveDayTrendLine == nil) {
-                self.fiveDayTrendLine = [[TrendLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
-                self.fiveDayTrendLine.days = 5;
-                [self.fiveDayTrendLine loadDataWithSecuCode:_secu.bdCode];
+                TrendLineViewModel *viewModel = [[TrendLineViewModel alloc] initWithCode:_secu.bdCode forDays:5 andInterval:1];
+                self.fiveDayTrendLine = [[TrendLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180) andViewModel:viewModel];
             }
             [self.chartContainerView addSubview:self.fiveDayTrendLine];
             break;
@@ -324,7 +323,7 @@
 #pragma mark Dealloc
 
 - (void)dealloc {
-    NSLog(@"IdxDetailViewController dealloc (%@)", _secu.bdCode);
+//    NSLog(@"IdxDetailViewController dealloc (%@)", _secu.bdCode);
 }
 
 @end

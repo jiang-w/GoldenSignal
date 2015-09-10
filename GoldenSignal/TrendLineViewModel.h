@@ -23,7 +23,17 @@
 /**
  *  走势线
  */
-@property(nonatomic, strong, readonly) NSMutableArray *lines;
+@property(nonatomic, strong) NSMutableArray *lines;
+
+/**
+ *  间隔的分钟数
+ */
+@property(nonatomic, assign, readonly) NSUInteger interval;
+
+/**
+ *  几个交易日
+ */
+@property(nonatomic, assign, readonly) NSUInteger days;
 
 /**
  *  价格区间
@@ -41,7 +51,7 @@
 @property(nonatomic, strong, readonly) NSArray *tradingDays;
 
 
-- (void)loadDataWithSecuCode:(NSString *)code forDays:(NSUInteger)days andInterval:(NSUInteger)interval;
+- (instancetype)initWithCode:(NSString *)code forDays:(NSUInteger)days andInterval:(NSUInteger)interval;
 
 - (NSArray *)getPricePointInFrame:(CGRect)frame forTradingDay:(NSString *)date;
 

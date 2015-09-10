@@ -418,8 +418,9 @@ id convertFieldValue(const Messages::FieldCPtr field)
         }
     }] map:^id(NSNotification *notification) {
         NSDictionary *dic = notification.userInfo;
+        NSArray *values = [dic[@"value"] objectForKey:@"KLine"];
 //        NSLog(@"Signal: 订阅历史K线(%@)", dic[@"code"]);
-        return dic[@"value"];
+        return values;
     }];
     
     [self subscribeSerialsWithCode:code indicateName:@"KLine" beginDate:0 beginTime:0 numberType:(int)type number:(int)number];
@@ -443,8 +444,9 @@ id convertFieldValue(const Messages::FieldCPtr field)
         }
     }] map:^id(NSNotification *notification) {
         NSDictionary *dic = notification.userInfo;
+        NSArray *values = [dic[@"value"] objectForKey:@"TrendLine"];
 //        NSLog(@"Signal: 订阅历史走势线(%@)", dic[@"code"]);
-        return dic[@"value"];
+        return values;
     }];
 
     [self subscribeSerialsWithCode:code indicateName:@"TrendLine" beginDate:0 beginTime:0 numberType:(int)interval number:(int)days];

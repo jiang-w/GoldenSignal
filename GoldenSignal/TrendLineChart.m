@@ -7,9 +7,10 @@
 //
 
 #import "TrendLineChart.h"
-#import "TrendLineViewModel.h"
 #import <Masonry.h>
 #import <MBProgressHUD.h>
+
+#import <ReactiveCocoa.h>
 
 @interface TrendLineChart()
 
@@ -24,24 +25,25 @@
 
 @implementation TrendLineChart
 {
-    TrendLineViewModel *_vm;
-    BDSecuCode *_secu;
+    TrendLineViewModel *_viewModel;
 }
 
 #pragma mark - init
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame andViewModel:(TrendLineViewModel *)viewModel {
     self = [super initWithFrame:frame];
     if (self) {
         _layers = [NSMutableArray array];
+        _viewModel = viewModel;
+        
         [self setDefaultParameters];
         [self addTextLabel];
-        _vm = [[TrendLineViewModel alloc] init];
-        [_vm addObserver:self forKeyPath:@"lines" options:NSKeyValueObservingOptionNew context:NULL];
-        [_vm addObserver:self forKeyPath:@"prevClose" options:NSKeyValueObservingOptionNew context:NULL];
+        
+        [self observeViewModel];
     }
     return self;
 }
+
 
 - (void)setDefaultParameters {
     self.margin = CGMarginMake(2, 2, 2, 2);
@@ -59,10 +61,43 @@
     _innerGridWidth = 0.5;
     _drawInnerGrid = YES;
     
-    _days = 1;
-    _interval = 1;
-    
     self.backgroundColor = [UIColor clearColor];
+}
+
+- (void)observeViewModel {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+    hud.color = [UIColor clearColor];
+    hud.removeFromSuperViewOnHide = YES;
+    [hud hide:YES afterDelay:6];
+    hud.completionBlock  = ^() {
+        if(_viewModel.lines.count == 0) {
+            MBProgressHUD *txtHud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+            txtHud.mode = MBProgressHUDModeText;
+            txtHud.labelText = @"请求超时";
+            txtHud.labelFont = [UIFont systemFontOfSize:13];
+            txtHud.opacity = 0;
+            txtHud.removeFromSuperViewOnHide = YES;
+            [txtHud hide:YES afterDelay:3];
+        }
+    };
+    
+    @weakify(self)
+    [[RACSignal combineLatest:@[RACObserve(_viewModel, lines), RACObserve(_viewModel, prevClose)]] subscribeNext:^(RACTuple *tuple) {
+        @strongify(self);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            @try {
+                if ([tuple.first count] > 0 && [tuple.second doubleValue] > 0) {
+                    [self clearLayers];
+                    [self strokeLineChart];
+                    [self strokeVolumeChart];
+                    [MBProgressHUD hideHUDForView:self animated:YES];
+                }
+            }
+            @catch (NSException *exception) {
+                NSLog(@"TrendLineChart 绘制走势线异常: %@", exception.reason);
+            }
+        });
+    }];
 }
 
 
@@ -83,48 +118,6 @@
     CGFloat height = CGRectGetHeight(self.frame) - self.margin.bottom - origin.y;
     CGRect rect = CGRectMake(origin.x, origin.y, width, height);
     return rect;
-}
-
-
-#pragma mark - loading data
-
-- (void)loadDataWithSecuCode:(NSString *)code {
-    if (code) {
-        if (_secu == nil || ![_secu.bdCode isEqualToString:code]) {
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
-            hud.opacity = 0;
-            _secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:code];
-            [_vm loadDataWithSecuCode:code forDays:_days andInterval:_interval];
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideHUDForView:self animated:YES];
-//                    MBProgressHUD *txtHud = [MBProgressHUD showHUDAddedTo:self animated:YES];
-//                    txtHud.mode = MBProgressHUDModeText;
-//                    txtHud.labelText = @"请求超时";
-//                    txtHud.labelFont = [UIFont systemFontOfSize:13];
-//                    txtHud.opacity = 0;
-//                    txtHud.removeFromSuperViewOnHide = YES;
-//                    [txtHud hide:YES afterDelay:3];
-            });
-        }
-    }
-}
-
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        @try {
-            if (_vm.lines.count > 0 && _vm.prevClose > 0) {
-//                NSLog(@"%@ 绘制走势图 (lines:%lu prevClose:%.2f)", _secu.bdCode, (unsigned long)_vm.lines.count, _vm.prevClose);
-                [self clearLayers];
-                [self strokeLineChart];
-                [self strokeVolumeChart];
-                [MBProgressHUD hideHUDForView:self animated:YES];
-            }
-        }
-        @catch (NSException *exception) {
-            NSLog(@"TrendLineChart 绘制走势图异常: %@", exception.reason);
-        }
-    });
 }
 
 
@@ -155,7 +148,7 @@
         CGContextSetLineWidth(ctx, _innerGridWidth);
         CGContextSetLineDash(ctx, 0, (CGFloat[]){4, 4}, 2);
         
-        NSInteger horizontalGridStep = _days > 1 ? _days : 4;
+        NSInteger horizontalGridStep = _viewModel.days > 1 ? _viewModel.days : 4;
         for(int i = 1; i < horizontalGridStep; i++) {
             CGPoint point = CGPointMake(i * CGRectGetWidth(lineChartRect) / horizontalGridStep + CGRectGetMinX(lineChartRect), CGRectGetMinY(lineChartRect));
             CGContextMoveToPoint(ctx, point.x, point.y);
@@ -253,7 +246,7 @@
 
 - (void)strokeLineChart {
 //    Stopwatch *watch = [Stopwatch startNew];
-    NSArray *dates = _vm.tradingDays;
+    NSArray *dates = _viewModel.tradingDays;
     CGRect chartFrame = self.lineChartFrame;
     CGFloat xOffset = CGRectGetWidth(chartFrame) / dates.count;
     
@@ -281,7 +274,9 @@
             [self.layer addSublayer:fillLayer];
             [self.layers addObject:fillLayer];
         }
-        if (_secu.typ == stock) {
+        
+        BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:_viewModel.code];
+        if (secu.typ == stock) {
             // 绘制个股均线
             CAShapeLayer *avgLineLayer = [CAShapeLayer layer];
             avgLineLayer.frame = frame;
@@ -295,12 +290,12 @@
         }
     }
     
-    PriceRange range = _vm.priceRange;
+    PriceRange range = _viewModel.priceRange;
     self.highLabel.text = [NSString stringWithFormat:@"%.2f", range.high];
-    self.highRateLabel.text = [NSString stringWithFormat:@"%.2f%%", (range.high - _vm.prevClose) / _vm.prevClose * 100];
+    self.highRateLabel.text = [NSString stringWithFormat:@"%.2f%%", (range.high - _viewModel.prevClose) / _viewModel.prevClose * 100];
     self.lowLabel.text = [NSString stringWithFormat:@"%.2f", range.low];
-    self.lowRateLabel.text = [NSString stringWithFormat:@"%.2f%%", (range.low - _vm.prevClose) / _vm.prevClose * 100];
-    self.middleLabel.text = [NSString stringWithFormat:@"%.2f", _vm.prevClose];
+    self.lowRateLabel.text = [NSString stringWithFormat:@"%.2f%%", (range.low - _viewModel.prevClose) / _viewModel.prevClose * 100];
+    self.middleLabel.text = [NSString stringWithFormat:@"%.2f", _viewModel.prevClose];
     self.middleRateLabel.text = @"00.0%";
     
 //    [watch stop];
@@ -309,7 +304,7 @@
 
 - (void)strokeVolumeChart {
 //    Stopwatch *watch = [Stopwatch startNew];
-    NSArray *dates = _vm.tradingDays;
+    NSArray *dates = _viewModel.tradingDays;
     CGRect chartFrame = self.volumeChartFrame;
     CGFloat xOffset = CGRectGetWidth(chartFrame) / dates.count;
     
@@ -330,7 +325,7 @@
 }
 
 - (CGPathRef)getPricePathInFrame:(CGRect)frame forTradingDay:(NSString *)date andIsClosed:(BOOL)closed {
-    NSArray *points = [_vm getPricePointInFrame:frame forTradingDay:date];
+    NSArray *points = [_viewModel getPricePointInFrame:frame forTradingDay:date];
     UIBezierPath* path = [UIBezierPath bezierPath];
     if (points.count > 0) {
         for (int i = 0; i < points.count; i++) {
@@ -356,7 +351,7 @@
 }
 
 - (CGPathRef)getAvgPricePathInFrame:(CGRect)frame forTradingDay:(NSString *)date {
-    NSArray *points = [_vm getAvgPricePointInFrame:frame forTradingDay:date];
+    NSArray *points = [_viewModel getAvgPricePointInFrame:frame forTradingDay:date];
     UIBezierPath* path = [UIBezierPath bezierPath];
     if (points.count > 0) {
         for (int i = 0; i < points.count; i++) {
@@ -372,7 +367,7 @@
 }
 
 - (CGMutablePathRef)getVolumePathInFrame:(CGRect)frame forTradingDay:(NSString *)date {
-    NSArray *points = [_vm getVolumePointInFrame:frame forTradingDay:date];
+    NSArray *points = [_viewModel getVolumePointInFrame:frame forTradingDay:date];
     CGMutablePathRef path =CGPathCreateMutable();
     for (int i = 0; i < points.count; i++) {
         CGPoint point = CGPointFromString(points[i]);
@@ -393,9 +388,7 @@
 #pragma mark - Dealloc
 
 - (void)dealloc {
-    [_vm removeObserver:self forKeyPath:@"lines"];
-    [_vm removeObserver:self forKeyPath:@"prevClose"];
-//    NSLog(@"TrendLineChart dealloc (%@)", _secu.bdCode);
+//    NSLog(@"TrendLineChart dealloc (%@)", _viewModel.code);
 }
 
 @end
