@@ -336,7 +336,7 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:KEYBOARD_WIZARD_NOTIFICATION object:nil];
-    NSLog(@"StkDetailViewController dealloc (%@)", _secu.bdCode);
+//    NSLog(@"StkDetailViewController dealloc (%@)", _secu.bdCode);
 }
 
 @end

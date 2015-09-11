@@ -10,7 +10,6 @@
 #import "BDQuotationService.h"
 
 #define ExtraLines 20
-#define IndicaterNames @[@"Date", @"Now", @"Open", @"High", @"Low", @"Volume"]
 
 @interface KLineViewModel()
 
@@ -92,51 +91,52 @@
     self.tmpLine = [BDKLine new];
     
     @weakify(self);
-    RACSignal *initSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        @strongify(self);
-        [[[service kLineSignalWithCode:self.code forType:self.type andNumber:self.displayNum + ExtraLines] timeout:10 onScheduler:[RACScheduler mainThreadScheduler]]
-         subscribeNext:^(NSArray *values) {
-            @strongify(self);
-            self.allLines = [self paraseTrendLines:values];
-            [subscriber sendNext:@(YES)];
-            [subscriber sendCompleted];
-        } error:^(NSError *error) {
-            [subscriber sendError:nil];
-        }];
-        return nil;
-    }];
+    RACSignal *initSignal = [RACSignal
+                             createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+                                 @strongify(self);
+                                 [[[service kLineSignalWithCode:self.code forType:self.type andNumber:self.displayNum + ExtraLines] timeout:10 onScheduler:[RACScheduler mainThreadScheduler]]
+                                  subscribeNext:^(NSArray *values) {
+                                      @strongify(self);
+                                      self.allLines = [self paraseTrendLines:values];
+                                      [subscriber sendNext:@(YES)];
+                                      [subscriber sendCompleted];
+                                  } error:^(NSError *error) {
+                                      [subscriber sendError:nil];
+                                  }];
+                                 return nil;
+                             }];
     
     RACSignal *updateSignal = [[RACSignal combineLatest:@[[service scalarSignalWithCode:self.code andIndicater:@"Date"],
-                                                           [service scalarSignalWithCode:self.code andIndicater:@"Now"],
-                                                           [service scalarSignalWithCode:self.code andIndicater:@"Open"],
-                                                           [service scalarSignalWithCode:self.code andIndicater:@"High"],
-                                                           [service scalarSignalWithCode:self.code andIndicater:@"Low"],
-                                                           [service scalarSignalWithCode:self.code andIndicater:@"Volume"]
-                                                           ]] map:^id(RACTuple *tuple) {
-        @strongify(self);
-        NSLog(@"(%@)k线更新指标", self.code);
-        RACTupleUnpack(NSNumber *date, NSNumber *now, NSNumber *open, NSNumber *high, NSNumber *low, NSNumber *volume) = tuple;
-        self.tmpLine.date = [date unsignedIntValue];
-        self.tmpLine.high = [high doubleValue];
-        self.tmpLine.open = [open doubleValue];
-        self.tmpLine.low = [low doubleValue];
-        self.tmpLine.close = [now doubleValue];
-        self.tmpLine.volume = [volume unsignedLongValue];
-        return @(YES);
-    }];
+                                                          [service scalarSignalWithCode:self.code andIndicater:@"Now"],
+                                                          [service scalarSignalWithCode:self.code andIndicater:@"Open"],
+                                                          [service scalarSignalWithCode:self.code andIndicater:@"High"],
+                                                          [service scalarSignalWithCode:self.code andIndicater:@"Low"],
+                                                          [service scalarSignalWithCode:self.code andIndicater:@"Volume"]
+                                                          ]]
+                               map:^id(RACTuple *tuple) {
+                                   @strongify(self);
+                                   RACTupleUnpack(NSNumber *date, NSNumber *now, NSNumber *open, NSNumber *high, NSNumber *low, NSNumber *volume) = tuple;
+                                   self.tmpLine.date = [date unsignedIntValue];
+                                   self.tmpLine.high = [high doubleValue];
+                                   self.tmpLine.open = [open doubleValue];
+                                   self.tmpLine.low = [low doubleValue];
+                                   self.tmpLine.close = [now doubleValue];
+                                   self.tmpLine.volume = [volume unsignedLongValue];
+                                   return @(YES);
+                               }];
     
     [[[RACSignal combineLatest:@[initSignal, updateSignal]] takeUntil:[self rac_willDeallocSignal]]
      subscribeNext:^(RACTuple *tuple) {
-        @strongify(self);
-        RACTupleUnpack(id initFlag, id updateFlag) = tuple;
-        if (initFlag && updateFlag) {
-//            NSLog(@"Signal: 更新K线数据(%@)", self.code);
-            [self updateKLine];
-        }
-    } error:^(NSError *error) {
-        @strongify(self);
-        NSLog(@"Signal: 获取历史K线数据失败(%@)", self.code);
-    }];
+         @strongify(self);
+         RACTupleUnpack(id initFlag, id updateFlag) = tuple;
+         if (initFlag && updateFlag) {
+//             NSLog(@"Signal: 更新K线数据(%@)", self.code);
+             [self updateKLine];
+         }
+     } error:^(NSError *error) {
+         @strongify(self);
+         NSLog(@"Signal: 获取历史K线数据失败(%@)", self.code);
+     }];
 }
 
 - (void)updateKLine {
@@ -244,8 +244,7 @@
 #pragma mark - Dealloc
 
 - (void)dealloc {
-    [[BDQuotationService sharedInstance] unsubscribeScalarWithCode:self.code indicaters:IndicaterNames];
-    NSLog(@"KLineViewModel dealloc (%@)", self.code);
+//    NSLog(@"KLineViewModel dealloc (%@)", self.code);
 }
 
 @end
