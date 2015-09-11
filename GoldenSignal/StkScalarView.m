@@ -169,9 +169,8 @@
 
 - (void)loadDataWithCode:(NSString *)code {
     if (self.viewModel == nil) {
-        self.viewModel = [[StkScalarViewModel alloc] init];
+        self.viewModel = [[StkScalarViewModel alloc] initWithCode:code];
     }
-    [self.viewModel subscribeQuotationScalarWithCode:code];
 }
 
 - (UIColor *)textColorValue:(double)val1 otherValue:(double)val2 {
