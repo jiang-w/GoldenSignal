@@ -1,5 +1,5 @@
 //
-//  QuoteViewCell.m
+//  StkQuoteViewCell.m
 //  GoldenSignal
 //
 //  Created by Frank on 15/1/20.
@@ -25,24 +25,23 @@
     
 }
 
-- (NSString *)code {
+- (NSString *)secuCode {
     return self.viewModel.Code;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
-- (void)loadDataWithSecuCode:(NSString *)code {
+- (void)subscribeDataWithSecuCode:(NSString *)code {
     if (code && ![code isEqualToString:self.viewModel.Code]) {
-        StkQuoteCellViewModel *viewModel = [[StkQuoteCellViewModel alloc] init];
-        [viewModel subscribeQuotationScalarWithCode:code];
+        StkQuoteCellViewModel *viewModel = [[StkQuoteCellViewModel alloc] initWithCode:code];
         self.viewModel = viewModel;
         
-        //        [self addTrendViewWithCode:code];
-        //        [self addKLineViewWithCode:code];
+//        [self addTrendViewWithCode:code];
+//        [self addKLineViewWithCode:code];
     }
     
     @weakify(self);

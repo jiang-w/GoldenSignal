@@ -1,5 +1,5 @@
 //
-//  QuoteViewCell.h
+//  StkQuoteViewCell.h
 //  GoldenSignal
 //
 //  Created by Frank on 15/1/20.
@@ -23,8 +23,8 @@
 @property(nonatomic, weak)IBOutlet UILabel *label;
 @property(nonatomic, weak)IBOutlet UILabel *date;
 
-@property(nonatomic, strong, readonly) NSString *code;
+@property(nonatomic, strong, readonly) NSString *secuCode;
 
-- (void)loadDataWithSecuCode:(NSString *)code;
+- (void)subscribeDataWithSecuCode:(NSString *)code;
 
 @end
