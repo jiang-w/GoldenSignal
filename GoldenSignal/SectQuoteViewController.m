@@ -148,7 +148,8 @@
                 }
             }
         }
-        stockCell.code = bdCode;
+
+        [stockCell loadDataWithSecuCode:bdCode];
         cell = stockCell;
     }
     

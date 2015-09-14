@@ -23,6 +23,8 @@
 @property(nonatomic, weak)IBOutlet UILabel *label;
 @property(nonatomic, weak)IBOutlet UILabel *date;
 
-@property(nonatomic, setter = setCode:) NSString *code;
+@property(nonatomic, strong, readonly) NSString *code;
+
+- (void)loadDataWithSecuCode:(NSString *)code;
 
 @end

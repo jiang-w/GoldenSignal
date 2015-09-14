@@ -19,6 +19,7 @@
 
 #import "BDQuotationService.h"
 #import "RegexKitLite.h"
+#include <vector>
 
 using namespace std;
 using namespace quotelib;
@@ -275,6 +276,7 @@ id convertFieldValue(const Messages::FieldCPtr field)
     GroupBookPoint group;
     std::string bookCode = [code cStringUsingEncoding:NSUTF8StringEncoding];
     
+    vector<ScalarBookPoint*> sc;
     @synchronized(BookingPoint) {
         for (NSString *name in names) {
             NSString *key = [BDQuotationService generateKeyWithCode:code andIndicaterName:name];
@@ -286,11 +288,17 @@ id convertFieldValue(const Messages::FieldCPtr field)
                 NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"count":[NSNumber numberWithInt:1]}];
                 [BookingPoint setObject:dic forKey:key];
                 std::string bookName = [name cStringUsingEncoding:NSUTF8StringEncoding];
-                group.add(new ScalarBookPoint(context->finder(), bookCode, bookName));
+                ScalarBookPoint* item = new ScalarBookPoint(context->finder(), bookCode, bookName);
+                sc.push_back(item);
+                group.add(item);
             }
         }
     }
     context->sub(group);
+//    for(int i = 0;i<sc.size();i++){
+//        delete sc[i];
+//    }
+//    sc.clear();
 }
 
 - (void)unsubscribeScalarWithCode:(NSString *)code indicaters:(NSArray *)names {
