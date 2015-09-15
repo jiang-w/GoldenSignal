@@ -7,14 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StkScalarViewModel.h"
 
 @interface StkScalarView : UIView
 
-@property(nonatomic, strong) StkScalarViewModel *viewModel;
-
 + (StkScalarView *)createView;
 
-- (void)loadDataWithCode:(NSString *)code;
+- (void)subscribeDataWithSecuCode:(NSString *)code;
 
 @end

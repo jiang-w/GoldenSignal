@@ -8,160 +8,147 @@
 
 #import "IdxScalarView.h"
 #import "IdxScalarViewModel.h"
-#import <FBKVOController.h>
+
+#import <ReactiveCocoa.h>
+
+@interface IdxScalarView()
+
+@property (weak, nonatomic) IBOutlet UILabel *now;
+@property (weak, nonatomic) IBOutlet UILabel *change;
+@property (weak, nonatomic) IBOutlet UILabel *changeRange;
+@property (weak, nonatomic) IBOutlet UILabel *open;
+@property (weak, nonatomic) IBOutlet UILabel *prevClose;
+@property (weak, nonatomic) IBOutlet UILabel *high;
+@property (weak, nonatomic) IBOutlet UILabel *low;
+@property (weak, nonatomic) IBOutlet UILabel *volume;
+@property (weak, nonatomic) IBOutlet UILabel *amount;
+@property (weak, nonatomic) IBOutlet UILabel *amplitude;
+@property (weak, nonatomic) IBOutlet UILabel *volumeSpread;
+@property (weak, nonatomic) IBOutlet UILabel *upCount;
+@property (weak, nonatomic) IBOutlet UILabel *downCount;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
+
+@property(nonatomic, strong) IdxScalarViewModel *viewModel;
+
+@end
 
 @implementation IdxScalarView
-{
-    IdxScalarViewModel *_vm;
-    FBKVOController *_kvo;
-}
 
 + (IdxScalarView *)createView {
     return [[[NSBundle mainBundle] loadNibNamed:@"IdxScalarView" owner:nil options:nil] objectAtIndex:0];
 }
 
 - (void)awakeFromNib {
-    [self initData];
     [self.favoriteButton setImage:[UIImage imageNamed:@"favorite_1"] forState:UIControlStateSelected];
     [self.favoriteButton setImage:[UIImage imageNamed:@"favorite_0"] forState:UIControlStateNormal];
-    _vm = [[IdxScalarViewModel alloc] init];
-    _kvo = [FBKVOController controllerWithObserver:self];
-    [self kvoController];
 }
 
-- (void)loadDataWithIdxCode:(NSString *)code {
-    [_vm loadDataWithCode:code];
+- (void)subscribeDataWithSecuCode:(NSString *)code {
+    if (code && ![code isEqualToString:self.viewModel.Code]) {
+        self.viewModel = [[IdxScalarViewModel alloc] initWithCode:code];
+        [self dataBinding];
+    }
+}
+
+- (void)dataBinding {
+    @weakify(self);
+    // 昨收价
+    RAC(self.prevClose, text, @"-") = [[RACObserve(self.viewModel, PrevClose) deliverOnMainThread] map:^id(id value) {
+        return [NSString stringWithFormat:@"%.2f", [value doubleValue]];
+    }];
+    // 开盘价
+    RAC(self.open, text, @"-") = [[RACObserve(self.viewModel, Open) deliverOnMainThread] map:^id(id value) {
+        return [NSString stringWithFormat:@"%.2f", [value doubleValue]];
+    }];
+    RAC(self.open, textColor) = [[RACSignal combineLatest:@[RACObserve(self.viewModel, PrevClose), RACObserve(self.viewModel, Open)]
+                                                   reduce:^id(NSNumber *prevClose, NSNumber *open) {
+                                                       @strongify(self);
+                                                       return [self textColorValue:[open doubleValue] otherValue:[prevClose doubleValue]];
+                                                   }] deliverOnMainThread];
+    // 当前价
+    RAC(self.now, text, @"-") = [[RACObserve(self.viewModel, Now) deliverOnMainThread] map:^id(id value) {
+        return [NSString stringWithFormat:@"%.2f", [value doubleValue]];
+    }];
+    RAC(self.now, textColor) = [[RACSignal combineLatest:@[RACObserve(self.viewModel, PrevClose), RACObserve(self.viewModel, Now)]
+                                                  reduce:^id(NSNumber *prevClose, NSNumber *now) {
+                                                      @strongify(self);
+                                                      return [self textColorValue:[now doubleValue] otherValue:[prevClose doubleValue]];
+                                                  }] deliverOnMainThread];
+    // 涨跌
+    [[[RACSignal combineLatest:@[RACObserve(self.viewModel, PrevClose), RACObserve(self.viewModel, Now)]
+                        reduce:^id(NSNumber *prevClose, NSNumber *now) {
+                            return @([now doubleValue] - [prevClose doubleValue]);
+                        }] deliverOnMainThread]
+     subscribeNext:^(id x) {
+         @strongify(self);
+         self.change.text = [NSString stringWithFormat:@"%.2f", [x doubleValue]];
+         self.change.textColor = [self textColorValue:[x doubleValue] otherValue:0];
+     }];
+    // 涨跌幅
+    [[[RACSignal combineLatest:@[RACObserve(self.viewModel, PrevClose), RACObserve(self.viewModel, Now)]
+                        reduce:^id(NSNumber *prevClose, NSNumber *now) {
+                            return @(([now doubleValue] - [prevClose doubleValue]) / [prevClose doubleValue] * 100);
+                        }] deliverOnMainThread]
+     subscribeNext:^(id x) {
+         @strongify(self);
+         self.changeRange.text = [NSString stringWithFormat:@"%.2f%%", [x doubleValue]];
+         self.changeRange.textColor = [self textColorValue:[x doubleValue] otherValue:0];
+     }];
+    // 最高价
+    RAC(self.high, text, @"-") = [[RACObserve(self.viewModel, High) deliverOnMainThread] map:^id(id value) {
+        return [NSString stringWithFormat:@"%.2f", [value doubleValue]];
+    }];
+    // 最低价
+    RAC(self.low, text, @"-") = [[RACObserve(self.viewModel, Low) deliverOnMainThread] map:^id(id value) {
+        return [NSString stringWithFormat:@"%.2f", [value doubleValue]];
+    }];
+    // 现手
+    RAC(self.volumeSpread, text, @"-") = [[RACObserve(self.viewModel, VolumeSpread) deliverOnMainThread] map:^id(id value) {
+        unsigned long volume = [value unsignedIntValue] / 100;
+        if (volume > 10000) {
+            return [NSString stringWithFormat:@"%.2f万", volume / 10000.0];
+        }
+        else {
+            return [NSString stringWithFormat:@"%ld", volume];
+        }
+    }];
+    // 成交量(总手)
+    RAC(self.volume, text, @"-") = [[RACObserve(self.viewModel, Volume) deliverOnMainThread] map:^id(id value) {
+        double volume = [value unsignedIntValue] / 1000000.0;
+        if (volume >= 10000) {
+            return [NSString stringWithFormat:@"%.2f亿", volume / 10000];
+        }
+        else {
+            return [NSString stringWithFormat:@"%.0f万", volume];
+        }
+    }];
+    // 振幅
+    RAC(self.amplitude, text, @"-") = [[RACObserve(self.viewModel, Amplitude) deliverOnMainThread] map:^id(id value) {
+        return [NSString stringWithFormat:@"%.2f%%", [value doubleValue] * 100];
+    }];
+    // 上涨家数
+    RAC(self.upCount, text, @"-") = [[RACObserve(self.viewModel, UpCount) deliverOnMainThread] map:^id(id value) {
+        return [NSString stringWithFormat:@"%d", [value intValue]];
+    }];
+    // 下跌家数
+    RAC(self.downCount, text, @"-") = [[RACObserve(self.viewModel, DownCount) deliverOnMainThread] map:^id(id value) {
+        return [NSString stringWithFormat:@"%d", [value intValue]];
+    }];
+    // 交易额
+    RAC(self.amount, text, @"-") = [[RACObserve(self.viewModel, Amount) deliverOnMainThread] map:^id(id value) {
+        if ([value doubleValue] > 100000000) {
+            return [NSString stringWithFormat:@"%.0f亿", [value doubleValue] / 100000000];
+        }
+        else {
+            return [NSString stringWithFormat:@"%.0f万", [value doubleValue] / 10000];
+        }
+    }];
     
-    if ([[BDStockPool sharedInstance] containStockWithCode:code]) {
-        [self.favoriteButton setSelected:YES];
-    }
-    else {
-        [self.favoriteButton setSelected:NO];
-    }
-}
-
-- (void)initData {
-    self.now.text = @"—";
-    self.open.text = @"—";
-    self.prevClose.text = @"—";
-    self.change.text = @"—";
-    self.changeRange.text = @"—";
-    self.amplitude.text = @"—";
-    self.high.text = @"—";
-    self.low.text = @"—";
-    self.amount.text = @"—";
-    self.volume.text = @"—";
-    self.volumeSpread.text = @"—";
-    self.upCount.text = @"—";
-    self.downCount.text = @"—";
-}
-
-- (void)kvoController {
-    if (_vm) {
-        [_kvo observe:_vm keyPath:@"Open" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                view.open.text = [NSString stringWithFormat:@"%.2f",model.Open];
-                view.open.textColor = [view textColorValue:model.Open otherValue:model.PrevClose];
-            });
-        }];
-        
-        [_kvo observe:_vm keyPath:@"PrevClose" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                view.prevClose.text = [NSString stringWithFormat:@"%.2f",model.PrevClose];
-            });
-        }];
-
-        [_kvo observe:_vm keyPath:@"Now" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                view.now.text = [NSString stringWithFormat:@"%.2f", model.Now];
-                view.now.textColor = [view textColorValue:model.Now otherValue:model.PrevClose];
-            });
-        }];
-        
-        [_kvo observe:_vm keyPath:@"Change" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                view.change.text = [NSString stringWithFormat:@"%.2f", model.Change];
-                view.change.textColor = [view textColorValue:model.Change otherValue:0];
-            });
-        }];
-        
-        [_kvo observe:_vm keyPath:@"ChangeRange" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                double changeRange = model.ChangeRange * 100.0;
-                view.changeRange.text = isnan(changeRange) ? @"0.00%" : [NSString stringWithFormat:@"%.2f%%", changeRange];
-                view.changeRange.textColor = [view textColorValue:changeRange otherValue:0];
-            });
-        }];
-        
-        [_kvo observe:_vm keyPath:@"Amplitude" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                double amplitude = model.Amplitude * 100.0;
-                view.amplitude.text = [NSString stringWithFormat:@"%.2f%%", amplitude];
-            });
-        }];
-        
-        [_kvo observe:_vm keyPath:@"High" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                view.high.text = [NSString stringWithFormat:@"%.2f",model.High];
-                view.high.textColor = [view textColorValue:model.High otherValue:model.PrevClose];
-            });
-        }];
-        
-        [_kvo observe:_vm keyPath:@"Low" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                view.low.text = [NSString stringWithFormat:@"%.2f",model.Low];
-                view.low.textColor = [view textColorValue:model.Low otherValue:model.PrevClose];
-            });
-        }];
-        
-        [_kvo observe:_vm keyPath:@"Amount" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                double amount = model.Amount / 10000;
-                if (model.Amount > 10000) {
-                    view.amount.text = [NSString stringWithFormat:@"%.0f亿", amount / 10000];
-                }
-                else {
-                    view.amount.text = [NSString stringWithFormat:@"%.0f万", amount];
-                }
-            });
-        }];
-        
-        [_kvo observe:_vm keyPath:@"Volume" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                double volume = model.Volume / 1000000.0;
-                if (volume >= 10000) {
-                    view.volume.text = [NSString stringWithFormat:@"%.3f亿", volume / 10000];
-                }
-                else {
-                    view.volume.text = [NSString stringWithFormat:@"%.0f万", volume];
-                }
-            });
-        }];
-        
-        [_kvo observe:_vm keyPath:@"VolumeSpread" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                unsigned long volume = model.VolumeSpread / 100;
-                if (volume > 10000) {
-                    view.volumeSpread.text = [NSString stringWithFormat:@"%.2f万", volume / 10000.0];
-                }
-                else {
-                    view.volumeSpread.text = [NSString stringWithFormat:@"%ld", volume];
-                }
-            });
-        }];
-        
-        [_kvo observe:_vm keyPath:@"UpCount" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                view.upCount.text = [NSString stringWithFormat:@"%d", model.UpCount];
-            });
-        }];
-        
-        [_kvo observe:_vm keyPath:@"DownCount" options:NSKeyValueObservingOptionNew block:^(IdxScalarView *view, IdxScalarViewModel *model, NSDictionary *change) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                view.downCount.text = [NSString stringWithFormat:@"%d", model.DownCount];
-            });
-        }];
-    }
+    RAC(self.favoriteButton, selected) = [[RACObserve(self.viewModel, Code) deliverOnMainThread] map:^id(id value) {
+        @strongify(self);
+        BOOL favorited = [[BDStockPool sharedInstance] containStockWithCode:self.viewModel.Code];
+        return @(favorited);
+    }];
 }
 
 - (UIColor *)textColorValue:(float)val1 otherValue:(float)val2 {
@@ -181,15 +168,15 @@
     favoriteBtn.selected = !favoriteBtn.selected;
     BDStockPool *pool = [BDStockPool sharedInstance];
     if (favoriteBtn.selected) {
-        [pool addStockWithCode:_vm.Code];
+        [pool addStockWithCode:_viewModel.Code];
     }
     else {
-        [pool removeStockWithCode:_vm.Code];
+        [pool removeStockWithCode:_viewModel.Code];
     }
 }
 
 - (void)dealloc {
-//    NSLog(@"IdxQuoteView dealloc (%@)", _vm.Code);
+//    NSLog(@"IdxScalarView dealloc (%@)", self.viewModel.Code);
 }
 
 @end

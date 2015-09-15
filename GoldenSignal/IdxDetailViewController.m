@@ -174,7 +174,7 @@
     if (_secu) {
         self.titleLabel.text = [NSString stringWithFormat:@"%@(%@)", _secu.name, _secu.trdCode];
         [self.titleLabel sizeToFit];
-        [self.scalarView loadDataWithIdxCode:_secu.bdCode];
+        [self.scalarView subscribeDataWithSecuCode:_secu.bdCode];
         [self loadChartView];
         [self loadRankingList];
     }
