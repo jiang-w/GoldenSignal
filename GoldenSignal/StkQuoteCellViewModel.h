@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "KLineViewModel.h"
 
 @interface StkQuoteCellViewModel : NSObject
 
@@ -77,6 +76,6 @@
 @property(nonatomic, readonly) NSString *NewsRatingName;
 
 
-- (void)subscribeQuotationScalarWithCode:(NSString *)code;
+- (id)initWithCode:(NSString *)code;
 
 @end
