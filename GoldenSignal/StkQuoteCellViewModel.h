@@ -1,5 +1,5 @@
 //
-//  StkQuoteCellViewModel.h
+//  QuoteCellViewModel.h
 //  GoldenSignal
 //
 //  Created by Frank on 15/1/20.
@@ -77,8 +77,6 @@
 @property(nonatomic, readonly) NSString *NewsRatingName;
 
 
-- (id)initWithCode:(NSString *)code;
-
-- (KLineViewModel *)getKLineViewModel;
+- (void)subscribeQuotationScalarWithCode:(NSString *)code;
 
 @end

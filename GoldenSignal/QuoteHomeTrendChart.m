@@ -12,6 +12,7 @@
 @interface QuoteHomeTrendChart()
 
 @property (nonatomic, strong) NSMutableArray* layers;
+@property (nonatomic, strong) NSString *code;
 
 @end
 
@@ -24,12 +25,14 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        _vm = [[TrendLineViewModel alloc] init];
+        _code = code;
         _layers = [NSMutableArray array];
-        _vm = [[TrendLineViewModel alloc] initWithCode:code forDays:1 andInterval:1];
         [self setDefaultParameters];
         
         [_vm addObserver:self forKeyPath:@"lines" options:NSKeyValueObservingOptionNew context:NULL];
         [_vm addObserver:self forKeyPath:@"prevClose" options:NSKeyValueObservingOptionNew context:NULL];
+        [_vm loadDataWithSecuCode:_code forDays:1 andInterval:1];
     }
     return self;
 }

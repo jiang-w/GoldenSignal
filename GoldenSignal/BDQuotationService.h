@@ -42,7 +42,7 @@
  *  @param type     K线类型（日K、周K、月K）
  *  @param number   K线的条数
  */
-- (RACSignal *)kLineSignalWithCode:(NSString *)code forType:(KLineType)type andNumber:(NSInteger)number;
+//- (RACSignal *)kLineSignalWithCode:(NSString *)code forType:(KLineType)type andNumber:(NSInteger)number;
 
 /**
  *  获取历史走势线signal
@@ -51,6 +51,6 @@
  *  @param days     天数（一日、五日）
  *  @param interval 间隔分钟数（一分钟、五分钟）
  */
-- (RACSignal *)trendLineWithCode:(NSString *)code forDays:(NSUInteger)days andInterval:(NSUInteger)interval;
+//- (RACSignal *)trendLineWithCode:(NSString *)code forDays:(NSUInteger)days andInterval:(NSUInteger)interval;
 
 @end

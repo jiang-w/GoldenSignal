@@ -90,11 +90,6 @@ static NSArray *indicaters;
     [self setValue:[NSNumber numberWithDouble:now] forKey:@"Now"];
 }
 
-- (KLineViewModel *)getKLineViewModel {
-    KLineViewModel *viewModel = [[KLineViewModel alloc] initWithCode:self.Code kLineType:KLINE_DAY andNumber:5];
-    return viewModel;
-}
-
 #pragma mark Dealloc
 
 - (void)dealloc {

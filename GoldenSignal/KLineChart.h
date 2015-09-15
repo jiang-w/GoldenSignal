@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "KLineViewModel.h"
 
 @interface KLineChart : UIView
 
@@ -25,7 +24,10 @@
 // UILabel Font
 @property(nonatomic, strong) UIFont *labelFont;
 
+@property(nonatomic, assign) KLineType type;
+@property(nonatomic, assign) NSUInteger number;
 
-- (instancetype)initWithFrame:(CGRect)frame andViewModel:(KLineViewModel *)viewModel;
+
+- (void)loadDataWithSecuCode:(NSString *)code;
 
 @end

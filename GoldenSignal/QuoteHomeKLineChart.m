@@ -9,18 +9,28 @@
 #import "QuoteHomeKLineChart.h"
 #import "KLineViewModel.h"
 
+@interface QuoteHomeKLineChart()
+
+@property (nonatomic, strong) NSString *code;
+
+@end
+
 @implementation QuoteHomeKLineChart
 {
     KLineViewModel *_vm;
+    NSInteger _number;
 }
 
 - (id)initWithFrame:(CGRect)frame andIdxCode:(NSString *)code
 {
     self = [super initWithFrame:frame];
     if (self) {
+        _code = code;
         [self commonInit];
+        _number = 40;
         
-        _vm = [[KLineViewModel alloc] initWithCode:code kLineType:KLINE_DAY andNumber:40];
+        _vm = [[KLineViewModel alloc] init];
+        [_vm loadDataWithSecuCode:_code forType:KLINE_DAY andNumber:_number];
         [_vm addObserver:self forKeyPath:@"lines" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
@@ -112,14 +122,17 @@
     if (priceRange.high - priceRange.low == 0) {
         return;
     }
+    
     CGRect lineFrame = CGRectMake(_margin, _margin, self.chartWidth, self.chartHeight);
-    CGFloat lineWidth = CGRectGetWidth(lineFrame) / _vm.displayNum;
+    CGFloat lineWidth = CGRectGetWidth(lineFrame) / _number;
+    NSRange range = _vm.lines.count > _number ? NSMakeRange(_vm.lines.count - _number, _number) : NSMakeRange(0, _vm.lines.count);
+    NSArray *lines = [_vm.lines subarrayWithRange:range];
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineDash (context, 0, 0, 0);
-    for (int i = 0; i < _vm.lines.count; i++) {
-        BDKLine *kLine = _vm.lines[i];
-        float xOffset = CGRectGetMinX(lineFrame) + (i + 0.5) * lineWidth;
+    for (int i = 0; i < lines.count; i++) {
+        BDKLine *kLine = lines[i];
+        float xOffset = CGRectGetMinX(lineFrame) + lineWidth * (i + 1) - lineWidth / 2;
         float highYOffset = (priceRange.high - kLine.high) / (priceRange.high - priceRange.low) * CGRectGetHeight(lineFrame) + CGRectGetMinY(lineFrame);
         float lowYOffset = (priceRange.high - kLine.low) / (priceRange.high - priceRange.low) * CGRectGetHeight(lineFrame) + CGRectGetMinY(lineFrame);
         float openYOffset = (priceRange.high - kLine.open) / (priceRange.high - priceRange.low) * CGRectGetHeight(lineFrame) + CGRectGetMinY(lineFrame);

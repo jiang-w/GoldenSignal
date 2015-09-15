@@ -189,40 +189,46 @@
     switch (_chartSelectIndex) {
         case 0: {
             if (self.oneDayTrendLine == nil) {
-                TrendLineViewModel *viewModel = [[TrendLineViewModel alloc] initWithCode:_secu.bdCode forDays:1 andInterval:1];
-                self.oneDayTrendLine = [[TrendLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180) andViewModel:viewModel];
+                self.oneDayTrendLine = [[TrendLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
+                [self.oneDayTrendLine loadDataWithSecuCode:_secu.bdCode];
             }
             [self.chartContainerView addSubview:self.oneDayTrendLine];
             break;
         }
         case 1: {
             if (self.fiveDayTrendLine == nil) {
-                TrendLineViewModel *viewModel = [[TrendLineViewModel alloc] initWithCode:_secu.bdCode forDays:5 andInterval:1];
-                self.fiveDayTrendLine = [[TrendLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180) andViewModel:viewModel];
+                self.fiveDayTrendLine = [[TrendLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
+                self.fiveDayTrendLine.days = 5;
+                [self.fiveDayTrendLine loadDataWithSecuCode:_secu.bdCode];
             }
             [self.chartContainerView addSubview:self.fiveDayTrendLine];
             break;
         }
         case 2: {
             if (self.dailyKLine == nil) {
-                KLineViewModel *vm = [[KLineViewModel alloc] initWithCode:_secu.bdCode kLineType:KLINE_DAY andNumber:60];
-                self.dailyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180) andViewModel:vm];
+                self.dailyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
+                self.dailyKLine.number = 60;
+                [self.dailyKLine loadDataWithSecuCode:_secu.bdCode];
             }
             [self.chartContainerView addSubview:self.dailyKLine];
             break;
         }
         case 3: {
             if (self.weeklyKLine == nil) {
-                KLineViewModel *vm = [[KLineViewModel alloc] initWithCode:_secu.bdCode kLineType:KLINE_WEEK andNumber:60];
-                self.weeklyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180) andViewModel:vm];
+                self.weeklyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
+                self.weeklyKLine.number = 60;
+                self.monthlyKLine.type = KLINE_WEEK;
+                [self.weeklyKLine loadDataWithSecuCode:_secu.bdCode];
             }
             [self.chartContainerView addSubview:self.weeklyKLine];
             break;
         }
         case 4: {
             if (self.monthlyKLine == nil) {
-                KLineViewModel *vm = [[KLineViewModel alloc] initWithCode:_secu.bdCode kLineType:KLINE_MONTH andNumber:60];
-                self.monthlyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180) andViewModel:vm];
+                self.monthlyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
+                self.monthlyKLine.number = 60;
+                self.monthlyKLine.type = KLINE_MONTH;
+                [self.monthlyKLine loadDataWithSecuCode:_secu.bdCode];
             }
             [self.chartContainerView addSubview:self.monthlyKLine];
             break;
@@ -323,7 +329,7 @@
 #pragma mark Dealloc
 
 - (void)dealloc {
-//    NSLog(@"IdxDetailViewController dealloc (%@)", _secu.bdCode);
+    NSLog(@"IdxDetailViewController dealloc (%@)", _secu.bdCode);
 }
 
 @end

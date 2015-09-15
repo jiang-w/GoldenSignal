@@ -137,7 +137,7 @@
                     }
                 }
             }
-            [stockCell subscribeDataWithSecuCode:bdCode];
+            stockCell.code = bdCode;
             cell = stockCell;
             break;
         }
@@ -180,7 +180,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     StkQuoteViewCell *cell = (StkQuoteViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-    BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:cell.secuCode];
+    BDSecuCode *secu = [[BDKeyboardWizard sharedInstance] queryWithSecuCode:cell.code];
     if (secu.typ == idx) {
         IdxDetailViewController *idxVC = [[IdxDetailViewController alloc] initWithIdxCode:secu.bdCode];
         idxVC.hidesBottomBarWhenPushed = YES;
@@ -203,7 +203,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         StkQuoteViewCell *cell = (StkQuoteViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-        [[BDStockPool sharedInstance] removeStockWithCode:cell.secuCode];
+        [[BDStockPool sharedInstance] removeStockWithCode:cell.code];
 //        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     }
 }
@@ -228,7 +228,7 @@
     if (alertView.tag == 100) {
         if (buttonIndex == 1) {
             StkQuoteViewCell *cell = (StkQuoteViewCell *)[self.tableView cellForRowAtIndexPath:_indexPath];
-            [[BDStockPool sharedInstance] removeStockWithCode:cell.secuCode];
+            [[BDStockPool sharedInstance] removeStockWithCode:cell.code];
         }
     }
 }

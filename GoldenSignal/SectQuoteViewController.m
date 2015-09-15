@@ -148,8 +148,7 @@
                 }
             }
         }
-
-        [stockCell subscribeDataWithSecuCode:bdCode];
+        stockCell.code = bdCode;
         cell = stockCell;
     }
     
@@ -169,7 +168,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     StkQuoteViewCell *cell = (StkQuoteViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectSecuCode:)]) {
-        [self.delegate didSelectSecuCode:cell.secuCode];
+        [self.delegate didSelectSecuCode:cell.code];
     }
 }
 

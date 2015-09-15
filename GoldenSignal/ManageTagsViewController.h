@@ -22,6 +22,6 @@
 
 @property(nonatomic, strong) IBOutlet UILabel *textLabel;
 
-@property(nonatomic, strong)BDNewsTag *tag;
+@property(nonatomic, strong) BDNewsTag *newsTag;
 
 @end

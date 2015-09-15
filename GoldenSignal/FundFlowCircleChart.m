@@ -17,6 +17,8 @@
 @property(nonatomic, strong) NSMutableArray* layers;
 @property(nonatomic, strong) UILabel *title;
 @property(nonatomic, strong) UIView *circle;
+@property(nonatomic, strong) UILabel *flowInValue;
+@property(nonatomic, strong) UILabel *flowOutValue;
 
 @end
 
@@ -109,45 +111,66 @@
         make.centerX.equalTo(self);
         make.bottom.equalTo(self).offset(-10);
     }];
+    
+    self.flowInValue = [[UILabel alloc] init];
+    self.flowInValue.font = [UIFont boldSystemFontOfSize:12];
+    self.flowInValue.textColor = [UIColor redColor];
+    [self addSubview:self.flowInValue];
+    [self.flowInValue mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self);
+        make.left.equalTo(self).offset(30);
+    }];
+    
+    self.flowOutValue = [[UILabel alloc] init];
+    self.flowOutValue.font = [UIFont boldSystemFontOfSize:12];
+    self.flowOutValue.textColor = [UIColor greenColor];
+    [self addSubview:self.flowOutValue];
+    [self.flowOutValue mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self);
+        make.right.equalTo(self).offset(-30);
+    }];
 }
 
 - (void)drawRect:(CGRect)rect {
-
+    [self strokeCircle];
 }
 
 - (void)strokeCircle {
-        CGFloat radius = (self.circle.frame.size.height - 20) / 2;
-        CGPoint center = self.circle.center;
-        
-        UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:0 endAngle:2 * M_PI clockwise:YES];
-        CAShapeLayer *backgroundLayer = [CAShapeLayer layer];
-        backgroundLayer.path = path.CGPath;
-        backgroundLayer.strokeColor = [RGB(59, 59, 59) CGColor];
-        backgroundLayer.fillColor = nil;
-        backgroundLayer.lineWidth = 20;
-        [self.layer addSublayer:backgroundLayer];
-        [self.layers addObject:backgroundLayer];
-        
-        CGFloat startAngle = DEGREE_TO_RADIAN(0);
-        CGFloat endAngle = DEGREE_TO_RADIAN(360 * _fundFlowOut / (_fundFlowOut + _fundFlowIn));
+    CGFloat radius = (self.circle.frame.size.height - 20) / 2;
+    CGPoint center = self.circle.center;
     
-        path = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:startAngle endAngle:endAngle clockwise:YES];
-        CAShapeLayer *flowOutLayer = [CAShapeLayer layer];
-        flowOutLayer.path = path.CGPath;
-        flowOutLayer.strokeColor = [[UIColor greenColor] CGColor];
-        flowOutLayer.fillColor = nil;
-        flowOutLayer.lineWidth = 12;
-        [self.layer addSublayer:flowOutLayer];
-        [self.layers addObject:flowOutLayer];
-        
-        path = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:endAngle endAngle:startAngle clockwise:YES];
-        CAShapeLayer *flowInLayer = [CAShapeLayer layer];
-        flowInLayer.path = path.CGPath;
-        flowInLayer.strokeColor = [[UIColor redColor] CGColor];
-        flowInLayer.fillColor = nil;
-        flowInLayer.lineWidth = 12;
-        [self.layer addSublayer:flowInLayer];
-        [self.layers addObject:flowInLayer];
+    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:0 endAngle:2 * M_PI clockwise:YES];
+    CAShapeLayer *backgroundLayer = [CAShapeLayer layer];
+    backgroundLayer.path = path.CGPath;
+    backgroundLayer.strokeColor = [RGB(59, 59, 59) CGColor];
+    backgroundLayer.fillColor = nil;
+    backgroundLayer.lineWidth = 20;
+    [self.layer addSublayer:backgroundLayer];
+    [self.layers addObject:backgroundLayer];
+    
+    CGFloat startAngle = DEGREE_TO_RADIAN(0);
+    CGFloat endAngle = DEGREE_TO_RADIAN(360 * _fundFlowOut / (_fundFlowOut + _fundFlowIn));
+    
+    path = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:startAngle endAngle:endAngle clockwise:YES];
+    CAShapeLayer *flowOutLayer = [CAShapeLayer layer];
+    flowOutLayer.path = path.CGPath;
+    flowOutLayer.strokeColor = [[UIColor greenColor] CGColor];
+    flowOutLayer.fillColor = nil;
+    flowOutLayer.lineWidth = 12;
+    [self.layer addSublayer:flowOutLayer];
+    [self.layers addObject:flowOutLayer];
+    
+    path = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:endAngle endAngle:startAngle clockwise:YES];
+    CAShapeLayer *flowInLayer = [CAShapeLayer layer];
+    flowInLayer.path = path.CGPath;
+    flowInLayer.strokeColor = [[UIColor redColor] CGColor];
+    flowInLayer.fillColor = nil;
+    flowInLayer.lineWidth = 12;
+    [self.layer addSublayer:flowInLayer];
+    [self.layers addObject:flowInLayer];
+    
+    self.flowInValue.text = [NSString stringWithFormat:@"%.0f%%", _fundFlowIn / (_fundFlowOut + _fundFlowIn) * 100];
+    self.flowOutValue.text = [NSString stringWithFormat:@"%.0f%%", _fundFlowOut / (_fundFlowOut + _fundFlowIn) * 100];
 }
 
 - (void)dealloc {

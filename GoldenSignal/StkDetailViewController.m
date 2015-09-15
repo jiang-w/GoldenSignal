@@ -215,22 +215,27 @@
             break;
         case 2:
             if (self.dailyKLine == nil) {
-                KLineViewModel *vm = [[KLineViewModel alloc] initWithCode:_secu.bdCode kLineType:KLINE_DAY andNumber:60];
-                self.dailyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180) andViewModel:vm];
+                self.dailyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
+                self.dailyKLine.number = 60;
+                [self.dailyKLine loadDataWithSecuCode:_secu.bdCode];
             }
             [self.chartContainerView addSubview:self.dailyKLine];
             break;
         case 3:
             if (self.weeklyKLine == nil) {
-                KLineViewModel *vm = [[KLineViewModel alloc] initWithCode:_secu.bdCode kLineType:KLINE_WEEK andNumber:60];
-                self.weeklyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180) andViewModel:vm];
+                self.weeklyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
+                self.weeklyKLine.type = KLINE_WEEK;
+                self.weeklyKLine.number = 60;
+                [self.weeklyKLine loadDataWithSecuCode:_secu.bdCode];
             }
             [self.chartContainerView addSubview:self.weeklyKLine];
             break;
         case 4:
             if (self.monthlyKLine == nil) {
-                KLineViewModel *vm = [[KLineViewModel alloc] initWithCode:_secu.bdCode kLineType:KLINE_MONTH andNumber:60];
-                self.monthlyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180) andViewModel:vm];
+                self.monthlyKLine = [[KLineChart alloc] initWithFrame:CGRectMake(0, 0, 320, 180)];
+                self.monthlyKLine.type = KLINE_MONTH;
+                self.monthlyKLine.number = 60;
+                [self.monthlyKLine loadDataWithSecuCode:_secu.bdCode];
             }
             [self.chartContainerView addSubview:self.monthlyKLine];
             break;
@@ -336,7 +341,7 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:KEYBOARD_WIZARD_NOTIFICATION object:nil];
-//    NSLog(@"StkDetailViewController dealloc (%@)", _secu.bdCode);
+    NSLog(@"StkDetailViewController dealloc (%@)", _secu.bdCode);
 }
 
 @end

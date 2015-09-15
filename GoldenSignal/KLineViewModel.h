@@ -16,19 +16,9 @@
 @property(nonatomic, strong, readonly) NSString *code;
 
 /**
- *  K线数组
+ *  走势线
  */
-@property(nonatomic, strong, readonly) NSArray *lines;
-
-/**
- *  K线的类型（日K、周K、月K）
- */
-@property(nonatomic, assign, readonly) KLineType type;
-
-/**
- *  K线呈现的根数
- */
-@property(nonatomic, assign, readonly) NSUInteger displayNum;
+@property(nonatomic, strong) NSMutableArray *lines;
 
 /**
  *  价格区间
@@ -38,10 +28,10 @@
 /**
  *  最大交易量
  */
-@property(nonatomic, assign, readonly) unsigned long maxTrdVol;
+@property(nonatomic, assign, readonly) unsigned long maxVolume;
 
 
-- (instancetype)initWithCode:(NSString *)code kLineType:(KLineType)type andNumber:(NSUInteger)number;
+- (void)loadDataWithSecuCode:(NSString *)code forType:(KLineType)type andNumber:(NSUInteger)number;
 
 - (double)calcAvgPriceForDate:(NSUInteger)date andMA:(NSUInteger)value;
 

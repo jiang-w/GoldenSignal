@@ -52,8 +52,7 @@
 - (void)addKLineViewWithCode:(NSString *)code {
     [self.kLineView removeFromSuperview];
     CGRect frame = self.kLineView.frame;
-    KLineViewModel *viewModel = [_vm getKLineViewModel];
-    self.kLineView = [[LiteKLineView alloc] initWithFrame:frame andViewModel:viewModel];
+    self.kLineView = [[LiteKLineView alloc] initWithFrame:frame andCode:code];
     [self addSubview:self.kLineView];
 }
 
@@ -86,13 +85,13 @@
                 }
                 // 设置背景色
                 if (changeRange > 0) {
-                    view.changeRange.superview.backgroundColor = RGB(204, 21, 21);
+                    view.changeRange.superview.backgroundColor = RGB(204.0, 21.0, 21.0);
                 }
                 else if (changeRange < 0) {
-                    view.changeRange.superview.backgroundColor = RGB(41, 152, 8);
+                    view.changeRange.superview.backgroundColor = RGB(41.0, 152.0, 8.0);
                 }
                 else if (changeRange == 0) {
-                    view.changeRange.superview.backgroundColor = RGB(43, 176, 241);
+                    view.changeRange.superview.backgroundColor = RGB(43.0, 176.0, 241.0);
                 }
                 else {
                     view.changeRange.superview.backgroundColor = [UIColor clearColor];

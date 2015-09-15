@@ -12,6 +12,7 @@
 @interface LiteTrendView()
 
 @property (nonatomic, strong) NSMutableArray* layers;
+@property (nonatomic, strong) NSString *code;
 
 @end
 
@@ -23,12 +24,14 @@
 - (id)initWithFrame:(CGRect)frame andCode:(NSString *)code {
     self = [super initWithFrame:frame];
     if (self) {
+        _vm = [[TrendLineViewModel alloc] init];
+        _code = code;
         _layers = [NSMutableArray array];
-        _vm = [[TrendLineViewModel alloc] initWithCode:code forDays:1 andInterval:5];
         self.backgroundColor = [UIColor clearColor];
 
         [_vm addObserver:self forKeyPath:@"lines" options:NSKeyValueObservingOptionNew context:NULL];
         [_vm addObserver:self forKeyPath:@"prevClose" options:NSKeyValueObservingOptionNew context:NULL];
+        [_vm loadDataWithSecuCode:_code forDays:1 andInterval:5];
     }
     return self;
 }
@@ -121,7 +124,7 @@
 - (void)dealloc {
     [_vm removeObserver:self forKeyPath:@"lines"];
     [_vm removeObserver:self forKeyPath:@"prevClose"];
-//    NSLog(@"LiteTrendView dealloc (%@)", _vm.code);
+//    NSLog(@"LiteTrendView dealloc (%@)", _code);
 }
 
 @end

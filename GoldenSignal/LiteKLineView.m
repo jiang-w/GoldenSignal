@@ -7,38 +7,30 @@
 //
 
 #import "LiteKLineView.h"
-
-#import <ReactiveCocoa.h>
+#import "KLineViewModel.h"
 
 @interface LiteKLineView()
 
 @property(nonatomic) CGRect lineChartFrame;
+@property(nonatomic, strong) NSString *code;
 
 @end
 
 @implementation LiteKLineView
 {
     KLineViewModel *_vm;
+    int _number;
 }
 
-- (id)initWithFrame:(CGRect)frame andViewModel:(KLineViewModel *)viewModel {
+- (id)initWithFrame:(CGRect)frame andCode:(NSString *)code {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
-        
-        _vm = viewModel;
-        @weakify(self)
-        [RACObserve(_vm, lines) subscribeNext:^(id x) {
-            @strongify(self)
-            dispatch_async(dispatch_get_main_queue(), ^{
-                @try {
-                    [self setNeedsDisplay];
-                }
-                @catch (NSException *exception) {
-                    NSLog(@"LiteKLineView 绘制K线异常: %@", exception.reason);
-                }
-            });
-        }];
+        _code = code;
+        _number = 5;
+        _vm = [[KLineViewModel alloc] init];
+        [_vm loadDataWithSecuCode:_code forType:KLINE_DAY andNumber:_number];
+        [_vm addObserver:self forKeyPath:@"lines" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
 }
@@ -47,6 +39,18 @@
     CGRect rect = CGRectMake(1, 1, CGRectGetWidth(self.frame)-2, CGRectGetHeight(self.frame)-2);
     return rect;
 }
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        @try {
+            [self setNeedsDisplay];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"LiteKLineView 绘制K线异常: %@", exception.reason);
+        }
+    });
+}
+
 
 #pragma mark - Draw View
 
@@ -75,12 +79,14 @@
 
 - (void)strokeCandleChart {
     PriceRange priceRange = _vm.priceRange;
+    NSRange range = _vm.lines.count > _number ? NSMakeRange(_vm.lines.count - _number, _number) : NSMakeRange(0, _vm.lines.count);
+    NSArray *lines = [_vm.lines subarrayWithRange:range];
     
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGFloat lineWidth = CGRectGetWidth(self.lineChartFrame) / _vm.displayNum;
-    for (int i = 1; i <= _vm.lines.count; i++) {
-        BDKLine *kLine = _vm.lines[_vm.lines.count - i];
-        float xOffset = CGRectGetMaxX(self.lineChartFrame) - lineWidth * (i - 0.5);
+    CGFloat lineWidth = CGRectGetWidth(self.lineChartFrame) / _number;
+    for (int i = 0; i < lines.count; i++) {
+        BDKLine *kLine = lines[i];
+        float xOffset = CGRectGetMinX(self.lineChartFrame) + lineWidth * (i + 1) - lineWidth / 2;
         float highYOffset = (priceRange.high - kLine.high) / (priceRange.high - priceRange.low) * CGRectGetHeight(self.lineChartFrame) + CGRectGetMinY(self.lineChartFrame);
         float lowYOffset = (priceRange.high - kLine.low) / (priceRange.high - priceRange.low) * CGRectGetHeight(self.lineChartFrame) + CGRectGetMinY(self.lineChartFrame);
         float openYOffset = (priceRange.high - kLine.open) / (priceRange.high - priceRange.low) * CGRectGetHeight(self.lineChartFrame) + CGRectGetMinY(self.lineChartFrame);
@@ -119,7 +125,8 @@
 #pragma mark - Dealloc
 
 - (void)dealloc {
-//    NSLog(@"LiteKLineView dealloc (%@)", _vm.code);
+    [_vm removeObserver:self forKeyPath:@"lines"];
+//    NSLog(@"LiteKLineView dealloc (%@)", _code);
 }
 
 @end

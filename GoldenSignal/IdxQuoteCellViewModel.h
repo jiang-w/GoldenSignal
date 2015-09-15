@@ -69,6 +69,4 @@
 
 - (void)subscribeQuotationScalarWithCode:(NSString *)code;
 
-- (KLineViewModel *)getKLineViewModel;
-
 @end

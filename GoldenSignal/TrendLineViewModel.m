@@ -14,26 +14,35 @@
 
 @interface TrendLineViewModel()
 
-@property(nonatomic, strong) BDTrendLine *tmpLine;
+@property(nonatomic, assign) BOOL initialized;  // 是否加载完历史数据
+@property(nonatomic, assign) NSUInteger interval;   // 间隔的分钟数
+@property(nonatomic, assign) NSUInteger days;   // 几个交易日
 
 @end
 
 @implementation TrendLineViewModel
+{
+    dispatch_queue_t _propertyUpdateQueue;
+    BDQuotationService *_service;
+}
 
-- (instancetype)initWithCode:(NSString *)code forDays:(NSUInteger)days andInterval:(NSUInteger)interval {
+#pragma mark Init
+
+- (instancetype)init {
     self = [super init];
     if (self) {
-        _code = code;
-        _days = days;
-        _interval = interval;
+        _propertyUpdateQueue = dispatch_queue_create("TrendLineUpdate", nil);
+        _service = [BDQuotationService sharedInstance];
+        _lines = [NSMutableArray array];
+        self.initialized = NO;
+        self.interval = 1;
+        self.days = 1;
         
-        if (_code) {
-            [self setSignal];
-        }
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subscribeScalarChanged:) name:QUOTE_SCALAR_NOTIFICATION object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reconnection) name:QUOTE_SOCKET_CONNECT object:nil];
     }
     return self;
 }
-
 
 #pragma mark Property
 
@@ -82,81 +91,40 @@
 }
 
 
-#pragma mark Subscribe
+#pragma mark Loading date
 
-- (void)setSignal {
-    BDQuotationService *service = [BDQuotationService sharedInstance];
-    self.tmpLine = [BDTrendLine new];
-    
-    @weakify(self);
-    RACSignal *initSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        @strongify(self);
-        [[[service trendLineWithCode:self.code forDays:self.days andInterval:self.interval] timeout:10 onScheduler:[RACScheduler mainThreadScheduler]] subscribeNext:^(NSArray *values) {
-            @strongify(self);
-            self.lines = [self paraseTrendLines:values];
-            [subscriber sendNext:@(YES)];
-            [subscriber sendCompleted];
-        } error:^(NSError *error) {
-            [subscriber sendError:nil];
-        }];
-        return nil;
-    }];
-
-    RACSignal *updateSignal = [[RACSignal combineLatest:@[[service scalarSignalWithCode:self.code andIndicater:@"Date"],
-                                                          [service scalarSignalWithCode:self.code andIndicater:@"Time"],
-                                                          [service scalarSignalWithCode:self.code andIndicater:@"Now"],
-                                                          [service scalarSignalWithCode:self.code andIndicater:@"Amount"],
-                                                          [service scalarSignalWithCode:self.code andIndicater:@"Volume"]
-                                                          ]] map:^id(RACTuple *tuple) {
-        @strongify(self);
-        RACTupleUnpack(NSNumber *date, NSNumber *time, NSNumber *now, NSNumber *amount, NSNumber *volume) = tuple;
-        self.tmpLine.date = [date unsignedIntValue];
-        self.tmpLine.time = [time unsignedIntValue] / 100000;
-        self.tmpLine.price = [now doubleValue];
-        self.tmpLine.amount = [amount doubleValue];
-        self.tmpLine.volume = [volume unsignedLongValue];
-        return @(YES);
-    }];
-    
-    [[[RACSignal combineLatest:@[initSignal, updateSignal]] takeUntil:[self rac_willDeallocSignal]]
-     subscribeNext:^(RACTuple *tuple) {
-        @strongify(self);
-        RACTupleUnpack(id initFlag, id updateFlag) = tuple;
-        if (initFlag && updateFlag) {
-//            NSLog(@"Signal: 更新走势线数据(%@)", self.code);
-            [self updateTrendLine];
+- (void)loadDataWithSecuCode:(NSString *)code forDays:(NSUInteger)days andInterval:(NSUInteger)interval {
+    if (code) {
+        if (![_code isEqualToString:code]) {
+            if (_code) {
+                [_service unsubscribeScalarWithCode:_code indicaters:IndicaterNames];
+            }
+            _initialized = NO;
+            _code = [code copy];
+            // 注意：行情接口重复订阅同一指标，不再返回数据，需要从本地缓存中获取数据
+            _prevClose = [[_service getCurrentIndicateWithCode:code andName:@"PrevClose"] doubleValue];
+            [_service subscribeScalarWithCode:_code indicaters:IndicaterNames];
         }
-    } error:^(NSError *error) {
-        @strongify(self);
-        NSLog(@"Signal: 获取历史走势线数据失败(%@)", self.code);
-    }];
-    // 昨收价
-    RAC(self, prevClose) = [service scalarSignalWithCode:self.code andIndicater:@"PrevClose"];
-    // 连接socket后重新订阅历史数据
-//    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:QUOTE_SOCKET_CONNECT object:nil] subscribeNext:^(id x) {
-//        [initSignal subscribeNext:^(id x) {
-//            
-//        }];
-//    }];
+        else {
+            if (_days != days || _interval != interval) {
+                _initialized = NO;
+            }
+        }
+        
+        if (!_initialized) {
+            _interval = interval;
+            _days = days;
+            [_lines removeAllObjects];
+            [_service subscribeSerialsWithCode:_code indicateName:@"TrendLine" beginDate:0 beginTime:0 numberType:(int)_interval number:(int)_days];
+        }
+    }
 }
 
-- (void)updateTrendLine {
-    unsigned int mergeMinute = [self mergeMinuteWithTime:self.tmpLine.time];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %lu", self.tmpLine.date];
-    NSMutableArray *lineArray = [NSMutableArray arrayWithArray:[self.lines filteredArrayUsingPredicate:predicate]];
-    [lineArray sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"time" ascending:NO]]];
-    BDTrendLine *line = [lineArray firstObject];
-    if (line == nil || mergeMinute > line.time) {
-        line = [[BDTrendLine alloc] init];
-        line.date = self.tmpLine.date;
-        line.time = mergeMinute;
-        [self.lines addObject:line];
-    }
-    line.price = self.tmpLine.price;
-    line.amount = self.tmpLine.amount;
-    line.volume = self.tmpLine.volume;
-    
-    [self setValue:self.lines forKey:@"lines"];
+#pragma mark Subscribe
+
+- (void)reconnection {
+    self.initialized = NO;
+    [self loadDataWithSecuCode:self.code forDays:self.days andInterval:self.interval];
 }
 
 - (unsigned int)mergeMinuteWithTime:(unsigned int)time {
@@ -171,7 +139,7 @@
     return mergeMinute;
 }
 
-- (NSMutableArray *)paraseTrendLines:(NSArray *)data {
+- (NSArray *)paraseTrendLines:(NSArray *)data {
     NSMutableArray *arr = [NSMutableArray array];
     for (NSDictionary *item in data) {
         BDTrendLine *line = [[BDTrendLine alloc] init];
@@ -189,6 +157,69 @@
     return arr;
 }
 
+- (void)subscribeScalarChanged:(NSNotification *)notification {
+    NSDictionary *dic = notification.userInfo;
+    NSString *code = dic[@"code"];
+    NSString *indicateName = dic[@"name"];
+    id value = dic[@"value"];
+    
+    if (self.code && [self.code isEqualToString:code]) {
+        dispatch_async(_propertyUpdateQueue, ^{
+            if ([indicateName isEqualToString:@"TrendLine"] && !self.initialized) {
+                @try {
+                    NSUInteger days = [dic[@"numberFromBegin"] intValue];
+                    NSUInteger interval = [dic[@"numberType"] intValue];
+                    if (self.days == days && self.interval == interval) {
+                        NSArray *lineArray = [self paraseTrendLines:[value objectForKey:@"TrendLine"]];
+                        [self setValue:lineArray forKey:@"lines"];  // kvo
+                        self.initialized = YES;
+                    }
+                }
+                @catch (NSException *exception) {
+                    NSLog(@"TrendLineViewModel 初始化分时线异常：%@", [exception reason]);
+                }
+            }
+            
+            if ([indicateName isEqualToString:@"PrevClose"]) {
+                if (value) {
+                    [self setValue:value forKey:@"prevClose"];  // kvo
+                }
+            }
+            
+            if (self.initialized) {
+                @try {
+                    if ([indicateName isEqualToString:@"Time"]) {
+                        unsigned int date = [[_service getCurrentIndicateWithCode:self.code andName:@"Date"] unsignedIntValue];
+                        unsigned int time = [[_service getCurrentIndicateWithCode:self.code andName:@"Time"] unsignedIntValue] / 100000;
+                        double price = [[_service getCurrentIndicateWithCode:self.code andName:@"Now"] doubleValue];
+                        double amount = [[_service getCurrentIndicateWithCode:self.code andName:@"Amount"] doubleValue];
+                        unsigned long volume = [[_service getCurrentIndicateWithCode:self.code andName:@"Volume"] unsignedLongValue];
+                        
+                        unsigned int mergeMinute = [self mergeMinuteWithTime:time];
+                        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %lu", date];
+                        NSMutableArray *lineArray = [NSMutableArray arrayWithArray:[self.lines filteredArrayUsingPredicate:predicate]];
+                        [lineArray sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"time" ascending:NO]]];
+                        BDTrendLine *line = [lineArray firstObject];
+                        if (line == nil || mergeMinute > line.time) {
+                            line = [[BDTrendLine alloc] init];
+                            line.date = date;
+                            line.time = mergeMinute;
+                            [self.lines addObject:line];
+                        }
+                        line.price = price;
+                        line.amount = amount;
+                        line.volume = volume;
+                        
+                        [self setValue:self.lines forKey:@"lines"];  // kvo
+                    }
+                }
+                @catch (NSException *exception) {
+                    NSLog(@"TrendLineViewModel 订阅指标数据异常：%@", [exception reason]);
+                }
+            }
+        });
+    }
+}
 
 #pragma mark - Chart line
 
@@ -348,7 +379,9 @@
 #pragma mark - Dealloc
 
 - (void)dealloc {
-    [[BDQuotationService sharedInstance] unsubscribeScalarWithCode:_code indicaters:IndicaterNames];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:QUOTE_SCALAR_NOTIFICATION object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:QUOTE_SOCKET_CONNECT object:nil];
+    [_service unsubscribeScalarWithCode:_code indicaters:IndicaterNames];
 //    NSLog(@"TrendLineViewModel dealloc (%@)", self.code);
 }
 
