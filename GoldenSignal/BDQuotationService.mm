@@ -19,7 +19,6 @@
 
 #import "BDQuotationService.h"
 #import "RegexKitLite.h"
-#include <vector>
 
 using namespace std;
 using namespace quotelib;
@@ -154,14 +153,14 @@ void handle_receive_bookpoint(quotelib::BookPointPtr bookpoint, QuickFAST::Messa
                 }
                 userInfo = @{@"code": code, @"name": indicateName, @"value": value};
             }
-            
+
             SerialsBookPoint *serialsBookPoint = dynamic_cast<SerialsBookPoint*>(&*bookpoint);
             if (serialsBookPoint) {
                 int numberFromBegin = serialsBookPoint->NumberFromBegin();
                 int numberType = (int)serialsBookPoint->NumberType();
                 userInfo = @{@"code": code, @"name": indicateName, @"value": value, @"numberFromBegin": [NSNumber numberWithInt:-numberFromBegin], @"numberType": [NSNumber numberWithInt:numberType]};
             }
-            
+
             // 使用通知队列异步发送通知
             NSNotification *notification = [[NSNotification alloc] initWithName:QUOTE_SCALAR_NOTIFICATION object:nil userInfo:userInfo];
             [[NSNotificationQueue defaultQueue] enqueueNotification:notification postingStyle:NSPostNow];
@@ -276,7 +275,6 @@ id convertFieldValue(const Messages::FieldCPtr field)
     GroupBookPoint group;
     std::string bookCode = [code cStringUsingEncoding:NSUTF8StringEncoding];
     
-    vector<ScalarBookPoint*> sc;
     @synchronized(BookingPoint) {
         for (NSString *name in names) {
             NSString *key = [BDQuotationService generateKeyWithCode:code andIndicaterName:name];
@@ -289,16 +287,14 @@ id convertFieldValue(const Messages::FieldCPtr field)
                 [BookingPoint setObject:dic forKey:key];
                 std::string bookName = [name cStringUsingEncoding:NSUTF8StringEncoding];
                 ScalarBookPoint* item = new ScalarBookPoint(context->finder(), bookCode, bookName);
-                sc.push_back(item);
                 group.add(item);
             }
+            
+//            int count = [[BookingPoint[key] objectForKey:@"count"] intValue];
+//            NSLog(@"subscribe:%@ -> %@ %d", code, name, count);
         }
     }
     context->sub(group);
-//    for(int i = 0;i<sc.size();i++){
-//        delete sc[i];
-//    }
-//    sc.clear();
 }
 
 - (void)unsubscribeScalarWithCode:(NSString *)code indicaters:(NSArray *)names {
@@ -319,6 +315,9 @@ id convertFieldValue(const Messages::FieldCPtr field)
                     [BookingPoint[key] setObject:[NSNumber numberWithInt:count-1] forKey:@"count"];
                 }
             }
+            
+//            int count = [[BookingPoint[key] objectForKey:@"count"] intValue];
+//            NSLog(@"unsubscribe:%@ -> %@ %d", code, name, count);
         }
     }
     context->unsub(group);
@@ -407,17 +406,17 @@ id convertFieldValue(const Messages::FieldCPtr field)
                                    return dic[@"value"];
                                }];
     
-    RACSignal *scalarSignal = [RACSignal
-                                createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-                                    [[[localSignal concat:quoteSignal] ignore:nil] subscribeNext:^(id x) {
-                                        [subscriber sendNext:x];
-                                    }];
-                                    return [RACDisposable disposableWithBlock:^{
-                                        @strongify(self);
-                                        [self unsubscribeScalarWithCode:code indicaters:@[name]];
-//                                        NSLog(@"Signal: unsubscribe(%@) -> %@", code, name);
-                                    }];
-                                }];
+    RACSignal *scalarSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        RACDisposable *disposeable = [[[localSignal concat:quoteSignal] ignore:nil] subscribeNext:^(id x) {
+            [subscriber sendNext:x];
+        }];
+        return [RACDisposable disposableWithBlock:^{
+            @strongify(self);
+            [disposeable dispose];
+//            NSLog(@"Signal: unsubscribe(%@) -> %@", code, name);
+            [self unsubscribeScalarWithCode:code indicaters:@[name]];
+        }];
+    }];
     return scalarSignal;
 }
 
