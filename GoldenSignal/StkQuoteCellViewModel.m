@@ -34,12 +34,12 @@
     RAC(self, NewsRatingDate) = [service scalarSignalWithCode:self.Code andIndicater:@"NewsRatingDate"];
     RAC(self, NewsRatingLevel) = [service scalarSignalWithCode:self.Code andIndicater:@"NewsRatingLevel"];
     RAC(self, NewsRatingName) = [service scalarSignalWithCode:self.Code andIndicater:@"NewsRatingName"];
-    RAC(self, TtlAmount) = [RACSignal combineLatest:@[RACObserve(self, Now), RACObserve(self, TtlShr)] reduce:^id(NSNumber *now, NSNumber *ttlShr){
+    RAC(self, TtlAmount) = [[RACSignal combineLatest:@[RACObserve(self, Now), RACObserve(self, TtlShr)] reduce:^id(NSNumber *now, NSNumber *ttlShr){
         return @([now doubleValue] * [ttlShr doubleValue] / 100000000.0);
-    }];
-    RAC(self, ChangeRange) = [RACSignal combineLatest:@[RACObserve(self, Now), RACObserve(self, PrevClose)] reduce:^id(NSNumber *now, NSNumber *prevClose){
+    }] takeUntil:self.rac_willDeallocSignal];
+    RAC(self, ChangeRange) = [[RACSignal combineLatest:@[RACObserve(self, Now), RACObserve(self, PrevClose)] reduce:^id(NSNumber *now, NSNumber *prevClose){
         return @(([now doubleValue] - [prevClose doubleValue]) / [prevClose doubleValue]);
-    }];
+    }] takeUntil:self.rac_willDeallocSignal];
 }
 
 - (KLineViewModel *)getKLineViewModel {
