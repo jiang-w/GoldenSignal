@@ -26,18 +26,21 @@
     [self setValue:secu.name forKey:@"Name"];
     
     BDQuotationService *service = [BDQuotationService sharedInstance];
-    RAC(self, PrevClose) = [service scalarSignalWithCode:self.Code andIndicater:@"PrevClose"];
-    RAC(self, Now) = [service scalarSignalWithCode:self.Code andIndicater:@"Now"];
-    RAC(self, TtlShr) = [service scalarSignalWithCode:self.Code andIndicater:@"TtlShr"];
+    RACSignal *prevCloseSignal = [service scalarSignalWithCode:self.Code andIndicater:@"PrevClose"];
+    RAC(self, PrevClose) = prevCloseSignal;
+    RACSignal *nowSignal = [service scalarSignalWithCode:self.Code andIndicater:@"Now"];
+    RAC(self, Now) = nowSignal;
+    RACSignal *ttlShrSignal = [service scalarSignalWithCode:self.Code andIndicater:@"TtlShr"];
+    RAC(self, TtlShr) = ttlShrSignal;
     RAC(self, VolumeSpread) = [service scalarSignalWithCode:self.Code andIndicater:@"VolumeSpread"];
     RAC(self, PEttm) = [service scalarSignalWithCode:self.Code andIndicater:@"PEttm"];
     RAC(self, NewsRatingDate) = [service scalarSignalWithCode:self.Code andIndicater:@"NewsRatingDate"];
     RAC(self, NewsRatingLevel) = [service scalarSignalWithCode:self.Code andIndicater:@"NewsRatingLevel"];
     RAC(self, NewsRatingName) = [service scalarSignalWithCode:self.Code andIndicater:@"NewsRatingName"];
-    RAC(self, TtlAmount) = [RACSignal combineLatest:@[RACObserve(self, Now), RACObserve(self, TtlShr)] reduce:^id(NSNumber *now, NSNumber *ttlShr){
+    RAC(self, TtlAmount) = [RACSignal combineLatest:@[nowSignal, ttlShrSignal] reduce:^id(NSNumber *now, NSNumber *ttlShr){
         return @([now doubleValue] * [ttlShr doubleValue] / 100000000.0);
     }];
-    RAC(self, ChangeRange) = [RACSignal combineLatest:@[RACObserve(self, Now), RACObserve(self, PrevClose)] reduce:^id(NSNumber *now, NSNumber *prevClose){
+    RAC(self, ChangeRange) = [RACSignal combineLatest:@[nowSignal, prevCloseSignal] reduce:^id(NSNumber *now, NSNumber *prevClose){
         return @(([now doubleValue] - [prevClose doubleValue]) / [prevClose doubleValue]);
     }];
 }

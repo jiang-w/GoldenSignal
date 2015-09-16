@@ -46,36 +46,29 @@
     //  交易代码
     RAC(self.trdCode, text, @"-") = [[RACObserve(self.viewModel, TrdCode) deliverOnMainThread] takeUntil:self.rac_prepareForReuseSignal];
     //  当前价
-    RAC(self.now, text, @"-") = [[[RACObserve(self.viewModel, Now) deliverOnMainThread] takeUntil:self.rac_prepareForReuseSignal]
-                                 map:^id(id value) {
-                                     return [NSString stringWithFormat:@"%.2f", [value doubleValue]];
-                                 }];
+    RAC(self.now, text, @"-") = [[[RACObserve(self.viewModel, Now) deliverOnMainThread] takeUntil:self.rac_prepareForReuseSignal] map:^id(id value) {
+        return [NSString stringWithFormat:@"%.2f", [value doubleValue]];
+    }];
     //  涨跌幅
-    [[[RACObserve(self.viewModel, ChangeRange) deliverOnMainThread] takeUntil:self.rac_prepareForReuseSignal]
-     subscribeNext:^(id value) {
-         @strongify(self);
-         double changeRange = [value doubleValue] * 100.0;
-         if ([[NSString stringWithFormat:@"%f", changeRange] isEqualToString:@"inf"]
-             || [[NSString stringWithFormat:@"%f", changeRange] isEqualToString:@"nan"]) {
-             self.changeRange.text = @"—";
-         }
-         else {
-             self.changeRange.text = [NSString stringWithFormat:@"%.2f%%", changeRange];
-         }
-         // 设置背景色
-         if (changeRange > 0) {
-             self.now.superview.backgroundColor = RGB(204, 21, 21);
-         }
-         else if (changeRange < 0) {
-             self.now.superview.backgroundColor = RGB(41, 152, 8);
-         }
-         else if (changeRange == 0) {
-             self.now.superview.backgroundColor = RGB(43, 176, 241);
-         }
-         else {
-             self.now.superview.backgroundColor = [UIColor clearColor];
-         }
-     }];
+    RAC(self.changeRange, text, @"-") = [[[RACObserve(self.viewModel, ChangeRange) deliverOnMainThread] takeUntil:self.rac_prepareForReuseSignal]
+                                         map:^id(id value) {
+                                             @strongify(self);
+                                             double changeRange = [value doubleValue] * 100;
+                                             // 设置背景色
+                                             if (changeRange > 0) {
+                                                 self.now.superview.backgroundColor = RGB(204, 21, 21);
+                                             }
+                                             else if (changeRange < 0) {
+                                                 self.now.superview.backgroundColor = RGB(41, 152, 8);
+                                             }
+//                                             else if (changeRange == 0) {
+//                                                 self.now.superview.backgroundColor = RGB(43, 176, 241);
+//                                             }
+                                             else {
+                                                 self.now.superview.backgroundColor = [UIColor clearColor];
+                                             }
+                                             return [NSString stringWithFormat:@"%.2f%%", changeRange];
+                                         }];
     //  现量
     RAC(self.volume, text, @"-") = [[[RACObserve(self.viewModel, VolumeSpread) deliverOnMainThread] takeUntil:self.rac_prepareForReuseSignal]
                                     map:^id(id value) {
