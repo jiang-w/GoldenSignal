@@ -377,19 +377,13 @@ id convertFieldValue(const Messages::FieldCPtr field)
 
 - (RACSignal *)scalarSignalWithCode:(NSString *)code andIndicater:(NSString *)name {
     @weakify(self);
-    RACSignal *localSignal = [[RACSignal
-                               createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-                                   @strongify(self);
-                                   id value = [self getCurrentIndicateWithCode:code andName:name];
-                                   [subscriber sendNext:value];
-                                   [subscriber sendCompleted];
-                                   return nil;
-                               }] doCompleted:^{
-                                   @strongify(self);
-                                   [self subscribeScalarWithCode:code indicaters:@[name]];
-//                                   NSLog(@"Signal: subscribe(%@) -> %@", code, name);
-                               }];
-    
+    RACSignal *localSignal = [[RACSignal return:[self getCurrentIndicateWithCode:code andName:name]]
+                              doCompleted:^{
+                                  @strongify(self);
+                                  [self subscribeScalarWithCode:code indicaters:@[name]];
+                                  NSLog(@"Signal: subscribe(%@) -> %@", code, name);
+                              }];
+
     RACSignal *quoteSignal = [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:QUOTE_SCALAR_NOTIFICATION object:nil]
                                filter:^BOOL(NSNotification *notification) {
                                    NSDictionary *dic = notification.userInfo;
