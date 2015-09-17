@@ -105,22 +105,30 @@
     }
     _xLabelWidth = (self.frame.size.width - UUYLabelwidth)/num;
     
-    for (int i=0; i<xLabels.count; i++) {
-        
+    NSMutableArray *iAry = [[NSMutableArray alloc]init];
+    
+    for (int i = 0; i<_xLabels.count; i++) {
         if (i%(xLabels.count/4)==0 || i == (xLabels.count-1) ) {
             SCChartLabel * label = [[SCChartLabel alloc] init];
-            if ( i != (xLabels.count-1) ) {
-                label.frame = CGRectMake(i * _xLabelWidth+UUYLabelwidth, self.frame.size.height - UULabelHeight, 20, UULabelHeight);
+            
+            if (i%(_xLabels.count/4)==0) {
+                label.frame = CGRectMake(i * _xLabelWidth+25, self.frame.size.height - UULabelHeight, 24, UULabelHeight);
+                //                label.backgroundColor = [UIColor yellowColor];
+                [iAry addObject:label];
             }
-            if (i == (xLabels.count - 1)) {
-                label = [[SCChartLabel alloc] initWithFrame:CGRectMake(i * _xLabelWidth+UUYLabelwidth-17, self.frame.size.height - UULabelHeight, 20, UULabelHeight)];
+            if (i == (_xLabels.count - 1)) {
+                //label.frame = CGRectMake(i * _xLabelWidth+UUYLabelwidth-17, self.frame.size.height - UULabelHeight, 30, UULabelHeight);
+                label.frame = CGRectMake(self.frame.size.width - 24, self.frame.size.height - UULabelHeight, 24, UULabelHeight);
+                label.textAlignment = NSTextAlignmentRight;
+                label.backgroundColor = [UIColor whiteColor];
             }
-//            label.backgroundColor = [UIColor yellowColor];
+            
             label.text = xLabels[i];
-            DEBUGLog(@"..%@, %d",label.text,i);
             [self addSubview:label];
+            DEBUGLog(@"日期%@， 第%d",label.text,i);
         }
     }
+    DEBUGLog(@"count1=%lu",iAry.count);
 }
 
 
