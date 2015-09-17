@@ -52,13 +52,13 @@ static NSString * const reuseIdentifier = @"TagCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     TagCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     if (indexPath.row >= _customNewsTags.count) {
-        cell.newsTag = nil;
+        cell.tag = nil;
         // 为cell添加单击手势识别器
         UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleCustomLabel:)];
         [cell addGestureRecognizer:singleTap];
     }
     else {
-        cell.newsTag = _customNewsTags[indexPath.row];
+        cell.tag = _customNewsTags[indexPath.row];
         //拖动手势
         UIPanGestureRecognizer *drag = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(dragCustomLabel:)];
         [cell addGestureRecognizer:drag];
@@ -108,7 +108,7 @@ CGRect originalFrame;
     }
     else if (sender.state == UIGestureRecognizerStateEnded) {
         for (TagCollectionViewCell *cell in self.collectionView.visibleCells) {
-            if (dragView != cell && cell.newsTag != nil && CGRectContainsPoint(cell.frame, dragView.center)) {
+            if (dragView != cell && cell.tag != nil && CGRectContainsPoint(cell.frame, dragView.center)) {
                 tragetView = cell;
                 break;
             }
@@ -120,10 +120,9 @@ CGRect originalFrame;
                 tragetView.frame = originalFrame;
                 dragView.alpha = 1;
             } completion:^(BOOL finished) {
-                NSUInteger index1 = [_customNewsTags indexOfObject:dragView.newsTag];
-                NSUInteger index2 = [_customNewsTags indexOfObject:tragetView.newsTag];
+                NSUInteger index1 = [_customNewsTags indexOfObject:dragView.tag];
+                NSUInteger index2 = [_customNewsTags indexOfObject:tragetView.tag];
                 [[BDCustomTagCollection sharedInstance] exchangeTagAtIndex:index1 withTagAtIndex:index2];
-                [self.collectionView reloadData];
             }];
         }
         else {
@@ -143,10 +142,12 @@ CGRect originalFrame;
 
 @implementation TagCollectionViewCell
 
-- (void)setNewsTag:(BDNewsTag *)newsTag {
-    _newsTag = newsTag;
-    if (_newsTag) {
-        self.textLabel.text = _newsTag.name;
+@synthesize tag;
+
+- (void)setTag:(BDNewsTag *)value {
+    tag = value;
+    if (tag) {
+        self.textLabel.text = tag.name;
         UIImageView *background = [[UIImageView alloc] initWithFrame:CGRectZero];
         [background setImage:[UIImage imageNamed:@"label_0"]];
         self.backgroundView = background;
@@ -157,7 +158,6 @@ CGRect originalFrame;
         [background setImage:[UIImage imageNamed:@"label_3"]];
         self.backgroundView = background;
     }
-
 }
 
 @end

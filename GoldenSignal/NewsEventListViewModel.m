@@ -34,6 +34,9 @@
         [self.newsList removeAllObjects];
         [self.newsList addObjectsFromArray:newsArray];
     }
+    else {
+        [self.newsList removeAllObjects];
+    }
 }
 
 // 加载更多的新闻

@@ -81,6 +81,6 @@
 @property(nonatomic, readonly) unsigned int DownCount;
 
 
-- (id)initWithCode:(NSString *)code;
+- (void)loadDataWithCode:(NSString *)code;
 
 @end

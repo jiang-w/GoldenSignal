@@ -183,8 +183,7 @@
         self.titleLabel.text = [NSString stringWithFormat:@"%@(%@)", _secu.name, _secu.trdCode];
         [self.titleLabel sizeToFit];
         // 载入行情指标
-        [self.scalarView subscribeDataWithSecuCode:_secu.bdCode];
-//        [self.scalarView subscribeDataWithSecuCode:@"600036.SH"];
+        [self.scalarView loadDataWithCode:_secu.bdCode];
         // 载入分时、K线视图
         [self loadChartView];
         // 载入新闻列表视图

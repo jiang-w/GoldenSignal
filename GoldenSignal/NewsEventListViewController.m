@@ -27,6 +27,7 @@ static NSString *tableCellIdentifier = @"NewsListCell";
     NSArray *_codes;
     NewsEventListViewModel *_vm;
     dispatch_queue_t loadDataQueue;
+    UILabel *_label;//没数据时显示的信息
 }
 
 - (id)initWithTagId:(NSNumber *)tagId andSecuCodes:(NSArray *)codes {
@@ -66,15 +67,49 @@ static NSString *tableCellIdentifier = @"NewsListCell";
     hud.labelText = @"加载中...";
     hud.opacity = 0;
     hud.activityIndicatorColor = [UIColor blackColor];
+    
+    [self getRequestDataResource];
+    
+    _label = [[UILabel alloc]init];
+    //    _label.backgroundColor = [UIColor yellowColor];
+    _label.frame = CGRectMake(0, 30, self.view.frame.size.width, 25);
+    _label.font = [UIFont systemFontOfSize:14];
+    _label.textAlignment = NSTextAlignmentCenter;
+    
+}
+
+- (void)getRequestDataResource{
+    
     dispatch_async(loadDataQueue, ^{
         [_vm loadNewsEventWithTagId:_tagId andSecuCodes:_codes];
         // 返回主线程刷新视图
         dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            [self informationLabel];
+            
             [self.tableView reloadData];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
     });
+}
 
+
+- (void)informationLabel{
+    if (_tagId == nil) {//自选股的金信号
+        _label.text = @"";
+        if (_codes.count == 0) {
+            [self.tableView addSubview:_label];
+            _label.text = @"请先添加自选股然后查看相关的数据";
+        }
+        else if (_codes.count != 0 && _vm.newsList.count == 0) {
+            [self.tableView addSubview:_label];
+            _label.text = @"此栏目近期没有相关的数据";
+        }
+        else {
+            _label.text = @"";
+            [_label removeFromSuperview];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -137,6 +172,10 @@ static NSString *tableCellIdentifier = @"NewsListCell";
     dispatch_async(loadDataQueue, ^{
         [_vm reloadNewsEvent];
         dispatch_sync(dispatch_get_main_queue(), ^{
+            _label.text = @"";
+            [_label removeFromSuperview];
+            [self getRequestDataResource];
+            
             [self.tableView reloadData];
             [self.tableView.header endRefreshing];
         });
@@ -149,6 +188,9 @@ static NSString *tableCellIdentifier = @"NewsListCell";
     dispatch_async(loadDataQueue, ^{
         [_vm loadMoreNewsEvent];
         dispatch_sync(dispatch_get_main_queue(), ^{
+            _label.text = @"";
+            [_label removeFromSuperview];
+            [self getRequestDataResource];
             [self.tableView reloadData];
             [self.tableView.footer endRefreshing];
         });
@@ -159,15 +201,18 @@ static NSString *tableCellIdentifier = @"NewsListCell";
 - (void)customStockChanged:(NSNotification *)notification {
     NSString *op = notification.userInfo[@"op"];
     if ([op isEqualToString:@"add"] || [op isEqualToString:@"remove"]) {
-        if (_tagId == nil) {
-            dispatch_async(loadDataQueue, ^{
-                _codes = [BDStockPool sharedInstance].codes;
-                [_vm loadNewsEventWithTagId:_tagId andSecuCodes:_codes];
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    [self.tableView reloadData];
-                });
-            });
-        }
+        _codes = [BDStockPool sharedInstance].codes;
+        [self getRequestDataResource];
+//        if (_tagId == nil) {
+//            dispatch_async(loadDataQueue, ^{
+//                _codes = [BDStockPool sharedInstance].codes;
+//                [_vm loadNewsEventWithTagId:_tagId andSecuCodes:_codes];
+//                dispatch_sync(dispatch_get_main_queue(), ^{
+//                    [self.tableView reloadData];
+//                });
+//            });
+//            
+//        }
     }
 }
 

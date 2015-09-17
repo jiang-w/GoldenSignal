@@ -10,8 +10,23 @@
 
 @interface IdxScalarView : UIView
 
+@property (weak, nonatomic) IBOutlet UILabel *now;
+@property (weak, nonatomic) IBOutlet UILabel *change;
+@property (weak, nonatomic) IBOutlet UILabel *changeRange;
+@property (weak, nonatomic) IBOutlet UILabel *open;
+@property (weak, nonatomic) IBOutlet UILabel *prevClose;
+@property (weak, nonatomic) IBOutlet UILabel *high;
+@property (weak, nonatomic) IBOutlet UILabel *low;
+@property (weak, nonatomic) IBOutlet UILabel *volume;
+@property (weak, nonatomic) IBOutlet UILabel *amount;
+@property (weak, nonatomic) IBOutlet UILabel *amplitude;
+@property (weak, nonatomic) IBOutlet UILabel *volumeSpread;
+@property (weak, nonatomic) IBOutlet UILabel *upCount;
+@property (weak, nonatomic) IBOutlet UILabel *downCount;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
+
 + (IdxScalarView *)createView;
 
-- (void)subscribeDataWithSecuCode:(NSString *)code;
+- (void)loadDataWithIdxCode:(NSString *)code;
 
 @end

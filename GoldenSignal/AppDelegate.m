@@ -44,6 +44,7 @@
     
     checkTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(checkConnected) userInfo:nil repeats:YES];
     
+    [self infomations];
     return YES;
 }
 
@@ -121,6 +122,44 @@
     if (!service.isConnected) {
         [service connect];
     }
+}
+
+- (void)infomations{
+    NSString* identifierNumber = [[UIDevice currentDevice].identifierForVendor UUIDString] ;
+    DEBUGLog(@"手机序列号: %@",identifierNumber);
+    //手机别名： 用户定义的名称
+    
+    NSString* userPhoneName = [[UIDevice currentDevice] name];
+    DEBUGLog(@"手机别名: %@", userPhoneName);
+    //设备名称
+    
+    NSString* deviceName = [[UIDevice currentDevice] systemName];
+    DEBUGLog(@"设备名称: %@",deviceName );
+    //手机系统版本
+    
+    NSString* phoneVersion = [[UIDevice currentDevice] systemVersion];
+    DEBUGLog(@"手机系统版本: %@", phoneVersion);
+    //手机型号
+    
+    NSString* phoneModel = [[UIDevice currentDevice] model];
+    DEBUGLog(@"手机型号: %@",phoneModel );
+    
+    //地方型号  （国际化区域名称）
+    NSString* localPhoneModel = [[UIDevice currentDevice] localizedModel];
+    DEBUGLog(@"国际化区域名称: %@",localPhoneModel );
+    
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    // 当前应用名称
+    NSString *appCurName = [infoDictionary objectForKey:@"CFBundleDisplayName"];
+    DEBUGLog(@"当前应用名称：%@",appCurName);
+    
+    // 当前应用软件版本  比如：1.0.1
+    NSString *appCurVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    DEBUGLog(@"当前应用软件版本:%@",appCurVersion);
+    
+    // 当前应用版本号码   int类型
+    NSString *appCurVersionNum = [infoDictionary objectForKey:@"CFBundleVersion"];
+    DEBUGLog(@"当前应用版本号码：%@",appCurVersionNum);
 }
 
 @end

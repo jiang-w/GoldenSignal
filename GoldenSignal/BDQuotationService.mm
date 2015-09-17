@@ -153,14 +153,14 @@ void handle_receive_bookpoint(quotelib::BookPointPtr bookpoint, QuickFAST::Messa
                 }
                 userInfo = @{@"code": code, @"name": indicateName, @"value": value};
             }
-
+            
             SerialsBookPoint *serialsBookPoint = dynamic_cast<SerialsBookPoint*>(&*bookpoint);
             if (serialsBookPoint) {
                 int numberFromBegin = serialsBookPoint->NumberFromBegin();
                 int numberType = (int)serialsBookPoint->NumberType();
                 userInfo = @{@"code": code, @"name": indicateName, @"value": value, @"numberFromBegin": [NSNumber numberWithInt:-numberFromBegin], @"numberType": [NSNumber numberWithInt:numberType]};
             }
-
+            
             // 使用通知队列异步发送通知
             NSNotification *notification = [[NSNotification alloc] initWithName:QUOTE_SCALAR_NOTIFICATION object:nil userInfo:userInfo];
             [[NSNotificationQueue defaultQueue] enqueueNotification:notification postingStyle:NSPostNow];
@@ -286,12 +286,8 @@ id convertFieldValue(const Messages::FieldCPtr field)
                 NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"count":[NSNumber numberWithInt:1]}];
                 [BookingPoint setObject:dic forKey:key];
                 std::string bookName = [name cStringUsingEncoding:NSUTF8StringEncoding];
-                ScalarBookPoint* item = new ScalarBookPoint(context->finder(), bookCode, bookName);
-                group.add(item);
+                group.add(new ScalarBookPoint(context->finder(), bookCode, bookName));
             }
-            
-//            int count = [[BookingPoint[key] objectForKey:@"count"] intValue];
-//            NSLog(@"subscribe:%@ -> %@ %d", code, name, count);
         }
     }
     context->sub(group);
@@ -315,9 +311,6 @@ id convertFieldValue(const Messages::FieldCPtr field)
                     [BookingPoint[key] setObject:[NSNumber numberWithInt:count-1] forKey:@"count"];
                 }
             }
-            
-//            int count = [[BookingPoint[key] objectForKey:@"count"] intValue];
-//            NSLog(@"unsubscribe:%@ -> %@ %d", code, name, count);
         }
     }
     context->unsub(group);
@@ -377,98 +370,84 @@ id convertFieldValue(const Messages::FieldCPtr field)
 
 - (RACSignal *)scalarSignalWithCode:(NSString *)code andIndicater:(NSString *)name {
     @weakify(self);
-    RACSignal *localSignal = [[RACSignal
-                               createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-                                   @strongify(self);
-                                   id value = [self getCurrentIndicateWithCode:code andName:name];
-                                   [subscriber sendNext:value];
-                                   [subscriber sendCompleted];
-                                   return nil;
-                               }] doCompleted:^{
-                                   @strongify(self);
-                                   [self subscribeScalarWithCode:code indicaters:@[name]];
-//                                   NSLog(@"Signal: subscribe(%@) -> %@", code, name);
-                               }];
-    
-    RACSignal *quoteSignal = [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:QUOTE_SCALAR_NOTIFICATION object:nil]
-                               filter:^BOOL(NSNotification *notification) {
-                                   NSDictionary *dic = notification.userInfo;
-                                   NSString *secuCode = dic[@"code"];
-                                   NSString *indicaterName = dic[@"name"];
-                                   if ([secuCode isEqualToString:code] && [indicaterName isEqualToString:name]) {
-                                       return YES;
-                                   }
-                                   else {
-                                       return NO;
-                                   }
-                               }] map:^id(NSNotification *notification) {
-                                   NSDictionary *dic = notification.userInfo;
-                                   return dic[@"value"];
-                               }];
-    
-    RACSignal *scalarSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        RACDisposable *disposeable = [[[localSignal concat:quoteSignal] ignore:nil] subscribeNext:^(id x) {
-            [subscriber sendNext:x];
-        }];
-        return [RACDisposable disposableWithBlock:^{
-            @strongify(self);
-            [disposeable dispose];
-//            NSLog(@"Signal: unsubscribe(%@) -> %@", code, name);
-            [self unsubscribeScalarWithCode:code indicaters:@[name]];
-        }];
+    RACSignal *localSignal = [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        id value = [self getCurrentIndicateWithCode:code andName:name];
+        [subscriber sendNext:value];
+        [subscriber sendCompleted];
+        return nil;
+    }] doCompleted:^{
+        // subscribe quote
+        [self subscribeScalarWithCode:code indicaters:@[name]];
+//        NSLog(@"subscribe:%@ -> %@", code, name);
     }];
-    return scalarSignal;
+    
+    RACSignal *quoteSignal = [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:QUOTE_SCALAR_NOTIFICATION object:nil] filter:^BOOL(NSNotification *notification) {
+        NSDictionary *dic = notification.userInfo;
+        NSString *secuCode = dic[@"code"];
+        NSString *indicaterName = dic[@"name"];
+        if ([secuCode isEqualToString:code] && [indicaterName isEqualToString:name]) {
+            return YES;
+        }
+        else {
+            return NO;
+        }
+    }] map:^id(NSNotification *notification) {
+        NSDictionary *dic = notification.userInfo;
+        return dic[@"value"];
+    }];
+    
+    RACSignal *combineSignal = [[localSignal concat:quoteSignal] ignore:nil];
+    return combineSignal;
 }
 
 - (RACSignal *)kLineSignalWithCode:(NSString *)code forType:(KLineType)type andNumber:(NSInteger)number {
-    RACSignal *signal = [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:QUOTE_SCALAR_NOTIFICATION object:nil]
-                          filter:^BOOL(NSNotification *notification) {
-                              NSDictionary *dic = notification.userInfo;
-                              NSString *secuCode = dic[@"code"];
-                              NSString *indicaterName = dic[@"name"];
-                              int num = [dic[@"numberFromBegin"] intValue];
-                              KLineType ktype = (KLineType)[dic[@"numberType"] intValue];
-                              
-                              if ([secuCode isEqualToString:code] && [indicaterName isEqualToString:@"KLine"]
-                                  && ktype == type && num == number) {
-                                  return YES;
-                              }
-                              else {
-                                  return NO;
-                              }
-                          }] map:^id(NSNotification *notification) {
-                              NSDictionary *dic = notification.userInfo;
-                              NSArray *values = [dic[@"value"] objectForKey:@"KLine"];
-//                              NSLog(@"Signal: subscribe KLine(%@)", dic[@"code"]);
-                              return values;
-                          }];
+    RACSignal *signal = [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:QUOTE_SCALAR_NOTIFICATION object:nil] filter:^BOOL(NSNotification *notification) {
+        NSDictionary *dic = notification.userInfo;
+        NSString *secuCode = dic[@"code"];
+        NSString *indicaterName = dic[@"name"];
+        int num = [dic[@"numberFromBegin"] intValue];
+        KLineType ktype = (KLineType)[dic[@"numberType"] intValue];
+        
+        if ([secuCode isEqualToString:code] && [indicaterName isEqualToString:@"KLine"]
+            && ktype == type && num == number) {
+            return YES;
+        }
+        else {
+            return NO;
+        }
+    }] map:^id(NSNotification *notification) {
+        NSDictionary *dic = notification.userInfo;
+        NSArray *values = [dic[@"value"] objectForKey:@"KLine"];
+//        NSLog(@"Signal: 订阅历史K线(%@)", dic[@"code"]);
+        return values;
+    }];
     
     [self subscribeSerialsWithCode:code indicateName:@"KLine" beginDate:0 beginTime:0 numberType:(int)type number:(int)number];
     return signal;
 }
 
 - (RACSignal *)trendLineWithCode:(NSString *)code forDays:(NSUInteger)days andInterval:(NSUInteger)interval {
-    RACSignal *signal = [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:QUOTE_SCALAR_NOTIFICATION object:nil]
-                          filter:^BOOL(NSNotification *notification) {
-                              NSDictionary *dic = notification.userInfo;
-                              NSString *secuCode = dic[@"code"];
-                              NSString *indicaterName = dic[@"name"];
-                              int num = [dic[@"numberFromBegin"] intValue];
-                              int type = [dic[@"numberType"] intValue];
-                              
-                              if ([secuCode isEqualToString:code] && [indicaterName isEqualToString:@"TrendLine"]
-                                  && type == interval && num == days) {
-                                  return YES;
-                              }
-                              else {
-                                  return NO;
-                              }
-                          }] map:^id(NSNotification *notification) {
-                              NSDictionary *dic = notification.userInfo;
-                              NSArray *values = [dic[@"value"] objectForKey:@"TrendLine"];
-//                              NSLog(@"Signal: subscribe TrendLine(%@)", dic[@"code"]);
-                              return values;
-                          }];
+    RACSignal *signal = [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:QUOTE_SCALAR_NOTIFICATION object:nil] filter:^BOOL(NSNotification *notification) {
+        NSDictionary *dic = notification.userInfo;
+        NSString *secuCode = dic[@"code"];
+        NSString *indicaterName = dic[@"name"];
+        int num = [dic[@"numberFromBegin"] intValue];
+        int type = [dic[@"numberType"] intValue];
+        
+        if ([secuCode isEqualToString:code] && [indicaterName isEqualToString:@"TrendLine"]
+            && type == interval && num == days) {
+            return YES;
+        }
+        else {
+            return NO;
+        }
+    }] map:^id(NSNotification *notification) {
+        NSDictionary *dic = notification.userInfo;
+        NSArray *values = [dic[@"value"] objectForKey:@"TrendLine"];
+//        NSLog(@"Signal: 订阅历史走势线(%@)", dic[@"code"]);
+        return values;
+    }];
 
     [self subscribeSerialsWithCode:code indicateName:@"TrendLine" beginDate:0 beginTime:0 numberType:(int)interval number:(int)days];
     return signal;

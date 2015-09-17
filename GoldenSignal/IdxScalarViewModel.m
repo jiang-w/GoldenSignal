@@ -9,42 +9,55 @@
 #import "IdxScalarViewModel.h"
 #import "BDQuotationService.h"
 
+#define IndicaterNames @[@"PrevClose", @"Open", @"Now", @"High", @"Low", @"Amount", @"Volume", @"Amplitude", @"VolumeSpread", @"UpCount", @"DownCount"]
 
 @implementation IdxScalarViewModel
+{
+    BDQuotationService *_service;
+}
 
-- (id)initWithCode:(NSString *)code {
+- (id)init {
     self = [super init];
     if (self) {
-        [self setValue:code forKey:@"Code"];
-        [self propertyBinding];
+        _service = [BDQuotationService sharedInstance];
     }
     return self;
 }
 
-- (void)propertyBinding {
-    BDQuotationService *service = [BDQuotationService sharedInstance];
-    RAC(self, PrevClose) = [service scalarSignalWithCode:self.Code andIndicater:@"PrevClose"];
-    RAC(self, Open) = [service scalarSignalWithCode:self.Code andIndicater:@"Open"];
-    RAC(self, Now) = [service scalarSignalWithCode:self.Code andIndicater:@"Now"];
-    RAC(self, High) = [service scalarSignalWithCode:self.Code andIndicater:@"High"];
-    RAC(self, Low) = [service scalarSignalWithCode:self.Code andIndicater:@"Low"];
-    RAC(self, Amount) = [service scalarSignalWithCode:self.Code andIndicater:@"Amount"];
-    RAC(self, Volume) = [service scalarSignalWithCode:self.Code andIndicater:@"Volume"];
-    RAC(self, Amplitude) = [service scalarSignalWithCode:self.Code andIndicater:@"Amplitude"];
-    RAC(self, VolumeSpread) = [service scalarSignalWithCode:self.Code andIndicater:@"VolumeSpread"];
-    RAC(self, UpCount) = [service scalarSignalWithCode:self.Code andIndicater:@"UpCount"];
-    RAC(self, DownCount) = [service scalarSignalWithCode:self.Code andIndicater:@"DownCount"];
-    RAC(self, Change) = [RACSignal combineLatest:@[RACObserve(self, Now), RACObserve(self, PrevClose)] reduce:^id(NSNumber *now, NSNumber *prevClose){
-        return @([now doubleValue] - [prevClose doubleValue]);
-    }];
-    RAC(self, ChangeRange) = [RACSignal combineLatest:@[RACObserve(self, Now), RACObserve(self, PrevClose)] reduce:^id(NSNumber *now, NSNumber *prevClose){
-        return @(([now doubleValue] - [prevClose doubleValue]) / [prevClose doubleValue]);
-    }];
+#pragma mark Subscribe
+
+- (void)loadDataWithCode:(NSString *)code {
+    if (code != nil && ![code isEqualToString:self.Code]) {
+        if (self.Code) {
+            [_service unsubscribeScalarWithCode:self.Code indicaters:IndicaterNames];
+        }
+        // Properties Binding
+        [self setValue:code forKey:@"Code"];
+        RAC(self, PrevClose) = [_service scalarSignalWithCode:code andIndicater:@"PrevClose"];
+        RAC(self, Open) = [_service scalarSignalWithCode:code andIndicater:@"Open"];
+        RAC(self, Now) = [_service scalarSignalWithCode:code andIndicater:@"Now"];
+        RAC(self, High) = [_service scalarSignalWithCode:code andIndicater:@"High"];
+        RAC(self, Low) = [_service scalarSignalWithCode:code andIndicater:@"Low"];
+        RAC(self, Amount) = [_service scalarSignalWithCode:code andIndicater:@"Amount"];
+        RAC(self, Volume) = [_service scalarSignalWithCode:code andIndicater:@"Volume"];
+        RAC(self, Amplitude) = [_service scalarSignalWithCode:code andIndicater:@"Amplitude"];
+        RAC(self, VolumeSpread) = [_service scalarSignalWithCode:code andIndicater:@"VolumeSpread"];
+        RAC(self, UpCount) = [_service scalarSignalWithCode:code andIndicater:@"UpCount"];
+        RAC(self, DownCount) = [_service scalarSignalWithCode:code andIndicater:@"DownCount"];
+        RAC(self, Change) = [RACSignal combineLatest:@[RACObserve(self, Now), RACObserve(self, PrevClose)] reduce:^id(NSNumber *now, NSNumber *prevClose){
+            return @([now doubleValue] - [prevClose doubleValue]);
+        }];
+        RAC(self, ChangeRange) = [RACSignal combineLatest:@[RACObserve(self, Now), RACObserve(self, PrevClose)] reduce:^id(NSNumber *now, NSNumber *prevClose){
+            return @(([now doubleValue] - [prevClose doubleValue]) / [prevClose doubleValue]);
+        }];
+    }
 }
 
+#pragma mark Dealloc
 
 - (void)dealloc {
-//    NSLog(@"IdxScalarViewModel dealloc (%@)", self.Code);
+    [_service unsubscribeScalarWithCode:self.Code indicaters:IndicaterNames];
+//    NSLog(@"IdxQuoteViewModel dealloc (%@)", self.Code);
 }
 
 @end

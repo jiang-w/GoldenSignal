@@ -96,6 +96,6 @@
 @property(nonatomic, readonly) double Eps;
 
 
-- (id)initWithCode:(NSString *)code;
+- (void)subscribeQuotationScalarWithCode:(NSString *)code;
 
 @end
