@@ -206,7 +206,7 @@
 		011387701B6722F800747585 /* AnnouncementDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementDetailViewController.h; sourceTree = "<group>"; };
 		011387711B6722F800747585 /* AnnouncementDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementDetailViewController.m; sourceTree = "<group>"; };
 		011387731B67279000747585 /* AnnouncementDetail.mustache */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AnnouncementDetail.mustache; sourceTree = "<group>"; };
-		011B84301B0DB51F003005BC /* 金信号.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "金信号.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		011B84301B0DB51F003005BC /* GoldenSignal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoldenSignal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		011B84341B0DB51F003005BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		011B84351B0DB51F003005BC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		011B84371B0DB51F003005BC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -579,7 +579,7 @@
 		011B84311B0DB51F003005BC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				011B84301B0DB51F003005BC /* 金信号.app */,
+				011B84301B0DB51F003005BC /* GoldenSignal.app */,
 				011B84491B0DB520003005BC /* GoldenSignalTests.xctest */,
 			);
 			name = Products;
@@ -1110,7 +1110,7 @@
 			);
 			name = GoldenSignal;
 			productName = GoldenSignal;
-			productReference = 011B84301B0DB51F003005BC /* 金信号.app */;
+			productReference = 011B84301B0DB51F003005BC /* GoldenSignal.app */;
 			productType = "com.apple.product-type.application";
 		};
 		011B84481B0DB520003005BC /* GoldenSignalTests */ = {
@@ -1546,7 +1546,7 @@
 					../lib/quote_lib,
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "金信号";
+				PRODUCT_NAME = GoldenSignal;
 				PROVISIONING_PROFILE = "274f3f08-d595-4628-9a00-e6520018364b";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
@@ -1586,7 +1586,7 @@
 					../lib/quote_lib,
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = "金信号";
+				PRODUCT_NAME = GoldenSignal;
 				PROVISIONING_PROFILE = "274f3f08-d595-4628-9a00-e6520018364b";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
