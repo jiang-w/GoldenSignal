@@ -4,72 +4,62 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-GoldenSignal-AFNetworking.xcscheme</key>
+		<key>AFNetworking.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-GoldenSignal-FMDB.xcscheme</key>
+		<key>FMDB.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-GoldenSignal-FontAwesome+iOS.xcscheme</key>
+		<key>FontAwesome+iOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-GoldenSignal-GHSidebarNav.xcscheme</key>
+		<key>GHSidebarNav.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-GoldenSignal-GRMustache.xcscheme</key>
+		<key>GRMustache.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-GoldenSignal-JRSwizzle.xcscheme</key>
+		<key>JRSwizzle.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-GoldenSignal-KVOController.xcscheme</key>
+		<key>KVOController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-GoldenSignal-MBProgressHUD.xcscheme</key>
+		<key>MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-GoldenSignal-MJRefresh.xcscheme</key>
+		<key>MJRefresh.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-GoldenSignal-Masonry.xcscheme</key>
+		<key>Masonry.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-GoldenSignal-PPiAwesomeButton.xcscheme</key>
+		<key>PPiAwesomeButton.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-GoldenSignal-PPiFlatSegmentedControl.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-GoldenSignal-ReactiveCocoa.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-GoldenSignal-RegexKitLite.xcscheme</key>
+		<key>PPiFlatSegmentedControl.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -79,80 +69,90 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ReactiveCocoa.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>RegexKitLite.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>13FDADC66243CE492DAFE5DB</key>
+		<key>004038F2A463630BE3A6EC97891CAD08</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>217E58EAD4D32F8DB2B0B708</key>
+		<key>1A9D9BA04F40B8A2A48DAFB97C4BDC47</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>30F94E3FE9956ECB4E04A13D</key>
+		<key>41DD2B16DEA4E55647F202BAC0362B2D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>36CFB17FC5C1187ED697D836</key>
+		<key>4597303E8C6EBA50C43476AF5E4E82A3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>73E5DC67E8B546B7216B2D49</key>
+		<key>4A849B374BFAD166BE0501DAA378FAFF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>82E1791495AEE2EB736A6CD4</key>
+		<key>5887711D199A46E4C90EFAD50A4A7D75</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>944CE24B9F9BF4AB697FA244</key>
+		<key>5EE3A8B2C017C638ECE42BC5C90E966D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A3B893C45F966387772CD379</key>
+		<key>64335BE8E86B9F5630F51F463C4287FC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A60DBB98F9C55F9E78774322</key>
+		<key>735EEBE054607DAB525EB8025A831FAD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A6CEED61FDF7A44FAA54586F</key>
+		<key>7951A865A05EE7489E1A660188BF5730</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B554BE6A55886ACFAEE4B5E9</key>
+		<key>A7C72667D92B14A02D29E3A8F7F7618A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B59038F52B116201F35D4AA6</key>
+		<key>D1482B0DBE9BC0C7820F9E62CFB2E268</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BB3020B84DD8C982CEB63804</key>
+		<key>D68AF894DD5FEAF7A014583C51424FDB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BCF444A1B1AA397E107CFA9E</key>
+		<key>DB077ACD97804023CE4EA125F1AA871B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C0D8EDF085011997AA2517A4</key>
+		<key>F3DA4828C28C86A0F6400E925EAEAC21</key>
 		<dict>
 			<key>primary</key>
 			<true/>
