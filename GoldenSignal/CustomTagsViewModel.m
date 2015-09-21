@@ -89,12 +89,14 @@
     
     NSMutableArray *tagArray = [NSMutableArray array];
     for (NSDictionary *item in newsData) {
-        BDNewsTag *label = [[BDNewsTag alloc] init];
-        label.innerId = [item[@"LABEL_ID"] longValue];
-        label.name = item[@"LABEL_NAME"];
-        label.type = [item[@"LABEL_TYPE"] intValue];
-        label.parentId = [item[@"P_LABEL_ID"] intValue];
-        [tagArray addObject:label];
+        if (item[@"P_LABEL_ID"] != [NSNull null]) {
+            BDNewsTag *label = [[BDNewsTag alloc] init];
+            label.innerId = [item[@"LABEL_ID"] longValue];
+            label.name = item[@"LABEL_NAME"];
+            label.type = [item[@"LABEL_TYPE"] intValue];
+            label.parentId = [item[@"P_LABEL_ID"] intValue];
+            [tagArray addObject:label];
+        }
     }
     return tagArray;
 }

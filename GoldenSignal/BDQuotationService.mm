@@ -380,8 +380,8 @@ id convertFieldValue(const Messages::FieldCPtr field)
     RACSignal *localSignal = [[RACSignal return:[self getCurrentIndicateWithCode:code andName:name]]
                               doCompleted:^{
                                   @strongify(self);
+//                                  NSLog(@"Signal: subscribe(%@) -> %@", code, name);
                                   [self subscribeScalarWithCode:code indicaters:@[name]];
-                                  NSLog(@"Signal: subscribe(%@) -> %@", code, name);
                               }];
 
     RACSignal *quoteSignal = [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:QUOTE_SCALAR_NOTIFICATION object:nil]
