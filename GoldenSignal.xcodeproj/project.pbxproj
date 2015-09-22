@@ -108,7 +108,6 @@
 		0148DE151B9D814900A045F3 /* BDDiagnoseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0148DE0A1B9D814900A045F3 /* BDDiagnoseModel.m */; };
 		0148DE161B9D814900A045F3 /* DiagnoseContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0148DE0C1B9D814900A045F3 /* DiagnoseContentView.m */; };
 		0148DE171B9D814900A045F3 /* FinanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0148DE0E1B9D814900A045F3 /* FinanceViewController.m */; };
-		0148DE181B9D814900A045F3 /* FunddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0148DE101B9D814900A045F3 /* FunddViewController.m */; };
 		0148DE191B9D814900A045F3 /* MainBusinessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0148DE121B9D814900A045F3 /* MainBusinessViewController.m */; };
 		0148DE651B9D83F100A045F3 /* LineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0148DE491B9D83F100A045F3 /* LineChartView.m */; };
 		0148DE661B9D83F100A045F3 /* PieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0148DE4B1B9D83F100A045F3 /* PieChartView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -391,8 +390,6 @@
 		0148DE0C1B9D814900A045F3 /* DiagnoseContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiagnoseContentView.m; sourceTree = "<group>"; };
 		0148DE0D1B9D814900A045F3 /* FinanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinanceViewController.h; sourceTree = "<group>"; };
 		0148DE0E1B9D814900A045F3 /* FinanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinanceViewController.m; sourceTree = "<group>"; };
-		0148DE0F1B9D814900A045F3 /* FunddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunddViewController.h; sourceTree = "<group>"; };
-		0148DE101B9D814900A045F3 /* FunddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FunddViewController.m; sourceTree = "<group>"; };
 		0148DE111B9D814900A045F3 /* MainBusinessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainBusinessViewController.h; sourceTree = "<group>"; };
 		0148DE121B9D814900A045F3 /* MainBusinessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainBusinessViewController.m; sourceTree = "<group>"; };
 		0148DE481B9D83F100A045F3 /* LineChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineChartView.h; sourceTree = "<group>"; };
@@ -905,8 +902,6 @@
 				0148DE0C1B9D814900A045F3 /* DiagnoseContentView.m */,
 				0148DE0D1B9D814900A045F3 /* FinanceViewController.h */,
 				0148DE0E1B9D814900A045F3 /* FinanceViewController.m */,
-				0148DE0F1B9D814900A045F3 /* FunddViewController.h */,
-				0148DE101B9D814900A045F3 /* FunddViewController.m */,
 				0148DE111B9D814900A045F3 /* MainBusinessViewController.h */,
 				0148DE121B9D814900A045F3 /* MainBusinessViewController.m */,
 			);
@@ -1289,7 +1284,6 @@
 				011B850B1B0DBE1F003005BC /* UINavigationItem+CustomBackButton.m in Sources */,
 				01D8DA3A1B253E4F0033956E /* IdxQuoteCellViewModel.m in Sources */,
 				01B541951B3A918200AF5C05 /* TrendLineViewModel.m in Sources */,
-				0148DE181B9D814900A045F3 /* FunddViewController.m in Sources */,
 				0113876F1B671E8900747585 /* BDAnnouncementDetail.m in Sources */,
 				011B84A21B0DBC57003005BC /* BDChannel.m in Sources */,
 				0148DE711B9D83F100A045F3 /* SCTool.m in Sources */,

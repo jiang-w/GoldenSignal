@@ -110,6 +110,12 @@ static NSString *tableCellIdentifier = @"NewsListCell";
             [_label removeFromSuperview];
         }
     }
+    else {
+        if (_codes.count == 0 && _vm.newsList.count == 0) {
+            [self.tableView addSubview:_label];
+            _label.text = @"此栏目近期没有相关的数据";
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -174,7 +180,7 @@ static NSString *tableCellIdentifier = @"NewsListCell";
         dispatch_sync(dispatch_get_main_queue(), ^{
             _label.text = @"";
             [_label removeFromSuperview];
-            [self getRequestDataResource];
+//            [self getRequestDataResource];
             
             [self.tableView reloadData];
             [self.tableView.header endRefreshing];
@@ -190,7 +196,7 @@ static NSString *tableCellIdentifier = @"NewsListCell";
         dispatch_sync(dispatch_get_main_queue(), ^{
             _label.text = @"";
             [_label removeFromSuperview];
-            [self getRequestDataResource];
+//            [self getRequestDataResource];
             [self.tableView reloadData];
             [self.tableView.footer endRefreshing];
         });

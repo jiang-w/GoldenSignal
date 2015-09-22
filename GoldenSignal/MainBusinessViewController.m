@@ -143,13 +143,15 @@
         [sayView addSubview:stateLabel];
         
         UILabel *titleLabel = [[UILabel alloc]init];
-        titleLabel.frame = CGRectMake(45+150*(col-1), 0+20*(row-1), 200, 15);
+        titleLabel.frame = CGRectMake(45+150*(col-1), 0+20*(row-1), 120, 15);
 //        titleLabel.backgroundColor = [UIColor purpleColor];
         titleLabel.font = [UIFont systemFontOfSize:12];
         [sayView addSubview:titleLabel];
         titleLabel.text = [(BDDiagnoseModel *)_dataArray[i-1] BIZ_NAME_NORM];
+        titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         DEBUGLog(@">>%@",titleLabel.text);
     }
+    
     //}
     //
     //_content	__NSCFString *	@"公司2015-06-30财报显示：\r业务收入91.03%来自于钢铁业，贡献收入2094008.31万元，毛利率6.05%，同比增长-16.03%；业务收入8.97%来自于其他业务，贡献收入206383.99万元，毛利率0.45%。\r毛利率最高的是钢铁业，达到6.05%，贡献收入2094008.31万元。"	0x00007fc091de7280
@@ -159,8 +161,15 @@
     //unscrambleLabel.backgroundColor = [UIColor yellowColor];
     unscrambleLabel.numberOfLines = 0;
     unscrambleLabel.font = [UIFont systemFontOfSize:13];
-    unscrambleLabel.lineBreakMode = UILineBreakModeCharacterWrap;
-    NSString *DECStr = [(BDDiagnoseModel *)_dataArray2[0] DEC];
+    unscrambleLabel.lineBreakMode = NSLineBreakByCharWrapping;
+    
+    NSString *DECStr = nil;
+    if (_dataArray2.count != 0 ) {
+        DECStr = [(BDDiagnoseModel *)_dataArray2[0] DEC];
+    } else {
+        DECStr = @"暂无相关描述信息";
+    }
+    
     DECStr = [DECStr stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     DECStr = [DECStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     unscrambleLabel.text = DECStr;

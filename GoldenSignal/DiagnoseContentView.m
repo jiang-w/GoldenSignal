@@ -10,7 +10,6 @@
 #import <Masonry.h>
 #import <PPiFlatSegmentedControl.h>
 
-#import "FunddViewController.h"//资金
 #import "FinanceViewController.h"//财务
 #import "MainBusinessViewController.h"//主营
 #import "ApproveViewController.h"//认同
@@ -25,7 +24,7 @@
 @property (nonatomic, assign) NSInteger infoTabIndex;
 
 
-@property (nonatomic, strong) FunddViewController *fundView;//资金视图
+
 @property (nonatomic, strong) FinanceViewController *financeView;//财务视图
 @property (nonatomic, strong) MainBusinessViewController *mbView;//主营视图
 @property (nonatomic, strong) ApproveViewController *approveView;//认同视图

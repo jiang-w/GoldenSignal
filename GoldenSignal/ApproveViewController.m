@@ -97,7 +97,7 @@
 //    unscrambleLabel.backgroundColor = [UIColor yellowColor];
     unscrambleLabel.numberOfLines = 0;
     unscrambleLabel.font = [UIFont systemFontOfSize:13];
-    unscrambleLabel.lineBreakMode = UILineBreakModeCharacterWrap;
+    unscrambleLabel.lineBreakMode = NSLineBreakByCharWrapping;
     for (BDDiagnoseModel * dModel in _dataArray2) {
         NSString *DECStr = dModel.DES;
         DECStr = [DECStr stringByReplacingOccurrencesOfString:@"\r" withString:@""];

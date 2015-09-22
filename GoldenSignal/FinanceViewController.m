@@ -333,13 +333,19 @@
 //    unscrambleLabel.backgroundColor = [UIColor yellowColor];
     unscrambleLabel.numberOfLines = 0;
     unscrambleLabel.font = [UIFont systemFontOfSize:13];
-    unscrambleLabel.lineBreakMode = UILineBreakModeCharacterWrap;
-    for (BDDiagnoseModel * dModel in _dataArray2) {
-        NSString *DECStr = dModel.DES;
-        DECStr = [DECStr stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-        DECStr = [DECStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        unscrambleLabel.text = DECStr;
+    unscrambleLabel.lineBreakMode = NSLineBreakByCharWrapping;
+    //赋值
+    NSString *DECStr = nil;
+    if (_dataArray2.count != 0) {
+        for (BDDiagnoseModel * dModel in _dataArray2) {
+            DECStr = dModel.DES;
+            DECStr = [DECStr stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+            DECStr = [DECStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        }
+    } else {
+        DECStr = @"暂无相关描述信息";
     }
+    unscrambleLabel.text = DECStr;
     _desLblHeight = [self calcHightWithString:unscrambleLabel];
     unscrambleLabel.frame = CGRectMake(10, 230, self.view.frame.size.width-20, _desLblHeight);
     [self.baseView addSubview:unscrambleLabel];
