@@ -181,6 +181,7 @@ static NSString *tableCellIdentifier = @"NewsListCell";
             _label.text = @"";
             [_label removeFromSuperview];
 //            [self getRequestDataResource];
+            [self informationLabel];
             
             [self.tableView reloadData];
             [self.tableView.header endRefreshing];
@@ -197,6 +198,8 @@ static NSString *tableCellIdentifier = @"NewsListCell";
             _label.text = @"";
             [_label removeFromSuperview];
 //            [self getRequestDataResource];
+            [self informationLabel];
+            
             [self.tableView reloadData];
             [self.tableView.footer endRefreshing];
         });
