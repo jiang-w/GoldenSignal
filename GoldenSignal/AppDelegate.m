@@ -13,6 +13,9 @@
 #import "StkDetailViewController.h"
 #import "IdxDetailViewController.h"
 #import "BDStockPoolInfoService.h"
+#import "BDNetworkService.h"
+#import <MBProgressHUD.h>
+#import <Masonry.h>
 
 @implementation AppDelegate
 {
@@ -43,6 +46,8 @@
      addObserver:self selector:@selector(pushStockViewController:) name:KEYBOARD_WIZARD_NOTIFICATION object:nil];
     
     checkTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(checkConnected) userInfo:nil repeats:YES];
+    
+    [self observeNetworkStatus];
     
     return YES;
 }
@@ -121,6 +126,26 @@
     if (!service.isConnected) {
         [service connect];
     }
+}
+
+- (void)observeNetworkStatus {
+    BDNetworkService *network = [BDNetworkService sharedInstance];
+    @weakify(self);
+    [RACObserve(network, networkStatus) subscribeNext:^(id x) {
+        @strongify(self);
+        NetworkStatus status = [x intValue];
+        if (status == NotReachable) {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.window animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = @"连接失败，请检查网络设置";
+            hud.labelFont = [UIFont systemFontOfSize:11];
+
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [MBProgressHUD hideHUDForView:self.window animated:YES];
+            });
+        }
+    }];
 }
 
 @end
