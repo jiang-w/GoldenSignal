@@ -111,7 +111,7 @@ static NSString *tableCellIdentifier = @"NewsListCell";
         }
     }
     else {
-        if (_codes.count == 0 && _vm.newsList.count == 0) {
+        if (_vm.newsList.count == 0) {
             [self.tableView addSubview:_label];
             _label.text = @"此栏目近期没有相关的数据";
         }
