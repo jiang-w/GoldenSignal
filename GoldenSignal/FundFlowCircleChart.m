@@ -17,6 +17,8 @@
 @property(nonatomic, strong) NSMutableArray* layers;
 @property(nonatomic, strong) UILabel *title;
 @property(nonatomic, strong) UIView *circle;
+@property(nonatomic, strong) UILabel *flowInLabel;
+@property(nonatomic, strong) UILabel *flowOutLabel;
 
 @end
 
@@ -35,7 +37,7 @@
         _layers = [NSMutableArray array];
         [self setSubView];
         
-        _propertyUpdateQueue = dispatch_queue_create("TrendLineUpdate", nil);
+        _propertyUpdateQueue = dispatch_queue_create("FundFlowUpdate", nil);
         _service = [BDQuotationService sharedInstance];
 
         [[NSNotificationCenter defaultCenter]
@@ -63,12 +65,18 @@
             }
             
             if (changed && _fundFlowIn !=0 && _fundFlowOut != 0) {
-                for (CALayer *layer in self.layers) {
-                    [layer removeFromSuperlayer];
-                }
-                [self.layers removeAllObjects];
-                
-                [self strokeCircle];
+                __weak FundFlowCircleChart *weakSelf = self;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakSelf.flowInLabel.text = [NSString stringWithFormat:@"%.2f%%", _fundFlowIn / (_fundFlowIn + _fundFlowOut) * 100];
+                    weakSelf.flowOutLabel.text = [NSString stringWithFormat:@"%.2f%%", _fundFlowOut / (_fundFlowIn + _fundFlowOut) * 100];
+                    
+                    for (CALayer *layer in weakSelf.layers) {
+                        [layer removeFromSuperlayer];
+                    }
+                    [weakSelf.layers removeAllObjects];
+                    
+                    [weakSelf strokeCircle];
+                });
             }
         });
     }
@@ -107,6 +115,24 @@
         make.top.equalTo(self.title.mas_bottom).offset(10);
         make.height.equalTo(self.circle.mas_width);
         make.centerX.equalTo(self);
+        make.bottom.equalTo(self).offset(-10);
+    }];
+    
+    self.flowInLabel = [[UILabel alloc] init];
+    self.flowInLabel.textColor = [UIColor redColor];
+    self.flowInLabel.font = [UIFont boldSystemFontOfSize:14];
+    [self addSubview:self.flowInLabel];
+    [self.flowInLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).offset(30);
+        make.bottom.equalTo(self).offset(-10);
+    }];
+    
+    self.flowOutLabel = [[UILabel alloc] init];
+    self.flowOutLabel.textColor = [UIColor greenColor];
+    self.flowOutLabel.font = [UIFont boldSystemFontOfSize:14];
+    [self addSubview:self.flowOutLabel];
+    [self.flowOutLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self).offset(-30);
         make.bottom.equalTo(self).offset(-10);
     }];
 }
