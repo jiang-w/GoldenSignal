@@ -12,11 +12,16 @@
 #include <net/if_dl.h>
 #import "BDNetworkService.h"
 #import <AFNetworking.h>
+#import <ReactiveCocoa.h>
+
+@interface BDNetworkService()
+
+@property(nonatomic, strong) AFHTTPRequestOperationManager *manager;
+@property(nonatomic, strong) Reachability *reachability;
+
+@end
 
 @implementation BDNetworkService
-{
-    AFHTTPRequestOperationManager *_manager;
-}
 
 + (instancetype) sharedInstance {
     static dispatch_once_t  onceToken;
@@ -24,39 +29,71 @@
     
     dispatch_once(&onceToken, ^{
         sharedInstance = [[BDNetworkService alloc] init];
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    });
+    return sharedInstance;
+}
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.reachability = Reachability.reachabilityForInternetConnection;
+        self.manager = [AFHTTPRequestOperationManager manager];
         // 设置请求格式
-        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        self.manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         // 设置返回格式
-        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         // 检测网络状态
-        NSOperationQueue *operationQueue = manager.operationQueue;
-        [manager.reachabilityManager startMonitoring];
-        [manager.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-            NSLog(@"Network Status: %@", AFStringFromNetworkReachabilityStatus(status));
-            switch (status) {
-                case AFNetworkReachabilityStatusReachableViaWWAN:
-                    sharedInstance->_networkStatus = wwan;
-                    [operationQueue setSuspended:NO];
-                    break;
-                case AFNetworkReachabilityStatusReachableViaWiFi:
-                    sharedInstance->_networkStatus = wifi;
-                    [operationQueue setSuspended:NO];
-                    break;
-                case AFNetworkReachabilityStatusNotReachable:
-                    sharedInstance->_networkStatus = disconnection;
-                    [operationQueue setSuspended:YES];
-                    break;
-                default:
-                    sharedInstance->_networkStatus = unknown;
-                    [operationQueue setSuspended:YES];
-                    break;
+//        __weak BDNetworkService *weakSelf = self;
+//        [self.manager.reachabilityManager startMonitoring];
+//        [self.manager.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+//            NSLog(@"Network Status: %@", AFStringFromNetworkReachabilityStatus(status));
+//            switch (status) {
+//                case AFNetworkReachabilityStatusReachableViaWWAN:
+//                    [weakSelf setValue:@(wwan) forKey:@"networkStatus"];
+//                    [weakSelf.manager.operationQueue setSuspended:NO];
+//                    break;
+//                case AFNetworkReachabilityStatusReachableViaWiFi:
+//                    [weakSelf setValue:@(wifi) forKey:@"networkStatus"];
+//                    [weakSelf.manager.operationQueue setSuspended:NO];
+//                    break;
+//                case AFNetworkReachabilityStatusNotReachable:
+//                    [weakSelf setValue:@(disconnection) forKey:@"networkStatus"];
+//                    [weakSelf.manager.operationQueue setSuspended:YES];
+//                    break;
+//                default:
+//                    [weakSelf setValue:@(unknown) forKey:@"networkStatus"];
+//                    [weakSelf.manager.operationQueue setSuspended:YES];
+//                    break;
+//            }
+//        }];
+        
+        
+        RACSignal *statusSignal = [[[[NSNotificationCenter.defaultCenter
+                                      rac_addObserverForName:kReachabilityChangedNotification object:nil]
+                                     map:^id(NSNotification *notification) {
+                                         return @([notification.object currentReachabilityStatus]);
+                                     }]
+                                    startWith:@(self.reachability.currentReachabilityStatus)]
+                                   distinctUntilChanged];
+        RAC(self, networkStatus) = statusSignal;
+        
+        @weakify(self);
+        [statusSignal subscribeNext:^(id x) {
+            NetworkStatus status = [x intValue];
+            if (status == NotReachable) {
+                [self.manager.operationQueue setSuspended:YES];
+            }
+            else {
+                [self.manager.operationQueue setSuspended:NO];
             }
         }];
         
-        sharedInstance->_manager = manager;
-    });
-    return sharedInstance;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            @strongify(self);
+            [self.reachability startNotifier];
+        });
+    }
+    return self;
 }
 
 - (void)asyncPostRequest:(NSString *)urlString parameters:(NSDictionary *)parameters

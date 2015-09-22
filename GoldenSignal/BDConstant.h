@@ -71,12 +71,12 @@ CG_INLINE CGMargin CGMarginMake(CGFloat top, CGFloat right, CGFloat bottom, CGFl
 }
 static const CGMargin CGMarginZero = {0, 0, 0, 0};
 
-typedef enum {
-    unknown = -1,
-    disconnection = 0,
-    wwan = 1,
-    wifi = 2
-}NetworkStatus;
+//typedef enum {
+//    unknown = -1,
+//    disconnection = 0,
+//    wwan = 1,
+//    wifi = 2
+//}NetworkStatus;
 
 typedef enum {
     ok = 1,

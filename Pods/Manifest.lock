@@ -38,6 +38,7 @@ PODS:
     - FontAwesome+iOS
   - PPiFlatSegmentedControl (1.3.3):
     - PPiAwesomeButton
+  - Reachability (3.2)
   - ReactiveCocoa (2.5):
     - ReactiveCocoa/UI (= 2.5)
   - ReactiveCocoa/Core (2.5):
@@ -57,6 +58,7 @@ DEPENDENCIES:
   - MBProgressHUD
   - MJRefresh
   - PPiFlatSegmentedControl (= 1.3.3)
+  - Reachability
   - ReactiveCocoa
   - RegexKitLite
 
@@ -73,6 +75,7 @@ SPEC CHECKSUMS:
   MJRefresh: 2eaa3fd8f67fbb86497840fb0167446f7eb61dc7
   PPiAwesomeButton: 16f7279582fd36f65186b24b83ef876217363eb5
   PPiFlatSegmentedControl: 3dba85e4b94e7479139905b1869352f0e3b754c4
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
 
