@@ -58,6 +58,16 @@
         if (minPrice == 0 || kLine.low < minPrice) {
             minPrice = kLine.low;
         }
+        double ma5 = [self calcAvgPriceForDate:kLine.date andMA:5];
+        double ma10 = [self calcAvgPriceForDate:kLine.date andMA:10];
+        double ma20 = [self calcAvgPriceForDate:kLine.date andMA:20];
+        NSArray *arr = @[@(maxPrice), @(minPrice), @(ma5), @(ma10), @(ma20)];
+        NSArray *sortedArr = [arr sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            NSComparisonResult result = [obj1 compare:obj2];
+            return result;
+        }];
+        minPrice = [sortedArr.firstObject doubleValue];
+        maxPrice = [sortedArr.lastObject doubleValue];
     }
     return (PriceRange){minPrice, maxPrice};
 }
