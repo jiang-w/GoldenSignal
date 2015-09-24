@@ -75,11 +75,9 @@
     _indexArray2 = [service getSecuCodesBySectId:101202 andCodes:nil sortByIndicateName:nil ascending:_asc];
 
     if (_indexArray.count > 0 || _indexArray2.count >0) {
-        
         [_tableVieww performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
     }
-    
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 
@@ -131,6 +129,15 @@
 
 #pragma mark -- delegate 各个分区头部
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section == 0) {
+        if (_indexArray == nil || _indexArray.count == 0) {
+            return 0;
+        }
+    } else {
+        if (_indexArray2 == nil || _indexArray2.count == 0) {
+            return 0;
+        }
+    }
     return 20;
 }
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section{
@@ -141,16 +148,16 @@
     [headView addSubview:tempLabel];
     if (section == 0) {
         tempLabel.text = @"常用指数";
-        if (_indexArray.count == 0){
-            tempLabel.text = @"";
-            headView.hidden = YES;
-        }
+//        if (_indexArray.count == 0){
+//            tempLabel.text = @"";
+//            headView.hidden = YES;
+//        }
     } else if (section == 1){
         tempLabel.text = @"行业指数";
-        if (_indexArray2.count == 0){
-            tempLabel.text = @"";
-            headView.hidden = YES;
-        }
+//        if (_indexArray2.count == 0){
+//            tempLabel.text = @"";
+//            headView.hidden = YES;
+//        }
     }
     view.tintColor = [UIColor blackColor];
     tempLabel.font = [UIFont systemFontOfSize:14];
