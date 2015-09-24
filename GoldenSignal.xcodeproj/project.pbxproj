@@ -845,8 +845,6 @@
 		011B850C1B0DBE56003005BC /* Markets */ = {
 			isa = PBXGroup;
 			children = (
-				011B852D1B0DBEFE003005BC /* F10ViewController.h */,
-				011B852E1B0DBEFE003005BC /* F10ViewController.m */,
 				011B85341B0DBEFE003005BC /* KeyboardWizardViewController.h */,
 				011B85351B0DBEFE003005BC /* KeyboardWizardViewController.m */,
 				011B85411B0DBEFE003005BC /* SectCollectionViewController.h */,
@@ -1009,6 +1007,8 @@
 				01A46F261B4CFC7E000CD7A5 /* RankingListCell.h */,
 				01A46F271B4CFC7E000CD7A5 /* RankingListCell.m */,
 				01A46F281B4CFC7E000CD7A5 /* RankingListCell.xib */,
+				011B852D1B0DBEFE003005BC /* F10ViewController.h */,
+				011B852E1B0DBEFE003005BC /* F10ViewController.m */,
 			);
 			name = Detail;
 			sourceTree = "<group>";

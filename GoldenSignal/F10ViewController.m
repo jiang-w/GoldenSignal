@@ -27,7 +27,7 @@
     }
     
     if (code) {
-        NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://f10.chinabigdata.com/default.htm?c=%@&ql=1", [code lowercaseString]]];
+        NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://f10.chinabigdata.com/default.htm?c=%@&ql=1&istophide=1", [code lowercaseString]]];
         NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
         [self.webView loadRequest:request];
     }
