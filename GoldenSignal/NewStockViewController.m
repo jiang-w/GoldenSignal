@@ -76,7 +76,8 @@
     
     DEBUGLog(@"Debug:ary>%@",_dataArray);;
     if (_dataArray == nil) {
-        [self creatOtherView];
+        [self performSelectorOnMainThread:@selector(creatOtherView) withObject:nil waitUntilDone:YES];
+//        [self creatOtherView];
         return;
     }else {
         [self resolveArrays];

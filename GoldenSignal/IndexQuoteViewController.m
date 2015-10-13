@@ -170,9 +170,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
-        return _indexArray.count;
+        return [_indexArray count] ? _indexArray.count : 0;
     } else {
-        return _indexArray2.count;
+        return [_indexArray2 count] ? _indexArray2.count : 0;
     }
 }
 

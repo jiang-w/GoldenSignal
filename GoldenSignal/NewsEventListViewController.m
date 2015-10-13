@@ -211,7 +211,8 @@ static NSString *tableCellIdentifier = @"NewsListCell";
     NSString *op = notification.userInfo[@"op"];
     if ([op isEqualToString:@"add"] || [op isEqualToString:@"remove"]) {
         _codes = [BDStockPool sharedInstance].codes;
-        [self getRequestDataResource];
+        if (_tagId == nil)
+            [self getRequestDataResource];
 //        if (_tagId == nil) {
 //            dispatch_async(loadDataQueue, ^{
 //                _codes = [BDStockPool sharedInstance].codes;
