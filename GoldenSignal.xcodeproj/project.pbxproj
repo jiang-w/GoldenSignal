@@ -97,7 +97,6 @@
 		011B85691B0DC981003005BC /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 011B85631B0DC981003005BC /* libboost_system.a */; };
 		011B856A1B0DC981003005BC /* libboost_thread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 011B85641B0DC981003005BC /* libboost_thread.a */; };
 		011B856B1B0DC981003005BC /* libquickfast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 011B85651B0DC981003005BC /* libquickfast.a */; };
-		011B856C1B0DC981003005BC /* libquote.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 011B85661B0DC981003005BC /* libquote.a */; };
 		011B856E1B0DCDAB003005BC /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 011B856D1B0DCDAB003005BC /* libxml2.dylib */; };
 		0129EF5A1B1FE73F00690920 /* QuoteHomeKLineView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0129EF591B1FE73F00690920 /* QuoteHomeKLineView.xib */; };
 		0129EF5D1B1FED4B00690920 /* QuoteHomeKLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0129EF5C1B1FED4B00690920 /* QuoteHomeKLineView.m */; };
@@ -123,6 +122,18 @@
 		0148DE701B9D83F100A045F3 /* SCPieChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0148DE601B9D83F100A045F3 /* SCPieChartDataItem.m */; };
 		0148DE711B9D83F100A045F3 /* SCTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0148DE621B9D83F100A045F3 /* SCTool.m */; };
 		0148DE721B9D83F100A045F3 /* UICountingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0148DE641B9D83F100A045F3 /* UICountingLabel.m */; };
+		014948701BCE115E002D60A2 /* BDMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948551BCE115E002D60A2 /* BDMessage.cpp */; settings = {ASSET_TAGS = (); }; };
+		014948711BCE115E002D60A2 /* BookPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948571BCE115E002D60A2 /* BookPoint.cpp */; settings = {ASSET_TAGS = (); }; };
+		014948721BCE115E002D60A2 /* Context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948591BCE115E002D60A2 /* Context.cpp */; settings = {ASSET_TAGS = (); }; };
+		014948731BCE115E002D60A2 /* FastComm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0149485C1BCE115E002D60A2 /* FastComm.cpp */; settings = {ASSET_TAGS = (); }; };
+		014948741BCE115E002D60A2 /* GroupBookPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0149485E1BCE115E002D60A2 /* GroupBookPoint.cpp */; settings = {ASSET_TAGS = (); }; };
+		014948751BCE115E002D60A2 /* DebugLog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948611BCE115E002D60A2 /* DebugLog.cpp */; settings = {ASSET_TAGS = (); }; };
+		014948761BCE115E002D60A2 /* MessageBookPointConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948631BCE115E002D60A2 /* MessageBookPointConverter.cpp */; settings = {ASSET_TAGS = (); }; };
+		014948771BCE115E002D60A2 /* MessageBroker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948651BCE115E002D60A2 /* MessageBroker.cpp */; settings = {ASSET_TAGS = (); }; };
+		014948781BCE115E002D60A2 /* ScalarBookPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948671BCE115E002D60A2 /* ScalarBookPoint.cpp */; settings = {ASSET_TAGS = (); }; };
+		014948791BCE115E002D60A2 /* SerialsBookPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948691BCE115E002D60A2 /* SerialsBookPoint.cpp */; settings = {ASSET_TAGS = (); }; };
+		0149487A1BCE115E002D60A2 /* SortBookPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0149486C1BCE115E002D60A2 /* SortBookPoint.cpp */; settings = {ASSET_TAGS = (); }; };
+		0149487B1BCE115E002D60A2 /* TemplateFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0149486E1BCE115E002D60A2 /* TemplateFinder.cpp */; settings = {ASSET_TAGS = (); }; };
 		014FF3891B1D5276007DB608 /* QuoteHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014FF3871B1D5276007DB608 /* QuoteHomeViewController.m */; };
 		014FF38A1B1D5276007DB608 /* QuoteHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 014FF3881B1D5276007DB608 /* QuoteHomeViewController.xib */; };
 		014FF3921B1DAE31007DB608 /* QuoteHomeTrendChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 014FF3911B1DAE31007DB608 /* QuoteHomeTrendChart.m */; };
@@ -421,6 +432,32 @@
 		0148DE621B9D83F100A045F3 /* SCTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTool.m; sourceTree = "<group>"; };
 		0148DE631B9D83F100A045F3 /* UICountingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICountingLabel.h; sourceTree = "<group>"; };
 		0148DE641B9D83F100A045F3 /* UICountingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICountingLabel.m; sourceTree = "<group>"; };
+		014948551BCE115E002D60A2 /* BDMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BDMessage.cpp; sourceTree = "<group>"; };
+		014948561BCE115E002D60A2 /* BDMessage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BDMessage.hpp; sourceTree = "<group>"; };
+		014948571BCE115E002D60A2 /* BookPoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BookPoint.cpp; sourceTree = "<group>"; };
+		014948581BCE115E002D60A2 /* BookPoint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BookPoint.hpp; sourceTree = "<group>"; };
+		014948591BCE115E002D60A2 /* Context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Context.cpp; sourceTree = "<group>"; };
+		0149485A1BCE115E002D60A2 /* Context.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Context.hpp; sourceTree = "<group>"; };
+		0149485B1BCE115E002D60A2 /* Endianness.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Endianness.hpp; sourceTree = "<group>"; };
+		0149485C1BCE115E002D60A2 /* FastComm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FastComm.cpp; sourceTree = "<group>"; };
+		0149485D1BCE115E002D60A2 /* FastComm.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FastComm.hpp; sourceTree = "<group>"; };
+		0149485E1BCE115E002D60A2 /* GroupBookPoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroupBookPoint.cpp; sourceTree = "<group>"; };
+		0149485F1BCE115E002D60A2 /* GroupBookPoint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GroupBookPoint.hpp; sourceTree = "<group>"; };
+		014948611BCE115E002D60A2 /* DebugLog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DebugLog.cpp; sourceTree = "<group>"; };
+		014948621BCE115E002D60A2 /* DebugLog.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DebugLog.hpp; sourceTree = "<group>"; };
+		014948631BCE115E002D60A2 /* MessageBookPointConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MessageBookPointConverter.cpp; sourceTree = "<group>"; };
+		014948641BCE115E002D60A2 /* MessageBookPointConverter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MessageBookPointConverter.hpp; sourceTree = "<group>"; };
+		014948651BCE115E002D60A2 /* MessageBroker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MessageBroker.cpp; sourceTree = "<group>"; };
+		014948661BCE115E002D60A2 /* MessageBroker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MessageBroker.hpp; sourceTree = "<group>"; };
+		014948671BCE115E002D60A2 /* ScalarBookPoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScalarBookPoint.cpp; sourceTree = "<group>"; };
+		014948681BCE115E002D60A2 /* ScalarBookPoint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ScalarBookPoint.hpp; sourceTree = "<group>"; };
+		014948691BCE115E002D60A2 /* SerialsBookPoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SerialsBookPoint.cpp; sourceTree = "<group>"; };
+		0149486A1BCE115E002D60A2 /* SerialsBookPoint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SerialsBookPoint.hpp; sourceTree = "<group>"; };
+		0149486B1BCE115E002D60A2 /* SocketBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SocketBuffer.hpp; sourceTree = "<group>"; };
+		0149486C1BCE115E002D60A2 /* SortBookPoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SortBookPoint.cpp; sourceTree = "<group>"; };
+		0149486D1BCE115E002D60A2 /* SortBookPoint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SortBookPoint.hpp; sourceTree = "<group>"; };
+		0149486E1BCE115E002D60A2 /* TemplateFinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TemplateFinder.cpp; sourceTree = "<group>"; };
+		0149486F1BCE115E002D60A2 /* TemplateFinder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TemplateFinder.hpp; sourceTree = "<group>"; };
 		014FF3861B1D5276007DB608 /* QuoteHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteHomeViewController.h; sourceTree = "<group>"; };
 		014FF3871B1D5276007DB608 /* QuoteHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuoteHomeViewController.m; sourceTree = "<group>"; };
 		014FF3881B1D5276007DB608 /* QuoteHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuoteHomeViewController.xib; sourceTree = "<group>"; };
@@ -547,7 +584,6 @@
 				011B85681B0DC981003005BC /* libboost_filesystem.a in Frameworks */,
 				011B85691B0DC981003005BC /* libboost_system.a in Frameworks */,
 				011B856B1B0DC981003005BC /* libquickfast.a in Frameworks */,
-				011B856C1B0DC981003005BC /* libquote.a in Frameworks */,
 				A616444470EDEE9488217D26 /* libPods-GoldenSignal.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -585,6 +621,7 @@
 		011B84321B0DB51F003005BC /* GoldenSignal */ = {
 			isa = PBXGroup;
 			children = (
+				014948541BCE115E002D60A2 /* quote */,
 				011B84701B0DBB0C003005BC /* Service */,
 				011B848F1B0DBBFC003005BC /* Model */,
 				011B84C11B0DBCFB003005BC /* ViewModel */,
@@ -904,6 +941,47 @@
 				0148DE121B9D814900A045F3 /* MainBusinessViewController.m */,
 			);
 			name = "个股诊断";
+			sourceTree = "<group>";
+		};
+		014948541BCE115E002D60A2 /* quote */ = {
+			isa = PBXGroup;
+			children = (
+				014948551BCE115E002D60A2 /* BDMessage.cpp */,
+				014948561BCE115E002D60A2 /* BDMessage.hpp */,
+				014948571BCE115E002D60A2 /* BookPoint.cpp */,
+				014948581BCE115E002D60A2 /* BookPoint.hpp */,
+				014948591BCE115E002D60A2 /* Context.cpp */,
+				0149485A1BCE115E002D60A2 /* Context.hpp */,
+				0149485B1BCE115E002D60A2 /* Endianness.hpp */,
+				0149485C1BCE115E002D60A2 /* FastComm.cpp */,
+				0149485D1BCE115E002D60A2 /* FastComm.hpp */,
+				0149485E1BCE115E002D60A2 /* GroupBookPoint.cpp */,
+				0149485F1BCE115E002D60A2 /* GroupBookPoint.hpp */,
+				014948601BCE115E002D60A2 /* logging */,
+				014948631BCE115E002D60A2 /* MessageBookPointConverter.cpp */,
+				014948641BCE115E002D60A2 /* MessageBookPointConverter.hpp */,
+				014948651BCE115E002D60A2 /* MessageBroker.cpp */,
+				014948661BCE115E002D60A2 /* MessageBroker.hpp */,
+				014948671BCE115E002D60A2 /* ScalarBookPoint.cpp */,
+				014948681BCE115E002D60A2 /* ScalarBookPoint.hpp */,
+				014948691BCE115E002D60A2 /* SerialsBookPoint.cpp */,
+				0149486A1BCE115E002D60A2 /* SerialsBookPoint.hpp */,
+				0149486B1BCE115E002D60A2 /* SocketBuffer.hpp */,
+				0149486C1BCE115E002D60A2 /* SortBookPoint.cpp */,
+				0149486D1BCE115E002D60A2 /* SortBookPoint.hpp */,
+				0149486E1BCE115E002D60A2 /* TemplateFinder.cpp */,
+				0149486F1BCE115E002D60A2 /* TemplateFinder.hpp */,
+			);
+			path = quote;
+			sourceTree = "<group>";
+		};
+		014948601BCE115E002D60A2 /* logging */ = {
+			isa = PBXGroup;
+			children = (
+				014948611BCE115E002D60A2 /* DebugLog.cpp */,
+				014948621BCE115E002D60A2 /* DebugLog.hpp */,
+			);
+			path = logging;
 			sourceTree = "<group>";
 		};
 		01642F951B5DF0FE00438BDA /* NewsEvent */ = {
@@ -1265,6 +1343,7 @@
 				01A55BE21B5E490200224F7B /* InformationsTabViewController.m in Sources */,
 				011B848D1B0DBB83003005BC /* BDSectService.m in Sources */,
 				011B84DE1B0DBD4F003005BC /* StkScalarViewModel.m in Sources */,
+				0149487B1BCE115E002D60A2 /* TemplateFinder.cpp in Sources */,
 				011B846C1B0DBADB003005BC /* NSString+Utility.m in Sources */,
 				0148DE6B1B9D83F100A045F3 /* SCCircleChart.m in Sources */,
 				0148DE681B9D83F100A045F3 /* SCBarChart.m in Sources */,
@@ -1293,6 +1372,7 @@
 				0148DE171B9D814900A045F3 /* FinanceViewController.m in Sources */,
 				01B531061B5CE42700F9B891 /* BDSecuNewsList.m in Sources */,
 				0148DE131B9D814900A045F3 /* ApproveViewController.m in Sources */,
+				014948761BCE115E002D60A2 /* MessageBookPointConverter.cpp in Sources */,
 				0148DE191B9D814900A045F3 /* MainBusinessViewController.m in Sources */,
 				0148DE151B9D814900A045F3 /* BDDiagnoseModel.m in Sources */,
 				011B84B91B0DBCBA003005BC /* BDCustomTagCollection.m in Sources */,
@@ -1304,9 +1384,11 @@
 				015E17FB1B623409005FD389 /* BDReportDetail.m in Sources */,
 				011B85061B0DBE1F003005BC /* RootTabBarController.m in Sources */,
 				01D8A81A1B46849B0047BA64 /* KLineViewModel.m in Sources */,
+				014948791BCE115E002D60A2 /* SerialsBookPoint.cpp in Sources */,
 				0148DE6E1B9D83F100A045F3 /* SCLineChart.m in Sources */,
 				0148DE141B9D814900A045F3 /* BDDiagnoseContentService.m in Sources */,
 				011B84A31B0DBC57003005BC /* BDKLine.m in Sources */,
+				014948771BCE115E002D60A2 /* MessageBroker.cpp in Sources */,
 				01AE17BD1B4E23080064CB66 /* RankingListCellViewModel.m in Sources */,
 				0148DE6F1B9D83F100A045F3 /* SCPieChart.m in Sources */,
 				0148DE691B9D83F100A045F3 /* SCChart.m in Sources */,
@@ -1316,7 +1398,9 @@
 				014FF3921B1DAE31007DB608 /* QuoteHomeTrendChart.m in Sources */,
 				01A9614A1B4FC0FA00B705AD /* FundFlowCircleChart.m in Sources */,
 				01A46F291B4CFC7E000CD7A5 /* RankingListCell.m in Sources */,
+				014948741BCE115E002D60A2 /* GroupBookPoint.cpp in Sources */,
 				01AD748E1B3948CF006EC988 /* IdxScalarView.m in Sources */,
+				014948711BCE115E002D60A2 /* BookPoint.cpp in Sources */,
 				0148DE6A1B9D83F100A045F3 /* SCChartLabel.m in Sources */,
 				015B72161B5E71DA006DA827 /* BDNewsEventList.m in Sources */,
 				011B84C01B0DBCBA003005BC /* BDUserTicket.m in Sources */,
@@ -1326,7 +1410,9 @@
 				011B84A71B0DBC57003005BC /* BDSectInfo.m in Sources */,
 				011B84851B0DBB83003005BC /* BDCoreService.m in Sources */,
 				01A55BCC1B5E426800224F7B /* PortfolioMainViewController.m in Sources */,
+				014948751BCE115E002D60A2 /* DebugLog.cpp in Sources */,
 				01D8DA3E1B253F9C0033956E /* IdxQuoteViewCell.m in Sources */,
+				014948721BCE115E002D60A2 /* Context.cpp in Sources */,
 				011B84A61B0DBC57003005BC /* BDReportList.m in Sources */,
 				011B84391B0DB51F003005BC /* AppDelegate.m in Sources */,
 				0148DE6D1B9D83F100A045F3 /* SCGenericChart.m in Sources */,
@@ -1351,6 +1437,7 @@
 				011B846E1B0DBADB003005BC /* Stopwatch.m in Sources */,
 				0148DE161B9D814900A045F3 /* DiagnoseContentView.m in Sources */,
 				011B84881B0DBB83003005BC /* BDNetworkService.m in Sources */,
+				014948731BCE115E002D60A2 /* FastComm.cpp in Sources */,
 				011B855E1B0DBEFE003005BC /* SubDealView.m in Sources */,
 				01CA5C531B1EDF37003B824F /* QuoteHomeTrendView.m in Sources */,
 				011B84E51B0DBD4F003005BC /* SectCollectionViewModel.m in Sources */,
@@ -1368,12 +1455,15 @@
 				011B84BD1B0DBCBA003005BC /* BDSubDeal.m in Sources */,
 				01B541921B3A5A4100AF5C05 /* IdxDetailViewController.m in Sources */,
 				011B84BF1B0DBCBA003005BC /* BDUserInfo.m in Sources */,
+				014948701BCE115E002D60A2 /* BDMessage.cpp in Sources */,
 				011B84DC1B0DBD4F003005BC /* CustomTagsViewModel.m in Sources */,
 				011B846F1B0DBADB003005BC /* UIImageView+ImageLoading.m in Sources */,
 				01B4C70E1B3B9A0E002B1118 /* BDTradingDayService.m in Sources */,
 				011B85601B0DBEFE003005BC /* StockTrendView.m in Sources */,
 				011B854E1B0DBEFE003005BC /* StockPoolViewController.m in Sources */,
 				015E17F81B623384005FD389 /* ReportDetailViewController1.m in Sources */,
+				014948781BCE115E002D60A2 /* ScalarBookPoint.cpp in Sources */,
+				0149487A1BCE115E002D60A2 /* SortBookPoint.cpp in Sources */,
 				01AD74931B395789006EC988 /* IdxScalarViewModel.m in Sources */,
 				011B85231B0DBEA9003005BC /* NewsEventDetailViewController.m in Sources */,
 				011B848E1B0DBB83003005BC /* BDSecuNewsService.m in Sources */,
@@ -1458,11 +1548,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/GoldenSignal/quote";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
@@ -1496,11 +1588,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/GoldenSignal/quote";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
@@ -1532,7 +1626,7 @@
 					"\"${PODS_ROOT}/Headers/Public/RegexKitLite\"",
 					../lib/quickfast_1_4_0/src,
 					../lib/boost_1_53_0,
-					../lib/quote_new/src,
+					"$(SRCROOT)/GoldenSignal/quote",
 				);
 				INFOPLIST_FILE = GoldenSignal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1543,6 +1637,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = GoldenSignal;
 				PROVISIONING_PROFILE = "274f3f08-d595-4628-9a00-e6520018364b";
+				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
@@ -1573,7 +1668,7 @@
 					"\"${PODS_ROOT}/Headers/Public/RegexKitLite\"",
 					../lib/quickfast_1_4_0/src,
 					../lib/boost_1_53_0,
-					../lib/quote_new/src,
+					"$(SRCROOT)/GoldenSignal/quote",
 				);
 				INFOPLIST_FILE = GoldenSignal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1584,6 +1679,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = GoldenSignal;
 				PROVISIONING_PROFILE = "274f3f08-d595-4628-9a00-e6520018364b";
+				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
@@ -1604,6 +1700,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoldenSignal.app/GoldenSignal";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/GoldenSignal/quote";
 			};
 			name = Debug;
 		};
@@ -1619,6 +1716,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoldenSignal.app/GoldenSignal";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/GoldenSignal/quote";
 			};
 			name = Release;
 		};
