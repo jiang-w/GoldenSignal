@@ -75,12 +75,12 @@ static NSString * const reuseIdentifier = @"TitleTabCell";
 
 - (void)setSelectedStyleForCell:(TitleTabCell *)cell {
     cell.textLabel.textColor = [UIColor redColor];
-    cell.textLabel.font = [UIFont boldSystemFontOfSize:16];
+    cell.textLabel.font = [UIFont systemFontOfSize:16];
 }
 
 - (void)removeSelectedStyleForCell:(TitleTabCell *)cell {
     cell.textLabel.textColor = [UIColor blackColor];
-    cell.textLabel.font = [UIFont boldSystemFontOfSize:16];
+    cell.textLabel.font = [UIFont systemFontOfSize:16];
 }
 
 
