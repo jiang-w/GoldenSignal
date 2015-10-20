@@ -125,13 +125,20 @@
         }
         [_barArray addObject:bar];
     }
+    
+    while (_barArray.count < 5) {
+        BarView *bar = [[BarView alloc] init];
+        bar.grade = 0;
+        [_barArray insertObject:bar atIndex:0];
+    }
+    
     [self makeEqualWidthViews:_barArray inView:self.chart withMargin:margin andSpacing:20];
 }
 
 - (void)addLabels {
     NSArray *dateLabelArray = @[_date1, _date2, _date3, _date4, _date5];
-    for (int i = 0; i < _barArray.count; i++) {
-        BarView *bar = _barArray[i];
+    for (int i = 0; i < _valueArray.count; i++) {
+        BarView *bar = _barArray[_barArray.count - _valueArray.count + i];
         UILabel *label = [[UILabel alloc] init];
         [bar.superview addSubview:label];
         label.text = [NSString stringWithFormat:@"%.2f", [_valueArray[i] floatValue]];
@@ -150,8 +157,8 @@
                 make.centerX.equalTo(bar);
             }];
         }
-
-        UILabel *dateLabel = dateLabelArray[i];
+        
+        UILabel *dateLabel = dateLabelArray[dateLabelArray.count - _valueArray.count + i];
         dateLabel.text = _dateArray[i];
     }
 }
