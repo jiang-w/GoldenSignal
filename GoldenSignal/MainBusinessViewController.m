@@ -11,6 +11,7 @@
 #import "PieChartView.h"
 #import <Masonry.h>
 
+#define whiteDarkColor [[UIColor whiteColor]colorWithAlphaComponent:0.8]
 @interface MainBusinessViewController ()
 {
     NSMutableArray *_dataArray;
@@ -25,8 +26,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = RGB(22, 25, 30);
     self.baseView = [[UIView alloc]init];
+//    self.baseView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.baseView];
     [self.baseView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
@@ -54,7 +56,7 @@
         [self.view mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(self.view.frame.size.height - 449 +100);
         }];
-        self.view.backgroundColor = [UIColor whiteColor];
+        self.view.backgroundColor = RGB(22, 25, 30);
         [self noDataView];
         return;
     }
@@ -66,7 +68,7 @@
     UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
 //    titleLabel.backgroundColor = [UIColor blackColor];
     titleLabel.font = [UIFont boldSystemFontOfSize:13];
-    titleLabel.textColor = [UIColor blackColor];
+    titleLabel.textColor = whiteDarkColor;
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.text = @"主营业务构成";
     [self.baseView addSubview:titleLabel];
@@ -74,6 +76,7 @@
     UILabel *dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 30, 200, 20)];
     dateLabel.font = [UIFont systemFontOfSize:13];
     dateLabel.text = [NSString stringWithFormat:@" 截止日期：%@",[(BDDiagnoseModel *)_dataArray[0] END_DT]];
+    dateLabel.textColor = whiteDarkColor;
     [self.baseView addSubview:dateLabel];
     
     
@@ -136,16 +139,19 @@
         int col = i % 2 == 0 ? 2 : i%2;
         DEBUGLog(@">>%d,%d",row,col);
         
+        //!颜色块
         UILabel *stateLabel = [[UILabel alloc]init];
         stateLabel.frame = CGRectMake(20+150*(col-1), 0+20*(row-1), 20, 15);
         //stateLabel.backgroundColor = [UIColor yellowColor];
         stateLabel.backgroundColor = colorArray[i-1];
         [sayView addSubview:stateLabel];
         
+        //!说明标示
         UILabel *titleLabel = [[UILabel alloc]init];
         titleLabel.frame = CGRectMake(45+150*(col-1), 0+20*(row-1), 120, 15);
 //        titleLabel.backgroundColor = [UIColor purpleColor];
         titleLabel.font = [UIFont systemFontOfSize:12];
+        titleLabel.textColor = whiteDarkColor;
         [sayView addSubview:titleLabel];
         titleLabel.text = [(BDDiagnoseModel *)_dataArray[i-1] BIZ_NAME_NORM];
         titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -161,6 +167,7 @@
     //unscrambleLabel.backgroundColor = [UIColor yellowColor];
     unscrambleLabel.numberOfLines = 0;
     unscrambleLabel.font = [UIFont systemFontOfSize:13];
+    unscrambleLabel.textColor = whiteDarkColor;
     unscrambleLabel.lineBreakMode = NSLineBreakByCharWrapping;
     
     NSString *DECStr = nil;
@@ -202,6 +209,7 @@
     //    label.backgroundColor = [UIColor cyanColor];
     label.font = [UIFont systemFontOfSize:14];
     label.text = @"暂时没有数据";
+    label.textColor = whiteDarkColor;
     label.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:label];
 }

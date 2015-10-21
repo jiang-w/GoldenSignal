@@ -67,11 +67,12 @@
     for (int i=0; i<rowCount+1; i++) {
         SCChartLabel * label = [[SCChartLabel alloc] initWithFrame:CGRectMake(0.0,chartCavanHeight-i*levelHeight+5, UUYLabelwidth, UULabelHeight)];
 		label.text = [NSString stringWithFormat:@"%g",level * i+_yValueMin]; // 每个区间的值
+        label.textColor = [[UIColor whiteColor]colorWithAlphaComponent:0.5];
 		[self addSubview:label];
     }
     if ([super respondsToSelector:@selector(setMarkRange:)]) {
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake(UUYLabelwidth, (1-(_markRange.max-_yValueMin)/(_yValueMax-_yValueMin))*chartCavanHeight+UULabelHeight, self.frame.size.width-UUYLabelwidth, (_markRange.max-_markRange.min)/(_yValueMax-_yValueMin)*chartCavanHeight)];
-        view.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.1];
+        view.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.2];
         [self addSubview:view];
     }
 
@@ -85,7 +86,9 @@
             [path addLineToPoint:CGPointMake(self.frame.size.width,UULabelHeight+i*levelHeight)];
             [path closePath];
             shapeLayer.path = path.CGPath;
-            shapeLayer.strokeColor = [[[UIColor blackColor] colorWithAlphaComponent:0.1] CGColor];
+//            shapeLayer.strokeColor = [[[UIColor blackColor] colorWithAlphaComponent:0.1] CGColor];
+//            shapeLayer.fillColor = [[UIColor whiteColor] CGColor];
+            shapeLayer.strokeColor = [[[UIColor whiteColor] colorWithAlphaComponent:0.2] CGColor];
             shapeLayer.fillColor = [[UIColor whiteColor] CGColor];
             shapeLayer.lineWidth = 1;
             [self.layer addSublayer:shapeLayer];
@@ -93,7 +96,7 @@
     }
 }
 
-//X轴日期
+//!X轴日期 用到这个，下面那个没有用到
 -(void)setXLabelsMY:(NSArray *)xLabels
 {
     _xLabels = xLabels;
@@ -108,25 +111,44 @@
     NSMutableArray *iAry = [[NSMutableArray alloc]init];
     
     for (int i = 0; i<_xLabels.count; i++) {
-        if (i%(xLabels.count/4)==0 || i == (xLabels.count-1) ) {
+        if (_xLabels.count >= 5) {
+            if (i%(xLabels.count/4)==0 || i == (xLabels.count-1) ) {
+                SCChartLabel * label = [[SCChartLabel alloc] init];
+                
+                if (i%(_xLabels.count/4)==0) {
+                    label.frame = CGRectMake(i * _xLabelWidth+25, self.frame.size.height - UULabelHeight, 25, UULabelHeight);
+                    //                label.backgroundColor = [UIColor yellowColor];
+                    label.textColor = [[UIColor whiteColor]colorWithAlphaComponent:0.5];
+                    [iAry addObject:label];
+                }
+                if (i == (_xLabels.count - 1)) {
+                    //label.frame = CGRectMake(i * _xLabelWidth+UUYLabelwidth-17, self.frame.size.height - UULabelHeight, 30, UULabelHeight);
+                    label.frame = CGRectMake(self.frame.size.width - 26, self.frame.size.height - UULabelHeight, 26, UULabelHeight);
+                    label.textColor = [[UIColor whiteColor]colorWithAlphaComponent:0.5];
+                    label.textAlignment = NSTextAlignmentRight;
+                    label.backgroundColor = RGB(22, 25, 30);//由于去不掉，最后一个日期是覆盖在上面的
+                }
+                
+                label.text = xLabels[i];
+                [self addSubview:label];
+                DEBUGLog(@"日期%@， 第%d",label.text,i);
+            }
+        }
+    //_xLabels.count<5时的 画法
+        
+        else if (_xLabels.count < 5) {
             SCChartLabel * label = [[SCChartLabel alloc] init];
-            
-            if (i%(_xLabels.count/4)==0) {
-                label.frame = CGRectMake(i * _xLabelWidth+25, self.frame.size.height - UULabelHeight, 24, UULabelHeight);
-                //                label.backgroundColor = [UIColor yellowColor];
-                [iAry addObject:label];
-            }
-            if (i == (_xLabels.count - 1)) {
-                //label.frame = CGRectMake(i * _xLabelWidth+UUYLabelwidth-17, self.frame.size.height - UULabelHeight, 30, UULabelHeight);
-                label.frame = CGRectMake(self.frame.size.width - 24, self.frame.size.height - UULabelHeight, 24, UULabelHeight);
-                label.textAlignment = NSTextAlignmentRight;
-                label.backgroundColor = [UIColor whiteColor];
-            }
-            
+            label.frame = CGRectMake(i * _xLabelWidth+ (_xLabelWidth/_xLabels.count)+20, self.frame.size.height - UULabelHeight, 26, UULabelHeight);
+            //label.backgroundColor = [UIColor blackColor];
+            label.textColor = [[UIColor whiteColor]colorWithAlphaComponent:0.5];
+            [iAry addObject:label];
             label.text = xLabels[i];
             [self addSubview:label];
+            DEBUGLog(@"Xwidth%lf",_xLabelWidth);
             DEBUGLog(@"日期%@， 第%d",label.text,i);
         }
+        
+        
     }
     DEBUGLog(@"count1=%lu",iAry.count);
 }

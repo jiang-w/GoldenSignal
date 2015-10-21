@@ -172,7 +172,7 @@
                 _mbView = [[MainBusinessViewController alloc]init];
                 _mbView.BD_CODE = self.secuCode;
             }
-            _mbView.view.backgroundColor = [UIColor whiteColor];
+//            _mbView.view.backgroundColor = [UIColor whiteColor];
             [self.mainView addSubview:_mbView.view];
             
 //            NSLog(@"66>%lf",_mbView.baseView.frame.size.height);

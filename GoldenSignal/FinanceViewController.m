@@ -18,6 +18,8 @@
 #import "SCChartLabel.h"
 #import "SCTool.h"
 
+#define whiteDarkColor [[UIColor whiteColor]colorWithAlphaComponent:0.8]
+
 @interface FinanceViewController ()
 {
     NSMutableArray *_dataArray;
@@ -47,11 +49,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.view.backgroundColor  =[UIColor whiteColor];
+    self.view.backgroundColor  =RGB(22, 25, 30);
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.opacity = 0;//透明度0 表示完全透明
-    hud.activityIndicatorColor = [UIColor blackColor];
+    hud.activityIndicatorColor = [UIColor whiteColor];
     
     self.baseView = [[UIView alloc]init];
     self.baseView.backgroundColor = [UIColor clearColor];
@@ -75,8 +77,6 @@
     
     _valueArray = [NSMutableArray array];
     _dateArray = [NSMutableArray array];
-    
-    
     
     
     
@@ -104,7 +104,7 @@
                 [self.view mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.height.mas_equalTo(self.view.frame.size.height - 449+100);
                 }];
-                self.view.backgroundColor = [UIColor whiteColor];
+                self.view.backgroundColor = RGB(22, 25, 30);
                 [self noDataView];
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
                 return;
@@ -146,7 +146,7 @@
     label.textAlignment = NSTextAlignmentCenter;
     label.text = @"净利润（万元）";
     label.font = [UIFont boldSystemFontOfSize:13];
-    label.textColor = [UIColor blackColor];
+    label.textColor = whiteDarkColor;
     [self.baseView addSubview:label];
     
     CGRect frame = CGRectMake(10, 30, [UIScreen mainScreen].bounds.size.width - 20, 190);
@@ -185,11 +185,11 @@
     
     
     UILabel *xLine = [[UILabel alloc]initWithFrame:CGRectMake(40, _coordinatePoint.y-30, _barView.frame.size.width-50, 1.0)];
-    xLine.backgroundColor = [UIColor darkGrayColor];
+    xLine.backgroundColor = [[UIColor lightGrayColor]colorWithAlphaComponent:0.5];
     [_barView addSubview:xLine];
     
     UILabel *yLine = [[UILabel alloc]initWithFrame:CGRectMake(40, -8, 1.0, _barView.frame.size.height - 12)];
-    yLine.backgroundColor = [UIColor darkGrayColor];
+    yLine.backgroundColor = [[UIColor lightTextColor]colorWithAlphaComponent:0.5];
     [_barView addSubview:yLine];
     
     
@@ -209,15 +209,16 @@
         barLabel.frame = CGRectMake(50+i*width, _coordinatePoint.y-30 , 28, - [_valueArray[i] floatValue]*_scaleUnit);
         DEBUGLog(@"yV->%lf",[_valueArray[i] floatValue]);
         if ([_valueArray[i] floatValue]>0) {
-            barLabel.backgroundColor = [UIColor redColor];
+            barLabel.backgroundColor = [[UIColor redColor]colorWithAlphaComponent:0.8];
         }else {
-            barLabel.backgroundColor = [UIColor greenColor];
+            barLabel.backgroundColor = [[UIColor greenColor]colorWithAlphaComponent:0.8];
         }
         [_barView addSubview:barLabel];
         
         //年份
         UILabel *yearLabel = [[UILabel alloc]init];
         yearLabel.frame = CGRectMake(50+i*width, 175 , 31, 15);
+        yearLabel.textColor = whiteDarkColor;
         yearLabel.text = _dateArray[i];
         yearLabel.font = [UIFont systemFontOfSize:13];
         [_barView addSubview:yearLabel];
@@ -263,7 +264,7 @@
     
     if (_maxValue >=0) {//X轴上方
         for (int i = 0; i<=count; i++) {
-            if ((_coordinatePoint.y-30 - jianGe*i) >=0-8 ) {///保证不超出边界
+            if ((_coordinatePoint.y-30 - jianGe*i) >=0-8 ) {//!保证不超出边界
                 UILabel *label = [[UILabel alloc]init];
                 label.font = [UIFont systemFontOfSize:9.0];
                 label.textAlignment = NSTextAlignmentCenter;
@@ -282,11 +283,12 @@
                     temp  = [NSString stringWithFormat:@"%.0fk",floatText];
                 }
                 label.text = temp;
+                label.textColor = whiteDarkColor;
                 [_barView addSubview:label];
                 
-                if (i != 0 ){
+                if (i != 0 ){ //! x轴上方的线
                     UILabel *xLine2 = [[UILabel alloc]initWithFrame:CGRectMake(40, (_coordinatePoint.y-30 - jianGe*i), _barView.frame.size.width-50, 1.0)];
-                    xLine2.backgroundColor = [UIColor lightGrayColor];
+                    xLine2.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
                     [_barView addSubview:xLine2];
                 }
             }
@@ -299,6 +301,7 @@
                 UILabel *label = [[UILabel alloc]init];
                 label.font = [UIFont systemFontOfSize:9.0];
                 label.textAlignment = NSTextAlignmentCenter;
+                label.textColor = whiteDarkColor;
                 
                 label.frame = CGRectMake(0, (_coordinatePoint.y-30 + jianGe*i), 40, 10);
                 //                label.text = [NSString stringWithFormat:@"-%gk",(level * i+_yValueMin)/1000];
@@ -316,14 +319,15 @@
                 label.text = temp;
                 [_barView addSubview:label];
                 
-                
+                //! X轴下方的线
                 UILabel *xLine2 = [[UILabel alloc]initWithFrame:CGRectMake(40, (_coordinatePoint.y-30 + jianGe*i), _barView.frame.size.width-50, 1.0)];
-                xLine2.backgroundColor = [UIColor lightGrayColor];
+                xLine2.backgroundColor = [[UIColor lightGrayColor]colorWithAlphaComponent:0.5];
                 [_barView addSubview:xLine2];
             }
         }
     }
 }
+
 
 ///DECStr	__NSCFString *	@"公司2014-12-31财报显示：\n盈利能力很强，每股收益2.2200元，净资产收益率17.78%；目前具有较好成长性，连续3年保持盈利增长；负债很重，资产负债率93.34%。"	0x00007f97db90ded0
 #pragma mark : 财务解读view
@@ -331,9 +335,11 @@
     CGRect frame = CGRectMake(10, 230, self.view.frame.size.width-20, 16);
     UILabel *unscrambleLabel = [[UILabel alloc]initWithFrame:frame];
 //    unscrambleLabel.backgroundColor = [UIColor yellowColor];
+    unscrambleLabel.textColor = whiteDarkColor;
     unscrambleLabel.numberOfLines = 0;
     unscrambleLabel.font = [UIFont systemFontOfSize:13];
     unscrambleLabel.lineBreakMode = NSLineBreakByCharWrapping;
+    
     //赋值
     NSString *DECStr = nil;
     if (_dataArray2.count != 0) {
@@ -346,6 +352,7 @@
         DECStr = @"暂无相关描述信息";
     }
     unscrambleLabel.text = DECStr;
+    
     _desLblHeight = [self calcHightWithString:unscrambleLabel];
     unscrambleLabel.frame = CGRectMake(10, 230, self.view.frame.size.width-20, _desLblHeight);
     [self.baseView addSubview:unscrambleLabel];
@@ -355,7 +362,7 @@
         NSLog(@"0000>>>%lf,%lf",self.baseView.frame.size.height,self.view.frame.size.height);
     }];
     
-    
+    _desLblHeight = [self calcHightWithString:unscrambleLabel];
 }
 
 //计算文本label的高度
@@ -371,6 +378,7 @@
 //    label.backgroundColor = [UIColor cyanColor];
     label.font = [UIFont systemFontOfSize:14];
     label.text = @"暂时没有数据";
+    label.textColor = whiteDarkColor;
     label.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:label];
 }

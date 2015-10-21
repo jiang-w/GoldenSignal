@@ -11,7 +11,7 @@
 #import <Masonry.h>
 #import "SCChart.h"
 
-
+#define whiteDarkColor [[UIColor whiteColor]colorWithAlphaComponent:0.8]
 @interface ApproveViewController ()<SCChartDataSource>
 {
     NSMutableArray *_dataArray;
@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = RGB(22, 25, 30);
     self.baseView = [[UIView alloc]init];
 //    self.baseView.frame = self.view.frame;
     [self.view addSubview:self.baseView];
@@ -60,7 +60,7 @@
         [self.view mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(self.view.frame.size.height - 449 +100);
         }];
-        self.view.backgroundColor = [UIColor whiteColor];
+        self.view.backgroundColor = RGB(22, 25, 30);
         [self noDataView];
         return;
     }
@@ -85,6 +85,7 @@
         titleLable.frame = CGRectMake(i*50, 215, 30, 13);
         titleLable.font = [UIFont systemFontOfSize:13];
         titleLable.text = titleArray[i-1];
+        titleLable.textColor = whiteDarkColor;
         [self.baseView addSubview:titleLable];
     }
 }
@@ -97,6 +98,7 @@
 //    unscrambleLabel.backgroundColor = [UIColor yellowColor];
     unscrambleLabel.numberOfLines = 0;
     unscrambleLabel.font = [UIFont systemFontOfSize:13];
+    unscrambleLabel.textColor = whiteDarkColor;
     unscrambleLabel.lineBreakMode = NSLineBreakByCharWrapping;
     for (BDDiagnoseModel * dModel in _dataArray2) {
         NSString *DECStr = dModel.DES;
@@ -104,6 +106,7 @@
         DECStr = [DECStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         unscrambleLabel.text = DECStr;
     }
+    
     _desLblHeight = [self calcHightWithString:unscrambleLabel];
     unscrambleLabel.frame = CGRectMake(10, 240, self.view.frame.size.width-20, _desLblHeight);
     [self.baseView addSubview:unscrambleLabel];
@@ -128,6 +131,7 @@
     //    label.backgroundColor = [UIColor blackColor];
     label.textAlignment = NSTextAlignmentCenter;
     label.text = @"机构评级-日K线";
+    label.textColor = whiteDarkColor;
     label.font = [UIFont boldSystemFontOfSize:13];
     [self.baseView addSubview:label];
     
@@ -137,9 +141,12 @@
     for (BDDiagnoseModel *dModel in _dataArray) {
         [priceArray addObject:dModel.CLS_PRC];
     }
-    for (int i = 0; i<_dataArray.count; i++) {
-        if ( i% (_dataArray.count/4) == 0) {
-            [dateArray addObject:[(BDDiagnoseModel *)_dataArray[i] TRD_DT]];
+    
+    if (_dataArray.count >= 5) {
+        for (int i = 0; i<_dataArray.count; i++) {
+            if ( i% (_dataArray.count/4) == 0) {
+                [dateArray addObject:[(BDDiagnoseModel *)_dataArray[i] TRD_DT]];
+            }
         }
     }
     
@@ -156,6 +163,7 @@
     _chartView = [[SCChart alloc] initwithSCChartDataFrame:frame
                                                 withSource:self
                                                  withStyle:SCChartLineStyle];
+    _chartView.backgroundColor = [UIColor clearColor];
     [_chartView showInView:self.baseView];
     
 }
@@ -228,6 +236,7 @@
         NSString *labelText = xLabels[i];
         UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(i * _xLabelWidth+30, self.baseView.frame.size.height - 10, _xLabelWidth, 10)];
         label.text = labelText;
+        label.textColor = whiteDarkColor;
         [self.baseView addSubview:label];
     }
     
@@ -240,6 +249,7 @@
     //    label.backgroundColor = [UIColor cyanColor];
     label.font = [UIFont systemFontOfSize:14];
     label.text = @"暂时没有数据";
+    label.textColor = whiteDarkColor;
     label.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:label];
 }
