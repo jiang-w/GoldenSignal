@@ -138,7 +138,7 @@
         
         else if (_xLabels.count < 5) {
             SCChartLabel * label = [[SCChartLabel alloc] init];
-            label.frame = CGRectMake(i * _xLabelWidth+ (_xLabelWidth/_xLabels.count)+20, self.frame.size.height - UULabelHeight, 26, UULabelHeight);
+            label.frame = CGRectMake(i * _xLabelWidth+ (_xLabelWidth/_xLabels.count)+20, self.frame.size.height - UULabelHeight, 30, UULabelHeight);
             //label.backgroundColor = [UIColor blackColor];
             label.textColor = [[UIColor whiteColor]colorWithAlphaComponent:0.5];
             [iAry addObject:label];

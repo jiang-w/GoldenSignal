@@ -10,6 +10,7 @@
 #import "BDDiagnoseContentService.h"
 #import "PieChartView.h"
 #import <Masonry.h>
+#import <MBProgressHUD.h>
 
 #define whiteDarkColor [[UIColor whiteColor]colorWithAlphaComponent:0.8]
 @interface MainBusinessViewController ()
@@ -27,19 +28,32 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = RGB(22, 25, 30);
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.opacity = 0;//透明度0 表示完全透明
+    hud.activityIndicatorColor = [UIColor whiteColor];
+    
     self.baseView = [[UIView alloc]init];
-//    self.baseView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.baseView];
+    
+    [self.view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(320);
+    }];
     [self.baseView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view);
     }];
+    
+//    [self.baseView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.left.right.equalTo(self.view);
+//    }];
     
     [self getData];
 //    [self unscrambleView];
     
-    [self.view mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.baseView);
-    }];
+//    [self.view mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.equalTo(self.baseView);
+//    }];
     
 }
 
@@ -48,9 +62,12 @@
     _dataArray2 = [[NSMutableArray alloc]init];
     _diagnoseService = [[BDDiagnoseContentService alloc]init];
     
+    dispatch_queue_t requestQueue = dispatch_queue_create("RequestData", DISPATCH_QUEUE_CONCURRENT);
+    dispatch_async(requestQueue , ^{//异步请求
+    
     _dataArray = [_diagnoseService getDiagnoseEachPageWithPageId:1600 andBD_CODE:self.BD_CODE];
     _dataArray2 = [_diagnoseService getDiagnoseEachPageWithPageId:1601 andBD_CODE:self.BD_CODE];
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
 //    _dataArray = nil;
     if (_dataArray == nil || _dataArray.count == 0) {
         [self.view mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -58,10 +75,20 @@
         }];
         self.view.backgroundColor = RGB(22, 25, 30);
         [self noDataView];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         return;
     }
     
     [self creatPieView];
+        [self.view mas_remakeConstraints:^(MASConstraintMaker *make) {
+            //                            make.height.mas_equalTo(300);
+            make.top.left.right.equalTo(self.baseView);
+            make.bottom.equalTo(self.baseView);
+        }];
+        
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    });
+    });
 }
 
 - (void)creatPieView{
