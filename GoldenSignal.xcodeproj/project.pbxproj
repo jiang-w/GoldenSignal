@@ -122,18 +122,18 @@
 		0148DE701B9D83F100A045F3 /* SCPieChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0148DE601B9D83F100A045F3 /* SCPieChartDataItem.m */; };
 		0148DE711B9D83F100A045F3 /* SCTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0148DE621B9D83F100A045F3 /* SCTool.m */; };
 		0148DE721B9D83F100A045F3 /* UICountingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0148DE641B9D83F100A045F3 /* UICountingLabel.m */; };
-		014948701BCE115E002D60A2 /* BDMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948551BCE115E002D60A2 /* BDMessage.cpp */; settings = {ASSET_TAGS = (); }; };
-		014948711BCE115E002D60A2 /* BookPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948571BCE115E002D60A2 /* BookPoint.cpp */; settings = {ASSET_TAGS = (); }; };
-		014948721BCE115E002D60A2 /* Context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948591BCE115E002D60A2 /* Context.cpp */; settings = {ASSET_TAGS = (); }; };
-		014948731BCE115E002D60A2 /* FastComm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0149485C1BCE115E002D60A2 /* FastComm.cpp */; settings = {ASSET_TAGS = (); }; };
-		014948741BCE115E002D60A2 /* GroupBookPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0149485E1BCE115E002D60A2 /* GroupBookPoint.cpp */; settings = {ASSET_TAGS = (); }; };
-		014948751BCE115E002D60A2 /* DebugLog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948611BCE115E002D60A2 /* DebugLog.cpp */; settings = {ASSET_TAGS = (); }; };
-		014948761BCE115E002D60A2 /* MessageBookPointConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948631BCE115E002D60A2 /* MessageBookPointConverter.cpp */; settings = {ASSET_TAGS = (); }; };
-		014948771BCE115E002D60A2 /* MessageBroker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948651BCE115E002D60A2 /* MessageBroker.cpp */; settings = {ASSET_TAGS = (); }; };
-		014948781BCE115E002D60A2 /* ScalarBookPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948671BCE115E002D60A2 /* ScalarBookPoint.cpp */; settings = {ASSET_TAGS = (); }; };
-		014948791BCE115E002D60A2 /* SerialsBookPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948691BCE115E002D60A2 /* SerialsBookPoint.cpp */; settings = {ASSET_TAGS = (); }; };
-		0149487A1BCE115E002D60A2 /* SortBookPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0149486C1BCE115E002D60A2 /* SortBookPoint.cpp */; settings = {ASSET_TAGS = (); }; };
-		0149487B1BCE115E002D60A2 /* TemplateFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0149486E1BCE115E002D60A2 /* TemplateFinder.cpp */; settings = {ASSET_TAGS = (); }; };
+		014948701BCE115E002D60A2 /* BDMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948551BCE115E002D60A2 /* BDMessage.cpp */; };
+		014948711BCE115E002D60A2 /* BookPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948571BCE115E002D60A2 /* BookPoint.cpp */; };
+		014948721BCE115E002D60A2 /* Context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948591BCE115E002D60A2 /* Context.cpp */; };
+		014948731BCE115E002D60A2 /* FastComm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0149485C1BCE115E002D60A2 /* FastComm.cpp */; };
+		014948741BCE115E002D60A2 /* GroupBookPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0149485E1BCE115E002D60A2 /* GroupBookPoint.cpp */; };
+		014948751BCE115E002D60A2 /* DebugLog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948611BCE115E002D60A2 /* DebugLog.cpp */; };
+		014948761BCE115E002D60A2 /* MessageBookPointConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948631BCE115E002D60A2 /* MessageBookPointConverter.cpp */; };
+		014948771BCE115E002D60A2 /* MessageBroker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948651BCE115E002D60A2 /* MessageBroker.cpp */; };
+		014948781BCE115E002D60A2 /* ScalarBookPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948671BCE115E002D60A2 /* ScalarBookPoint.cpp */; };
+		014948791BCE115E002D60A2 /* SerialsBookPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 014948691BCE115E002D60A2 /* SerialsBookPoint.cpp */; };
+		0149487A1BCE115E002D60A2 /* SortBookPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0149486C1BCE115E002D60A2 /* SortBookPoint.cpp */; };
+		0149487B1BCE115E002D60A2 /* TemplateFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0149486E1BCE115E002D60A2 /* TemplateFinder.cpp */; };
 		014FF3891B1D5276007DB608 /* QuoteHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014FF3871B1D5276007DB608 /* QuoteHomeViewController.m */; };
 		014FF38A1B1D5276007DB608 /* QuoteHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 014FF3881B1D5276007DB608 /* QuoteHomeViewController.xib */; };
 		014FF3921B1DAE31007DB608 /* QuoteHomeTrendChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 014FF3911B1DAE31007DB608 /* QuoteHomeTrendChart.m */; };
@@ -1606,7 +1606,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Big Data Service Co., LTD. (6P657TYYWT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "GoldenSignal/GoldenSignal-Prefix.pch";
@@ -1636,7 +1636,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = GoldenSignal;
-				PROVISIONING_PROFILE = "274f3f08-d595-4628-9a00-e6520018364b";
+				PROVISIONING_PROFILE = "89408a01-021d-476d-8aee-579ef5966d8d";
 				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
@@ -1648,7 +1648,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Big Data Service Co., LTD. (6P657TYYWT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "GoldenSignal/GoldenSignal-Prefix.pch";
@@ -1678,7 +1678,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = GoldenSignal;
-				PROVISIONING_PROFILE = "274f3f08-d595-4628-9a00-e6520018364b";
+				PROVISIONING_PROFILE = "89408a01-021d-476d-8aee-579ef5966d8d";
 				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};

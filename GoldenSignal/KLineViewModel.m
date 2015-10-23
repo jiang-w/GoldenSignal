@@ -199,6 +199,10 @@
         double close = [[_service getCurrentIndicateWithCode:self.code andName:@"Now"] doubleValue];
         unsigned long volume = [[_service getCurrentIndicateWithCode:self.code andName:@"Volume"] unsignedLongValue];
         
+        if (high == 0 || open == 0 || low == 0 || close == 0) {
+            return;
+        }
+        
         BDKLine *lastLine = [self.lines lastObject];
         switch (self.type) {
             case KLINE_DAY:
